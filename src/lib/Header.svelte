@@ -28,7 +28,7 @@
 			<div class="hidden space-x-3 text-sm md:block">
 				<!-- <a href="#about-me" class="hover:underline">About Me</a>s -->
 				<a href="#experience" class="hover:underline">Experience</a>
-				<a href="#projects" class="hover:underline">Experience</a>
+				<a href="#projects" class="hover:underline">Projects</a>
 				<a href="#skills" class="hover:underline">Skills</a>
 				<a href="#other" class="hover:underline">Other</a>
 				<a href="#links" class="hover:underline">Links</a>
