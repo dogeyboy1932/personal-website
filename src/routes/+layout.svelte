@@ -1,11 +1,12 @@
 <script lang="ts">
-	import Header from '$lib/Header.svelte';
-	import Analytics from '$lib/Analytics.svelte';
-	import './styles.css';
+	import '../styles.css';
+	
+	import SiteHeader from '../sections/SiteHeader.svelte';
+	// import Analytics from '../../Trash/Analytics.svelte';
 </script>
 
-<Analytics />
+<!-- <Analytics /> -->
 <main class="max-w-xl mx-auto px-4 pb-12">
-	<Header />
+	<SiteHeader />
 	<slot />
 </main>

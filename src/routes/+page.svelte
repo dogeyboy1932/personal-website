@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Intro from '$lib/Intro.svelte';
-	import Experiences from '$lib/Experiences.svelte';
-	import Projects from '$lib/Projects.svelte';
-	import Skills from '$lib/Skills.svelte';
-	import Hobbies from '$lib/Hobbies.svelte';
-	import Links from '$lib/Links.svelte';
+	import Intro from '../sections/MainPage/Intro.svelte';
+	import Experiences from '../sections/MainPage/Experiences.svelte';
+	import Projects from '../sections/MainPage/Projects.svelte';
+	import Skills from '../sections/MainPage/Skills.svelte';
+	import Hobbies from '../sections/MainPage/Hobbies.svelte';
+	import Links from '../sections/MainPage/Links.svelte';
 	import { MetaTags } from 'svelte-meta-tags';
 </script>
 
@@ -44,7 +44,7 @@
 </section>
 
 <section class="pb-8 pt-12">
-	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary pb-2" id="projects">
+	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="project">
 		Projects
 	</h2>
 
