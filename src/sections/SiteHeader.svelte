@@ -27,7 +27,7 @@
 		<div class="flex items-center space-x-4">
 			<nav class="hidden space-x-6 text-sm font-medium md:flex">
 				<a href="#experience" class="relative py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-cyan-500 after:to-purple-500 hover:after:w-full after:transition-all after:duration-300">Experience</a>
-				<a href="#project" class="relative py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-cyan-500 after:to-purple-500 hover:after:w-full after:transition-all after:duration-300">Projects</a>
+				<a href="#projects" class="relative py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-cyan-500 after:to-purple-500 hover:after:w-full after:transition-all after:duration-300">Projects</a>
 				<a href="#skills" class="relative py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-cyan-500 after:to-purple-500 hover:after:w-full after:transition-all after:duration-300">Skills</a>
 				<a href="#other" class="relative py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-cyan-500 after:to-purple-500 hover:after:w-full after:transition-all after:duration-300">Other</a>
 				<a href="#links" class="relative py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-cyan-500 after:to-purple-500 hover:after:w-full after:transition-all after:duration-300">Links</a>

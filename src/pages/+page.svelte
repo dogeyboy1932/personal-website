@@ -44,7 +44,7 @@
 </section>
 
 <section class="pb-8 pt-12">
-	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="project">
+	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="projects">
 		Projects
 	</h2>
 
