@@ -54,21 +54,21 @@
 </section>
 
 <section class="py-8">
-	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary pb-2" id="skills">
+	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="skills">
 		Skills
 	</h2>
 	<Skills />
 </section>
 
 <section class="py-8">
-	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary pb-2" id="other">
+	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="other">
 		Other
 	</h2>
 	<Hobbies/>
 </section>
 
 <section class="py-8">
-	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary pb-2" id="links">Links</h2>
+	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="links">Links</h2>
 	<Links />
 </section>
 
