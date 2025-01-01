@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount, onDestroy } from 'svelte';
+    import { browser } from '$app/environment';
     
     export let primaryColor: string = '#0066ff';
     export let secondaryColor: string = '#00ccff';
@@ -7,15 +8,21 @@
     let canvas: HTMLCanvasElement;
     let ctx: CanvasRenderingContext2D;
     let animationFrame: number;
+    let width = 0;
+    let height = 0;
     
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
     const fontSize = 14;
-    let columns: number[];
-    let drops: number[];
+    let columns: number[] = [];
+    let drops: number[] = [];
     
     function initMatrix() {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
+        if (!browser) return;
+        
+        width = window.innerWidth;
+        height = window.innerHeight;
+        
+        if (!canvas) return;
         
         canvas.width = width;
         canvas.height = height;
@@ -26,10 +33,14 @@
         
         drops = Array(columns.length).fill(0);
         
-        ctx.font = `${fontSize}px monospace`;
+        if (ctx) {
+            ctx.font = `${fontSize}px monospace`;
+        }
     }
     
     function draw() {
+        if (!ctx || !canvas) return;
+        
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
@@ -41,11 +52,9 @@
             const x = i * fontSize;
             const y = drops[i] * fontSize;
             
-            // Add glow effect
             ctx.shadowBlur = 5;
             ctx.shadowColor = primaryColor;
             
-            // Gradient color based on position
             const gradient = ctx.createLinearGradient(x, y - fontSize, x, y);
             gradient.addColorStop(0, primaryColor);
             gradient.addColorStop(1, secondaryColor);
@@ -53,7 +62,6 @@
             
             ctx.fillText(char, x, y);
             
-            // Reset shadow
             ctx.shadowBlur = 0;
             
             if (y > canvas.height && Math.random() > 0.975) {
@@ -66,6 +74,8 @@
     }
     
     onMount(() => {
+        if (!browser) return;
+        
         ctx = canvas.getContext('2d')!;
         initMatrix();
         draw();
@@ -74,8 +84,12 @@
     });
     
     onDestroy(() => {
+        if (!browser) return;
+        
         window.removeEventListener('resize', initMatrix);
-        cancelAnimationFrame(animationFrame);
+        if (animationFrame) {
+            cancelAnimationFrame(animationFrame);
+        }
     });
 </script>
 

@@ -4,18 +4,18 @@
 	import { darkModeStore } from '../functions/utils';
 	import ThemeToggle from '../components/Button/ThemeToggle.svelte';
 
-	if (browser) {
-		if (
-			localStorage.theme === 'dark' ||
-			(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-		) {
-			document.documentElement.classList.add('dark');
-			darkModeStore.set(true);
-		} else {
-			document.documentElement.classList.remove('dark');
-			darkModeStore.set(false);
-		}
-	}
+	// if (browser) {
+	// 	if (
+	// 		localStorage.theme === 'dark' ||
+	// 		(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+	// 	) {
+	// 		document.documentElement.classList.add('dark');
+	// 		darkModeStore.set(true);
+	// 	} else {
+	// 		document.documentElement.classList.remove('dark');
+	// 		darkModeStore.set(false);
+	// 	}
+	// }
 </script>
 
 <header class="m-1 bg-gradient-to-r from-purple-500/30 via-cyan-500/30 to-purple-500/30 backdrop-blur-sm rounded-2xl border border-gray-200 dark:border-gray-800 shadow-lg">

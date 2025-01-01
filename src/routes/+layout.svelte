@@ -2,6 +2,7 @@
 	import SiteHeader from '../sections/SiteHeader.svelte';
 	// import Analytics from '../../Trash/Analytics.svelte';
     import MatrixRain from '../animations/MatrixRain.svelte';
+	import '../styles.css';
 </script>
 
 <MatrixRain />
