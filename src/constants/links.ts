@@ -8,12 +8,6 @@ export const links: CustomLink[] = [
 		isExternal: true
 	},
 	{
-		platform: 'ENS',
-		title: 'marcuspang.eth',
-		href: 'https://etherscan.io/address/0x962d465a0E3CB3656A3fD5143C8A17a394f459b1',
-		isExternal: true
-	},
-	{
 		platform: 'LinkedIn',
 		title: 'gvAkhil',
 		href: 'https://www.linkedin.com/in/gvAkhil/',
@@ -25,3 +19,11 @@ export const links: CustomLink[] = [
 		href: 'mailto:vagogineni@gmail.com'
 	}
 ];
+
+
+// {
+// 	platform: 'ENS',
+// 	title: 'dogeyboy1932.eth',
+// 	href: 'https://etherscan.io/address/0x962d465a0E3CB3656A3fD5143C8A17a394f459b1',
+// 	isExternal: true
+// },
