@@ -1,0 +1,6 @@
+Welcome to my website!
+
+This is a sample text file to demonstrate Git operations.
+Feel free to modify this content as needed.
+
+Have a great day!
