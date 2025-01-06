@@ -20,9 +20,10 @@
         <div class="group relative overflow-hidden">
             <a
                 href={link.href}
-                target={link.href}
+                target="_blank"
                 class="flex items-center space-x-3 bg-white dark:bg-gray-800/50 p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/70"
                 aria-label={`Visit ${link.platform} profile`}
+                rel="noopener noreferrer"
             >
                 <div class="flex-shrink-0 w-10 h-10 bg-orange-300 dark:bg-green-600 rounded-full flex items-center justify-center">
                     <svelte:component 
@@ -51,10 +52,11 @@
                 {/if}
             </a>
             
-            <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:via-blue-500/5 group-hover:to-purple-500/5 transition-all duration-500"></div>
+            <!-- <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:via-blue-500/5 group-hover:to-purple-500/5 transition-all duration-500"></div> -->
         </div>
     {/each}
 </div>
+
 
 <style>
     /* Add any additional custom styles here */

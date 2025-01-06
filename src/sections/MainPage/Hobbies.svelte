@@ -9,7 +9,7 @@
                 <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-3">
                     {hobbyType.category}
                 </h2>
-                <p class="text-gray-600 dark:text-gray-400">Activities that keep me inspired and balanced</p>
+                
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
