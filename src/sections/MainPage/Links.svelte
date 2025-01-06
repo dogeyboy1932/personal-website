@@ -17,7 +17,7 @@
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 pt-4 gap-4" in:fade>
     {#each links as link, i}
-        <!-- <div class="group relative overflow-hidden"> -->
+        <div class="group relative overflow-hidden">
             <a
                 href={link.href}
                 target="_blank"
@@ -53,7 +53,7 @@
             </a>
             
             <!-- <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:via-blue-500/5 group-hover:to-purple-500/5 transition-all duration-500"></div> -->
-        <!-- </div> -->
+        </div>
     {/each}
 </div>
 
