@@ -3,14 +3,15 @@
 	import Button from './Button.svelte';
 	import { darkModeStore } from '../../functions/utils';
 
-	let isDarkMode = true;
+	let isDarkMode = false;
 
 	darkModeStore.subscribe((value) => {
 		isDarkMode = value;
 	});
 
 	function handleSwitchDarkMode() {
-		darkModeStore.update((value) => !value);
+		isDarkMode = !isDarkMode;
+		darkModeStore.set(isDarkMode);
 
 		if (isDarkMode) {
 			document.documentElement.classList.add('dark');
@@ -21,7 +22,7 @@
 </script>
 
 <Button variant="ghost" size="icon" on:click={handleSwitchDarkMode}>
-	<Sun class="h-[1.5rem] w-[1.3rem] dark:hidden" />
-	<Moon class="hidden h-5 w-5 dark:block" />
+	<Sun class="h-[1.5rem] w-[1.3rem] dark:hidden text-emerald-500" />
+	<Moon class="hidden h-5 w-5 dark:block text-emerald-500" />
 	<span class="sr-only">Toggle theme</span>
 </Button>

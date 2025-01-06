@@ -46,6 +46,27 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
+				},
+				// Cyberpunk theme colors
+				cyber: {
+					primary: '#00ff9f',
+					secondary: '#00b8ff',
+					accent: '#ff00ff',
+					danger: '#ff0055',
+					warning: '#ffb300',
+					dark: '#0a0a0a',
+					light: '#f0f0f0',
+					gray: {
+						100: '#f5f5f5',
+						200: '#e5e5e5',
+						300: '#d4d4d4',
+						400: '#a3a3a3',
+						500: '#737373',
+						600: '#525252',
+						700: '#404040',
+						800: '#262626',
+						900: '#171717'
+					}
 				}
 			},
 			borderRadius: {
@@ -54,7 +75,9 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			fontFamily: {
-				sans: ['Inter', ...fontFamily.sans]
+				sans: ['Inter', ...fontFamily.sans],
+				mono: ['JetBrains Mono', 'Fira Code', ...fontFamily.mono],
+				cyber: ['Orbitron', 'Inter', ...fontFamily.sans]
 			},
 			keyframes: {
 				'accordion-down': {
@@ -82,13 +105,28 @@ export default {
                     '100%': {
                         'background-position': '100% 50%'
                     }
+                },
+                'cyber-glitch': {
+                    '0%, 100%': { transform: 'translate(0)' },
+                    '33%': { transform: 'translate(-5px, 2px)' },
+                    '66%': { transform: 'translate(5px, -2px)' }
+                },
+                'neon-pulse': {
+                    '0%, 100%': {
+                        textShadow: '0 0 5px #00ff9f, 0 0 10px #00ff9f, 0 0 20px #00ff9f'
+                    },
+                    '50%': {
+                        textShadow: '0 0 10px #00ff9f, 0 0 20px #00ff9f, 0 0 40px #00ff9f'
+                    }
                 }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
                 'gradient': 'gradient 8s ease infinite',
-                'text-shimmer': 'text-shimmer 2s linear infinite'
+                'text-shimmer': 'text-shimmer 2s linear infinite',
+                'cyber-glitch': 'cyber-glitch 2s infinite',
+                'neon-pulse': 'neon-pulse 2s infinite'
 			}
 		}
 	},

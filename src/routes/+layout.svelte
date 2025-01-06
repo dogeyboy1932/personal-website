@@ -1,51 +1,24 @@
 <script lang="ts">
-	import SiteHeader from '../sections/SiteHeader.svelte';
-	// import Analytics from '../../Trash/Analytics.svelte';
+	import SiteHeader from '../sections/MainPage/SiteHeader.svelte';
     import MatrixRain from '../animations/MatrixRain.svelte';
+    import NavigationBar from '../sections/NavigationBar.svelte';
 	import '../styles.css';
 </script>
 
 <MatrixRain />
 
-<!-- <Analytics /> -->
-<div class="backdrop-blur-sm bg-white/70 dark:bg-gray-900/80 absolute inset-0 bg-gradient-to-b via-background to-background">
-	<main class="md:w-[70%] lg:w-[50%] mx-auto px-4 pb-12 bg-white/90 dark:bg-gray-900/90">
-		<SiteHeader />
-		<slot />
-	</main>
+<div class="min-h-screen relative">
+    <NavigationBar />
+    <div class=" min-h-screen">
+        <main class="md:w-[70%] lg:w-[50%] mx-auto px-4 pb-12 bg-white/90 dark:bg-gray-900/90 relative z-10">
+            <SiteHeader />
+            <slot />
+        </main>
+    </div>
 </div>
 
-
-
-<!-- 
-<script lang="ts">
-    import '../styles.css';
-    import SiteHeader from '../sections/SiteHeader.svelte';
-    import MatrixRain from '../animations/MatrixRain.svelte';
-</script>
-
-<MatrixRain />
-
-<div class="relative min-h-screen bg-white/80 dark:bg-gray-900/90 backdrop-blur-sm ">
-    
-    <main class="px-4 pb-12 z-10">
-        <SiteHeader />
-        <div class="prose dark:prose-invert max-w-xl mx-auto">
-            <slot />
-        </div>
-     </main> -->
-<!-- </div>
-
-<style>
+<style lang="postcss">
     :global(body) {
-        background: theme('colors.background');
-    }
-    
-    :global(.prose) {
-        max-width: none;
+        @apply bg-gradient-to-br from-slate-100 to-white dark:from-gray-900 dark:to-black;
     }
 </style>
->
-</main>
->
-</main> -->

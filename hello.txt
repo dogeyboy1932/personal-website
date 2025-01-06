@@ -1,8 +1,0 @@
-This is a completely new version of hello.txt!
-
-Some cool updates:
-- Added new features
-- Fixed some bugs
-- Improved performance
-
-Check out these changes!

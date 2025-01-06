@@ -64,6 +64,7 @@
 	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="other">
 		Other
 	</h2>
+	<!-- <p class="text-gray-600 dark:text-gray-400">Activities that keep me inspired and balanced</p> -->
 	<Hobbies/>
 </section>
 
