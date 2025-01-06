@@ -55,8 +55,8 @@
 
 	<!-- TITLE NAME -->
 
-	<div class="mt-4 py-6 px-8 bg-gradient-to-r from-purple-500/10 via-cyan-500/10 to-purple-500/10 rounded-b-2xl border-t border-gray-200 dark:border-gray-800">
-		<h1 class="flex justify-center font-sans text-4xl font-bold tracking-tight bg-gradient-to-r from-cyan-500 to-purple-500 bg-clip-text text-transparent animate-gradient">
+	<div class="mt-4 py-6 px-8 bg-gradient-to-r dark:from-purple-500/10 dark:via-cyan-500/10 dark:to-purple-500/10 from-orange-500/10 via-green-500/10 to-purple-500/10 rounded-b-2xl border-t border-gray-200 dark:border-gray-800">
+		<h1 class="flex justify-center font-sans text-4xl font-bold tracking-tight bg-gradient-to-r dark:from-cyan-500 dark:to-purple-500  from-orange-500 to-green-500  bg-clip-text text-transparent animate-gradient">
 			Akhil Gogineni
 		</h1>
 		

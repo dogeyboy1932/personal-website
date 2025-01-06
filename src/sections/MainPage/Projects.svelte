@@ -7,7 +7,7 @@
 <div class="grid grid-cols-1 gap-6 sm:gap-y-8">
     {#each projectsData.projects as project, i}
         <div 
-            class="col-span-2 bg-white dark:bg-gray-800/50 rounded-lg p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            class="col-span-2 bg-white dark:bg-gray-700/50 rounded-lg p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
             in:fade={{delay: i * 200, duration: 500}}
         >
             <div class="space-y-4">
@@ -38,7 +38,7 @@
                         rel="noopener noreferrer"
                         class="inline-flex items-center space-x-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300"
                     >
-                        <span>View Demo</span>
+                        <span>See more</span>
                         <ExternalLinkIcon class="w-4 h-4" />
                     </a>
                 {/if}

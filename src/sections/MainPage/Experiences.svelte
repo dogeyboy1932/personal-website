@@ -7,7 +7,7 @@
 <div class="grid grid-cols-1 pt-6 gap-6">
     {#each experiences as experience, i}
         <div 
-            class="col-span-2 text-secondary-foreground sm:pb-0 bg-white dark:bg-gray-800/50 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5"
+            class="col-span-2 text-secondary-foreground sm:pb-0 bg-white dark:bg-gray-700/50 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5"
             in:fade={{delay: i * 200, duration: 500}}
         >
             <div class="space-y-4 p-6">

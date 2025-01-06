@@ -1,0 +1,10 @@
+Welcome to my website!
+
+This is a brand new file added to demonstrate git operations.
+
+Some interesting web development facts:
+- JavaScript was created in just 10 days by Brendan Eich
+- The first web browser was called WorldWideWeb (later renamed Nexus)
+- CSS was proposed by Håkon Wium Lie while working at CERN
+
+Happy coding!

@@ -14,7 +14,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {#each hobbyType.items as hobby}
-                    <div class="bg-white/80 dark:bg-gray-800/80 rounded-lg p-6 shadow-sm">
+                    <div class="bg-white/80 dark:bg-gray-700/80 rounded-lg p-6 shadow-sm">
                         {#if hobbyType.category === 'Sports/Hobbies'}
                             <div class="text-center mb-4">
                                 <span class="text-2xl">{"🔥"}</span>

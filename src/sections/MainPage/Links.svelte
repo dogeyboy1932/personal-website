@@ -24,7 +24,7 @@
                 class="flex items-center space-x-3 bg-white dark:bg-gray-800/50 p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/70"
                 aria-label={`Visit ${link.platform} profile`}
             >
-                <div class="flex-shrink-0 w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                <div class="flex-shrink-0 w-10 h-10 bg-orange-300 dark:bg-green-600 rounded-full flex items-center justify-center">
                     <svelte:component 
                         this={getIcon(link.platform)} 
                         class="w-5 h-5 text-gray-600 dark:text-gray-300"
