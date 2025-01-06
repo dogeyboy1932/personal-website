@@ -52,7 +52,8 @@
                 {/if}
             </a>
             
-            <!-- <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:via-blue-500/5 group-hover:to-purple-500/5 transition-all duration-500"></div> -->
+            <!-- <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-blue-500/0 via-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:via-blue-500/5 group-hover:to-purple-500/5 transition-all duration-500"></div> -->
+            
         </div>
     {/each}
 </div>
