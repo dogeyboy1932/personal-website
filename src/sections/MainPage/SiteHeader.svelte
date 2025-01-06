@@ -18,7 +18,7 @@
 	// }
 </script>
 
-<header class="bg-gradient-to-r from-purple-500/30 via-cyan-500/30 to-purple-500/30 backdrop-blur-sm rounded-2xl border border-gray-200 dark:border-gray-800 shadow-lg">
+<header class="bg-gradient-to-r from-purple-600/30 via-cyan-600/60 to-purple-500/30 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-lg">
 	<div class="flex justify-between w-full py-4 px-6">
 		<a href="/" class="flex items-center">
 			<Logo class="w-10 h-10 transition-opacity hover:opacity-80" />
@@ -41,7 +41,7 @@
 	<!-- TITLE NAME -->
 
 	<div class="mt-4 py-6 px-8 bg-gradient-to-r dark:from-purple-500/10 dark:via-cyan-500/10 dark:to-purple-500/10 from-orange-500/10 via-green-500/10 to-purple-500/10 rounded-b-2xl border-t border-gray-200 dark:border-gray-800">
-		<h1 class="flex justify-center font-sans text-4xl font-bold tracking-tight bg-gradient-to-r dark:from-cyan-500 dark:to-purple-500  from-orange-500 to-green-500  bg-clip-text text-transparent animate-gradient">
+		<h1 class="flex justify-center font-sans text-4xl font-bold tracking-tight bg-gradient-to-r dark:from-cyan-500 dark:to-purple-500  from-orange-500 to-green-300  bg-clip-text text-transparent animate-gradient">
 			Akhil Gogineni
 		</h1>
 		

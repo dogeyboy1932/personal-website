@@ -6,6 +6,7 @@
 	import Hobbies from '../sections/MainPage/Hobbies.svelte';
 	import Links from '../sections/MainPage/Links.svelte';
 	import { MetaTags } from 'svelte-meta-tags';
+	import SiteHeader from '../sections/MainPage/SiteHeader.svelte';
 </script>
 
 <!--
@@ -28,6 +29,13 @@
 		Determined to stay ahead of the curve 🔥
 	</p>
 </section> -->
+<section class="pb-3">
+	<!-- <h2 class="pb-1 text-xl font-bold tracking-tight text-primary" id="education">
+		About
+	</h2> -->
+	
+    <SiteHeader />
+</section>
 
 <section class="py-3">
 	<!-- <h2 class="pb-1 text-xl font-bold tracking-tight text-primary" id="education">
