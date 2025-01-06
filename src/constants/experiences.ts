@@ -3,7 +3,7 @@ export const experiences = [
     role: 'Core Member',
     company: 'CollegeDAO',
     duration: 'Oct 2024 - Present',
-    description: 'Setting up hacker houses and building a job board for Web3 students. Partnered with orgs to grow blockchain ecosystems.'
+    description: 'Setting up hacker houses and building a job board for blockchain-related positions. Partnered with orgs to grow the student ecosystem in Web3'
   },
   {
     role: 'Software & Corporate Intern',
