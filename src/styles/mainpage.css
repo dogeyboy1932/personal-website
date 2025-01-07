@@ -123,7 +123,7 @@
 
 /* Navigation */
 .nav-base {
-    @apply text-sm font-medium;
+    @apply text-sm font-medium sm:text-[12px];
 }
 
 .nav-link {
@@ -139,7 +139,7 @@
 }
 
 .nav-container {
-    @apply md:flex space-x-6 nav-base;
+    @apply md:flex space-x-3 nav-base;
 }
 
 /* Intro Section */

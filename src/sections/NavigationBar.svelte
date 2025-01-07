@@ -1,10 +1,16 @@
 <script lang="ts">
     import { page } from '$app/stores';
     import ThemeToggle from '../components/Button/ThemeToggle.svelte';
+    import Logo from '../components/Logo/Logo.svelte';
 </script>
 
 <nav class="w-full h-12 bg-black/90 backdrop-blur-sm border-b border-emerald-500/50 px-4 top-0 z-50 sticky">
     <div class="h-full flex items-center justify-between space-x-8">
+        <a href="/" class="flex items-center">
+            <Logo class="w-10 h-10 transition-opacity hover:opacity-80" />
+        </a>
+        
+        
         {#each [
             { href: '/', label: 'HOME' },
             // { href: '/blog', label: 'BLOG' },

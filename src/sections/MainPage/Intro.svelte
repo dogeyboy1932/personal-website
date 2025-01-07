@@ -23,23 +23,19 @@
 
 <!-- Navigation section -->
 <header class="rounded-t border-2 border-b-0">
-    <div class="flex justify-between w-full py-2 px-6 border-green-500 border-b-2">
-        <a href="/" class="flex items-center">
-            <Logo class="w-10 h-10 transition-opacity hover:opacity-80" />
-        </a>
+    <div class="flex justify-end w-full p-2 border-green-500 border-b-2">
         
-        <div class="flex items-center space-x-4 ml-auto">
-            <nav class="nav-container">
-                {#each ['experience', 'projects', 'skills', 'other', 'links'] as section}
-                    <a 
-                        href="#{section}" 
-                        class="nav-link"
-                    >
-                        {section.toUpperCase()}
-                    </a>
-                {/each}
-            </nav>
-        </div>
+        <nav class="nav-container">
+            {#each ['experience', 'projects', 'skills', 'other', 'links'] as section}
+                <a 
+                    href="#{section}" 
+                    class="nav-link"
+                >
+                    {section.toUpperCase()}
+                </a>
+            {/each}
+        </nav>
+        
     </div>
 
     <div class="gradient-container2">
