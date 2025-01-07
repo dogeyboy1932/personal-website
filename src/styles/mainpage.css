@@ -139,7 +139,7 @@
 }
 
 .nav-container {
-    @apply hidden md:flex space-x-6 nav-base;
+    @apply md:flex space-x-6 nav-base;
 }
 
 /* Intro Section */
