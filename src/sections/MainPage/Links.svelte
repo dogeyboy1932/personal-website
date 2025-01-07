@@ -3,9 +3,6 @@
     import { links } from '../../constants/links';
     import { fade } from 'svelte/transition';
 
-
-
-    // Function to get the appropriate icon
     function getIcon(platform: string) {
         switch (platform.toLowerCase()) {
             case 'github': return GithubIcon;
@@ -17,36 +14,27 @@
     }
 </script>
 
-
-
-<!-- <div class=""> -->
-    <div class="page-grid">
-        {#each links as link, i}
-            
+<div class="text-regular page-grid">
+    {#each links as link, i}
         <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="link-primary"
-            >
-            <div 
-                class="sm-content-card"  
-                in:fade={{delay: i * 200, duration: 500}}
-            >
-                <div class="text-center space-y-2">
-                    <span class="flex items-center justify-center gap-2 text-lg font-semibold text-gray-800 dark:text-gray-100">
-                        <svelte:component this={getIcon(link.platform)} class="w-6 h-6" />
-                        {link.platform}
-                    </span>
-                    
-                    {#if link.title}
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">
-                            {link.title}
-                        </p>
-                    {/if}                    
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <div class="sm-content-card h-[110px]">
+                <div class="flex justify-center items-center gap-2 pt-2">
+                    <svelte:component this={getIcon(link.platform)} class="w-6 h-6" />
+                    <span class="link-primary text-lg font-semibold"> {link.platform} </span>
                 </div>
+                
+                {#if link.title}
+                    <p class="text-regular text-sm mt-1 text-center border-t-2 border-zinc-200 mx-4 ">
+                        {link.title}
+                    </p>
+                {/if}
             </div>
         </a>
-        {/each}
-    </div>
-<!-- </div> -->
+    {/each}    
+</div>
+
+<!-- class="link-primary" -->

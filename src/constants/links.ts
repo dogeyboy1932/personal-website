@@ -18,6 +18,7 @@ export const links: CustomLink[] = [
 		title: 'vagogineni@gmail.com',
 		href: 'mailto:vagogineni@gmail.com'
 	}
+	
 ];
 
 

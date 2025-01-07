@@ -3,7 +3,7 @@
 	import { Badge } from '../../components/Badge';
 </script>
 
-<Container class="py-8">
+<!-- <Container class="py-8"> -->
 	<div class="space-y-8">
 		<div class="relative bg-black border-2 border-yellow-400 rounded-lg p-6 shadow-xl overflow-hidden">
 			<!-- Cyberpunk overlay effects -->
@@ -90,4 +90,4 @@
 			</div>
 		</div>
 	</div>
-</Container>
+<!-- </Container> -->

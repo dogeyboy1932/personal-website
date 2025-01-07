@@ -22,11 +22,15 @@
            transform hover:-translate-y-0.5;
 }
 
+.frame-card {
+    @apply bg-white shadow-lg rounded-lg p-4 flex flex-col items-center border border-gray-200;
+}
+
 .sm-content-card {
     @apply bg-white/80 dark:bg-gray-700/80 rounded-lg p-6 shadow-sm
            transition-all duration-300 
            transform hover:-translate-y-0.5
-           text-center hover:shadow-md ;
+           text-center hover:shadow-md;
 }
 
 .card-content {
@@ -43,6 +47,14 @@
     @apply text-xl font-semibold text-gray-800 dark:text-gray-200;
 }
 
+.title-header {
+    @apply text-2xl font-bold text-center mb-4 dark:text-gray-400 text-gray-800;
+}
+
+.label-header {
+    @apply text-blue-600 dark:text-blue-300;
+}
+
 /* Badges */
 .time-badge {
     @apply flex items-center bg-orange-100 dark:bg-orange-900/30 
@@ -56,7 +68,8 @@
 }
 
 .subtitle {
-    @apply text-lg font-medium text-blue-600 dark:text-blue-400;
+    @apply flex justify-center mt-2 text-lg font-medium 
+           text-gray-600 dark:text-gray-300;
 }
 
 .description {
@@ -76,4 +89,53 @@
 
 .text-regular {
     @apply text-gray-800 dark:text-gray-100;
+}
+
+/* Navigation styles */
+.nav-link {
+    @apply relative py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 
+           after:bg-gradient-to-r dark:after:from-primary dark:after:via-accent dark:after:to-secondary
+           after:from-primary/60 after:to-accent/60
+           hover:after:w-full after:transition-all after:duration-300
+           dark:hover:text-primary hover:text-accent;
+}
+
+.nav-container {
+    @apply hidden space-x-6 text-sm font-medium md:flex;
+}
+
+/* Intro section styles */
+.intro-container {
+    @apply tracking-tight space-y-4 mx-auto py-8 text-center;
+}
+
+.intro-header {
+    @apply text-lg md:text-xl font-semibold block;
+}
+
+.intro-text {
+    @apply text-base md:text-lg font-medium leading-relaxed space-y-3;
+}
+
+.intro-paragraph {
+    @apply block dark:text-muted-foreground;
+}
+
+.intro-highlight {
+    @apply flex justify-center mt-2 text-lg font-medium pt-4;
+}
+
+.gradient-container {
+    @apply px-8 bg-gradient-to-r 
+           /* dark:from-purple-500/10 dark:via-cyan-500/10 dark:to-purple-500/10  */
+           from-orange-200/10 via-green-200/10 to-purple-200/10 
+           border-gray-200 dark:border-gray-800;
+}
+
+.gradient-text {
+    @apply flex justify-center font-sans text-4xl font-bold tracking-tight 
+           bg-gradient-to-r dark:from-cyan-500 dark:to-purple-500 
+           from-orange-500 to-green-500 
+           bg-clip-text text-transparent animate-gradient
+           py-6;
 }

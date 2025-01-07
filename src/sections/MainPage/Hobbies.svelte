@@ -16,13 +16,11 @@
                             <div class="text-center mb-4 text-2xl"> {"🔥"} </div>
                         {/if}
                         
-                        <h3 class="text-center text-lg font-semibold"> {hobby.name} </h3>
+                        <h3 class="text-lg font-semibold"> {hobby.name} </h3>
                     </div>
                 {/each}
             </div>
-        
-        </div>
-        
+        </div>  
     {/each}
 </div>
 
