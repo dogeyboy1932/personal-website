@@ -1,7 +1,24 @@
 <script lang="ts">
     import { DotIcon } from 'lucide-svelte';
-    import { experiences } from '../../constants/experiences';
     import { Logo } from '../../components/Logo';
+
+    function handleNavClick(e: MouseEvent) {
+        e.preventDefault();
+        const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+        const targetId = href?.replace('#', '');
+        const element = document.getElementById(targetId || '');
+        
+        if (element) {
+            const offset = 50; // Adjust this value as needed
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+            
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    }
 </script>
 
 <!-- Navigation section -->
@@ -14,7 +31,11 @@
         <div class="flex items-center space-x-4 ml-auto">
             <nav class="nav-container">
                 {#each ['experience', 'projects', 'skills', 'other', 'links'] as section}
-                    <a href="#{section}" class="nav-link">
+                    <a 
+                        href="#{section}" 
+                        class="nav-link" 
+                        on:click={handleNavClick}
+                    >
                         {section.toUpperCase()}
                     </a>
                 {/each}
@@ -33,8 +54,8 @@
 <!-- Intro Text Section -->
 <div class="border-2 intro-container px-1">
     <span class="intro-header">
-        Junior at the 
-        <span class="text-primary dark:text-primary">
+        Junior at 
+        <span class="text-primary text-orange-800">
             University of Illinois - Urbana Champaign
         </span> 
         

@@ -1,6 +1,6 @@
 /* Base Layout */
 .container {
-    @apply mx-auto px-4 py-8;
+    @apply mx-auto px-2 py-8;
 }
 
 /* Grid Base Styles */
@@ -52,6 +52,14 @@
 
 .text-header-base {
     @apply font-bold text-indigo-950 dark:text-gray-400;
+}
+
+.text-neon {
+    @apply text-indigo-950 dark:text-cyan-200;
+}
+
+.border-neon {
+    @apply border-indigo-950 dark:border-cyan-200;
 }
 
 /* Headers */
@@ -141,15 +149,16 @@
 
 .intro-container {
     @apply tracking-tight space-y-4 
-           py-8 text-center;
+           py-8 text-center
+           bg-slate-400 dark:bg-zinc-900 ;
 }
 
 .intro-header {
-    @apply text-lg md:text-xl font-semibold block text-indigo-600;
+    @apply text-lg md:text-xl font-semibold block text-indigo-700 dark:text-indigo-400;
 }
 
 .intro-text {
-    @apply text-base leading-relaxed space-y-3;
+    @apply text-base leading-relaxed space-y-3 ;
 }
 
 .intro-paragraph {

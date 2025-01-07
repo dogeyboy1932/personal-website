@@ -8,7 +8,7 @@
 		<div class="col-grid">
 			{#each skillCategory.items as skill}
 				<div class="frame-card p-1">
-					<img src={skill.logoUrl} alt={skill.name} class="w-3/4 h-16 mb-4 object-contain py-2 px-1 bg-zinc-600 rounded-md" />
+					<img src={skill.logoUrl} alt={skill.name} class="w-3/4 h-16 mb-4 object-contain py-2 px-1 dark:bg-zinc-400 bg-zinc-200 rounded-md" />
 					<h3 class="text-md font-semibold dark:text-gray-200 text-gray-800">{skill.name}</h3>						
 				</div>
 			{/each}

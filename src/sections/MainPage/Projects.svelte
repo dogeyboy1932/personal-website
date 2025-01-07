@@ -5,10 +5,10 @@
 </script>
 
 
-<div class="col-grid">
+<div class="one-grid">
     {#each projectsData.projects as project, i}
         <div 
-            class="content-card card-content"
+            class="content-card card-content bg-gradient-to-r from-violet-500/20 via-rose-600/20 to-indigo-600/20  dark:bg-cyan-900"
             in:fade={{delay: i * 200, duration: 500}}
         >
             <div class="section-header">    
@@ -16,9 +16,7 @@
                 <span class="time-badge"> {project.duration} </span>
             </div>
             
-            
             <p class="description"> {project.description} </p>
-            
             
             {#if project.githubLink}
                 <a
@@ -36,7 +34,6 @@
         </div>
     {/each}
 </div>
-
 
 <style>
     /* Add any additional custom styles here */
