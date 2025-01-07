@@ -1,0 +1,79 @@
+.container {
+    @apply mx-auto px-2 py-8;
+}
+
+/* Card Layouts */
+.page-grid {
+    @apply grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto px-2;
+}
+
+.one-grid {
+    @apply grid grid-cols-1 mx-auto px-2 gap-6;
+}
+
+.col-grid {
+    @apply page-grid sm:grid-cols-3 md:grid-cols-4;
+}
+
+.content-card {
+    @apply col-span-2 
+           bg-white dark:bg-gray-700/50 rounded-lg shadow-sm 
+           hover:shadow-md transition-all duration-300 
+           transform hover:-translate-y-0.5;
+}
+
+.sm-content-card {
+    @apply bg-white/80 dark:bg-gray-700/80 rounded-lg p-6 shadow-sm
+           transition-all duration-300 
+           transform hover:-translate-y-0.5
+           text-center hover:shadow-md ;
+}
+
+.card-content {
+    @apply space-y-4 p-6;
+}
+
+/* Headers */
+.section-header {
+    @apply flex justify-between items-center border-b 
+           dark:border-gray-700 pb-3;
+}
+
+.title {
+    @apply text-xl font-semibold text-gray-800 dark:text-gray-200;
+}
+
+/* Badges */
+.time-badge {
+    @apply flex items-center bg-orange-100 dark:bg-orange-900/30 
+           text-orange-800 dark:text-orange-300 px-3 py-1 
+           rounded-full text-sm;
+}
+
+/* Text Content */
+.subtitle-container {
+    @apply dark:text-gray-300/90 mb-3;
+}
+
+.subtitle {
+    @apply text-lg font-medium text-blue-600 dark:text-blue-400;
+}
+
+.description {
+    @apply text-gray-600 dark:text-gray-300 leading-relaxed;
+}
+
+/* Links */
+.link-primary {
+    @apply space-x-2 text-sm text-blue-600 
+           dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 
+           transition-colors duration-300;
+}
+
+.icon-hover {
+    @apply w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300;
+} 
+
+.text-regular {
+    @apply text-gray-800 dark:text-gray-100;
+}

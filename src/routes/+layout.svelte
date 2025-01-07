@@ -2,7 +2,8 @@
     import MatrixRain from '../animations/MatrixRain.svelte';
     import NavigationBar from '../sections/NavigationBar.svelte';
     import Intro from '../sections/MainPage/Intro.svelte';
-	import '../styles.css';
+	import '../styles/mainpage.css';
+    import '../styles.css';
 </script>
 
 <MatrixRain />

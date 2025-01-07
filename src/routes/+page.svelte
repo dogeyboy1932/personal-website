@@ -12,8 +12,8 @@
 	<Intro />
 </section> -->
 
-<section class="pb-8 pt-6">
-	<div class="container mx-auto px-4">
+<section class="">
+	<div class="container px-4">
 		<h2 class="text-2xl font-bold tracking-wide text-primary border-b-2 border-primary pb-4" id="experience">
 			Work Experience
 		</h2>
@@ -21,18 +21,18 @@
 	<Experiences />
 </section>
 
-<section class="pb-8 pt-12">
+<section class="">
 	<div class="container mx-auto px-4">
 		<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="projects">
 			Projects
 		</h2>
 	</div>
-	<div class="mt-5">
+	<div class="">
 		<Projects />
 	</div>
 </section>
 
-<section class="py-8">
+<section class="">
 	<div class="container mx-auto px-4">
 		<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="skills">
 			Skills
@@ -41,7 +41,7 @@
 	<Skills />
 </section>
 
-<section class="pb-3">
+<section class="">
 	<div class="container mx-auto px-4">
 		<h2 class="text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="other">
 			Other
@@ -50,7 +50,7 @@
 	<Hobbies/>
 </section>
 
-<section class="py-8">
+<section class="ty-8">
 	<div class="container mx-auto px-4">
 		<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="links">
 			Links
