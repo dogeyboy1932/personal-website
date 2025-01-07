@@ -24,18 +24,17 @@
 <!-- Navigation section -->
 <header class="rounded-t border-2 border-b-0">
     <div class="flex justify-end w-full p-2 border-green-500 border-b-2">
-        
         <nav class="nav-container">
             {#each ['experience', 'projects', 'skills', 'other', 'links'] as section}
                 <a 
                     href="#{section}" 
                     class="nav-link"
+                    on:click={handleNavClick}
                 >
                     {section.toUpperCase()}
                 </a>
             {/each}
         </nav>
-        
     </div>
 
     <div class="gradient-container2">
