@@ -1,63 +1,77 @@
 <script lang="ts">
     import { DotIcon } from 'lucide-svelte';
     import { experiences } from '../../constants/experiences';
+    import { Logo } from '../../components/Logo';
 </script>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center ">
-    <!-- Profile Image Section -->
-    <!-- <div class="col-span-1 flex justify-center">
-        <div class="relative w-48 h-48">
-            Matrix-style border animation
-            <div class="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full animate-pulse"></div>
+<header class=" rounded-t border-2 border-b-0">
+    <!-- Navigation section -->
+    
+        <div class="flex justify-between w-full py-2 px-6 border-green-500 border-b-2">
+            <a href="/" class="flex items-center">
+                <Logo class="w-10 h-10 transition-opacity hover:opacity-80" />
+            </a>
             
-            Profile Image Container
-            <div class="relative w-full h-full rounded-full overflow-hidden border-2 border-green-500/30">
-                <img
-                    src="Pfp.jpg"
-                    alt="Profile"
-                    class="w-200 h-200 object-cover object-[30%_15%] transform scale-1"
-                />
+            <div class="flex items-center space-x-4 ml-auto">
+                <nav class="hidden space-x-6 text-sm font-medium md:flex">
+                    {#each ['experience', 'projects', 'skills', 'other', 'links'] as section}
+                        <a 
+                            href="#{section}" 
+                            class="relative py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 
+                                   after:bg-gradient-to-r dark:after:from-primary dark:after:via-accent dark:after:to-secondary
+                                   after:from-primary/60 after:to-accent/60
+                                   hover:after:w-full after:transition-all after:duration-300
+                                   dark:hover:text-primary hover:text-accent"
+                        >
+                            {section.charAt(0).toUpperCase() + section.slice(1)}
+                        </a>
+                    {/each}
+                </nav>
             </div>
         </div>
-    </div> -->
+</header>
 
-    <!-- Intro Text Section -->
-    <div class="col-span-3 flex justify-center text-center"> <!-- Changed col-span-2 to col-span-3 and added flex justify-center and text-center -->
-        <div class="tracking-tight text-gray-700 dark:text-gray-100 space-y-4 custom-font max-w-2xl"> <!-- Added max-w-2xl for better readability -->
-            <span class="text-lg md:text-xl font-semibold block">
-                Junior at the 
-                <span class="text-green-500 dark:text-green-400">
-                    University of Illinois - Urbana Champaign
-                </span> 
-                studying 
-                <span class="text-emerald-600 dark:text-emerald-400">
-                    Computer Science & Economics
-                </span> 
-            </span>
+<!-- Intro Text Section -->
+<header class=" border-2">
+    <div class="tracking-tight space-y-4 custom-font max-w-2xl mx-auto my-8 text-center">
+        <span class="text-lg md:text-xl font-semibold block cyberpunk-text">
+            Junior at the 
+            <span class="text-primary dark:text-primary">
+                University of Illinois - Urbana Champaign
+            </span> 
+            studying 
+            <span class="text-accent dark:text-accent">
+                Computer Science & Economics
+            </span> 
+        </span>
+        
+        <div class="text-base md:text-lg font-medium leading-relaxed space-y-3">
+            <p class="block dark:text-muted-foreground">
+                I enjoy learning, exploring, and building things
+            </p>
             
-            <p class="text-base md:text-lg font-medium leading-relaxed space-y-3">
-                <span class="block">
-                    I enjoy learning, exploring, and building things
-                </span>
-                
-                <span class="block">
-                    Dedicated to consistent improvement with aspirations to rise to the top
-                </span>
+            <p class="block dark:text-muted-foreground">
+                Dedicated to consistent improvement with aspirations to rise to the top
+            </p>
+
+            <p class="flex justify-center mt-2 text-lg font-medium pt-4 cyberpunk-text">
+                Determined to stay ahead of the curve 🔥
             </p>
         </div>
     </div>
-</div>
+</header>
 
 <style>
     .custom-font {
         font-family: 'Poppins', sans-serif;
     }
 
-    :global(body) {
+    /* Matrix background effect - only visible in dark mode */
+    :global(.dark body) {
         position: relative;
     }
     
-    :global(body::before) {
+    :global(.dark body::before) {
         content: "";
         position: fixed;
         top: 0;
@@ -69,14 +83,5 @@
         opacity: 0.05;
         pointer-events: none;
         z-index: -1;
-    }
-    
-    @keyframes matrixRain {
-        0% {
-            background-position: 0 0;
-        }
-        100% {
-            background-position: 0 100%;
-        }
     }
 </style>

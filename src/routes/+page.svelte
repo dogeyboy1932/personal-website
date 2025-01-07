@@ -6,78 +6,55 @@
 	import Hobbies from '../sections/MainPage/Hobbies.svelte';
 	import Links from '../sections/MainPage/Links.svelte';
 	import { MetaTags } from 'svelte-meta-tags';
-	import SiteHeader from '../sections/MainPage/SiteHeader.svelte';
 </script>
-
-<!--
-<MetaTags
-	title="Akhil Gogineni"
-	description="I enjoy building websites and applications. Most of my hours are spent on hackathons, and I'm
-		always building something. I'm currently working at Nethermind."
-	canonical="https://marcuspang.me/"
-/>
--->
-
-<!-- <section class="py-8">
-	<h1 class="pb-1 text-3xl font-semibold tracking-tight text-primary">Akhil Gogineni</h1>
-	<p class="pb-1 text-xl text-muted-foreground">Full-stack + Smart Contract Developer</p>
-</section> -->
-
-<!-- <section class="py-8">
-	<h2 class="pb-1 text-xl font-bold tracking-tight text-primary" id="about-me">About</h2>
-	<p class="prose dark:text-slate-300/70">
-		Determined to stay ahead of the curve 🔥
-	</p>
-</section> -->
-<section class="pb-3">
-	<!-- <h2 class="pb-1 text-xl font-bold tracking-tight text-primary" id="education">
-		About
-	</h2> -->
-	
-    <SiteHeader />
-</section>
-
-<section class="py-3">
-	<!-- <h2 class="pb-1 text-xl font-bold tracking-tight text-primary" id="education">
-		About
-	</h2> -->
+<!-- 
+<section class="px-0">
 	<Intro />
-</section>
+</section> -->
 
-<section class="pb-8 pt-12">
-	<h2 class="text-2xl font-bold tracking-wide text-primary border-b-2 border-primary pb-4" id="experience">
-		Work Experience
-	</h2>
+<section class="pb-8 pt-6">
+	<div class="container mx-auto px-4">
+		<h2 class="text-2xl font-bold tracking-wide text-primary border-b-2 border-primary pb-4" id="experience">
+			Work Experience
+		</h2>
+	</div>
 	<Experiences />
 </section>
 
 <section class="pb-8 pt-12">
-	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="projects">
-		Projects
-	</h2>
-
+	<div class="container mx-auto px-4">
+		<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="projects">
+			Projects
+		</h2>
+	</div>
 	<div class="mt-5">
 		<Projects />
 	</div>
 </section>
 
 <section class="py-8">
-	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="skills">
-		Skills
-	</h2>
+	<div class="container mx-auto px-4">
+		<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="skills">
+			Skills
+		</h2>
+	</div>
 	<Skills />
 </section>
 
-<section class="py-8">
-	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="other">
-		Other
-	</h2>
-	<!-- <p class="text-gray-600 dark:text-gray-400">Activities that keep me inspired and balanced</p> -->
+<section class="pb-3">
+	<div class="container mx-auto px-4">
+		<h2 class="text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="other">
+			Other
+		</h2>
+	</div>
 	<Hobbies/>
 </section>
 
 <section class="py-8">
-	<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="links">Links</h2>
+	<div class="container mx-auto px-4">
+		<h2 class="pb-2 text-2xl font-bold tracking-wide text-primary border-b-2 border-primary" id="links">
+			Links
+		</h2>
+	</div>
 	<Links />
 </section>
-

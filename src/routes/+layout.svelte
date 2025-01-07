@@ -1,6 +1,7 @@
 <script lang="ts">
     import MatrixRain from '../animations/MatrixRain.svelte';
     import NavigationBar from '../sections/NavigationBar.svelte';
+    import Intro from '../sections/MainPage/Intro.svelte';
 	import '../styles.css';
 </script>
 
@@ -9,9 +10,12 @@
 <div class="min-h-screen relative">
     <NavigationBar />
     <div class=" min-h-screen">
-        <main class="md:w-[70%] lg:w-[50%] mx-auto px-4 pb-12 bg-gray-400/90 dark:bg-gray-900/90 relative z-10">
+        <main class="md:w-[70%] lg:w-[50%] mx-auto pb-12  bg-gray-400/90 dark:bg-gray-900/90 relative z-10">
             
-            <slot />
+            <Intro />
+            <div class="px-3">
+                <slot />
+            </div>
         </main>
     </div>
 </div>
