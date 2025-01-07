@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Intro from '../sections/MainPage/Intro.svelte';
+	// import Intro from '../sections/MainPage/Intro.svelte';
 	import Experiences from '../sections/MainPage/Experiences.svelte';
 	import Projects from '../sections/MainPage/Projects.svelte';
 	import Skills from '../sections/MainPage/Skills.svelte';

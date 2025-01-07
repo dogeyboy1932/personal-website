@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Container } from '../../components/Container';
+	// import { Container } from '../../components/Container';
 	import { Badge } from '../../components/Badge';
 </script>
 
