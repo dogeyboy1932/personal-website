@@ -33,8 +33,7 @@
                 {#each ['experience', 'projects', 'skills', 'other', 'links'] as section}
                     <a 
                         href="#{section}" 
-                        class="nav-link" 
-                        on:click={handleNavClick}
+                        class="nav-link"
                     >
                         {section.toUpperCase()}
                     </a>
