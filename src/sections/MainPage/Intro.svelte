@@ -22,8 +22,8 @@
         </div>
     </div>
 
-    <div class="gradient-container">
-        <h1 class="gradient-text">
+    <div class="gradient-container2">
+        <h1 class="gradient-text2">
             Akhil Gogineni
         </h1>
     </div>
@@ -31,12 +31,15 @@
 
 
 <!-- Intro Text Section -->
-<div class="border-2 intro-container">
+<div class="border-2 intro-container px-1">
     <span class="intro-header">
         Junior at the 
         <span class="text-primary dark:text-primary">
             University of Illinois - Urbana Champaign
         </span> 
+        
+        <br>
+        
         studying 
         <span class="text-accent dark:text-accent">
             Computer Science & Economics
@@ -52,7 +55,7 @@
             Dedicated to consistent improvement with aspirations to rise to the top
         </p>
 
-        <p class="intro-highlight">
+        <p class="text-yellow-500 text-md font-semibold">
             Determined to stay ahead of the curve 🔥
         </p>
     </div>
@@ -60,6 +63,32 @@
 
 
 
-<style>
-    
+<style lang="postcss">
+    .gradient-container2 {
+        @apply 
+            bg-gradient-to-r 
+               dark:from-purple-500 dark:via-cyan-500 dark:to-purple-500
+               from-purple-600 via-cyan-600 to-purple-600 
+                border-t border-gray-200
+    }
+
+    .gradient-text2 {
+        @apply px-8 py-4 flex justify-center font-sans text-4xl font-bold tracking-tight 
+               bg-clip-text text-transparent;
+        background-image: linear-gradient(90deg, #5fffbc, #feb47b, #5feaff);
+        background-size: 200% 200%;
+        animation: gradient-animation 3s ease infinite;
+    }
+
+    @keyframes gradient-animation {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
 </style>

@@ -21,14 +21,16 @@
             target="_blank"
             rel="noopener noreferrer"
         >
-            <div class="sm-content-card h-[110px]">
-                <div class="flex justify-center items-center gap-2 pt-2">
+            <div class="sm-content-card h-[110px] p-2 space-y-4">
+                <div class="flex justify-center items-center gap-1 pt-2">
                     <svelte:component this={getIcon(link.platform)} class="w-6 h-6" />
                     <span class="link-primary text-lg font-semibold"> {link.platform} </span>
                 </div>
+
+                <div class="border border-zinc-600"></div>
                 
                 {#if link.title}
-                    <p class="text-regular text-sm mt-1 text-center border-t-2 border-zinc-200 mx-4 ">
+                    <p class="text-regular text-sm mt-1 text-center ">
                         {link.title}
                     </p>
                 {/if}

@@ -7,9 +7,9 @@
 		<h2 class="title-header mb-2">{skillCategory.category}</h2>
 		<div class="col-grid">
 			{#each skillCategory.items as skill}
-				<div class="frame-card">
-					<img src={skill.logoUrl} alt={skill.name} class="w-16 h-16 mb-4 object-contain" />
-					<h3 class="text-lg font-semibold text-gray-800">{skill.name}</h3>						
+				<div class="frame-card p-1">
+					<img src={skill.logoUrl} alt={skill.name} class="w-3/4 h-16 mb-4 object-contain py-2 px-1 bg-zinc-600 rounded-md" />
+					<h3 class="text-md font-semibold dark:text-gray-200 text-gray-800">{skill.name}</h3>						
 				</div>
 			{/each}
 		</div>
