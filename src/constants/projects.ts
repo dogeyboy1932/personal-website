@@ -3,6 +3,12 @@ import type { ProjectData } from '../types';
 export const projectsData: ProjectData = {
   projects: [
     {
+      title: 'WhatAGent',
+      duration: 'Ongoing',
+      description: 'A starter AI Agent that can interact with Windows CLI (cmd, powershell, etc.) and has CRUD functionality with PostgreSQL database. (+ Bidirection voice/text capabilities)',
+      githubLink: 'https://github.com/dogeyboy1932/WhatAGent'
+    },
+    {
       title: 'NUS Mods',
       duration: 'Ongoing',
       description: 'A project to replicate NUS Mods, making university modules accessible and scalable across institutions.',
