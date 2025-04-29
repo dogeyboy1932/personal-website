@@ -23,7 +23,8 @@
 
 <!-- Navigation section -->
 <header class="rounded-t border-2 border-b-0">
-    <div class="flex justify-end w-full p-2 border-green-500 border-b-2">
+    <div class="flex justify-between w-full p-2 border-green-500 border-b-2">
+        <div class="text-xs text-gray-400/70"> Last updated: 1/25  </div>
         <nav class="nav-container">
             {#each ['experience', 'projects', 'skills', 'other', 'links'] as section}
                 <a 
@@ -35,6 +36,7 @@
                 </a>
             {/each}
         </nav>
+
     </div>
 
     <div class="gradient-container2">

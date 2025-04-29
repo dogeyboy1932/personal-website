@@ -15,6 +15,6 @@ export const experiences = [
     role: 'Dev Lead & VP Partnerships',
     company: 'Illini Blockchain',
     duration: 'Jan 2023 - Present',
-    description: 'Led dev projects and secured 20+ Web3 partnerships. Built a crypto lending dApp and organized large blockchain events.'
+    description: 'Led dev projects and secured 10+ Web3 partnerships. Built a crypto lending dApp and organized large blockchain events.'
   }
 ];
