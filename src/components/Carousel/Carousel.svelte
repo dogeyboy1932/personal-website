@@ -1,7 +1,7 @@
 <script lang="ts" generics="T extends SvelteComponent">
   import { Button } from "../Button";
   import type { EmblaCarouselConfig } from "../../types/carousel";
-  import { cn } from "../../functions/utils";
+  import { cn } from "../../lib/utils";
   import type { EmblaCarouselType } from "embla-carousel";
   import emblaCarouselSvelte from "embla-carousel-svelte";
   import { ArrowLeft, ArrowRight } from "lucide-svelte";

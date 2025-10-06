@@ -1,6 +1,6 @@
-import type { PageData } from "../types/pages";
+import type { PageData } from "../types";
 import type { HobbiesData, SkillsData } from "../types";
-import { ProficiencyLevel, SkillStatus } from "../types/enums";
+import { ProficiencyLevel, SkillStatus } from "../types";
 
 export const experienceHero = {
   tagline: "Experience",

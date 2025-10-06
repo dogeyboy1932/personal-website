@@ -1,16 +1,16 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import ThemeToggle from "../components/Button/ThemeToggle.svelte";
-  import Logo from "../components/Logo/Logo.svelte";
+  import { ThemeToggle } from "../Button";
+  import { Logo } from "../Logo";
 
   const navItems = [
     { href: "/", label: "Home" },
-    { href: "/experience", label: "Experience" },
+    { href: "/portfolio", label: "Portfolio" },
     { href: "/projects", label: "Projects" },
-    { href: "/skills", label: "Skills" },
-    { href: "/hobbies", label: "Hobbies" },
-    { href: "/connect", label: "Connect" },
+    { href: "/blog", label: "Blog" },
     { href: "/lab", label: "Lab" },
+    { href: "/connect", label: "Connect" },
+    { href: "/pages/experience", label: "Experience" },
   ];
 
   function handleSelectChange(event: Event) {

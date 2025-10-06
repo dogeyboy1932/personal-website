@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { cn } from "../../functions/utils";
+  import { cn } from "../../lib/utils";
   import { Avatar as AvatarPrimitive } from "radix-svelte";
 </script>
 

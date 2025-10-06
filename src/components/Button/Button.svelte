@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { HTMLButtonAttributes } from "svelte/elements";
-  import { cn } from "../../functions/utils";
+  import { cn } from "../../lib/utils";
   import { cva, type VariantProps } from "class-variance-authority";
 
   const buttonVariants = cva(

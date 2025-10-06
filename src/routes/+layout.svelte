@@ -1,7 +1,7 @@
 <script lang="ts">
-  import MatrixRain from "../animations/MatrixRain.svelte";
-  import NavigationBar from "../sections/NavigationBar.svelte";
-  import "../styles/mainpage.css";
+  import MatrixRain from "../lib/MatrixRain.svelte";
+  import { NavigationBar } from "../components/NavigationBar";
+
   import "../styles.css";
   import { fade } from "svelte/transition";
 </script>

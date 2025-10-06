@@ -1,5 +1,5 @@
 <script lang="ts">
-  import SectionHeader from "../../components/Divs/SectionHeader.svelte";
+  import { SectionHeader } from "../../components/Headers";
   import { links } from "../../constants/links";
   import {
     connectHero,

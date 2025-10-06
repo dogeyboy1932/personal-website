@@ -1,5 +1,5 @@
 <script lang="ts">
-  import SectionHeader from "../components/Divs/SectionHeader.svelte";
+  import { SectionHeader } from "../components/Headers";
   import { MetaTags } from "svelte-meta-tags";
   import { experiences } from "../constants/pages";
   import { projectsData } from "../constants/projects";
@@ -201,6 +201,7 @@
       {/each}
     </div>
   </section>
+
 
   <section class="space-y-6">
     <SectionHeader id="toolkit" title="Toolkit" />

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Moon, Sun } from "lucide-svelte";
   import Button from "./Button.svelte";
-  import { darkModeStore } from "../../functions/utils";
+  import { darkModeStore } from "../../lib/utils";
   import { onMount } from "svelte";
 
   let isDarkMode = true; // Set initial value

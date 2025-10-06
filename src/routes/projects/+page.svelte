@@ -1,5 +1,5 @@
 <script lang="ts">
-  import SectionHeader from "../../components/Divs/SectionHeader.svelte";
+  import { SectionHeader } from "../../components/Headers";
   import { Button } from "../../components/Button";
   import {
     projectCardSummaries,

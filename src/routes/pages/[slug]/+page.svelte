@@ -1,7 +1,6 @@
 <script lang="ts">
-  import SectionHeader from "../../../components/Divs/SectionHeader.svelte";
+  import { SectionHeader } from "../../../components/Headers";
   import { fade, fly } from "svelte/transition";
-  import { pageData } from "../../../constants/pages";
 
   export let data;
 </script>
