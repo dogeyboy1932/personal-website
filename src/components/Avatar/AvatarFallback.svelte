@@ -1,11 +1,14 @@
 <script lang="ts">
-	import { cn } from '../../functions/utils';
-	import { Avatar as AvatarPrimitive } from 'radix-svelte';
+  import { cn } from "../../functions/utils";
+  import { Avatar as AvatarPrimitive } from "radix-svelte";
 </script>
 
 <AvatarPrimitive.Fallback
-	{...$$props}
-	class={cn('flex h-full w-full items-center justify-center rounded-full bg-muted', $$props.class)}
+  {...$$props}
+  class={cn(
+    "flex h-full w-full items-center justify-center rounded-full bg-muted",
+    $$props.class
+  )}
 >
-	<slot />
+  <slot />
 </AvatarPrimitive.Fallback>

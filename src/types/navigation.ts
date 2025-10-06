@@ -3,4 +3,4 @@ export interface CustomLink {
   title: string;
   href: string;
   isExternal?: boolean;
-} 
+}

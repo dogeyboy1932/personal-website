@@ -1,4 +1,4 @@
-import { ProficiencyLevel, SkillStatus } from './enums';
+import { ProficiencyLevel, SkillStatus } from "./enums";
 
 export interface SkillItem {
   name: string;
@@ -14,4 +14,4 @@ export interface SkillCategory {
 
 export interface SkillsData {
   skills: SkillCategory[];
-} 
+}

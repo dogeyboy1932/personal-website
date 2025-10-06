@@ -3,96 +3,96 @@
 @tailwind utilities;
 
 @layer base {
-	:root {
-		/* Light mode - more vibrant */
-		--background: 210 40% 98%;
-		--foreground: 222.2 47.4% 11.2%;
+  :root {
+    /* Light mode - more vibrant */
+    --background: 210 40% 98%;
+    --foreground: 222.2 47.4% 11.2%;
 
-		--muted: 210 40% 96.1%;
-		--muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-		--popover: 0 0% 100%;
-		--popover-foreground: 222.2 47.4% 11.2%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
 
-		--border: 214.3 31.8% 91.4%;
-		--input: 214.3 31.8% 91.4%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
 
-		--card: 0 0% 100%;
-		--card-foreground: 222.2 47.4% 11.2%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
 
-		--primary: 250 47.4% 45%;
-		--primary-foreground: 210 40% 98%;
+    --primary: 250 47.4% 45%;
+    --primary-foreground: 210 40% 98%;
 
-		--secondary: 190 95% 39%;
-		--secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 190 95% 39%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-		--accent: 262 83% 58%;
-		--accent-foreground: 210 40% 98%;
+    --accent: 262 83% 58%;
+    --accent-foreground: 210 40% 98%;
 
-		--destructive: 0 84% 60%;
-		--destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
 
-		--ring: 262 83% 58%;
+    --ring: 262 83% 58%;
 
-		--radius: 1rem;
-	}
+    --radius: 1rem;
+  }
 
-	.dark {
-		/* Dark mode - cyberpunk theme */
-		--background: 230 89% 8%;
-		--foreground: 180 100% 70%;
+  .dark {
+    /* Dark mode - cyberpunk theme */
+    --background: 230 89% 8%;
+    --foreground: 180 100% 70%;
 
-		--muted: 223 47% 11%;
-		--muted-foreground: 215.4 16.3% 56.9%;
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
 
-		--accent: 285 100% 60%;
-		--accent-foreground: 180 100% 80%;
+    --accent: 285 100% 60%;
+    --accent-foreground: 180 100% 80%;
 
-		--popover: 224 71% 4%;
-		--popover-foreground: 180 100% 70%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 180 100% 70%;
 
-		--border: 285 100% 60%;
-		--input: 285 100% 60%;
+    --border: 285 100% 60%;
+    --input: 285 100% 60%;
 
-		--card: 230 89% 8%;
-		--card-foreground: 180 100% 70%;
+    --card: 230 89% 8%;
+    --card-foreground: 180 100% 70%;
 
-		--primary: 180 100% 50%;
-		--primary-foreground: 230 89% 8%;
+    --primary: 180 100% 50%;
+    --primary-foreground: 230 89% 8%;
 
-		--secondary: 285 100% 60%;
-		--secondary-foreground: 180 100% 80%;
+    --secondary: 285 100% 60%;
+    --secondary-foreground: 180 100% 80%;
 
-		--destructive: 0 100% 50%;
-		--destructive-foreground: 210 40% 98%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
 
-		--ring: 285 100% 60%;
+    --ring: 285 100% 60%;
 
-		--radius: 1rem;
-	}
+    --radius: 1rem;
+  }
 }
 
 @layer base {
-	* {
-		@apply border-border;
-	}
-	body {
-		@apply bg-background text-foreground;
-		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-		font-feature-settings: 'rlig' 1, 'calt' 1;
-	}
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 }
 
 /* Add gradient and glow effects */
 .cyberpunk-gradient {
-    @apply bg-gradient-to-r from-primary via-accent to-secondary;
+  @apply bg-gradient-to-r from-primary via-accent to-secondary;
 }
 
 .cyberpunk-glow {
-    text-shadow: 0 0 10px var(--primary), 0 0 20px var(--accent);
+  text-shadow: 0 0 10px var(--primary), 0 0 20px var(--accent);
 }
 
 .cyberpunk-border {
-    @apply border-2 border-transparent bg-gradient-to-r from-primary via-accent to-secondary;
-    background-clip: padding-box;
+  @apply border-2 border-transparent bg-gradient-to-r from-primary via-accent to-secondary;
+  background-clip: padding-box;
 }

@@ -10,4 +10,4 @@ export interface HobbyCategory {
 
 export interface HobbiesData {
   hobbies: HobbyCategory[];
-} 
+}

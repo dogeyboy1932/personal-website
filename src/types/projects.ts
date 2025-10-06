@@ -7,4 +7,4 @@ export interface Project {
 
 export interface ProjectData {
   projects: Project[];
-} 
+}
