@@ -2,7 +2,7 @@
   import { SectionHeader } from "../components/Headers";
   import { MetaTags } from "svelte-meta-tags";
   import { experiences } from "../constants/pages";
-  import { projectsData } from "../constants/projects";
+  import { projectsData } from "../constants/portfolio";
   import { skillsData } from "../constants/pages";
   import { fade, fly } from "svelte/transition";
   import {
@@ -11,77 +11,101 @@
     homeHero,
     homeNavigationCards,
     homeQuickLinks,
+    lastUpdated
   } from "../constants/home";
+  import { site } from "../constants/site";
+  import { sections } from "../constants/sections";
 
-  const featuredExperiences = experiences.slice(0, 2);
+const featuredExperiences = experiences.slice(0, 2);
   const featuredProjects = projectsData.projects.slice(0, 2);
   const featuredSkills = skillsData.skills
     .flatMap((group) => group.items)
-    .slice(0, 8);
+    .slice(0, 10);
 </script>
 
 <MetaTags
-  title="Akhil Gogineni — Portfolio"
-  description="Discover Akhil Gogineni’s projects, experience, and passions across engineering and economics."
+  title={site.title}
+  description={site.description}
 />
 
-<section class="space-y-12">
-  <section class="space-y-10">
-    <div
-      class="grid items-center gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)]"
-    >
-      <div class="space-y-6" in:fly={{ x: -24, duration: 400 }}>
-        <p class="text-xs uppercase tracking-[0.45em] text-emerald-500">
-          {homeHero.tagline}
-        </p>
-        <h1
-          class="text-4xl sm:text-5xl font-semibold leading-tight text-slate-900 dark:text-slate-100"
-        >
-          {homeHero.title}
-        </h1>
-        <p class="text-lg text-slate-700 dark:text-slate-300">
-          {homeHero.summary}
-        </p>
-        <div class="flex flex-wrap gap-3">
-          {#each homeQuickLinks as link, i}
-            <a
-              href={link.href}
-              class={`inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.35em] transition ${
-                i === 0
-                  ? "border-emerald-500 bg-emerald-500 text-black hover:bg-emerald-400"
-                  : "border-emerald-400/60 text-emerald-300 hover:border-emerald-300"
-              }`}
-              in:fade={{ delay: i * 120 + 200, duration: 350 }}
-            >
-              {link.label}
-            </a>
-          {/each}
+
+
+<section>
+  
+  <div class="flex flex-row justify-between text-xs uppercase mb-5">
+    <div class="tracking-[0.45em] text-emerald-500"> {homeHero.tagline} </div>
+    <div class="tracking-[0.20em] text-slate-500/80">{lastUpdated}</div>
+  </div>
+
+  <section class="mb-3 space-y-10">
+    
+    <div class="space-y-10">
+      <div
+        class="grid gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)]"
+      >
+        <div class="space-y-1 flex flex-col" in:fly={{ x: -24, duration: 400 }}>
+              
+          <!-- Option 1: Dark slate with white pop -->
+          <div class="mb-3 rounded-xl border border-slate-700/30 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 text-center">
+            <h1 class="mb-1 text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-300 via-white to-slate-300 leading-tight">
+              {homeHero.fullName}
+            </h1>
+            <p class="text-sm text-slate-300/80">{homeHero.title}</p>
+          </div>
+
+          <!-- Option 2: Charcoal with silver gradient -->
+          <!-- <div class="mb-4 rounded-xl border border-zinc-700/20 bg-gradient-to-r from-zinc-950 via-zinc-800 to-zinc-950 p-4 text-center">
+            <h1 class="mb-1 text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-zinc-300 via-zinc-100 to-zinc-300 leading-tight">
+              {homeHero.fullName}
+            </h1>
+            <p class="text-sm text-zinc-300/90">{homeHero.title}</p>
+          </div> -->
+
+          <!-- Option 3: Dark with subtle emerald edge glow -->
+          <!-- <div class="mb-4 rounded-xl border border-emerald-400/20 bg-gradient-to-r from-black via-zinc-950 to-black p-4 text-center shadow-lg shadow-emerald-500/5">
+            <h1 class="mb-1 text-6xl font-extrabold text-white leading-tight drop-shadow-[0_0_30px_rgba(52,211,153,0.3)]">
+              {homeHero.fullName}
+            </h1>
+            <p class="text-sm text-slate-300/90">{homeHero.title}</p>
+          </div> -->
+
+          <div class="rounded-md p-4 shadow-md dark:bg-slate-900 flex-1">
+            <p class="text-3xl text-slate-700 dark:text-slate-300">
+              {homeHero.summary}
+            </p>
+          </div>
         </div>
+
+
+        <figure class="relative flex flex-col" in:fly={{ x: 24, duration: 400 }}>
+          <div
+            class="aspect-square overflow-hidden rounded-xl border border-emerald-400/40 bg-slate-200/70 shadow-xl ring-1 ring-emerald-500/20 dark:bg-slate-800"
+          >
+            <img
+              src={homeHero.image.src}
+              alt={homeHero.image.alt}
+              class="h-full w-full object-cover transition duration-700 ease-out hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+
+            <figcaption
+            class="py-2 px-3 bg-slate-300 mt-3 text-center text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-900 rounded-sm"
+          >
+            {homeHero.image.caption}
+          </figcaption>
+        </figure>
+
       </div>
-
-      <figure class="relative" in:fly={{ x: 24, duration: 400 }}>
-        <div
-          class="aspect-square overflow-hidden rounded-3xl border border-emerald-400/40 bg-slate-200/70 shadow-xl ring-1 ring-emerald-500/20 dark:bg-slate-800"
-        >
-          <img
-            src={homeHero.image.src}
-            alt={homeHero.image.alt}
-            class="h-full w-full object-cover transition duration-700 ease-out hover:scale-105"
-            loading="lazy"
-          />
-        </div>
-        <figcaption
-          class="mt-3 text-center text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400"
-        >
-          {homeHero.image.caption}
-        </figcaption>
-      </figure>
     </div>
+  </section>
 
-    <div class="grid gap-6 md:grid-cols-3">
+
+  <section class="space-y-10">
+    <div class="grid gap-3 md:grid-cols-3">
       {#each homeFocusAreas as focus, index}
         <div
-          class="rounded-2xl border border-emerald-500/20 bg-white/70 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900/60"
+          class="rounded-2xl border border-emerald-500/20 bg-white/70 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-xl dark:bg-slate-500/60"
           in:fly={{ y: 20, delay: index * 120 + 150, duration: 400 }}
         >
           <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
@@ -95,8 +119,10 @@
     </div>
   </section>
 
+
+
   <section class="space-y-6">
-    <SectionHeader id="highlights" title="Highlights" />
+    <SectionHeader id="highlights" title={sections.highlights} />
     <div class="grid gap-6 lg:grid-cols-2">
       <div
         class="rounded-2xl border border-emerald-500/20 bg-white/80 p-6 shadow-lg dark:bg-slate-900/70"
@@ -161,13 +187,13 @@
                 rel={project.githubLink ? "noopener noreferrer" : undefined}
                 class="mt-3 inline-flex text-xs font-semibold uppercase tracking-[0.35em] text-emerald-300 hover:text-emerald-100"
               >
-                Open project ↗
+                {sections.openProject}
               </a>
             </div>
           {/each}
         </div>
         <a
-          href="/projects"
+          href="/portfolio"
           class="mt-6 inline-flex items-center text-sm font-semibold uppercase tracking-[0.35em] text-emerald-400 hover:text-emerald-200"
           >{home.projects.browseFullGallery}</a
         >
@@ -176,7 +202,7 @@
   </section>
 
   <section class="space-y-6">
-    <SectionHeader id="navigation" title="Navigate" />
+    <SectionHeader id="navigation" title={sections.navigation} />
     <div class="grid gap-6 md:grid-cols-2" in:fade>
       {#each homeNavigationCards as card, index}
         <a
@@ -204,7 +230,7 @@
 
 
   <section class="space-y-6">
-    <SectionHeader id="toolkit" title="Toolkit" />
+    <SectionHeader id="toolkit" title={sections.toolkit} />
     <div class="flex flex-wrap gap-3" in:fade>
       {#each featuredSkills as skill, index}
         <span
@@ -215,10 +241,14 @@
         </span>
       {/each}
     </div>
-    <a
-      href="/skills"
-      class="inline-flex text-xs font-semibold uppercase tracking-[0.35em] text-emerald-300 hover:text-emerald-100"
-      >{home.skills.seeCompleteStack}</a
-    >
+
+    <div class="flex justify-center w-full">
+      <a
+        href="/portfolio"
+        class="rounded-xl border border-red-400/40 bg-red-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-red-200 hover:text-emerald-100 transition"
+      >
+        {home.skills.seeCompleteStack}
+      </a>
+    </div>
   </section>
 </section>

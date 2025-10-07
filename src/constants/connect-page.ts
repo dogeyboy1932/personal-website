@@ -28,14 +28,7 @@ export const connectMethods = [
       "Workshops on rapid prototyping, product strategy, or student leadership.",
     cta: "Request a session",
     href: "mailto:akhilg4@illinois.edu",
-  },
-  {
-    title: "Collaboration",
-    description:
-      "Building something ambitious? I love joining forces on mission-driven work.",
-    cta: "Pitch your idea",
-    href: "/projects",
-  },
+  }
 ] as const;
 
 export const connectMessageTemplate = `Hi Akhil,

@@ -2,44 +2,44 @@ import type { PageData } from "../types";
 import type { HobbiesData, SkillsData } from "../types";
 import { ProficiencyLevel, SkillStatus } from "../types";
 
-export const experienceHero = {
-  tagline: "Experience",
-  title:
-    "From research labs to product floors, every stop has sharpened my problem-solving lens.",
-  description:
-    "This timeline is a collection of stories about iteration, empathy, and translating ambitious ideas into useful products. Each chapter brought a new lens on leadership, systems thinking, and collaboration.",
-  image: {
-    src: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80",
-    alt: "Team collaboration placeholder",
-    caption: "Team sessions, demo days, and cross-functional wins",
-  },
-};
+// export const experienceHero = {
+//   tagline: "Experience",
+//   title:
+//     "From research labs to product floors, every stop has sharpened my problem-solving lens.",
+//   description:
+//     "This timeline is a collection of stories about iteration, empathy, and translating ambitious ideas into useful products. Each chapter brought a new lens on leadership, systems thinking, and collaboration.",
+//   image: {
+//     src: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80",
+//     alt: "Team collaboration placeholder",
+//     caption: "Team sessions, demo days, and cross-functional wins",
+//   },
+// };
 
-export const hobbiesHero = {
-  tagline: "Life beyond the screen",
-  title:
-    "Fueling creativity with music, movement, and moments that build community.",
-  description:
-    "Whether it’s practicing with the a cappella group, coaching tennis, or planning the next volunteer day, hobbies help me stay grounded and energized. Here’s a snapshot of the activities I love plugging into.",
-  image: {
-    src: "https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?auto=format&fit=crop&w=1100&q=80",
-    alt: "Community gathering placeholder",
-    caption: "Celebrations, team spirit, and shared wins",
-  },
-};
+// export const hobbiesHero = {
+//   tagline: "Life beyond the screen",
+//   title:
+//     "Fueling creativity with music, movement, and moments that build community.",
+//   description:
+//     "Whether it’s practicing with the a cappella group, coaching tennis, or planning the next volunteer day, hobbies help me stay grounded and energized. Here’s a snapshot of the activities I love plugging into.",
+//   image: {
+//     src: "https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?auto=format&fit=crop&w=1100&q=80",
+//     alt: "Community gathering placeholder",
+//     caption: "Celebrations, team spirit, and shared wins",
+//   },
+// };
 
-export const skillsHero = {
-  tagline: "Toolkit",
-  title:
-    "An evolving stack of tools that balance velocity, maintainability, and delight.",
-  description:
-    "Here’s a snapshot of the technologies I reach for and the areas I’m experimenting with next. I believe in combining proven tools with emerging ones to unlock new ideas while keeping reliability high.",
-  image: {
-    src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80",
-    alt: "Workspace setup placeholder",
-    caption: "Workspace snapshots and lab experiments",
-  },
-};
+// export const skillsHero = {
+//   tagline: "Toolkit",
+//   title:
+//     "An evolving stack of tools that balance velocity, maintainability, and delight.",
+//   description:
+//     "Here’s a snapshot of the technologies I reach for and the areas I’m experimenting with next. I believe in combining proven tools with emerging ones to unlock new ideas while keeping reliability high.",
+//   image: {
+//     src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80",
+//     alt: "Workspace setup placeholder",
+//     caption: "Workspace snapshots and lab experiments",
+//   },
+// };
 
 export const experiences = [
   {
@@ -122,13 +122,6 @@ export const skillsData: SkillsData = {
             "https://upload.wikimedia.org/wikipedia/commons/f/f5/Typescript.svg",
         },
         {
-          name: "Bash",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/8/82/Gnu-bash-logo.svg",
-        },
-        {
           name: "C",
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
@@ -148,6 +141,13 @@ export const skillsData: SkillsData = {
           status: SkillStatus.Learned,
           logoUrl:
             "https://upload.wikimedia.org/wikipedia/commons/0/05/Go_Logo_Blue.svg",
+        },
+        {
+          name: "Bash",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/8/82/Gnu-bash-logo.svg",
         },
         {
           name: "Rust",
@@ -283,99 +283,126 @@ export const skillsData: SkillsData = {
   ],
 };
 
-export const pageData: Record<string, PageData> = {
-  experience: {
-    hero: experienceHero,
-    mainContent: {
-      title: "Experience timeline",
-      items: experiences.map((experience) => ({
-        title: experience.company,
-        subtitle: experience.role,
-        secondarySubtitle: experience.duration,
-        description: experience.description,
-      })),
-    },
-    additionalContent: {
-      title: "Lessons I’m carrying forward",
-      items: experiences.map((experience) => ({
-        title: experience.company,
-        subtitle: experience.role,
-        description: experience.description,
-      })),
-    },
-  },
-  hobbies: {
-    hero: hobbiesHero,
-    mainContent: {
-      title: "Hobby notebook",
-      items: hobbyData.hobbies.flatMap((hobbyCategory) =>
-        hobbyCategory.items.map((hobby) => ({
-          title: hobby.name,
-          subtitle: hobbyCategory.category,
-          description: "",
-        }))
-      ),
-    },
-    additionalContent: {
-      title: "Future adventures",
-      items: [
-        {
-          title: "Weekend photo walks",
-          subtitle: "",
-          description:
-            "Capture textures, reflections, and portraits across campus neighborhoods.",
-        },
-        {
-          title: "Campus wellness pop-up",
-          subtitle: "",
-          description:
-            "Host a mindfulness session with warm drinks and collaborative journaling.",
-        },
-        {
-          title: "Tech-for-good hackathon",
-          subtitle: "",
-          description:
-            "Bring friends together to prototype tools for local nonprofits.",
-        },
-      ],
-    },
-  },
-  skills: {
-    hero: skillsHero,
-    mainContent: {
-      title: "Skill library",
-      items: skillsData.skills.flatMap((skillCategory) =>
-        skillCategory.items.map((skill) => ({
-          title: skill.name,
-          subtitle: skillCategory.category,
-          description: `Proficiency: ${skill.proficiency}, Status: ${skill.status}`,
-        }))
-      ),
-    },
-    additionalContent: {
-      title: "Up next on the radar",
-      items: [
-        {
-          title: "Google Cloud Digital Leader",
-          subtitle: "",
-          description: "",
-        },
-        {
-          title: "AWS Solutions Architect Associate",
-          subtitle: "",
-          description: "",
-        },
-        {
-          title: "Product Strategy Micro-credential",
-          subtitle: "",
-          description: "",
-        },
-        {
-          title: "Data Visualization Nanodegree",
-          subtitle: "",
-          description: "",
-        },
-      ],
-    },
-  },
+
+// export const pageData: Record<string, PageData> = {
+//   experience: {
+//     hero: experienceHero,
+//     mainContent: {
+//       title: "Experience timeline",
+//       items: experiences.map((experience) => ({
+//         title: experience.company,
+//         subtitle: experience.role,
+//         secondarySubtitle: experience.duration,
+//         description: experience.description,
+//       })),
+//     },
+//     additionalContent: {
+//       title: "Lessons I’m carrying forward",
+//       items: experiences.map((experience) => ({
+//         title: experience.company,
+//         subtitle: experience.role,
+//         description: experience.description,
+//       })),
+//     },
+//   },
+//   hobbies: {
+//     hero: hobbiesHero,
+//     mainContent: {
+//       title: "Hobby notebook",
+//       items: hobbyData.hobbies.flatMap((hobbyCategory) =>
+//         hobbyCategory.items.map((hobby) => ({
+//           title: hobby.name,
+//           subtitle: hobbyCategory.category,
+//           description: "",
+//         }))
+//       ),
+//     },
+//     additionalContent: {
+//       title: "Future adventures",
+//       items: [
+//         {
+//           title: "Weekend photo walks",
+//           subtitle: "",
+//           description:
+//             "Capture textures, reflections, and portraits across campus neighborhoods.",
+//         },
+//         {
+//           title: "Campus wellness pop-up",
+//           subtitle: "",
+//           description:
+//             "Host a mindfulness session with warm drinks and collaborative journaling.",
+//         },
+//         {
+//           title: "Tech-for-good hackathon",
+//           subtitle: "",
+//           description:
+//             "Bring friends together to prototype tools for local nonprofits.",
+//         },
+//       ],
+//     },
+//   },
+//   skills: {
+//     hero: skillsHero,
+//     mainContent: {
+//       title: "Skill library",
+//       items: skillsData.skills.flatMap((skillCategory) =>
+//         skillCategory.items.map((skill) => ({
+//           title: skill.name,
+//           subtitle: skillCategory.category,
+//           description: `Proficiency: ${skill.proficiency}, Status: ${skill.status}`,
+//         }))
+//       ),
+//     },
+//     additionalContent: {
+//       title: "Up next on the radar",
+//       items: [
+//         {
+//           title: "Google Cloud Digital Leader",
+//           subtitle: "",
+//           description: "",
+//         },
+//         {
+//           title: "AWS Solutions Architect Associate",
+//           subtitle: "",
+//           description: "",
+//         },
+//         {
+//           title: "Product Strategy Micro-credential",
+//           subtitle: "",
+//           description: "",
+//         },
+//         {
+//           title: "Data Visualization Nanodegree",
+//           subtitle: "",
+//           description: "",
+//         },
+//       ],
+//     },
+//   },
+// };
+
+
+
+
+export const complexityClasses = {
+  Beginner: "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20",
+  Intermediate: "text-amber-300 bg-amber-500/10 border border-amber-400/20",
+  Advanced: "text-rose-300 bg-rose-500/10 border border-rose-400/20",
+} as const;
+
+export const techColors: Record<string, string> = {
+  React: "text-blue-300",
+  TensorFlow: "text-orange-300",
+  Python: "text-yellow-300",
+  WebGL: "text-cyan-300",
+  "Node.js": "text-emerald-300",
+  "D3.js": "text-pink-300",
+  TypeScript: "text-blue-400",
+  WebAssembly: "text-purple-300",
+  Redis: "text-red-300",
+  Go: "text-cyan-200",
+  WebSocket: "text-sky-300",
+  PostgreSQL: "text-blue-500",
+  Docker: "text-blue-200",
+  Kubernetes: "text-indigo-300",
 };

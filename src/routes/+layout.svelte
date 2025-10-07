@@ -1,9 +1,10 @@
 <script lang="ts">
   import MatrixRain from "../lib/MatrixRain.svelte";
   import { NavigationBar } from "../components/NavigationBar";
+  import { fonts } from "../constants/fonts";
 
   import "../styles.css";
-  import { fade } from "svelte/transition";
+  import { fade, fly } from "svelte/transition";
 </script>
 
 <MatrixRain />
@@ -14,10 +15,10 @@
   />
   <NavigationBar />
   <main
-    class="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-10 pt-20 pb-24"
+    class={`relative z-10 mx-auto w-[85%] sm:w-[98%] max-w-[1400px] px-6 sm:px-10 pt-5 pb-24 ${fonts.primary}`}
   >
-    <div
-      class="rounded-3xl border border-emerald-500/20 bg-slate-200/70 p-6 shadow-2xl backdrop-blur dark:border-emerald-500/30 dark:bg-slate-900/80"
+    <div in:fly={{ y: 8, duration: 350 }}
+      class="rounded-xl border border-emerald-500/20 bg-slate-200/70 p-6 shadow-2xl backdrop-blur dark:border-emerald-500/30 dark:bg-slate-800/80"
     >
       <div in:fade={{ duration: 250 }}>
         <slot />

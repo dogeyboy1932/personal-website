@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { SectionHeader } from "../../../components/Headers";
   import { fade, fly } from "svelte/transition";
 
@@ -81,4 +81,4 @@
       {/each}
     </div>
   </section>
-</section>
+</section> -->
