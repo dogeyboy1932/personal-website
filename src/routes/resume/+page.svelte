@@ -5,7 +5,6 @@
 </script>
 
 <section class="space-y-6" in:fade>
-  <SectionHeader id="resume" title={resume.pageTitle} />
   <div class="rounded-2xl border border-emerald-500/20 bg-white/80 p-6 shadow-lg dark:bg-slate-900/70" in:fly={{ y: 8 }}>
     <p class="text-sm text-slate-700 dark:text-slate-300">{resume.description}</p>
     {#if resume.embed}

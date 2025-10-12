@@ -6,8 +6,6 @@
   import autoplay from "embla-carousel-autoplay";
   import {
     projectCardSummaries,
-    projectPlaybookSteps,
-    projectShowcaseIntro,
     projectShowcaseItems,
     projectsHero,
   } from "../../constants/portfolio";
@@ -41,13 +39,15 @@
 
 <section class="space-y-2">
   <section
-    class="grid items-center gap-10 mb-8"
+    class="justify-center items-center mb-8"
   >
-    <div class="space-y-6" in:fly={{ x: -18, duration: 400 }}>
-      <p class="text-xs uppercase tracking-[0.45em] text-emerald-500">
+    <div class="space-y-6 items-center justify-center" in:fly={{ x: -18, duration: 400 }}>
+      <h2 class="text-3xl uppercase tracking-[0.4em] text-slate-300 text-center">
         {projectsHero.tagline}
-      </p>
-      <p class="text-base text-slate-600 dark:text-slate-300">
+      </h2>
+      <div class="mt-2 h-1 w-full rounded-full bg-gradient-to-r from-slate-300 via-cyan-400 to-slate-300 opacity-60" />
+
+      <p class="text-lg text-slate-600 dark:text-slate-300">
         {projectsHero.description}
       </p>
     </div>
@@ -55,7 +55,7 @@
 
 
   <section> 
-    <SectionHeader id="gallery" title={sections.prof_experiences} />
+    <SectionHeader id="gallery" title={sections.prof_experiences} customColor="purple-400" />
     <div class="one-grid">
       {#each experiences as item, i}
         <div class="content-card" in:fade={{ delay: i * 200, duration: 500 }}>

@@ -34,7 +34,7 @@ const featuredExperiences = experiences.slice(0, 2);
   
   <div class="flex flex-row justify-between text-xs uppercase mb-5">
     <div class="tracking-[0.45em] text-emerald-500"> {homeHero.tagline} </div>
-    <div class="tracking-[0.20em] text-slate-500/80">{lastUpdated}</div>
+    <div class="tracking-[0.20em] text-slate-300/80">{lastUpdated}</div>
   </div>
 
   <section class="mb-3 space-y-10">

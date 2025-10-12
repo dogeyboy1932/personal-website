@@ -28,6 +28,13 @@ export const connectMethods = [
       "Workshops on rapid prototyping, product strategy, or student leadership.",
     cta: "Request a session",
     href: "mailto:akhilg4@illinois.edu",
+  },
+  {
+    title: "Speaking & panels",
+    description:
+      "Workshops on rapid prototyping, product strategy, or student leadership.",
+    cta: "Request a session",
+    href: "mailto:akhilg4@illinois.edu",
   }
 ] as const;
 
