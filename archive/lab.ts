@@ -2,7 +2,7 @@ export const labHero = {
   tagline: "Design sandbox",
   title: "Creative lab",
   description:
-    "Drop your next concept here—screenshots, copy, or sketches. I’ll iterate directly in this space so we can compare versions quickly.",
+    "Drop your next concept here—screenshots, copy, or sketches. I'll iterate directly in this space so we can compare versions quickly.",
 };
 
 export const labChecklist = [

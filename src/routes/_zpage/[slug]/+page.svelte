@@ -10,7 +10,7 @@
     class="grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]"
   >
     <div class="space-y-6" in:fly={{ x: -18, duration: 400 }}>
-      <p class="text-xs uppercase tracking-[0.45em] text-emerald-500">
+      <p class="text-xs uppercase tracking-[0.45em] text-slate-500">
         {data.page.hero.tagline}
       </p>
       <h1 class="text-4xl font-semibold text-slate-900 dark:text-slate-100">
@@ -23,7 +23,7 @@
 
     <figure class="relative" in:fly={{ x: 18, duration: 400 }}>
       <div
-        class="aspect-[4/5] overflow-hidden rounded-3xl border border-emerald-400/40 bg-gradient-to-br from-emerald-500/20 via-transparent to-cyan-500/20 shadow-2xl backdrop-blur"
+        class="aspect-[4/5] overflow-hidden rounded-3xl border border-slate-400/40 bg-gradient-to-br from-slate-500/20 via-transparent to-cyan-500/20 shadow-2xl backdrop-blur"
       >
         <img
           src={data.page.hero.image.src}
@@ -63,10 +63,10 @@
     <div class="grid gap-6 md:grid-cols-2">
       {#each data.page.additionalContent.items as item, index}
         <div
-          class="rounded-2xl border border-emerald-500/20 bg-white/80 p-6 shadow-lg dark:bg-slate-900/60"
+          class="rounded-2xl border border-slate-500/20 bg-white/80 p-6 shadow-lg dark:bg-slate-900/60"
           in:fly={{ y: 18, delay: index * 80 }}
         >
-          <p class="text-xs uppercase tracking-[0.35em] text-emerald-400">
+          <p class="text-xs uppercase tracking-[0.35em] text-slate-400">
             {item.title}
           </p>
           <h3

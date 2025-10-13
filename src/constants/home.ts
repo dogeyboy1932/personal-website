@@ -1,14 +1,16 @@
+import type { CustomLink } from "../types";
+
 export const homeHero = {
-  tagline: "Portfolio 2024",
+  tagline: "Portfolio 2025",
   summary:
-    "I’m Akhil Gogineni, a 1st-year Master's student at the University of Illinois Urbana-Champaign studying Computer Science. I love exploring intersections between technology, people, and impact.",
+    "I'm Akhil Gogineni, a 1st-year Master's student at the University of Illinois Urbana-Champaign studying Computer Science. With experience in blockchain development, full-stack engineering, and Web3 partnerships, I'm passionate about building innovative solutions at the intersection of technology and real-world impact.",
   image: {
     src: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=800&q=80",
     alt: "Placeholder headshot",
-    caption: "I was 20 when this photo was taken. And I look a lot better now",
+    caption: "Building at the intersection of Web3 and traditional tech",
   },
   fullName: "Akhil Gogineni",
-  title: "Graduate at University of Illinois - Urbana Champaign • Computer Science"
+  title: "Graduate Student at University of Illinois - Urbana Champaign • Computer Science"
 };
 
 export const homeQuickLinks = [
@@ -87,4 +89,57 @@ export const home = {
   },
 };
 
-export const lastUpdated = "Last updated: 1/25";
+export const lastUpdated = "10/25";
+
+
+
+
+
+export const links: CustomLink[] = [
+  {
+    platform: "Github",
+    title: "dogeyboy1932",
+    href: "https://github.com/dogeyboy1932",
+    isExternal: true,
+    logo: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+  },
+  {
+    platform: "LinkedIn",
+    title: "gvAkhil",
+    href: "https://www.linkedin.com/in/gvAkhil/",
+    isExternal: true,
+    logo: "https://imgs.search.brave.com/9M_yqfcDbqqOmImAMszvYFe6oPt8EtceNt5tPfKOgSk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni8zNDg4LzM0ODgz/MTEucG5nP3NlbXQ9/YWlzX3doaXRlX2xh/YmVs",
+  },
+  {
+    platform: "Email",
+    title: "vagogineni@gmail.com",
+    href: "mailto:vagogineni@gmail.com",
+    logo: "https://www.svgrepo.com/show/349378/gmail.svg",
+  },
+];
+
+
+
+
+
+export const sections = {
+  highlights: "Highlights",
+  navigation: "Navigate",
+  toolkit: "Toolkit",
+  openProject: "Open project ↗",
+  projectGallery: "Projects",
+  skills: "Skills",
+  resume: "Resume",
+  more: "More",
+  prof_experiences: "Experiences",
+};
+
+
+
+
+export const site = {
+  title: "Akhil Gogineni — Portfolio",
+  description:
+    "Graduate student at UIUC studying Computer Science. Building at the intersection of blockchain, Web3, and full-stack engineering.",
+  author: "Akhil Gogineni",
+};

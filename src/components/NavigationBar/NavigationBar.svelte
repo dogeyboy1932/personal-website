@@ -3,8 +3,7 @@
   import { ThemeToggle } from "../Button";
   import { Logo } from "../Logo";
 
-  import { navItems } from "../../constants/nav";
-  import { site } from "../../constants/site";
+  import { navItems, site } from "../../constants";
 
   let isDropdownOpen = false;
 
@@ -65,7 +64,7 @@
           >
             <span class="px-1">{item.label}</span>
             <span
-              class={`absolute left-0 -bottom-2 h-[2px] w-full bg-gradient-to-r from-yellow-400 via-cyan-400 to-yellow-500 transition-transform duration-300 ${
+              class={`absolute left-0 -bottom-2 h-[2px] w-full bg-gradient-to-r from-slate-500 via-slate-300 to-slate-500 transition-transform duration-300 ${
                 $page.url.pathname === item.href ? "scale-x-100" : "scale-x-0"
               }`}
             />

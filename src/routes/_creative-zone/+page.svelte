@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { lab, labChecklist, labHero } from "../../../archive/lab";
 </script>
 
@@ -56,4 +56,4 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->

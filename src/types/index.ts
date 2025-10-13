@@ -56,11 +56,13 @@ export interface Project {
   title: string;
   duration: string;
   description: string;
-  githubLink: string;
-}
-
-export interface ProjectData {
-  projects: Project[];
+  technologies: string[];
+  status: "Completed" | "In Development";
+  // start_date: string;
+  category: string;
+  image: string;
+  github: string;
+  demo?: string;
 }
 
 export interface PageData {
@@ -99,4 +101,5 @@ export interface CustomLink {
   title: string;
   href: string;
   isExternal?: boolean;
+  logo?: string;
 }

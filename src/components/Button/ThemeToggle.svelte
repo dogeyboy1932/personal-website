@@ -30,7 +30,7 @@
 </script>
 
 <!-- <Button variant="ghost" size="icon" on:click={handleSwitchDarkMode}>
-  <Sun class="h-[1.5rem] w-[1.3rem] dark:hidden text-emerald-500" />
-  <Moon class="hidden h-5 w-5 dark:block text-emerald-500" />
+  <Sun class="h-[1.5rem] w-[1.3rem] hidden text-slate-500" />
+  <Moon class="hidden h-5 w-5 block text-slate-500" />
   <span class="sr-only">Toggle theme</span>
 </Button> -->

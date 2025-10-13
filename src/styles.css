@@ -154,7 +154,7 @@
 }
 
 .text-neon {
-  @apply text-indigo-950 dark:text-cyan-200;
+  @apply text-indigo-950 dark:text-cyan-500;
 }
 
 .border-neon {

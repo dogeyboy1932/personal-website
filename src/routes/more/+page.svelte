@@ -1,9 +1,10 @@
 <script lang="ts">
-  import SectionHeader from "../../components/Headers/SectionHeader.svelte";
-  import { more } from "../../constants/more";
   import { fade, fly, scale } from "svelte/transition";
   import { onMount } from "svelte";
   import { Sparkles, Heart, Gamepad2, Trophy } from "lucide-svelte";
+  
+  import PageHeader from "../../components/Headers/PageHeader.svelte";
+  import { more } from "../../constants";
 
   let lichessRating: number | null = null;
   let lichessPerf: string | null = null;
@@ -39,18 +40,18 @@
 
 
 <section class="space-y-8" in:fade>
-  <SectionHeader id="more" title={more.title} />
+  <PageHeader title={more.title} />
 
   <!-- Hero Bio Card -->
   <div 
-    class="group relative overflow-hidden rounded-2xl border border-emerald-500/20 bg-white/80 p-8 shadow-lg transition hover:shadow-2xl dark:bg-slate-900/70"
+    class="p-3 group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-slate-900/70"
     in:fly={{ y: 20, duration: 400 }}
   >
-    <div class="absolute -right-10 -top-12 h-40 w-40 rounded-full bg-emerald-500/10 blur-3xl transition group-hover:translate-x-3" />
+    <div class="absolute -right-10 -top-12 h-40 w-40 rounded-full bg-slate-500/10 blur-3xl transition group-hover:translate-x-3" />
     <div class="relative">
       <div class="flex items-center gap-2 mb-4">
-        <Sparkles class="w-5 h-5 text-emerald-400" />
-        <p class="text-sm font-semibold uppercase tracking-[0.35em] text-emerald-500">{more.subtitle}</p>
+        <Sparkles class="w-5 h-5 text-slate-400" />
+        <p class="text-sm font-semibold uppercase tracking-[0.35em] text-slate-500">{more.subtitle}</p>
       </div>
       <p class="text-lg leading-relaxed text-slate-800 dark:text-slate-200">{more.bio}</p>
     </div>
@@ -61,12 +62,12 @@
     
     <!-- Fun Facts Card -->
     <div 
-      class="rounded-2xl border border-emerald-500/20 bg-white/80 p-6 shadow-lg dark:bg-slate-900/70"
+      class="p-3 rounded-2xl border border-slate-500/20 bg-slate-900/70"
       in:fly={{ y: 20, delay: 100, duration: 400 }}
     >
       <div class="flex items-center gap-2 mb-4">
         <Heart class="w-5 h-5 text-pink-400" />
-        <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Fun Facts</h3>
+        <h3 class="text-lg font-semibold text-slate-100">Fun Facts</h3>
       </div>
       <ul class="space-y-3">
         {#each more.funFacts as fact, i}
@@ -74,7 +75,7 @@
             class="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-300"
             in:fly={{ x: -10, delay: 200 + i * 80, duration: 300 }}
           >
-            <span class="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-xs font-semibold text-emerald-400">
+            <span class="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-slate-500/10 text-xs font-semibold text-slate-400">
               {i + 1}
             </span>
             <span class="pt-0.5">{fact}</span>
@@ -85,22 +86,22 @@
 
     <!-- Hobbies Card -->
     <div 
-      class="rounded-2xl border border-emerald-500/20 bg-white/80 p-6 shadow-lg dark:bg-slate-900/70"
+      class="p-3 rounded-2xl border border-slate-500/20 bg-slate-900/70"
       in:fly={{ y: 20, delay: 150, duration: 400 }}
     >
       <div class="flex items-center gap-2 mb-4">
         <Gamepad2 class="w-5 h-5 text-cyan-400" />
-        <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Hobbies</h3>
+        <h3 class="text-lg font-semibold text-slate-100">Hobbies</h3>
       </div>
       <ul class="space-y-3">
         {#each more.hobbies as hobby, i}
           <li 
-            class="group relative overflow-hidden rounded-xl border border-emerald-400/20 bg-slate-50/70 p-4 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-slate-800/60"
+            class="group relative overflow-hidden rounded-xl border border-slate-400/20 bg-slate-50/70 p-4 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-slate-800/60"
             in:fly={{ y: 12, delay: 250 + i * 100, duration: 350 }}
           >
-            <div class="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-emerald-400/5 blur-2xl transition group-hover:scale-110" />
+            <div class="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-slate-400/5 blur-2xl transition group-hover:scale-110" />
             <div class="relative">
-              <div class="font-semibold text-slate-900 dark:text-slate-100">{hobby.name}</div>
+              <div class="font-semibold text-slate-100">{hobby.name}</div>
               <div class="mt-1 text-xs text-slate-600 dark:text-slate-400">{hobby.note}</div>
             </div>
           </li>
@@ -109,42 +110,17 @@
     </div>
   </div>
 
-  <!-- Spotlight Projects -->
-  <div 
-    class="rounded-2xl border border-emerald-500/20 bg-white/80 p-6 shadow-lg dark:bg-slate-900/70"
-    in:fly={{ y: 20, delay: 200, duration: 400 }}
-  >
-    <div class="flex items-center gap-2 mb-5">
-      <Trophy class="w-5 h-5 text-yellow-400" />
-      <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Spotlight Projects</h3>
-    </div>
-    <div class="grid gap-4 sm:grid-cols-2">
-      {#each more.spotlightProjects as project, i}
-        <div 
-          class="group relative overflow-hidden rounded-xl border border-emerald-400/20 bg-slate-50/70 p-5 transition hover:-translate-y-1 hover:shadow-lg dark:bg-slate-800/60"
-          in:fly={{ y: 16, delay: 300 + i * 120, duration: 350 }}
-        >
-          <div class="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-cyan-400/5 blur-2xl transition group-hover:scale-125" />
-          <div class="relative">
-            <div class="text-sm font-bold uppercase tracking-[0.35em] text-emerald-500">{project.title}</div>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">{project.description}</p>
-          </div>
-        </div>
-      {/each}
-    </div>
-  </div>
-
   <!-- Lichess Rating Card -->
   <div 
-    class="group relative overflow-hidden rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 shadow-lg"
+    class="group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 shadow-lg"
     in:fly={{ y: 20, delay: 250, duration: 400 }}
   >
-    <div class="absolute -left-10 -bottom-10 h-40 w-40 rounded-full bg-emerald-500/20 blur-3xl" />
+    <div class="absolute -left-10 -bottom-10 h-40 w-40 rounded-full bg-slate-500/20 blur-3xl" />
     <div class="relative">
       <h3 class="text-lg font-semibold text-white mb-3">{more.lichess.label}</h3>
       {#if lichessRating}
         <div class="flex items-baseline gap-2" in:scale={{ delay: 400, duration: 300 }}>
-          <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-200 to-emerald-200">
+          <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-300 via-cyan-200 to-slate-200">
             {lichessRating}
           </div>
           <span class="text-sm font-medium uppercase tracking-wider text-slate-400">({lichessPerf})</span>
@@ -153,7 +129,7 @@
           href={`https://lichess.org/@/${more.lichess.username}`}
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-4 inline-flex items-center text-xs font-semibold uppercase tracking-[0.35em] text-emerald-300 hover:text-emerald-100 transition"
+          class="mt-4 inline-flex items-center text-xs font-semibold uppercase tracking-[0.35em] text-slate-300 hover:text-slate-100 transition"
         >
           View Profile →
         </a>

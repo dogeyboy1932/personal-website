@@ -1,6 +1,6 @@
-import type { PageData } from "../types";
-import type { HobbiesData, SkillsData } from "../types";
-import { ProficiencyLevel, SkillStatus } from "../types";
+import type { PageData } from "../src/types";
+import type { HobbiesData, SkillsData } from "../src/types";
+import { ProficiencyLevel, SkillStatus } from "../src/types";
 
 // export const experienceHero = {
 //   tagline: "Experience",
@@ -47,21 +47,28 @@ export const experiences = [
     company: "CollegeDAO",
     duration: "Oct 2024 - Present",
     description:
-      "Setting up hacker houses and building a job board for blockchain-related positions. Partnered with orgs to grow the student ecosystem in Web3",
+      "Building infrastructure for student blockchain communities. Setting up hacker houses and developing a job board for blockchain-related positions. Partnered with multiple organizations to grow the Web3 student ecosystem nationwide.",
   },
   {
     role: "Software & Corporate Intern",
     company: "FreshCredit®",
     duration: "Jun 2023 - Aug 2024",
     description:
-      "Worked on dynamic NFTs for credit management. Ran workshops on Rust and credit models. Summarized the whitepaper into a litepaper.",
+      "Developed dynamic NFT solutions for credit management systems. Led technical workshops on Rust programming and credit modeling for the team. Distilled the technical whitepaper into an accessible litepaper for broader audiences.",
   },
   {
     role: "Dev Lead & VP Partnerships",
     company: "Illini Blockchain",
     duration: "Jan 2023 - Present",
     description:
-      "Led dev projects and secured 10+ Web3 partnerships. Built a crypto lending dApp and organized large blockchain events.",
+      "Led development team and secured 10+ strategic Web3 partnerships. Architected and built a decentralized crypto lending dApp. Organized large-scale blockchain conferences and educational events on campus.",
+  },
+  {
+    role: "Study Abroad Student",
+    company: "National University of Singapore (NUS)",
+    duration: "Spring 2024",
+    description:
+      "Studied Computer Science at NUS, immersing myself in Southeast Asian tech culture. Engaged with the local blockchain and startup ecosystem while exploring innovation hubs across Singapore.",
   },
 ];
 
@@ -385,7 +392,7 @@ export const skillsData: SkillsData = {
 
 
 export const complexityClasses = {
-  Beginner: "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20",
+  Beginner: "text-slate-400 bg-slate-500/10 border border-slate-500/20",
   Intermediate: "text-amber-300 bg-amber-500/10 border border-amber-400/20",
   Advanced: "text-rose-300 bg-rose-500/10 border border-rose-400/20",
 } as const;
@@ -395,7 +402,7 @@ export const techColors: Record<string, string> = {
   TensorFlow: "text-orange-300",
   Python: "text-yellow-300",
   WebGL: "text-cyan-300",
-  "Node.js": "text-emerald-300",
+  "Node.js": "text-slate-300",
   "D3.js": "text-pink-300",
   TypeScript: "text-blue-400",
   WebAssembly: "text-purple-300",

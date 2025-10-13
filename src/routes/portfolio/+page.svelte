@@ -1,25 +1,12 @@
 <script lang="ts">
-    import { SectionHeader } from "../../components/Headers";
-  import { Button } from "../../components/Button";
-  import { Carousel } from "../../components/Carousel/";
-  import { ProjectCard } from "../../components/Carousel";
-  import autoplay from "embla-carousel-autoplay";
-  import {
-    projectCardSummaries,
-    projectShowcaseItems,
-    projectsHero,
-  } from "../../constants/portfolio";
-  import { projects } from "../../constants/portfolio";
-  import { skillsData, techColors, complexityClasses, experiences } from "../../constants/pages";
-  import { sections } from "../../constants/sections";
-  import HeroGlow from "../../lib/HeroGlow.svelte";
-  import { labels } from "../../constants/labels";
+  import { SectionHeader } from "../../components/Headers";
+  import { sections, experiences, skillsData, techColors, projectsHero, projectsData } from "../../constants";
   import { fade, fly } from "svelte/transition";
+  import PageHeader from "../../components/Headers/PageHeader.svelte";
 
 
   let activeProject = 0;
-  $: showcaseProject =
-    projectShowcaseItems[activeProject] ?? projectShowcaseItems[0];
+  $: showcaseProject = projectsData[activeProject] ?? projectsData[0];
 
 
 
@@ -42,12 +29,12 @@
     class="justify-center items-center mb-8"
   >
     <div class="space-y-6 items-center justify-center" in:fly={{ x: -18, duration: 400 }}>
-      <h2 class="text-3xl uppercase tracking-[0.4em] text-slate-300 text-center">
-        {projectsHero.tagline}
-      </h2>
-      <div class="mt-2 h-1 w-full rounded-full bg-gradient-to-r from-slate-300 via-cyan-400 to-slate-300 opacity-60" />
 
-      <p class="text-lg text-slate-600 dark:text-slate-300">
+
+      <PageHeader title={projectsHero.tagline} />
+      
+
+      <p class="text-lg text-slate-300">
         {projectsHero.description}
       </p>
     </div>
@@ -55,19 +42,38 @@
 
 
   <section> 
-    <SectionHeader id="gallery" title={sections.prof_experiences} customColor="purple-400" />
-    <div class="one-grid">
+    <SectionHeader id="gallery" title={sections.prof_experiences} />
+    <div class="grid gap-4 md:grid-cols-2">
       {#each experiences as item, i}
-        <div class="content-card" in:fade={{ delay: i * 200, duration: 500 }}>
-          <div class="p-6">
-            <div class="section-header">
-              <span class="title">{item.company}</span>
-              <span class="time-badge">{item.role}</span>
+        <div 
+          class="p-3 group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-slate-900/70 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl flex flex-col"
+          in:fly={{ y: 18, delay: i * 100 }}
+        >
+          <div class="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-slate-500 via-slate-300 to-slate-500" />
+          
+          <div class="py-4 px-2 ml-2 space-y-4 flex-1 flex flex-col">
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="text-2xl font-semibold text-slate-200 transition underline">
+                {item.company}
+              </h3>
+              
+              <span class="rounded-full border border-yellow-400/30 bg-emerald-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-teal-500 whitespace-nowrap">
+                {item.duration}
+              </span>
             </div>
-            <div class="label-header mt-2 mb-4">{item.duration}</div>
-            <p class="description">{item.description}</p>
+
+            <p class="text font-medium text-blue-500 uppercase tracking-[0.25em]">
+              {item.role}
+            </p>
+
+            <div class="h-0.5 w-full bg-gradient-to-r from-red-500 via-orange-300 to-yellow-500" />
+            
+            <p class="text-md text-slate-300 leading-relaxed flex-1">
+              {item.description}
+            </p>
           </div>
         </div>
+
       {/each}
     </div>
   </section>
@@ -76,10 +82,10 @@
 
   <section>
     <SectionHeader id="gallery" title={sections.projectGallery} />
-    <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-3" in:fade>
-      {#each projectCardSummaries as project, index}
+    <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3" in:fade>
+      {#each projectsData as project, index}
         <div
-          class="group relative overflow-hidden rounded-2xl border border-emerald-500/20 bg-white/80 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl dark:bg-slate-900/70"
+          class="group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-slate-900/70 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl"
           in:fly={{ y: 18, delay: index * 90 }}
         >
           <div class="relative h-48 overflow-hidden">
@@ -96,17 +102,18 @@
               {#if project.demo}
                 <button
                   on:click={() => openLink(project.demo)}
-                  class="rounded-lg border border-emerald-400/40 bg-white/80 p-2 text-emerald-400 hover:border-emerald-300"
+                  class="rounded-lg border border-slate-400/40 bg-slate-800/80 p-2 text-slate-400 hover:border-slate-300"
                 >
                   ↗
                 </button>
               {/if}
+
               {#if project.github}
                 <button
                   on:click={() => openLink(project.github)}
-                  class="rounded-lg border border-emerald-400/40 bg-white/80 p-2 text-slate-600 hover:border-emerald-300"
+                  class="rounded-lg border border-slate-400/40 bg-slate-800/80 p-2 text-slate-600 hover:border-slate-300"
                 >
-                  GH
+                  <img src="https://imgs.search.brave.com/w5LFW4ei3PC6DUOkw2jcpG1OVDzoYhDqENlECFBWUg8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy8y/LzI0L0dpdGh1Yl9s/b2dvX3N2Zy5zdmc" alt="GitHub" class="h-4 w-4" />
                 </button>
               {/if}
             </div>
@@ -116,7 +123,7 @@
             <div class="flex items-start justify-between gap-3">
               <div>
                 <h3
-                  class="text-xl font-semibold text-slate-900 transition group-hover:text-emerald-300 dark:text-slate-100"
+                  class="text-xl font-semibold text-slate-900 transition group-hover:text-slate-300 dark:text-slate-100"
                 >
                   {project.title}
                 </h3>
@@ -128,18 +135,17 @@
               
               <div class="flex flex-col items-end gap-2">
                 <span
-                  class={`rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] ${
-                    complexityClasses[project.complexity]
-                  }`}
+                  class={`rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.25em] bg-slate-500/10 text-slate-200`}
                 >
-                  {project.complexity}
+                  {project.duration}
                 </span>
               
                 <span
-                  class={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.35em] border ${
-                    project.status === "Production"
-                      ? "border-emerald-400 bg-emerald-500/10 text-emerald-200"
-                      : "border-amber-400 bg-amber-500/10 text-amber-200"
+                  class={`rounded px-3 py-1 text-xs font-semibold uppercase tracking-[0.35em] border ${
+                  project.status === "Completed"
+                    ? "border-green-400 bg-green-500/10 text-green-500"
+                    : "border-blue-400 bg-blue-500/10 text-blue-400"
+                    
                   }`}
                 >
                   {project.status}
@@ -147,13 +153,13 @@
               </div>
 
             </div>
-            <p class="text-sm text-slate-600 dark:text-slate-300">
+            <p class="text-sm text-slate-300">
               {project.description}
             </p>
             <div class="flex flex-wrap gap-2">
               {#each project.technologies.slice(0, 4) as tech}
                 <span
-                  class={`rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border border-emerald-400/30 bg-emerald-500/10 ${getTechColor(
+                  class={`rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border border-slate-400/30 bg-slate-500/10 ${getTechColor(
                     tech
                   )}`}
                 >
@@ -162,7 +168,7 @@
               {/each}
               {#if project.technologies.length > 4}
                 <span
-                  class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border border-emerald-400/30 bg-emerald-500/10 text-emerald-200"
+                  class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border border-slate-400/30 bg-slate-500/10 text-slate-200"
                 >
                   +{project.technologies.length - 4} more
                 </span>
@@ -180,12 +186,12 @@
     <SectionHeader id="skills" title={sections.skills} />
     <div class="grid gap-3 md:grid-cols-2">
       {#each skillsData.skills as category}
-        <div class="rounded-2xl border border-emerald-500/20 bg-white/80 p-6 shadow-lg dark:bg-slate-900/70" in:fly={{ y: 16 }}>
-          <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">{category.category}</h3>
+        <div class="rounded-2xl border border-slate-500/20 bg-slate-900/70 p-6 shadow-lg" in:fly={{ y: 16 }}>
+          <h3 class="text-lg font-semibold text-slate-100">{category.category}</h3>
           
           <div class="mt-4 grid gap-2 grid-cols-1 min-[400px]:grid-cols-2">
             {#each category.items as skill}
-              <div class="flex items-center gap-3 rounded-md border border-emerald-400/20 bg-slate-50/60 p-3 dark:bg-slate-800/60 min-w-0">
+              <div class="flex items-center gap-3 rounded-md border border-slate-400/20 bg-slate-800/60 p-3 min-w-0">
                 {#if skill.logoUrl}
                   <img src={skill.logoUrl} alt={skill.name} class="h-8 w-8 rounded flex-shrink-0" />
                 {/if}
