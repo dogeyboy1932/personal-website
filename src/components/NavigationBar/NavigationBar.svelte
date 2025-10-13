@@ -72,7 +72,7 @@
         {/each}
       </div>
 
-      <div class="flex items-center gap-3">
+      <!-- <div class="flex items-center gap-3">
         <div class="lg:hidden custom-dropdown relative">
           <button
             type="button"
@@ -118,7 +118,7 @@
 
 
         <ThemeToggle />
-      </div>
+      </div> -->
     </div>
   </div>
 </nav>
