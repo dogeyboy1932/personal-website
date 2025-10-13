@@ -1,0 +1,19 @@
+Programming	Frameworks	Libraries	Tools	Cloud	Database	DevOps	Topics	Virtues
+Java	Anthropic MCP	LangChain	Ubuntu/Linux	GCP	MongoDB	Docker	Blockchain	Leadership
+C++		NumPy	Foundry	Heroku	PostgreSQL		Crypto	Teamwork
+Python	DOM	Pandas	Github	Netlify	Firebase		Finance	Organization
+C	Express.js	Pydantic AI	trae.ai	Railway	Supabase		Mobile Development	Public Speaking
+Bash	Flask	Tailwind CSS	Notion				Web Development	Time Management
+Git	Next.js		Postman				VR	Communication
+SQL	NodeJS		PyCharm				WebScraping	Leadership
+JavaScript	OOP	Bun	Android Studio				Web3	Planning
+HTML/CSS	React.js	Pnpm	Visual Studio				LLMs	Scrum
+TypeScript	React Native/Expo	Yarn	Asana				Spanish	Presenting
+Solidity	RESTful APIs	ESLint	Unity				Automation	Research
+Shell Script	Svelte.js		Unreal Engine				Cloud	Critical Thinking
+	SvelteKit		Canva				Entrepreneurship	Strategy
+	Vue.js		ngrok				Data Structures & Alg	Team Building
+	WebRTC						Data Science	
+	WebSockets							
+	FastAPI							
+								

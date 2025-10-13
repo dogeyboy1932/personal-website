@@ -1,27 +1,42 @@
 /**
  * Professional experiences and education timeline
  */
+import type { Experience } from "../types";
 
-export const experiences = [
+export const experiences: Experience[] = [
   {
-    role: "Core Member",
+    role: "Software Developer Intern",
+    company: "IDX Exchange",
+    duration: "Oct 2025 - Present",
+    summary:
+      "Building a real estate property search platform. Involved in API integration, database design, full-stack development with React.js, PHP, and MySQL.",
+  },
+  {
+    role: "Core Team Member",
     company: "CollegeDAO",
     duration: "Oct 2024 - Present",
-    description:
-      "Building infrastructure for student blockchain communities. Setting up hacker houses and developing a job board for blockchain-related positions. Partnered with multiple organizations to grow the Web3 student ecosystem nationwide.",
+    summary:
+      "Building Lateral, an AI-powered hiring platform. Also, co-leading global hacker houses and growing the Web3 student ecosystem nationwide.",
   },
   {
-    role: "Software & Corporate Intern",
+    role: "Model Analyst",
+    company: "Mercor",
+    duration: "Feb 2025 - May 2025",
+    summary:
+      "Audited 120+ AI evaluations to drive model improvements and optimize accuracy.",
+  },
+  {
+    role: "Software Intern",
     company: "FreshCredit®",
-    duration: "Jun 2023 - Aug 2024",
-    description:
-      "Developed dynamic NFT solutions for credit management systems. Led technical workshops on Rust programming and credit modeling for the team. Distilled the technical whitepaper into an accessible litepaper for broader audiences.",
+    duration: "Jun 2024 - Aug 2024",
+    summary:
+      "Developed Substrate blockchain solutions, managed 5-member dev team, and led Rust workshops.",
   },
   {
-    role: "Dev Lead & VP Partnerships",
+    role: "VP Partnerships & Developer Lead",
     company: "Illini Blockchain",
-    duration: "Jan 2023 - Present",
-    description:
-      "Led development team and secured 10+ strategic Web3 partnerships. Architected and built a decentralized crypto lending dApp. Organized large-scale blockchain conferences and educational events on campus.",
-  }
+    duration: "Jan 2023 - May 2025",
+    summary:
+      "Secured 10+ Web3 partnerships, architected crypto lending dApp, and organized blockchain conferences.",
+  },
 ];

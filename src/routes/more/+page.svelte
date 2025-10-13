@@ -44,7 +44,7 @@
 
   <!-- Hero Bio Card -->
   <div 
-    class="p-3 group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-slate-900/70"
+    class="p-5 group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-slate-900/70"
     in:fly={{ y: 20, duration: 400 }}
   >
     <div class="absolute -right-10 -top-12 h-40 w-40 rounded-full bg-slate-500/10 blur-3xl transition group-hover:translate-x-3" />
@@ -53,7 +53,11 @@
         <Sparkles class="w-5 h-5 text-slate-400" />
         <p class="text-sm font-semibold uppercase tracking-[0.35em] text-slate-500">{more.subtitle}</p>
       </div>
-      <p class="text-lg leading-relaxed text-slate-800 dark:text-slate-200">{more.bio}</p>
+      
+      <div class="text-lg leading-relaxed text-slate-800 dark:text-slate-200 whitespace-pre-line">
+        {more.bio}
+      </div>
+      
     </div>
   </div>
 

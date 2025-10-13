@@ -8,10 +8,18 @@
   let activeProject = 0;
   $: showcaseProject = projectsData[activeProject] ?? projectsData[0];
 
+  // Project filtering
+  let selectedCategory = "All";
+  $: categories = ["All", ...new Set(projectsData.map(p => p.category))];
+  $: filteredProjects = selectedCategory === "All" 
+    ? projectsData 
+    : projectsData.filter(p => p.category === selectedCategory);
 
 
-  function getTechColor(tech: string) {
-    return techColors[tech] ?? "text-slate-400";
+  function getTechColor(tech: string, index: number) {
+    // Use tech string and index to deterministically pick a color
+    const hash = (tech.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) + index) % techColors.length;
+    return techColors[hash];
   }
 
   function openLink(url?: string) {
@@ -24,19 +32,15 @@
 
 
 
-<section class="space-y-2">
-  <section
-    class="justify-center items-center mb-8"
-  >
-    <div class="space-y-6 items-center justify-center" in:fly={{ x: -18, duration: 400 }}>
+<section>
+  <section class="justify-center items-center space-y-3">
+    <PageHeader title={projectsHero.tagline} />
 
+    <div class="space-y-6 flex flex-col items-center justify-center text-center" in:fly={{ x: -18, duration: 400 }}>
 
-      <PageHeader title={projectsHero.tagline} />
-      
-
-      <p class="text-lg text-slate-300">
+      <h2 class="text-2xl text-slate-300">
         {projectsHero.description}
-      </p>
+      </h2>
     </div>
   </section>
 
@@ -53,7 +57,7 @@
           
           <div class="py-4 px-2 ml-2 space-y-4 flex-1 flex flex-col">
             <div class="flex items-start justify-between gap-4">
-              <h3 class="text-2xl font-semibold text-slate-200 transition underline">
+              <h3 class="text-2xl font-semibold text-slate-300 transition underline">
                 {item.company}
               </h3>
               
@@ -69,7 +73,7 @@
             <div class="h-0.5 w-full bg-gradient-to-r from-red-500 via-orange-300 to-yellow-500" />
             
             <p class="text-md text-slate-300 leading-relaxed flex-1">
-              {item.description}
+              {item.summary}
             </p>
           </div>
         </div>
@@ -82,13 +86,30 @@
 
   <section>
     <SectionHeader id="gallery" title={sections.projectGallery} />
-    <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3" in:fade>
-      {#each projectsData as project, index}
+
+    <div class="mb-8 flex flex-wrap gap-3 justify-center">
+      {#each categories as category}
+        <button
+          on:click={() => selectedCategory = category}
+          class={`rounded-lg px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] transition-all ${
+            selectedCategory === category
+              ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg scale-105"
+              : "border border-slate-500/40 bg-slate-800/60 text-slate-300 hover:border-slate-400 hover:bg-slate-800"
+          }`}
+        >
+          {category}
+        </button>
+      {/each}
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid gap-6 grid-cols-2 ">
+      {#each filteredProjects as project, i}
         <div
           class="group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-slate-900/70 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl"
-          in:fly={{ y: 18, delay: index * 90 }}
+          in:fly={{ y: 18, delay: i * 50 }}
         >
-          <div class="relative h-48 overflow-hidden">
+          <div class="relative h-48 overflow-hidden bg-slate-800">
             <img
               src={project.image}
               alt={project.title}
@@ -97,14 +118,14 @@
             />
             
             <div
-              class="absolute top-4 left-4 flex gap-2 opacity-0 transition group-hover:opacity-100"
+              class="absolute top-4 right-4 flex gap-2 opacity-0 transition group-hover:opacity-100"
             >
               {#if project.demo}
                 <button
                   on:click={() => openLink(project.demo)}
                   class="rounded-lg border border-slate-400/40 bg-slate-800/80 p-2 text-slate-400 hover:border-slate-300"
                 >
-                  ↗
+                    <img src="https://api.iconify.design/mdi:open-in-new.svg?color=%23cbd5e1" alt="Demo" class="h-4 w-4" />
                 </button>
               {/if}
 
@@ -157,20 +178,21 @@
               {project.description}
             </p>
             <div class="flex flex-wrap gap-2">
-              {#each project.technologies.slice(0, 4) as tech}
+              {#each project.technologies.slice(0, 7) as tech, techIndex}
                 <span
                   class={`rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border border-slate-400/30 bg-slate-500/10 ${getTechColor(
-                    tech
+                    tech,
+                    techIndex
                   )}`}
                 >
                   {tech}
                 </span>
               {/each}
-              {#if project.technologies.length > 4}
+              {#if project.technologies.length > 7}
                 <span
                   class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border border-slate-400/30 bg-slate-500/10 text-slate-200"
                 >
-                  +{project.technologies.length - 4} more
+                  +{project.technologies.length - 7} more
                 </span>
               {/if}
             </div>
@@ -187,7 +209,7 @@
     <div class="grid gap-3 md:grid-cols-2">
       {#each skillsData.skills as category}
         <div class="rounded-2xl border border-slate-500/20 bg-slate-900/70 p-6 shadow-lg" in:fly={{ y: 16 }}>
-          <h3 class="text-lg font-semibold text-slate-100">{category.category}</h3>
+          <h2 class="uppercase text-lg font-semibold text-amber-300">{category.category}</h2>
           
           <div class="mt-4 grid gap-2 grid-cols-1 min-[400px]:grid-cols-2">
             {#each category.items as skill}
@@ -203,11 +225,8 @@
               </div>
             {/each}
           </div>
-
         </div>
       {/each}
     </div>
   </section>
-
-
 </section>

@@ -58,7 +58,7 @@ export interface Project {
   description: string;
   technologies: string[];
   status: "Completed" | "In Development";
-  // start_date: string;
+  complexity: "Beginner" | "Intermediate" | "Advanced";
   category: string;
   image: string;
   github: string;
@@ -102,4 +102,53 @@ export interface CustomLink {
   href: string;
   isExternal?: boolean;
   logo?: string;
+}
+
+
+export interface Experience {
+  role: string;
+  company: string;
+  duration: string;
+  summary: string;
+  bullets?: string[];
+}
+
+export interface Hobby {
+  name: string;
+  note: string;
+}
+
+export interface AchievementItem {
+  label: string;
+  value: string;
+}
+
+export interface MorePageData {
+  title: string;
+  subtitle: string;
+  bio: string;
+  studyAbroad: {
+    role: string;
+    company: string;
+    duration: string;
+    summary: string;
+  };
+  professionalIdentity: {
+    title: string;
+    points: string[];
+  };
+  achievements: {
+    title: string;
+    items: AchievementItem[];
+  };
+  philosophy: {
+    title: string;
+    description: string;
+  };
+  funFacts: string[];
+  hobbies: Hobby[];
+  lichess: {
+    username: string;
+    label: string;
+  };
 }

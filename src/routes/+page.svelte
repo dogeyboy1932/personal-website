@@ -33,7 +33,7 @@ const featuredExperiences = experiences.slice(0, 2);
 
 <section>
   
-  <div class="flex flex-row justify-end text-xs uppercase mb-5">
+  <div class="flex flex-row justify-end text-xs uppercase mb-3">
     <div class="tracking-[0.20em] text-slate-300/80">Last updated: {lastUpdated}</div>
   </div>
 
@@ -69,11 +69,11 @@ const featuredExperiences = experiences.slice(0, 2);
             <p class="text-sm text-slate-300/90">{homeHero.title}</p>
           </div> -->
 
-          <div class="rounded-md p-4 shadow-md bg-slate-900 flex-1">
-            <p class="text-xl text-slate-300">
+            <div class="rounded-xl border border-slate-700/30 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 shadow-xl flex-1 flex justify-start items-center whitespace-pre-line">
+            <p class="text-[22px] text-slate-300 text-left">
               {homeHero.summary}
             </p>
-          </div>
+            </div>
         </div>
 
 
@@ -87,13 +87,19 @@ const featuredExperiences = experiences.slice(0, 2);
               class="h-full w-full object-cover transition duration-700 ease-out hover:scale-105"
               loading="lazy"
             />
-          </div>
+            </div>
 
             <figcaption
-            class="py-2 px-3 bg-slate-800 mt-3 text-center text-xs uppercase tracking-[0.35em] text-slate-300 rounded-sm"
-          >
-            {homeHero.image.caption}
-          </figcaption>
+              class="py-2 px-2 from-blue-800 to-purple-800 bg-gradient-to-r italic mt-2 uppercase text-sm text-slate-200 rounded-lg border border-slate-700/30 shadow-md"
+            >
+              <div class="flex justify-between items-center gap-2 whitespace-pre-line tracking-wide">
+                <span>{homeHero.quote}</span>
+              </div>
+
+              <div class="gap-2 tracking-wide text-[13px] text-right">
+                <span>{homeHero.voice}</span>
+              </div>
+            </figcaption>
         </figure>
 
       </div>
@@ -102,19 +108,48 @@ const featuredExperiences = experiences.slice(0, 2);
 
 
   <section class="space-y-10">
-    <div class="grid gap-3 md:grid-cols-3">
+    <div class="grid gap-2 md:grid-cols-3">
       {#each homeFocusAreas as focus, index}
         <div
-          class="rounded-2xl border border-slate-500/20 bg-slate-500/60 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
+          class="rounded-sm border border-yellow-500 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
           in:fly={{ y: 20, delay: index * 120 + 150, duration: 400 }}
         >
-          <h2 class="text-lg font-semibold text-slate-100">
+            <h1 class="text-2xl font-semibold text-slate-100 italic">
             {focus.title}
-          </h2>
-          <p class="mt-3 text-sm text-slate-300">
+            </h1>
+            <p class="mt-3 text-lg text-slate-300">
             {focus.description}
-          </p>
+            </p>
         </div>
+      {/each}
+    </div>
+  </section>
+
+
+   <section class="space-y-2">
+    <div class="italic">
+      <SectionHeader id="links" title="Let's Connect 🤝" customColor="teal-400" />
+    </div>
+
+    <div class="grid gap-6 grid-cols-3" in:fade>
+      {#each links as link, index}
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-slate-900/70 p-3 shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
+          in:fly={{ y: 18, delay: index * 80 }}
+        >
+          <div class="relative flex flex-row items-center gap-3 justify-center">
+            {#if link.logo}
+              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-800/80 p-2 transition group-hover:scale-110">
+                <img src={link.logo} alt={link.title} class="h-full w-full object-contain" />
+              </div>
+            {/if}
+
+            <p class="text-sm font-semibold uppercase tracking-[0.15em] text-slate-300">{link.platform}</p>
+          </div>
+        </a>
       {/each}
     </div>
   </section>
@@ -135,76 +170,78 @@ const featuredExperiences = experiences.slice(0, 2);
       <div class="mt-4 space-y-4 flex-1 grid grid-rows-2">
         {#each featuredExperiences as experience, index}
         <div
-          class="flex flex-col rounded-xl border border-slate-400/20 bg-slate-800/70 p-4 min-h-[180px]"
+          class="flex flex-col rounded-xl border border-slate-400/20 bg-gray-800 p-4 min-h-[180px]"
           in:fly={{ y: 16, delay: index * 120 }}
         >
 
         
-          <p
-            class="text font-semibold text-blue-300 uppercase tracking-[0.35em]"
-          >
+          <p class="underline text font-semibold text-blue-300 uppercase tracking-[0.25em]" >
             {experience.company}
           </p>
-          
-          <p
-            class="uppercase underline mt-1 text-base font-medium text-slate-300"
-          >
+
+          <p class="text-sm uppercase mt-1 text-base font-medium text-slate-300">
             {experience.role}
           </p>
 
+          <div class="mt-2 h-0.5 w-5/6 mx-auto bg-gradient-to-r from-zinc-500 via-zinc-300 to-zinc-500" />
 
-          <p class="mt-2 text-sm text-slate-300 flex-1">
-          {experience.description}
+
+          <p class="mt-2 text text-slate-300 flex-1">
+            {experience.summary}
           </p>
         </div>
         {/each}
       </div>
+
       <a
-        href="/experience"
+        href="/portfolio"
         class="mt-6 inline-flex items-center text-sm font-semibold uppercase tracking-[0.35em] text-slate-400 hover:text-slate-200"
         >{home.experience.viewFullTimeline}</a
       >
       </div>
 
       <div
-      class="rounded-2xl border border-slate-500/20 bg-slate-900/70 p-6 shadow-lg flex flex-col"
-      in:fade={{ delay: 120 }}
+        class="rounded-2xl border border-slate-500/20 bg-slate-900/70 p-6 shadow-lg flex flex-col"
+        in:fade={{ delay: 120 }}
       >
-      <h3 class="text-lg font-semibold text-slate-100">
-        {home.projects.title}
-      </h3>
+        <h3 class="text-lg font-semibold text-slate-100">
+          {home.projects.title}
+        </h3>
 
-      <div class="mt-4 space-y-4 flex-1 grid grid-rows-2">
-        {#each featuredProjects as project, index}
-        <div
-          class="flex flex-col rounded-xl border border-slate-400/20 bg-slate-800/70 p-4 min-h-[180px]"
-          in:fly={{ y: 16, delay: index * 120 }}
-        >
-          <p
-          class="text font-semibold uppercase tracking-[0.35em] text-green-400"
-          >
-          {project.title}
-          </p>
-          <p class="mt-2 text-sm text-slate-300 flex-1">
-          {project.description}
-          </p>
-          <a
-          href={project.github ?? "#"}
-          target={project.github ? "_blank" : undefined}
-          rel={project.github ? "noopener noreferrer" : undefined}
-          class="mt-3 inline-flex text-xs font-semibold uppercase tracking-[0.35em] text-slate-300 hover:text-slate-100"
-          >
-          {sections.openProject}
-          </a>
+        <div class="mt-4 space-y-4 flex-1 grid grid-rows-2">
+          {#each featuredProjects as project, index}
+            <div
+              class="flex flex-col rounded-xl border border-slate-400/20 bg-gray-800 p-4 min-h-[180px]"
+              in:fly={{ y: 16, delay: index * 120 }}
+            >
+              <p class=" underline text font-semibold uppercase tracking-[0.25em] text-green-400" >
+                {project.title}
+              </p>
+              
+              <p class="mt-2 text text-slate-300 flex-1">
+                {project.description}
+              </p>
+              
+              <a
+                href={project.github ?? "#"}
+                target={project.github ? "_blank" : undefined}
+                rel={project.github ? "noopener noreferrer" : undefined}
+                class="mt-3 inline-flex text-xs font-semibold uppercase tracking-[0.35em] text-slate-300 hover:text-slate-100"
+              >
+                {sections.openProject}
+              </a>
+              
+            </div>
+          {/each}
         </div>
-        {/each}
+
+        <a
+          href="/portfolio"
+          class="mt-6 inline-flex items-center text-sm font-semibold uppercase tracking-[0.35em] text-slate-400 hover:text-slate-200"
+          >{home.projects.browseFullGallery}</a
+        >
       </div>
-      <a
-        href="/portfolio"
-        class="mt-6 inline-flex items-center text-sm font-semibold uppercase tracking-[0.35em] text-slate-400 hover:text-slate-200"
-        >{home.projects.browseFullGallery}</a
-      >
-      </div>
+
     </div>
   </section>
 
@@ -223,7 +260,7 @@ const featuredExperiences = experiences.slice(0, 2);
           <h3 class="text-lg font-semibold text-slate-100">
             {card.title}
           </h3>
-          <p class="mt-3 text-sm text-slate-300">
+          <p class="mt-3 text text-slate-300">
             {card.description}
           </p>
           <span
@@ -256,34 +293,6 @@ const featuredExperiences = experiences.slice(0, 2);
       >
         {home.skills.seeCompleteStack}
       </a>
-    </div>
-  </section>
-
-  <section class="space-y-2">
-    <div class="italic">
-      <SectionHeader id="links" title="Let's Connect 🤝" customColor="teal-400" />
-    </div>
-
-    <div class="grid gap-6 grid-cols-3" in:fade>
-      {#each links as link, index}
-        <a
-          href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-slate-900/70 p-3 shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
-          in:fly={{ y: 18, delay: index * 80 }}
-        >
-          <div class="relative flex flex-row items-center gap-3 justify-center">
-            {#if link.logo}
-              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-800/80 p-2 transition group-hover:scale-110">
-                <img src={link.logo} alt={link.title} class="h-full w-full object-contain" />
-              </div>
-            {/if}
-
-            <p class="text-sm font-semibold uppercase tracking-[0.15em] text-slate-300">{link.platform}</p>
-          </div>
-        </a>
-      {/each}
     </div>
   </section>
 </section>

@@ -1,0 +1,31 @@
+Github Profile: https://github.com/dogeyboy1932
+
+Notable Projects (AI Based): 
+https://github.com/dogeyboy1932/MyCalPal  (AI-Powered Calendar Scheduling)
+https://github.com/dogeyboy1932/SolPal    (AI-Powered Wallet)
+https://github.com/dogeyboy1932/NodeFlow  (Browser-based MCP + React Flow UI)
+
+Open Source:
+https://github.com/MiguelsPizza/WebMCP	  (A product/framework that aims to bring AI to the web/browser)
+
+Other projects are PRIVATE! Launching soon...
+
+===============================================
+
+MyCalPal (Sept 2025)
+Developed an AI-powered scheduling tool that eliminates manual calendar entry by allowing users to seamlessly schedule events through a Discord bot. Users upload screenshots or files containing event information directly to Discord, where the system automatically processes the images using Gemini SDK to extract key details like event titles, dates, times, and locations. The parsed events then appear as drafts in a comprehensive dashboard built with Next.js and Tailwind CSS, where users can review, edit if needed, and instantly publish events to their Google Calendar with a single click. The platform integrates Discord SDK for smooth bot interactions, MongoDB for reliable data management, and Google Cloud Platform for scalable hosting, creating a complete workflow that saves hours of manual scheduling work while maintaining full user control over the final calendar entries.
+
+
+SolPal (Aug 2025)
+I developed an AI-powered blockchain wallet that accepts voice and text commands for seamless crypto interactions. The application enables users to send cryptocurrency to personalized contacts through natural language processing. Built using React Native/TypeScript for cross-platform mobile development, integrated with Web3.js for blockchain functionality, Gemini SDK for AI capabilities, and Model Control Protocol (MCP) for intelligent agent interactions. This project demonstrates my ability to bridge AI and blockchain technologies while creating intuitive user experiences.
+
+
+NodeFlow (July 2025)
+I'm proud of my work on NodeFlow, a browser-native visual playground that allows developers to build, test, and experiment with MCP (Model Context Protocol) servers through an intuitive drag-and-drop interface. The project is essentially a React Flow-based canvas where users can visually connect different tool nodes—like GitHub, weather, databases, or their own custom creations—directly to an LLM like Gemini, creating complex AI workflows entirely in the browser. What makes it revolutionary is the developer experience: anyone can create their own MCP server tool, drop the code in a folder, add a simple config entry, and instantly see their custom tool appear as a draggable node that can interact with the AI in real-time through voice, chat, and even screen capture. My biggest technical breakthrough was leveraging WebMCP's tab-transport to implement true client-side MCP workflows, eliminating the traditional need for separate server infrastructure and allowing everything to run natively in browser tabs. The impact has been significant for the MCP development community—as one of the first major contributors to WebMCP's ecosystem (which now has 864 GitHub stars), I've transformed complex AI tool integration from a backend engineering challenge into an accessible visual experience that dramatically lowers the barrier for experimentation, and the WebMCP founder has expressed enthusiasm for my work and offered future collaboration as he scales his startup.
+
+
+StakeShack (June 2025 - $1,500 Winner, OnionDAO Solana Hackathon)
+I architected a trustless renting platform that revolutionizes property leasing through crypto-staking verification and AI-powered recommendation systems. The platform includes referral rewards and automated trust mechanisms. Developed the frontend using Next.js/TypeScript, implemented robust data governance with Supabase/PostgreSQL, and built blockchain infrastructure using Gill/Anchor/Rust on the Solana network. This week-long project showcases my ability to rapidly deliver production-ready solutions and expertise in decentralized application development.
+
+
+

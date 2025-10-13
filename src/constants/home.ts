@@ -3,14 +3,15 @@ import type { CustomLink } from "../types";
 export const homeHero = {
   tagline: "Portfolio 2025",
   summary:
-    "I'm Akhil Gogineni, a 1st-year Master's student at the University of Illinois Urbana-Champaign studying Computer Science. With experience in blockchain development, full-stack engineering, and Web3 partnerships, I'm passionate about building innovative solutions at the intersection of technology and real-world impact.",
+    "Heyyy, I'm Akhil! \n\n I'm a first-year Computer Science graduate student at the University of Illinois Urbana-Champaign. I specialize in full-stack development, cloud engineering, and AI-powered solutions. I see myself as highly driven, aiming to stay ahead of emerging trends and seeking opportunities to learn, grow, and deliver meaningful value.",
   image: {
-    src: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=800&q=80",
+    src: "/Linkedin_pfp.jpeg",
     alt: "Placeholder headshot",
-    caption: "Building at the intersection of Web3 and traditional tech",
   },
   fullName: "Akhil Gogineni",
-  title: "Graduate Student at University of Illinois - Urbana Champaign • Computer Science"
+  title: "Graduate Student at University of Illinois - Urbana Champaign • Computer Science",
+  quote: "\"It gets easier. Every day it gets a little easier. But you gotta do it every day. That's the hard part. But it does get easier\" \n",
+  voice: "- A Jogging Baboon"
 };
 
 export const homeQuickLinks = [
@@ -19,23 +20,27 @@ export const homeQuickLinks = [
   { href: "/connect", label: "Say Hello" },
 ] as const;
 
+
+
 export const homeFocusAreas = [
   {
-    title: "Product Engineering",
+    title: "Product Development",
     description:
-      "Designing delightful user experiences backed by resilient systems.",
+      "Building scalable full-stack applications with modern frameworks and clean architecture.",
   },
   {
-    title: "Analytics & Strategy",
+    title: "AI Engineering",
     description:
-      "Translating complex data into crisp, actionable insights for teams.",
+      "Designing and implementing intelligent systems with machine learning and AI technologies.",
   },
   {
-    title: "Community & Mentorship",
+    title: "Data Management",
     description:
-      "Empowering peers through workshops, leadership, and service projects.",
+      "Building robust data pipelines and storage solutions for large-scale applications.",
   },
 ] as const;
+
+
 
 export const homeNavigationCards = [
   {
@@ -45,8 +50,7 @@ export const homeNavigationCards = [
     cta: "See portfolio",
     href: "/portfolio",
   },
-  // {
-  //   title: "Experience Timeline",
+  // for  //   title: "Experience Timeline",
   //   description:
   //     "Dive deep into internships, leadership roles, and the lessons that shaped my journey.",
   //   cta: "View experience",
@@ -112,8 +116,8 @@ export const links: CustomLink[] = [
   },
   {
     platform: "Email",
-    title: "vagogineni@gmail.com",
-    href: "mailto:vagogineni@gmail.com",
+    title: "gogineni.akhil@hotmail.com",
+    href: "mailto:gogineni.akhil@hotmail.com",
     logo: "https://www.svgrepo.com/show/349378/gmail.svg",
   },
 ];
@@ -124,8 +128,8 @@ export const links: CustomLink[] = [
 
 export const sections = {
   highlights: "Highlights",
-  navigation: "Navigate",
-  toolkit: "Toolkit",
+  navigation: "Also Check Out",
+  toolkit: "Stack",
   openProject: "Open project ↗",
   projectGallery: "Projects",
   skills: "Skills",

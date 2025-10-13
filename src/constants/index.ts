@@ -7,7 +7,7 @@
 export { experiences } from "./experiences";
 
 // Skills and hobbies
-export { skillsData, hobbyData, techColors, complexityClasses } from "./skills";
+export { skillsData, techColors, complexityClasses } from "./skills";
 
 // Projects
 export { projectsData, projectsHero, projectLabels } from "./projects";
@@ -32,4 +32,4 @@ export {
 } from "./home";
 
 // More page
-export { more } from "./more";
+export { more, hobbyData } from "./more";
