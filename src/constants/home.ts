@@ -144,6 +144,6 @@ export const sections = {
 export const site = {
   title: "Akhil Gogineni — Portfolio",
   description:
-    "Graduate student at UIUC studying Computer Science. Building at the intersection of blockchain, Web3, and full-stack engineering.",
+    "Meet Akhil Gogineni, a Computer Science graduate student at UIUC. Explore his portfolio showcasing expertise in full-stack development, cloud engineering, and AI.",
   author: "Akhil Gogineni",
 };
