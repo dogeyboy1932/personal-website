@@ -161,44 +161,48 @@ const featuredExperiences = experiences.slice(0, 2);
     
     <div class="grid gap-6 lg:grid-cols-2">
       <div
-      class="rounded-2xl border border-slate-500/20 bg-slate-900/70 p-6 shadow-lg flex flex-col"
-      in:fade
+        class="rounded-2xl border border-slate-500/20 bg-slate-900/70 p-6 shadow-lg flex flex-col"
+        in:fade
       >
-      <h3 class="text-lg font-semibold text-slate-100">
-        {home.experience.title}
-      </h3>
-      <div class="mt-4 space-y-4 flex-1 grid grid-rows-2">
-        {#each featuredExperiences as experience, index}
-        <div
-          class="flex flex-col rounded-xl border border-slate-400/20 bg-gray-800 p-4 min-h-[180px]"
-          in:fly={{ y: 16, delay: index * 120 }}
-        >
-
+        <h3 class="text-lg font-semibold text-slate-100">
+          {home.experience.title}
+        </h3>
         
-          <p class="underline text font-semibold text-blue-300 uppercase tracking-[0.25em]" >
-            {experience.company}
-          </p>
+        <div class="mt-4 space-y-4 flex-1 grid grid-rows-2">
+          {#each featuredExperiences as experience, index}
+          <div
+            class="flex flex-col rounded-xl border border-slate-400/20 bg-gray-800 p-4 min-h-[180px]"
+            in:fly={{ y: 16, delay: index * 120 }}
+          >
 
-          <p class="text-sm uppercase mt-1 text-base font-medium text-slate-300">
-            {experience.role}
-          </p>
+          
+            <p class="text font-semibold text-blue-300 uppercase tracking-[0.25em]" >
+              {experience.company}
+            </p>
 
-          <div class="mt-2 h-0.5 w-5/6 mx-auto bg-gradient-to-r from-zinc-500 via-zinc-300 to-zinc-500" />
+            <p class="text-sm uppercase mt-1 text-base font-medium text-slate-300">
+              {experience.role}
+            </p>
+
+            <div class="mt-2 h-0.5 w-5/6 mx-auto bg-gradient-to-r from-zinc-500 via-zinc-300 to-zinc-500" />
 
 
-          <p class="mt-2 text text-slate-300 flex-1">
-            {experience.summary}
-          </p>
+            <p class="mt-2 text text-slate-300 flex-1">
+              {experience.summary}
+            </p>
+          </div>
+          {/each}
         </div>
-        {/each}
+
+        <a
+          href="/portfolio"
+          class="mt-6 inline-flex items-center text-sm font-semibold uppercase tracking-[0.35em] text-slate-400 hover:text-slate-200"
+          >{home.experience.viewFullTimeline}</a
+        >
       </div>
 
-      <a
-        href="/portfolio"
-        class="mt-6 inline-flex items-center text-sm font-semibold uppercase tracking-[0.35em] text-slate-400 hover:text-slate-200"
-        >{home.experience.viewFullTimeline}</a
-      >
-      </div>
+
+
 
       <div
         class="rounded-2xl border border-slate-500/20 bg-slate-900/70 p-6 shadow-lg flex flex-col"
@@ -214,7 +218,7 @@ const featuredExperiences = experiences.slice(0, 2);
               class="flex flex-col rounded-xl border border-slate-400/20 bg-gray-800 p-4 min-h-[180px]"
               in:fly={{ y: 16, delay: index * 120 }}
             >
-              <p class=" underline text font-semibold uppercase tracking-[0.25em] text-green-400" >
+              <p class=" text font-semibold uppercase tracking-[0.15em] text-green-400" >
                 {project.title}
               </p>
               
@@ -245,6 +249,10 @@ const featuredExperiences = experiences.slice(0, 2);
     </div>
   </section>
 
+
+
+
+
   <section class="space-y-6">
     <SectionHeader id="navigation" title={sections.navigation} />
     <div class="grid gap-6 md:grid-cols-2" in:fade>
@@ -271,6 +279,8 @@ const featuredExperiences = experiences.slice(0, 2);
       {/each}
     </div>
   </section>
+
+
 
 
   <section class="space-y-6">

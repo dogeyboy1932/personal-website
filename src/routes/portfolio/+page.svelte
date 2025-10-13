@@ -33,12 +33,12 @@
 
 
 <section>
-  <section class="justify-center items-center space-y-3">
+  <section class="justify-center items-center">
     <PageHeader title={projectsHero.tagline} />
 
-    <div class="space-y-6 flex flex-col items-center justify-center text-center" in:fly={{ x: -18, duration: 400 }}>
+    <div class="mt-6 flex flex-col items-center justify-center text-center" in:fly={{ x: -18, duration: 400 }}>
 
-      <h2 class="text-2xl text-slate-300">
+      <h2 class="w-2/3 text-2xl text-slate-300">
         {projectsHero.description}
       </h2>
     </div>
