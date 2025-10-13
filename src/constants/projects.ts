@@ -13,7 +13,7 @@ export const projectsHero = {
 export const projectsData: Project[] = [
   {
     title: "MyCalPal",
-    duration: "Sept 2024",
+    duration: "Sept 2025",
     description:
       "AI calendar assistant via Discord bot. Upload event screenshots, get auto-parsed drafts in a Next.js dashboard, publish to Google Calendar with one click.",
     technologies: ["Next.js", "Gemini SDK", "Discord SDK", "MongoDB", "Tailwind CSS", "GCP"],
@@ -26,7 +26,7 @@ export const projectsData: Project[] = [
   },
   {
     title: "SolPal",
-    duration: "Aug 2024",
+    duration: "Aug 2025",
     description:
       "Voice and text-controlled blockchain wallet. Send crypto to contacts through natural language using AI-powered commands.",
     technologies: ["React Native", "TypeScript", "Web3.js", "Gemini SDK", "MCP"],
@@ -38,7 +38,7 @@ export const projectsData: Project[] = [
   },
   {
     title: "NodeFlow",
-    duration: "July 2024",
+    duration: "July 2025",
     description:
       "Browser-native visual playground for MCP servers. Drag-and-drop interface to connect tools (GitHub, databases) directly to LLMs. Major contributor to WebMCP ecosystem (864 stars).",
     technologies: ["React", "React Flow", "WebMCP", "TypeScript", "Gemini SDK"],
@@ -51,7 +51,7 @@ export const projectsData: Project[] = [
   },
   {
     title: "StakeShack",
-    duration: "June 2024",
+    duration: "June 2025",
     description:
       "Trustless renting platform with crypto-staking verification and AI recommendations. Won 2nd Place ($1,500) at Solana University Hackathon. Built in one week.",
     technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Solana", "Rust", "Anchor"],
