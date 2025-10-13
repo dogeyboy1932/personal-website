@@ -144,7 +144,7 @@
             <div class="flex items-start justify-between gap-3">
               <div>
                 <h3
-                  class="text-xl font-semibold text-yellow-600 transition group-hover:text-slate-300 dark:text-slate-100"
+                  class="text-xl font-semibold text-yellow-600 transition group-hover:text-yellow-400 dark:text-slate-100"
                 >
                   {project.title}
                 </h3>
