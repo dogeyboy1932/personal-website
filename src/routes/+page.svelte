@@ -128,7 +128,7 @@ const featuredExperiences = experiences.slice(0, 2);
 
    <section class="space-y-2">
     <div class="italic">
-      <SectionHeader id="links" title="Let's Connect 🤝" customColor="teal-400" />
+      <SectionHeader id="links" title="Let's Connect 🤝" customColor="teal-300" />
     </div>
 
     <div class="grid gap-6 grid-cols-3" in:fade>
