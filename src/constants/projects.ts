@@ -87,7 +87,7 @@ export const projectsData: Project[] = [
   },
   {
     title: "OnChain Mafia",
-    duration: "July 2024",
+    duration: "Aug 2024",
     description:
       "Solana dApp using Multi-Party Computation and Zero-Knowledge proofs for secure, private game state. The classic mafia card game on blockchain.",
     technologies: ["Solana", "Rust", "Zero-Knowledge Proofs", "MPC", "Anchor"],
