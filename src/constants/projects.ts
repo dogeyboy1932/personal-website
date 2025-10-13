@@ -16,7 +16,7 @@ export const projectsData: Project[] = [
     duration: "Sept 2025",
     description:
       "AI calendar assistant via Discord bot. Upload event screenshots, get auto-parsed drafts in a Next.js dashboard, publish to Google Calendar with one click.",
-    technologies: ["Next.js", "Gemini SDK", "Discord SDK", "MongoDB", "Tailwind CSS", "GCP"],
+    technologies: ["Next.js", "TypeScript", "Gemini SDK", "Discord SDK", "MongoDB", "GCP", "MCP"],
     status: "Completed",
     complexity: "Advanced",
     category: "AI/ML",
@@ -40,8 +40,8 @@ export const projectsData: Project[] = [
     title: "NodeFlow",
     duration: "July 2025",
     description:
-      "Browser-native visual playground for MCP servers. Drag-and-drop interface to connect tools (GitHub, databases) directly to LLMs. Major contributor to WebMCP ecosystem (864 stars).",
-    technologies: ["React", "React Flow", "WebMCP", "TypeScript", "Gemini SDK"],
+      "Browser-native visual playground for Model Context Protocol (MCP) servers where users drag-and-drop to connect AI models with external tools (GitHub, databases, weather, etc), then interact through a chat panel using voice or text prompts. Early contributor to WebMCP ecosystem [mcp-b.ai] (864 stars).",
+    technologies: ["React.js", "React Flow", "WebMCP", "TypeScript", "Gemini SDK", "MCP"],
     status: "Completed",
     complexity: "Advanced",
     category: "AI/ML",
@@ -66,7 +66,7 @@ export const projectsData: Project[] = [
     duration: "Jan 2025",
     description:
       "Multi-modal AI agent with voice and chat capabilities. Interacts with Windows CLI and PostgreSQL database for seamless human-AI interaction.",
-    technologies: ["Python", "PostgreSQL", "AI/ML", "Voice Recognition"],
+    technologies: ["React.js", "Python", "PostgreSQL", "AI/ML", "REST APIs"],
     status: "Completed",
     complexity: "Intermediate",
     category: "AI/ML",
@@ -78,7 +78,7 @@ export const projectsData: Project[] = [
     duration: "Ongoing",
     description:
       "University module planning tool to help students plan their academic journey with course selection, scheduling, and prerequisite tracking.",
-    technologies: ["React", "Node.js", "PostgreSQL", "Express"],
+    technologies: ["React", "Node.js", "PostgreSQL", "Express.js"],
     status: "In Development",
     complexity: "Intermediate",
     category: "Web Development",
@@ -101,8 +101,8 @@ export const projectsData: Project[] = [
     title: "GymBro",
     duration: "Aug 2024",
     description:
-      "Multi-platform fitness app with workout tracking, visualizations, and real-time chat. Built for iOS, Android, and web with Firebase backend.",
-    technologies: ["React Native", "Firebase", "TypeScript", "Expo"],
+      "Multi-platform fitness app with workout tracking, visualizations, and real-time chat. Built for iOS, Android, and web, with Flask and Firebase backend.",
+    technologies: ["React Native", "Firebase", "TypeScript", "Expo", "Flask"],
     status: "Completed",
     complexity: "Intermediate",
     category: "Mobile Development",
