@@ -66,7 +66,7 @@ export const projectsData: Project[] = [
     duration: "Jan 2025",
     description:
       "Multi-modal AI agent with voice and chat capabilities. Interacts with Windows CLI and PostgreSQL database for seamless human-AI interaction.",
-    technologies: ["React.js", "Python", "PostgreSQL", "AI/ML", "REST APIs"],
+    technologies: ["React.js", "Express.js", "PostgreSQL", "AI/ML", "REST APIs"],
     status: "Completed",
     complexity: "Intermediate",
     category: "AI/ML",
@@ -78,7 +78,7 @@ export const projectsData: Project[] = [
     duration: "Ongoing",
     description:
       "University module planning tool to help students plan their academic journey with course selection, scheduling, and prerequisite tracking.",
-    technologies: ["React", "Node.js", "PostgreSQL", "Express.js"],
+    technologies: ["React.js", "Node.js", "PostgreSQL", "Express.js"],
     status: "In Development",
     complexity: "Intermediate",
     category: "Web Development",
@@ -89,8 +89,8 @@ export const projectsData: Project[] = [
     title: "OnChain Mafia",
     duration: "Aug 2024",
     description:
-      "Solana dApp using Multi-Party Computation and Zero-Knowledge proofs for secure, private game state. The classic mafia card game on blockchain.",
-    technologies: ["Solana", "Rust", "Zero-Knowledge Proofs", "MPC", "Anchor"],
+      "Solana dApp using Multi-Party Computation (MPC) and Zero-Knowledge proofs for secure, private game state. The classic mafia card game on blockchain.",
+    technologies: ["Solana", "Rust", "Zero-Knowledge Proofs", "MPC", "Anchor", "React.js", "TypeScript"],
     status: "MVP",
     complexity: "Advanced",
     category: "Blockchain",
@@ -102,7 +102,7 @@ export const projectsData: Project[] = [
     duration: "Aug 2024",
     description:
       "Multi-platform fitness app with workout tracking, visualizations, and real-time chat. Built for iOS, Android, and web, with Flask and Firebase backend.",
-    technologies: ["React Native", "Firebase", "TypeScript", "Expo", "Flask"],
+    technologies: ["React Native", "Firebase", "TypeScript", "Expo", "Flask", "Python"],
     status: "MVP",
     complexity: "Intermediate",
     category: "Mobile Development",

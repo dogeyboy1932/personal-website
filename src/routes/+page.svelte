@@ -133,7 +133,7 @@ const featuredExperiences = experiences.slice(0, 2);
           class="group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-slate-900/70 p-3 shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
           in:fly={{ y: 18, delay: index * 80 }}
         >
-          <div class="relative flex flex-row items-center gap-3 justify-center">
+          <div class="relative flex flex-col items-center gap-3 justify-center">
             {#if link.logo}
               <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-800/80 p-2 transition group-hover:scale-110">
                 <img src={link.logo} alt={link.title} class="h-full w-full object-contain" />
