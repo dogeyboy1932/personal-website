@@ -1,5 +1,5 @@
 export const resume = {
-  url: "/myresume",
+  url: "/resume.pdf",
   label: "Download Resume",
   pageTitle: "Resume",
   description: "Last updated: October 2025",
