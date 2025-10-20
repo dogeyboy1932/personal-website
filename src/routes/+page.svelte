@@ -68,8 +68,8 @@ const featuredExperiences = experiences.slice(0, 2);
             <p class="text-sm text-slate-300/90">{homeHero.title}</p>
           </div> -->
 
-            <div class="rounded-xl border border-slate-700/30 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 shadow-xl flex-1 flex justify-start items-center whitespace-pre-line">
-            <p class="text-[22px] text-slate-300 text-left">
+            <div class="rounded-xl border border-slate-700/30 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 shadow-xl flex-1 flex justify-start items-center whitespace-pre-line min-w-0 overflow-hidden">
+            <p class="text-[clamp(16px,2.2vw,22px)] text-slate-300 text-left w-full min-w-0 break-words leading-[1.15]">
               {homeHero.summary}
             </p>
             </div>
