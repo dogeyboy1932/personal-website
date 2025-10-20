@@ -20,35 +20,35 @@
   <defs>
     <linearGradient id="linear-gradient" x1="0" y1="0" x2="100%" y2="0">
       {#if isDarkMode}
-        <stop offset="0%" stop-color="#03A89E">
+        <stop offset="0%" stop-color="#FFD700">
           <animate
             attributeName="stop-color"
-            values="#30E8BF; #FF8235; #FFE53B; #FF8235; #30E8BF;"
+            values="#FFD700; #FFA500; #FFEB3B; #FFA500; #FFD700;"
             dur="3s"
             repeatCount="indefinite"
           />
         </stop>
-        <stop offset="100%" stop-color="#72195A">
+        <stop offset="100%" stop-color="#FF8C00">
           <animate
             attributeName="stop-color"
-            values="#F46B45; #EEA849; #F79D00; #EEA849; #F46B45;"
+            values="#FF8C00; #FFB84D; #FFA500; #FFB84D; #FF8C00;"
             dur="3s"
             repeatCount="indefinite"
           />
         </stop>
       {:else}
-        <stop offset="0%" stop-color="rgb(29, 78, 216)">
+        <stop offset="0%" stop-color="#F59E0B">
           <animate
             attributeName="stop-color"
-            values="rgb(29, 78, 216); rgb(30, 64, 175); rgb(17, 24, 39); rgb(30, 64, 175); rgb(29, 78, 216);"
+            values="#F59E0B; #D97706; #B45309; #D97706; #F59E0B;"
             dur="5s"
             repeatCount="indefinite"
           />
         </stop>
-        <stop offset="100%" stop-color="rgb(17, 24, 39)">
+        <stop offset="100%" stop-color="#B45309">
           <animate
             attributeName="stop-color"
-            values="rgb(17, 24, 39); rgb(30, 64, 175); rgb(29, 78, 216); rgb(30, 64, 175); rgb(17, 24, 39);"
+            values="#B45309; #D97706; #F59E0B; #D97706; #B45309;"
             dur="5s"
             repeatCount="indefinite"
           />
