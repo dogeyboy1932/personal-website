@@ -103,7 +103,7 @@ export const projectsData: Project[] = [
     description:
       "Multi-platform fitness app with workout tracking, visualizations, and real-time chat. Built for iOS, Android, and web, with Flask and Firebase backend.",
     technologies: ["React Native", "Firebase", "TypeScript", "Expo", "Flask"],
-    status: "Completed",
+    status: "MVP",
     complexity: "Intermediate",
     category: "Mobile Development",
     image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80",
