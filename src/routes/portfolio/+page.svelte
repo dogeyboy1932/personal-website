@@ -47,7 +47,7 @@
 
   <section> 
     <SectionHeader id="gallery" title={sections.prof_experiences} />
-    <div class="grid gap-4 md:grid-cols-2">
+    <div class="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
       {#each experiences as item, i}
         <div 
           class="p-3 group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-slate-900/70 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl flex flex-col"
@@ -103,7 +103,7 @@
     </div>
 
     <!-- Projects Grid -->
-    <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div class="grid gap-6 lg:grid-cols-1 lg:grid-cols-3">
       {#each filteredProjects as project, i}
         <div
           class="group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-slate-900/70 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl"
@@ -141,7 +141,7 @@
           </div>
 
           <div class="space-y-4 p-6">
-            <div class="flex sm:flex-col items-start justify-between gap-3">
+            <div class="flex items-start justify-between gap-3">
               <div>
                 <h3
                   class="text-xl font-semibold text-yellow-600 transition group-hover:text-yellow-400 dark:text-slate-100"
@@ -172,8 +172,8 @@
                   {project.status}
                 </span>
               </div>
-            </div>
 
+            </div>
             <p class="text-sm text-slate-300">
               {project.description}
             </p>

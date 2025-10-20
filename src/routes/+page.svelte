@@ -37,71 +37,65 @@ const featuredExperiences = experiences.slice(0, 2);
     <div class="tracking-[0.20em] text-slate-300/80">Last updated: {lastUpdated}</div>
   </div>
 
-  <section class="mb-3 space-y-10">
-    <div class="space-y-10">
-      <div
-        class="grid gap-5 sm:grid-cols-1 md:grid-cols-2 items-center"
-      >
-        <div class="space-y-1 flex flex-col">
-              
-          <!-- Option 1: Dark slate with white pop -->
-          <div class="mb-3 rounded-xl border border-slate-700/30 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 text-center">
-            <h1 class="mb-1 text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-300 via-white to-slate-300 leading-tight">
-              {homeHero.fullName}
-            </h1>
-            <p class="text-sm text-slate-300/80">{homeHero.title}</p>
-          </div>
-
-          <!-- Option 2: Charcoal with silver gradient -->
-          <!-- <div class="mb-4 rounded-xl border border-zinc-700/20 bg-gradient-to-r from-zinc-950 via-zinc-800 to-zinc-950 p-4 text-center">
-            <h1 class="mb-1 text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-zinc-300 via-zinc-100 to-zinc-300 leading-tight">
-              {homeHero.fullName}
-            </h1>
-            <p class="text-sm text-zinc-300/90">{homeHero.title}</p>
-          </div> -->
-
-          <!-- Option 3: Dark with subtle slate edge glow -->
-          <!-- <div class="mb-4 rounded-xl border border-slate-400/20 bg-gradient-to-r from-black via-zinc-950 to-black p-4 text-center shadow-lg shadow-slate-500/5">
-            <h1 class="mb-1 text-6xl font-extrabold text-white leading-tight drop-shadow-[0_0_30px_rgba(52,211,153,0.3)]">
-              {homeHero.fullName}
-            </h1>
-            <p class="text-sm text-slate-300/90">{homeHero.title}</p>
-          </div> -->
-
-            <div class="rounded-xl border border-slate-700/30 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 shadow-xl flex-1 flex justify-start items-center whitespace-pre-line min-w-0 overflow-hidden">
-            <p class="text-[clamp(16px,2.2vw,22px)] text-slate-300 text-left w-full min-w-0 break-words leading-[1.15]">
-              {homeHero.summary}
-            </p>
-            </div>
+  <section class="mb-3">
+    <!-- Option 1: Dark slate with white pop -->
+        <div class="mb-2 rounded-xl border border-slate-700/30 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 text-center">
+          <h1 class="mb-1 text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-300 via-white to-slate-300 leading-tight">
+          {homeHero.fullName}
+          </h1>
+          <p class="text-sm text-slate-300/80">{homeHero.title}</p>
         </div>
 
+        <!-- Option 2: Charcoal with silver gradient -->
+        <!-- <div class="mb-4 rounded-xl border border-zinc-700/20 bg-gradient-to-r from-zinc-950 via-zinc-800 to-zinc-950 p-4 text-center">
+          <h1 class="mb-1 text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-zinc-300 via-zinc-100 to-zinc-300 leading-tight">
+          {homeHero.fullName}
+          </h1>
+          <p class="text-sm text-zinc-300/90">{homeHero.title}</p>
+        </div> -->
 
-        <figure class="relative flex flex-col" in:fly={{ x: 24, duration: 400 }}>
-          <div
-            class="aspect-square overflow-hidden rounded-xl border border-slate-400/40 bg-slate-800 shadow-xl ring-1 ring-slate-500/20"
-          >
-            <img
-              src={homeHero.image.src}
-              alt={homeHero.image.alt}
-              class="h-full w-full object-cover transition duration-700 ease-out hover:scale-105"
-              loading="lazy"
-            />
-            </div>
+        <!-- Option 3: Dark with subtle slate edge glow -->
+        <!-- <div class="mb-4 rounded-xl border border-slate-400/20 bg-gradient-to-r from-black via-zinc-950 to-black p-4 text-center shadow-lg shadow-slate-500/5">
+          <h1 class="mb-1 text-6xl font-extrabold text-white leading-tight drop-shadow-[0_0_30px_rgba(52,211,153,0.3)]">
+          {homeHero.fullName}
+          </h1>
+          <p class="text-sm text-slate-300/90">{homeHero.title}</p>
+        </div> -->
 
-            <figcaption
-              class="py-2 px-2 from-blue-800 to-purple-800 bg-gradient-to-r italic mt-2 uppercase text-sm text-slate-200 rounded-lg border border-slate-700/30 shadow-md"
-            >
-              <div class="flex justify-between items-center gap-2 whitespace-pre-line tracking-wide">
-                <span>{homeHero.quote}</span>
-              </div>
+    <div class="grid gap-2 items-center flex flex-row grid grid-cols-1 md:grid-cols-2 h-30">
+      <figure class="relative flex flex-col" in:fly={{ x: 24, duration: 400 }}>
+        <div
+          class="aspect-square overflow-hidden rounded-xl border border-slate-400/40 bg-slate-800 shadow-xl ring-1 ring-slate-500/20"
+        >
+          <img
+            src={homeHero.image.src}
+            alt={homeHero.image.alt}
+            class="object-cover transition duration-700 ease-out hover:scale-105"
+            loading="lazy"
+          />
+        </div>
 
-              <div class="gap-2 tracking-wide text-[13px] text-right">
-                <span>{homeHero.voice}</span>
-              </div>
-            </figcaption>
-        </figure>
+        <figcaption
+          class="py-2 px-2 from-blue-800 to-purple-800 bg-gradient-to-r italic mt-2 uppercase text-sm text-slate-200 rounded-lg border border-slate-700/30 shadow-md"
+        >
+          <div class="flex justify-between items-center gap-2 whitespace-pre-line tracking-wide p-1">
+          <span>{homeHero.quote}</span>
+          </div>
 
+          <div class="gap-2 tracking-wide text-[13px] text-right">
+          <span>{homeHero.voice}</span>
+          </div>
+        </figcaption>
+      </figure>
+
+      <div class="space-y-1 flex flex-col h-full w-full">
+        <div class="rounded-xl border border-slate-700/30 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 shadow-xl flex-1 flex justify-start items-center whitespace-pre-line min-w-0 overflow-hidden">
+            <p class="text-2xl text-transparent bg-clip-text bg-gradient-to-l from-yellow-400 via-purple-300 to-blue-400 text-left w-full min-w-0 break-words leading-[1.15] font-semibold">
+              {homeHero.summary}
+            </p>
+        </div>
       </div>
+
     </div>
   </section>
 

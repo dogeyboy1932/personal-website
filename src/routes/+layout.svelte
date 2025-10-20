@@ -25,19 +25,19 @@
   <div
     class="pointer-events-none absolute inset-0 bg-gradient-to-br from-slate-500/10 via-transparent to-cyan-500/10"
   />
-  <NavigationBar />
-  <main
-    class={`relative z-10 mx-auto w-[85%] sm:w-[99%] max-w-[1400px] px-6 sm:px-10 pt-5 pb-24 ${fonts.primary}`}
-  >
-    <div in:fly={{ y: 8, duration: 350 }}
-      class="rounded-xl border border-slate-500/20 bg-black p-6 shadow-2xl backdrop-blur border-slate-500/30 "
+    <NavigationBar />
+    <main
+      class={`relative z-10 mx-auto w-[99%] md:w-[85%] max-w-[1400px] px-2 md:px-10 pt-5 pb-24 ${fonts.primary}`}
     >
-      <div in:fade={{ duration: 250 }}>
-        <slot />
+      <div in:fly={{ y: 8, duration: 350 }}
+        class="rounded-xl border border-slate-500/20 bg-black p-4 shadow-2xl backdrop-blur border-slate-500/30 "
+      >
+        <div in:fade={{ duration: 250 }}>
+          <slot />
+        </div>
       </div>
-    </div>
-  </main>
-</div>
+    </main>
+  </div>
 
 <style lang="postcss">
   :global(body) {
