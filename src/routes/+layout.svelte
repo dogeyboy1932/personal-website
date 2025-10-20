@@ -27,7 +27,7 @@
   />
   <NavigationBar />
   <main
-    class={`relative z-10 mx-auto w-[85%] sm:w-[98%] max-w-[1400px] px-6 sm:px-10 pt-5 pb-24 ${fonts.primary}`}
+    class={`relative z-10 mx-auto w-[85%] sm:w-[99%] max-w-[1400px] px-6 sm:px-10 pt-5 pb-24 ${fonts.primary}`}
   >
     <div in:fly={{ y: 8, duration: 350 }}
       class="rounded-xl border border-slate-500/20 bg-black p-6 shadow-2xl backdrop-blur border-slate-500/30 "

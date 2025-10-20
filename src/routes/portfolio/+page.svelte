@@ -56,12 +56,12 @@
           <div class="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-slate-500 via-slate-300 to-slate-500" />
           
           <div class="py-4 px-2 ml-2 space-y-4 flex-1 flex flex-col">
-            <div class="flex items-start justify-between gap-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4">
               <h3 class="text-2xl font-semibold text-slate-300 transition underline">
                 {item.company}
               </h3>
-              
-              <span class="rounded-full border border-yellow-400/30 bg-emerald-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-teal-500 whitespace-nowrap">
+
+              <span class="mt-2 sm:mt-0 rounded-full border border-yellow-400/30 bg-emerald-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-teal-500 whitespace-nowrap">
                 {item.duration}
               </span>
             </div>
@@ -103,7 +103,7 @@
     </div>
 
     <!-- Projects Grid -->
-    <div class="grid gap-6 grid-cols-2 ">
+    <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       {#each filteredProjects as project, i}
         <div
           class="group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-slate-900/70 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl"
@@ -206,12 +206,12 @@
 
   <section>
     <SectionHeader id="skills" title={sections.skills} />
-    <div class="grid gap-3 md:grid-cols-2">
+    <div class="grid gap-2 sm:grid-cols-1 md:grid-cols-2">
       {#each skillsData.skills as category}
         <div class="rounded-2xl border border-slate-500/20 bg-slate-900/70 p-6 shadow-lg" in:fly={{ y: 16 }}>
           <h2 class="uppercase text-lg font-semibold text-amber-300">{category.category}</h2>
           
-          <div class="mt-4 grid gap-2 grid-cols-1 min-[400px]:grid-cols-2">
+          <div class="mt-4 grid gap-2 sm:grid-cols-1 md:grid-cols-2">
             {#each category.items as skill}
               <div class="flex items-center gap-3 rounded-md border border-slate-400/20 bg-slate-800/60 p-3 min-w-0">
                 {#if skill.logoUrl}

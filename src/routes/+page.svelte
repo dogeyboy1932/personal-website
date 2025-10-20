@@ -38,12 +38,11 @@ const featuredExperiences = experiences.slice(0, 2);
   </div>
 
   <section class="mb-3 space-y-10">
-    
     <div class="space-y-10">
       <div
-        class="grid gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)]"
+        class="grid gap-5 sm:grid-cols-1 md:grid-cols-2 items-center"
       >
-        <div class="space-y-1 flex flex-col" in:fly={{ x: -24, duration: 400 }}>
+        <div class="space-y-1 flex flex-col">
               
           <!-- Option 1: Dark slate with white pop -->
           <div class="mb-3 rounded-xl border border-slate-700/30 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 text-center">
