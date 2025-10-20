@@ -91,7 +91,7 @@ export const projectsData: Project[] = [
     description:
       "Solana dApp using Multi-Party Computation and Zero-Knowledge proofs for secure, private game state. The classic mafia card game on blockchain.",
     technologies: ["Solana", "Rust", "Zero-Knowledge Proofs", "MPC", "Anchor"],
-    status: "Completed",
+    status: "MVP",
     complexity: "Advanced",
     category: "Blockchain",
     image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1200&q=80",

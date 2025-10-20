@@ -57,7 +57,7 @@ export interface Project {
   duration: string;
   description: string;
   technologies: string[];
-  status: "Completed" | "In Development";
+  status: "Completed" | "In Development" | "MVP";
   complexity: "Beginner" | "Intermediate" | "Advanced";
   category: string;
   image: string;
