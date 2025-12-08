@@ -27,10 +27,10 @@
   />
     <NavigationBar />
     <main
-      class={`relative z-10 mx-auto w-[99%] md:w-[85%] max-w-[1400px] px-2 md:px-10 pt-5 pb-24 ${fonts.primary}`}
+      class={`relative z-10 w-full px-4 md:px-8 ${fonts.primary}`}
     >
-      <div in:fly={{ y: 8, duration: 350 }}
-        class="rounded-xl border border-slate-500/20 bg-black p-4 shadow-2xl backdrop-blur border-slate-500/30 "
+      <div in:fly={{ y: 6, duration: 350 }}
+        class="max-w-[1400px] mx-auto rounded-b-xl border border-slate-500/20 bg-black p-4 shadow-2xl backdrop-blur border-slate-500/30"
       >
         <div in:fade={{ duration: 250 }}>
           <slot />

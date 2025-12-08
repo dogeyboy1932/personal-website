@@ -39,11 +39,11 @@ const featuredExperiences = experiences.slice(0, 2);
 
   <section class="mb-3">
     <!-- Option 1: Dark slate with white pop -->
-        <div class="mb-2 rounded-xl border border-slate-700/30 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 text-center">
-          <h1 class="mb-1 text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-300 via-white to-slate-300 leading-tight">
+        <div class="mb-2 rounded-xl border border-purple-500/30 bg-gradient-to-r from-slate-950 via-purple-950/20 to-slate-950 p-4 text-center">
+          <h1 class="mb-1 text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-300 to-cyan-400 leading-tight">
           {homeHero.fullName}
           </h1>
-          <p class="text-sm text-slate-300/80">{homeHero.title}</p>
+          <p class="text-sm text-purple-200/80">{homeHero.title}</p>
         </div>
 
         <!-- Option 2: Charcoal with silver gradient -->
@@ -65,7 +65,7 @@ const featuredExperiences = experiences.slice(0, 2);
     <div class="grid gap-2 items-center flex flex-row grid grid-cols-1 md:grid-cols-2 h-30">
       <figure class="relative flex flex-col" in:fly={{ x: 24, duration: 400 }}>
         <div
-          class="aspect-square overflow-hidden rounded-xl border border-slate-400/40 bg-slate-800 shadow-xl ring-1 ring-slate-500/20"
+          class="aspect-square overflow-hidden rounded-xl border border-purple-400/40 bg-slate-800 shadow-xl ring-1 ring-purple-500/20"
         >
           <img
             src={homeHero.image.src}
@@ -76,7 +76,7 @@ const featuredExperiences = experiences.slice(0, 2);
         </div>
 
         <figcaption
-          class="py-2 px-2 from-blue-800 to-purple-800 bg-gradient-to-r italic mt-2 uppercase text-sm text-slate-200 rounded-lg border border-slate-700/30 shadow-md"
+          class="py-2 px-2 from-cyan-900 to-purple-900 bg-gradient-to-r italic mt-2 uppercase text-sm text-purple-100 rounded-lg border border-purple-500/30 shadow-md"
         >
           <div class="flex justify-between items-center gap-2 whitespace-pre-line tracking-wide p-1">
           <span>{homeHero.quote}</span>
@@ -89,8 +89,8 @@ const featuredExperiences = experiences.slice(0, 2);
       </figure>
 
       <div class="space-y-1 flex flex-col h-full w-full">
-        <div class="rounded-xl border border-slate-700/30 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 shadow-xl flex-1 flex justify-start items-center whitespace-pre-line min-w-0 overflow-hidden">
-            <p class="text-2xl text-transparent bg-clip-text bg-gradient-to-l from-yellow-400 via-purple-300 to-blue-400 text-left w-full min-w-0 break-words leading-[1.15] font-semibold">
+        <div class="rounded-xl border border-purple-500/30 bg-gradient-to-br from-slate-900 via-purple-950/30 to-slate-900 p-6 shadow-xl flex-1 flex justify-start items-center whitespace-pre-line min-w-0 overflow-hidden">
+            <p class="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 text-left w-full min-w-0 break-words leading-[1.15] font-semibold">
               {homeHero.summary}
             </p>
         </div>
@@ -104,7 +104,7 @@ const featuredExperiences = experiences.slice(0, 2);
     <div class="grid gap-2 md:grid-cols-3">
       {#each homeFocusAreas as focus, index}
         <div
-          class="rounded-sm border border-yellow-500 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
+          class="rounded-sm border border-purple-500 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-xl hover:border-cyan-400"
           in:fly={{ y: 20, delay: index * 120 + 150, duration: 400 }}
         >
             <h1 class="text-2xl font-semibold text-slate-100 italic">
@@ -168,16 +168,18 @@ const featuredExperiences = experiences.slice(0, 2);
             in:fly={{ y: 16, delay: index * 120 }}
           >
 
-          
-            <p class="text font-semibold text-blue-300 uppercase tracking-[0.25em]" >
-              {experience.company}
-            </p>
 
-            <p class="text-sm uppercase mt-1 text-base font-medium text-slate-300">
-              {experience.role}
-            </p>
+            <div class="flex flex-row items-center justify-between">
+              <p class="text font-semibold text-purple-400 uppercase tracking-[0.25em]" >
+                {experience.company}
+              </p>
 
-            <div class="mt-2 h-0.5 w-5/6 mx-auto bg-gradient-to-r from-zinc-500 via-zinc-300 to-zinc-500" />
+              <p class="text-sm uppercase mt-1 text-base font-medium text-cyan-300">
+                {experience.role}
+              </p>
+            </div>
+
+            <div class="mt-2 h-0.5 w-5/6 mx-auto bg-gradient-to-r from-purple-500 via-cyan-400 to-purple-500" />
 
 
             <p class="mt-2 text text-slate-300 flex-1">
@@ -211,7 +213,7 @@ const featuredExperiences = experiences.slice(0, 2);
               class="flex flex-col rounded-xl border border-slate-400/20 bg-gray-800 p-4 min-h-[180px]"
               in:fly={{ y: 16, delay: index * 120 }}
             >
-              <p class=" text font-semibold uppercase tracking-[0.15em] text-green-400" >
+              <p class=" text font-semibold uppercase tracking-[0.15em] text-cyan-400" >
                 {project.title}
               </p>
               
@@ -292,7 +294,7 @@ const featuredExperiences = experiences.slice(0, 2);
     <div class="flex justify-center w-full">
       <a
         href="/portfolio"
-        class="rounded-xl border border-red-400/40 bg-red-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-red-200 hover:text-slate-100 transition"
+        class="rounded-xl border border-purple-400/40 bg-purple-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-purple-200 hover:text-cyan-300 transition"
       >
         {home.skills.seeCompleteStack}
       </a>

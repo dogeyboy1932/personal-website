@@ -20,7 +20,7 @@ export const projectsData: Project[] = [
     status: "Completed",
     complexity: "Advanced",
     category: "AI/ML",
-    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=1200&q=80",
+    image: "/projectImages/MyCalPal.png",
     github: "https://github.com/dogeyboy1932/MyCalPal",
     demo: "https://mycalpal.netlify.app/",
   },
@@ -33,7 +33,7 @@ export const projectsData: Project[] = [
     status: "Completed",
     complexity: "Advanced",
     category: "AI/ML",
-    image: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&w=1200&q=80",
+    image: "/projectImages/SolPal.png",
     github: "https://github.com/dogeyboy1932/SolPal",
   },
   {
@@ -45,7 +45,7 @@ export const projectsData: Project[] = [
     status: "Completed",
     complexity: "Advanced",
     category: "AI/ML",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
+    image: "/projectImages/NodeFlow.png",
     github: "https://github.com/dogeyboy1932/NodeFlow",
     demo: "https://mcp-voice.netlify.app/",
   },
@@ -70,7 +70,7 @@ export const projectsData: Project[] = [
     status: "Completed",
     complexity: "Intermediate",
     category: "AI/ML",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1200&q=80",
     github: "https://github.com/dogeyboy1932/WhatAGent",
   },
   {
@@ -82,7 +82,7 @@ export const projectsData: Project[] = [
     status: "In Development",
     complexity: "Intermediate",
     category: "Web Development",
-    image: "/nus-mods.png",
+    image: "/projectImages/NUS-MODS.png",
     github: "https://github.com/cookedsalamander/University-Mods",
   },
   {
@@ -94,7 +94,7 @@ export const projectsData: Project[] = [
     status: "MVP",
     complexity: "Advanced",
     category: "Blockchain",
-    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1511193311914-0346f16efe90?auto=format&fit=crop&w=1200&q=80",
     github: "https://github.com/evcoats/on-chain-mafia-game",
   },
   {
@@ -118,7 +118,7 @@ export const projectsData: Project[] = [
     status: "Completed",
     complexity: "Intermediate",
     category: "Blockchain",
-    image: "https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1580541832626-2a7131ee809f?auto=format&fit=crop&w=1200&q=80",
     github: "https://github.com/dogeyboy1932/Upland-Chess-App",
   },
 ];

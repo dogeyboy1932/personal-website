@@ -2,7 +2,7 @@ export const resume = {
   url: "/resume.pdf",
   label: "Download Resume",
   pageTitle: "Resume",
-  description: "Last updated: October 2025",
+  description: "Last updated: December 2025",
   embed: true,
   embedWidth: "100%",
   embedHeight: "800px",
