@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { Logo } from "../Logo";
+  import { Logo } from "./Logo";
   import { navItems, site } from "../../constants";
 
   // Icon paths for each nav item
@@ -24,7 +24,7 @@
       aria-label="Go to home"
     >
       <Logo
-        class="w-9 h-9 transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]"
+        class="w-12 h-12 transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]"
       />
       <span
         class="font-sans sm:block text-md tracking-[0.25em] text-white uppercase group-hover:text-slate-300"

@@ -107,7 +107,7 @@ export const skillsData: SkillsData = {
             "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
         },
         {
-          name: "Svelte",
+          name: "Svelte.js",
           proficiency: ProficiencyLevel.Learning,
           status: SkillStatus.Learning,
           logoUrl:

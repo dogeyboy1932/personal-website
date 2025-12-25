@@ -3,7 +3,7 @@ import type { CustomLink } from "../types";
 export const homeHero = {
   tagline: "Portfolio 2025",
   summary:
-    "Heyyy, I'm Akhil! \n\n I'm a first-year Computer Science graduate student at the University of Illinois Urbana-Champaign. I specialize in full-stack development, cloud engineering, and AI-powered solutions. I see myself as highly driven, aiming to stay ahead of emerging trends and seeking opportunities to learn, grow, and deliver meaningful value. \n\n Through my experiences and projects, I’ve had the opportunity to explore how emerging technologies can create real value and practical solutions. I strive to stay ahead of the curve, continuously learning, experimenting, and adapting to where our future is headed.",
+    "Heyyy, I'm Akhil!👋 \n\n I'm a first-year Computer Science graduate student at the University of Illinois Urbana-Champaign. I specialize in full-stack development, cloud engineering, and AI-powered solutions. I see myself as highly driven, aiming to stay ahead of emerging trends and seeking opportunities to learn, grow, and deliver meaningful value. \n\n Through my experiences and projects, I’ve had the opportunity to explore how emerging technologies can create real value and practical solutions. I strive to stay ahead of the curve, continuously learning, experimenting, and adapting to where our future is headed.",
   image: {
     src: "/Linkedin_pfp.jpeg",
     alt: "Placeholder headshot",
@@ -89,7 +89,7 @@ export const home = {
     browseFullGallery: "Browse full gallery",
   },
   skills: {
-    seeCompleteStack: "See complete stack",
+    seeCompleteStack: "See full stack",
   },
 };
 
