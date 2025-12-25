@@ -4,12 +4,6 @@
 
 import type { Project } from "../types";
 
-export const projectsHero = {
-  tagline: "Portfolio",
-  description:
-    "Through my experiences and projects, I’ve had the opportunity to explore how emerging technologies can create real value and practical solutions. I strive to stay ahead of the curve, continuously learning, experimenting, and adapting to where our future is headed.",
-};
-
 export const projectsData: Project[] = [
   {
     title: "MyCalPal",

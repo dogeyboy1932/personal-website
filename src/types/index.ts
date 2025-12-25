@@ -111,6 +111,7 @@ export interface Experience {
   duration: string;
   summary: string;
   bullets?: string[];
+  skills?: string[];
 }
 
 export interface Hobby {

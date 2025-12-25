@@ -43,6 +43,7 @@
   "dependencies": {
     "@auth/core": "^0.8.4",
     "@auth/sveltekit": "^0.3.16",
+    "@fontsource/plus-jakarta-sans": "^5.2.8",
     "class-variance-authority": "^0.6.1",
     "clsx": "^1.2.1",
     "embla-carousel-autoplay": "8.0.0-rc23",

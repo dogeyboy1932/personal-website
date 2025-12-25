@@ -146,7 +146,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://ajeetchaulagain.com/static/7cb4af597964b0911fe71cb2f8148d64/87351/express-js.png",
+            "https://icon.icepanel.io/Technology/png-shadow-512/Express.png",
         },
         {
           name: "Flask",

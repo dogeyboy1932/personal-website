@@ -10,6 +10,7 @@ export const experiences: Experience[] = [
     duration: "Oct 2025 - Present",
     summary:
       "Building a real estate property search platform. Involved in API integration, database design, full-stack development with React.js, PHP, and MySQL.",
+    skills: ["React.js", "PHP", "MySQL", "REST APIs", "Full-Stack"],
   },
   {
     role: "Core Team Member",
@@ -17,6 +18,7 @@ export const experiences: Experience[] = [
     duration: "Oct 2024 - Present",
     summary:
       "Building Lateral, an AI-powered hiring platform. Also, co-leading global hacker houses and growing the Web3 student ecosystem nationwide.",
+    skills: ["AI/ML", "Web3", "Leadership", "Product Dev"],
   },
   {
     role: "Model Analyst",
@@ -24,6 +26,7 @@ export const experiences: Experience[] = [
     duration: "Feb 2025 - May 2025",
     summary:
       "Audited 120+ AI evaluations to drive model improvements and optimize accuracy.",
+    skills: ["AI Evaluation", "Data Analysis", "Quality Assurance"],
   },
   {
     role: "Software Intern",
@@ -31,6 +34,7 @@ export const experiences: Experience[] = [
     duration: "Jun 2024 - Aug 2024",
     summary:
       "Developed Substrate blockchain solutions, managed 5-member dev team, and led Rust workshops.",
+    skills: ["Rust", "Substrate", "Blockchain", "Team Lead"],
   },
   {
     role: "VP Partnerships & Developer Lead",
@@ -38,5 +42,6 @@ export const experiences: Experience[] = [
     duration: "Jan 2023 - May 2025",
     summary:
       "Secured 10+ Web3 partnerships, architected crypto lending dApp, and organized blockchain conferences.",
+    skills: ["Solidity", "DeFi", "Partnerships", "Event Org"],
   },
 ];

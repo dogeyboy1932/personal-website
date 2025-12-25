@@ -10,7 +10,7 @@ export { experiences } from "./experiences";
 export { skillsData, techColors, complexityClasses } from "./skills";
 
 // Projects
-export { projectsData, projectsHero, projectLabels } from "./projects";
+export { projectsData, projectLabels } from "./projects";
 
 // Navigation and site structure
 export { navItems } from "./nav";

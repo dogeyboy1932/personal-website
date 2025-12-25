@@ -1,124 +1,63 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { ThemeToggle } from "../Button";
   import { Logo } from "../Logo";
-
   import { navItems, site } from "../../constants";
 
-  let isDropdownOpen = false;
-
-  function toggleDropdown() {
-    isDropdownOpen = !isDropdownOpen;
-  }
-
-  function closeDropdown() {
-    isDropdownOpen = false;
-  }
-
-  function handleNavClick(href: string) {
-    if (typeof window !== "undefined") {
-      window.location.href = href;
-    }
-    closeDropdown();
-  }
-
-  function handleClickOutside(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    if (!target.closest('.custom-dropdown')) {
-      closeDropdown();
-    }
-  }
+  // Icon paths for each nav item
+  const navIcons: Record<string, string> = {
+    "/": "M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819",
+    "/portfolio": "M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6",
+    "/resume": "M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z",
+    "/more": "M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+  };
 </script>
 
-<svelte:window on:click={handleClickOutside} />
-
 <nav
-  class="w-full bg-black/80 backdrop-blur-sm border-b border-yellow-500/40 px-4 sm:px-8 top-0 z-50 sticky"
+  class="w-full bg-slate-950/95 backdrop-blur-md px-4 sm:px-6 top-0 z-50 sticky"
 >
-  <div class="mx-auto flex h-16 w-full max-w-7xl items-center gap-6">
+  <div class="flex flex-wrap mx-auto flex h-25 w-full max-w-[1400px] items-center justify-between p-2">
+    
+    <!-- Logo Section -->
     <a
       href="/"
-      class="flex flex-shrink-0 items-center gap-3"
+      class="flex flex-shrink-0 items-center gap-2 group"
       aria-label="Go to home"
     >
       <Logo
-        class="w-10 h-10 transition-transform duration-300 hover:-translate-y-1"
+        class="w-9 h-9 transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]"
       />
       <span
-        class="hidden sm:block text-sm font-semibold tracking-[0.4em] text-slate-300 uppercase"
+        class="font-sans sm:block text-md tracking-[0.25em] text-white uppercase group-hover:text-slate-300"
       >
         {site.author}
       </span>
     </a>
 
-    <div class="ml-auto flex items-center gap-6">
-      <div class="items-center gap-6 lg:flex">
-        {#each navItems as item}
-          <a
-            href={item.href}
-            class={`relative text-xs uppercase tracking-[0.35em] font-semibold transition-all duration-300 ${
-              $page.url.pathname === item.href
-                ? "text-yellow-300"
-                : "text-yellow-400 hover:text-yellow-200"
-            }`}
+    <!-- Navigation Pills -->
+    <div class="flex items-center p-1 shadow-purple-900/10 gap-5">
+      {#each navItems as item}
+        <a
+          href={item.href}
+          class={`relative flex items-center gap-2 p-2 rounded-sm text-md font-sans tracking-wide transition-all duration-300 ${
+            $page.url.pathname === item.href
+              ? "bg-slate-500 text-white shadow-md shadow-purple-500/25"
+              : "text-slate-400 hover:text-white hover:bg-slate-800/60"
+          }`}
+        >
+          <span>{item.label}</span>
+          
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke-width="1.5" 
+            stroke="currentColor" 
+            class="w-4 h-4"
           >
-            <span class="px-1">{item.label}</span>
-            <span
-              class={`absolute left-0 -bottom-2 h-[2px] w-full bg-gradient-to-r from-slate-500 via-slate-300 to-slate-500 transition-transform duration-300 ${
-                $page.url.pathname === item.href ? "scale-x-100" : "scale-x-0"
-              }`}
-            />
-          </a>
-        {/each}
-      </div>
-
-      <!-- <div class="flex items-center gap-3">
-        <div class="lg:hidden custom-dropdown relative">
-          <button
-            type="button"
-            class="flex items-center gap-2 bg-black/60 backdrop-blur-sm border border-yellow-500/40 text-yellow-200 text-xs uppercase tracking-[0.35em] font-semibold px-4 py-2 rounded-md cursor-pointer transition-all duration-300 hover:bg-yellow-500/10 hover:border-yellow-400/60 focus:outline-none focus:ring-2 focus:ring-yellow-400/50"
-            on:click|stopPropagation={toggleDropdown}
-            aria-label="Navigation menu"
-            aria-expanded={isDropdownOpen}
-          >
-            <span>
-              {navItems.find(item => item.href === $page.url.pathname)?.label || 'Menu'}
-            </span>
-            <svg
-              class="h-4 w-4 text-yellow-300 transition-transform duration-300 {isDropdownOpen ? 'rotate-180' : ''}"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-
-          {#if isDropdownOpen}
-            <div
-              class="absolute right-0 mt-2 w-48 bg-black/95 backdrop-blur-sm border border-yellow-500/40 rounded-md shadow-lg shadow-yellow-500/20 overflow-hidden z-50"
-            >
-              {#each navItems as item}
-                <button
-                  type="button"
-                  class={`w-full text-left px-4 py-3 text-xs uppercase tracking-[0.35em] font-semibold transition-all duration-200 ${
-                    $page.url.pathname === item.href
-                      ? "bg-gradient-to-r from-yellow-500/20 to-cyan-500/20 text-yellow-300"
-                      : "text-yellow-200 hover:bg-yellow-500/10"
-                  }`}
-                  on:click={() => handleNavClick(item.href)}
-                >
-                  {item.label}
-                </button>
-              {/each}
-            </div>
-          {/if}
-        </div>
-
-
-        <ThemeToggle />
-      </div> -->
+            <path stroke-linecap="round" stroke-linejoin="round" d={navIcons[item.href] || navIcons["/"]} />
+          </svg>
+        </a>
+      {/each}
     </div>
   </div>
 </nav>

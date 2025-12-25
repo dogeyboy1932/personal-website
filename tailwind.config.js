@@ -75,9 +75,11 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Inter", ...fontFamily.sans],
-        mono: ["JetBrains Mono", "Fira Code", ...fontFamily.mono],
-        cyber: ["Orbitron", "Inter", ...fontFamily.sans],
+        sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+        mono: ["JetBrains Mono", "Menlo", "Monaco", "monospace"],
+        display: ["Space Grotesk", "Inter", "sans-serif"],
+        cyber: ["Space Grotesk", "Inter", "sans-serif"],
+        jakarta: ["Plus Jakarta Sans", ...fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {

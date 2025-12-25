@@ -5,10 +5,9 @@
   import { fly } from "svelte/transition";
 </script>
 
-<div class="px-2 pb-2 mt-7 mb-6">
-  <h2 id={id} class={`mt-8 uppercase tracking-[0.1em] text-2xl font-bold text-${customColor || 'slate-200'} inline-block`}>
+<div class="py-2 mt-4 mb-2">
+  <h2 id={id} class={`uppercase tracking-[0.15em] text-lg font-semibold text-${customColor || 'slate-200'} inline-flex items-center gap-3`}>
+    <span class="w-8 h-[2px] bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full"></span>
     <span in:fly={{ y: -8, duration: 350 }}>{title}</span>
   </h2>
-  
-  <hr class="mt-2 h-1 w-full rounded-full bg-gradient-to-r from-blue-500 via-blue-300 to-blue-500 border-0" />
 </div>
