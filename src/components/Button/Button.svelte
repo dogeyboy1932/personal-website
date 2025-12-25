@@ -37,6 +37,13 @@
 <button
   {...$$restProps}
   class={cn(buttonVariants({ variant, size, class: $$restProps?.class }))}
+  on:click
+  on:keydown
+  on:keyup
+  on:focus
+  on:blur
+  on:mouseenter
+  on:mouseleave
 >
   <slot />
 </button>

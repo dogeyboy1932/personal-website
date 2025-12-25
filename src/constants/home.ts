@@ -71,7 +71,7 @@ export const homeNavigationCards = [
   //   href: "/skills",
   // },
   {
-    title: "Learn More About Me",
+    title: "More About Me",
     description:
       "Clubs, hobbies, and interests that keep me busy.",
     cta: "Browse",

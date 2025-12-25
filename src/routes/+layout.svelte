@@ -7,6 +7,7 @@
   import { fade, fly } from "svelte/transition";
 
   import { lastUpdated } from "../constants/";
+  import { screenWidth } from "../lib/stores";
 
   export const fonts = {
     primary: "font-sans", // Inter for body text
@@ -20,6 +21,8 @@
   };
 
 </script>
+
+<svelte:window bind:innerWidth={$screenWidth} />
 
 <MatrixRain />
 

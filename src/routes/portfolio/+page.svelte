@@ -1,15 +1,12 @@
 <script lang="ts">
-  // External dependencies
-  import { fly } from "svelte/transition";
-  
   // Components
   import { SectionHeader } from "../../components/Headers";
-  import PageHeader from "../../components/Headers/PageHeader.svelte";
   import { 
     ExperienceCard, 
-    ProjectCard, 
     SkillCategoryCard, 
-    CategoryFilter 
+    CategoryFilter,
+    ProjectCard,
+    Carousel
   } from "../../components/PORTFOLIO";
   
   // Constants and data
@@ -23,6 +20,7 @@
   $: filteredProjects = selectedCategory === "All" 
     ? projectsData 
     : projectsData.filter(p => p.category === selectedCategory);
+  $: projectProps = filteredProjects.map((project, index) => ({ project, index }));
 </script>
 
 <section>
@@ -43,12 +41,24 @@
     <!-- Category filter -->
     <CategoryFilter {categories} bind:selectedCategory />
 
-    <!-- Projects grid -->
-    <div class="grid gap-6 grid-cols-1 min-[600px]:grid-cols-2 min-[1200px]:grid-cols-3">
-      {#each filteredProjects as project, i (project.title)}
-        <ProjectCard {project} index={i} />
-      {/each}
-    </div>
+    <!-- Projects carousel -->
+    {#key selectedCategory}
+      <Carousel 
+        component={ProjectCard}
+        componentProps={projectProps}
+        config={{
+          options: { 
+            loop: true, 
+            axis: "x",
+            align: "start",
+            slidesToScroll: 1
+          },
+          plugins: []
+        }}
+        carouselItemClass="basis-full min-[600px]:basis-1/2 min-[1200px]:basis-1/3"
+        carouselItemsClass="items-stretch"
+      />
+    {/key}
   </section>
 
   <!-- ===== SKILLS SECTION ===== -->
