@@ -18,6 +18,9 @@
   
   // Get responsive items per section from store
   $: itemsPerSection = $breakpoints.itemsPerSection;
+  
+  // Calculate basis class based on items per section
+  $: basisClass = itemsPerSection === 1 ? "basis-full" : itemsPerSection === 2 ? "basis-1/2" : "basis-1/3";
 
   let api: EmblaCarouselType | undefined;
   let canScrollNext = componentProps.length > 0;
@@ -116,7 +119,8 @@
             role="group"
             aria-roledescription="slide"
             class={cn(
-              "min-w-0 shrink-0 grow-0 basis-full",
+              "min-w-0 shrink-0 grow-0",
+              basisClass,
               config?.options.axis === "x" ? "pl-4" : "pt-4",
               carouselItemClass
             )}

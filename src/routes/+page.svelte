@@ -2,6 +2,7 @@
   // External dependencies
   import { MetaTags } from "svelte-meta-tags";
   import { fade } from "svelte/transition";
+  import { breakpoints } from "../lib/stores";
 
   import { homeFocusAreas } from "../constants";
   
@@ -37,7 +38,7 @@
 
 <!-- ===== HERO SECTION ===== -->
 <section class="mb-3 font-sans">
-  <div class="grid grid-cols-1 min-[1000px]:grid-cols-[65%_1fr] gap-3">
+  <div class="grid gap-3" class:grid-cols-1={!$breakpoints.isDesktop} class:grid-cols-[65%_1fr]={$breakpoints.isDesktop}>
     
     <!-- Left Column: Header and Summary -->
     <div class="flex flex-col flex-1 md:flex-[1] justify-center gap-3">
@@ -97,20 +98,21 @@
 </section>
 
 
+<!-- <div class="mx-auto w-[95%] border-t border-slate-500/50" /> -->
 
 
 <!-- ===== FOCUS AREAS SECTION ===== -->
-<section class="my-6">
+<section class="my-12">
 
-<div>
-  <h3 class="text-base text-xl uppercase tracking-[0.4em] text-slate-300 font-bold mb-3 ml-2">Mainly Focused on</h3>
-  
-  <div class="grid gap-4 grid-cols-1 min-[800px]:grid-cols-3">
-    {#each homeFocusAreas as focus, index}
-      <FocusCard title={focus.title} description={focus.description} {index} />
-    {/each}
+  <div>
+    <h3 class="text-base text-xl uppercase tracking-[0.4em] text-slate-300 font-bold mb-3 ml-2">Mainly Focused on</h3>
+    
+    <div class="grid gap-4" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-3={!$breakpoints.isMobile}>
+      {#each homeFocusAreas as focus, index}
+        <FocusCard title={focus.title} description={focus.description} {index} />
+      {/each}
+    </div>
   </div>
-</div>
 
 </section>
 
@@ -143,9 +145,9 @@
     {sections.toolkit}
   </h3>
 
-  <div class="flex flex-col lg:flex-row gap-6 justify-between">
+  <div class="flex gap-6 justify-between" class:flex-row={$breakpoints.isLarge}>
     <!-- Skills badges -->
-    <div class="flex flex-wrap gap-2 justify-end items-center lg:w-[80%] w-full" in:fade>
+    <div class="flex flex-wrap gap-2 justify-end items-center w-full" class:lg:w-[80%]={$breakpoints.isLarge} in:fade>
       {#each featuredSkills as skill, index}
         <SkillBadge name={skill.name} {index} />
       {/each}

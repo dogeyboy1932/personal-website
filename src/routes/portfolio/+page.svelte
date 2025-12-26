@@ -55,7 +55,6 @@
           },
           plugins: []
         }}
-        carouselItemClass="basis-full min-[600px]:basis-1/2 min-[1200px]:basis-1/3"
         carouselItemsClass="items-stretch"
       />
     {/key}
