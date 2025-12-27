@@ -3,7 +3,7 @@ import type { HobbiesData, MorePageData } from "../types";
 export const more: MorePageData = {
   title: "More About Me",
   subtitle: "Beyond the code",
-  bio: "I'm someone who loves movies and TV shows. I enjoy racquet sports (tennis, table tennis, badminton, pickleball) and chess, + board/card games. I like exploring new experiences and picking up new hobbies (recently, I've been learning how to roller skate). \n\n\t Beyond my usual interests, I enjoy travel. Going abroad in Singapore was one of the best months of my life, where I immersed myself into an entirely different cultural perspective. I try to keep that same spirit of curiosity and openness in everything I do.",
+  bio: "When I'm not locking in, I'd probably be watching TV/movies, playing a racquet sport, exploring new tech trends, or something else. I try to be organized & productive with the time I have, and I enjoy trying new things. More recently I've picked up a liking for travel and rollerblading.",
   
   studyAbroad: {
     role: "Study Abroad",
@@ -38,12 +38,10 @@ export const more: MorePageData = {
   },
 
   funFacts: [
-    "Studied abroad in Singapore - fell in love with the hawker centers and late-night exploring",
-    "Competitive chess player on Lichess (username: trashboatsr) - always looking for my next opponent",
-    "Eagle Scout - learned leadership and outdoor skills through years of camping and hiking",
-    "Love exploring new cities through food - my travel bucket list is basically a restaurant list",
-    "Racquet sports enthusiast - tennis doubles, learning table tennis, badminton, and pickleball",
-    "Can solve a Rubik's cube in under 2 minutes (working on getting faster!)",
+    "Studied abroad in Singapore (NUS)- loved the traveling and cultural perspective",
+    "Avid chess player on Lichess (username: trashboatsr)",
+    "Love racquet sports [tennis doubles, learning table tennis, badminton, and pickleball]",
+    "Eagle Scout",
   ],
 
   hobbies: [
