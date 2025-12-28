@@ -11,7 +11,7 @@
   
   <div class="mt-4 grid gap-2 sm:grid-cols-1 md:grid-cols-2">
     {#each category.items as skill}
-      <div class="flex items-center gap-3 rounded-md border {$theme.border.light} {$theme.bg.cardHover} p-3 min-w-0">
+      <div class="flex items-center gap-3 rounded-md border {$theme.border.light} {$theme.bg.cardElevated} p-3 min-w-0">
         {#if skill.logoUrl}
           <img src={skill.logoUrl} alt={skill.name} class="h-8 w-8 rounded flex-shrink-0" />
         {/if}

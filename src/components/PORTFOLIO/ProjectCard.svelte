@@ -54,7 +54,7 @@
 
   <div class="p-5 flex flex-col">
     <!-- Block 1: Title, Duration, Status - Fixed Height -->
-    <div class="flex items-start justify-between gap-3 h-20 mb-4">
+    <div class="flex items-start justify-between gap-3 h-20">
       <div>
         <h3
           class="text-2xl font-semibold {$theme.text.secondary} transition"
@@ -86,8 +86,8 @@
     </div>
 
     <!-- Block 2: Description - Fixed Height -->
-    <div class="h-20 mb-3">
-      <p class="text-sm {$theme.text.secondary} line-clamp-4 font-sans">
+    <div class="h-40 mb-4">
+      <p class="text-sm {$theme.text.secondary} line-clamp-5 font-sans">
         {project.description}
       </p>
     </div>

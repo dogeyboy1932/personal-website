@@ -17,6 +17,37 @@ export const breakpoints = derived(screenWidth, ($width) => ({
 
 // Dark theme colors (the source of truth)
 export const darkTheme = {
+  // Tech stack colors - for dark theme (light, vibrant)
+  techColors: [
+    "text-blue-300",
+    "text-blue-400",
+    "text-cyan-300",
+    "text-cyan-400",
+    "text-teal-300",
+    "text-emerald-300",
+    "text-emerald-400",
+    "text-green-300",
+    "text-green-400",
+    "text-lime-300",
+    "text-yellow-300",
+    "text-yellow-400",
+    "text-amber-300",
+    "text-orange-300",
+    "text-orange-400",
+    "text-red-300",
+    "text-rose-300",
+    "text-pink-300",
+    "text-pink-400",
+    "text-purple-300",
+    "text-purple-400",
+    "text-violet-300",
+    "text-violet-400",
+    "text-indigo-300",
+    "text-indigo-400",
+    "text-sky-300",
+    "text-slate-300",
+    "text-slate-400",
+  ],
   // Background colors
   bg: {
     body: 'bg-slate-950',
@@ -24,6 +55,7 @@ export const darkTheme = {
     card: 'bg-slate-900/70',
     cardSolid: 'bg-slate-900',
     cardHover: 'bg-slate-800/60',
+    cardElevated: 'bg-slate-600/80',
     secondary: 'bg-slate-800/50',
     navbar: 'bg-slate-950/95',
     overlay: 'bg-slate-500/10',
@@ -82,9 +114,9 @@ export const darkTheme = {
   
   // Navigation link colors
   nav: {
-    active: 'bg-indigo-700 text-white shadow-md shadow-indigo-500/30',
-    inactive: 'text-slate-300 hover:text-indigo-200 hover:bg-indigo-900/60',
-    logoHover: 'group-hover:text-indigo-400',
+    active: 'bg-violet-600 text-white shadow-md shadow-purple-500/25',
+    inactive: 'text-slate-400 hover:text-white hover:bg-slate-800/60',
+    logoHover: 'group-hover:text-slate-300',
   },
   
   // Glow effects
@@ -252,16 +284,43 @@ export const darkTheme = {
 
 // Light theme colors - WARM COFFEE THEME with excellent contrast
 export const lightTheme = {
+  // Tech stack colors - for coffee theme (darker, high contrast)
+  techColors: [
+    "text-blue-600",
+    "text-blue-700",
+    "text-cyan-600",
+    "text-cyan-700",
+    "text-teal-600",
+    "text-emerald-600",
+    "text-emerald-700",
+    "text-green-600",
+    "text-green-700",
+    "text-lime-600",
+    "text-red-600",
+    "text-rose-600",
+    "text-pink-600",
+    "text-pink-700",
+    "text-purple-600",
+    "text-purple-700",
+    "text-violet-600",
+    "text-violet-700",
+    "text-indigo-600",
+    "text-indigo-700",
+    "text-sky-600",
+    "text-slate-600",
+    "text-slate-700",
+  ],
   // Background colors - warm cream base with rich coffee tones
   bg: {
     body: 'bg-amber-50',                                        // Warm cream base
     page: 'bg-white',                                           // Clean white for content
     card: 'bg-white border border-amber-200/80 shadow-md',      // Clean cards with warm border
     cardSolid: 'bg-white',
-    cardHover: 'bg-amber-50',                                   // Warm hover state
+    cardHover: 'bg-amber-900',                                   // Warm hover state
+    cardElevated: 'bg-amber-200/80',
     secondary: 'bg-amber-100/50',                               // Secondary backgrounds
     navbar: 'bg-white/95 border-b border-amber-200 shadow-sm',  // Clean navbar
-    overlay: 'bg-amber-600 text-amber-50',                      // High contrast badge
+    overlay: 'bg-amber-300',                      // High contrast badge
     black: 'bg-amber-950',
     backdrop: 'bg-white/98',
   },
