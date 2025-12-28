@@ -9,17 +9,18 @@
     Carousel
   } from "../../components/PORTFOLIO";
   
-  // Constants and data
   import { sections, experiences, skillsData, projectsData } from "../../constants";
+  import { type ProjectCategory } from "../../types";
 
   // Project filtering state
   let selectedCategory = "All";
   
   // Reactive statements
-  $: categories = ["All", ...new Set(projectsData.map(p => p.category))];
+  $: categories = ["All", ...new Set(projectsData.flatMap(p => p.category))];
+  
   $: filteredProjects = selectedCategory === "All" 
     ? projectsData 
-    : projectsData.filter(p => p.category === selectedCategory);
+    : projectsData.filter(p => p.category.includes(selectedCategory as ProjectCategory));
   $: projectProps = filteredProjects.map((project, index) => ({ project, index }));
 </script>
 
@@ -51,10 +52,7 @@
             loop: true, 
             axis: "x",
             align: "start",
-            slidesToScroll: 1,
-            dragFree: false,
-            dragThreshold: 5,
-            skipSnaps: false
+            slidesToScroll: 1
           },
           plugins: []
         }}

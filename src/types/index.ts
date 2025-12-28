@@ -52,6 +52,8 @@ export interface SkillsData {
   skills: SkillCategory[];
 }
 
+export type ProjectCategory = "AI/ML" | "Blockchain" | "Mobile" | "Other";
+
 export interface Project {
   title: string;
   duration: string;
@@ -59,7 +61,7 @@ export interface Project {
   technologies: string[];
   status: "Completed" | "In Development" | "MVP";
   complexity: "Beginner" | "Intermediate" | "Advanced";
-  category: string;
+  category: ProjectCategory[];
   image: string;
   github: string;
   demo?: string;

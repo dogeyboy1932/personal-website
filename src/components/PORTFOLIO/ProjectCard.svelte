@@ -16,10 +16,11 @@
 </script>
 
 <div
-  class="group relative overflow-hidden rounded-2xl border {$theme.border.default} {$theme.bg.card} shadow-lg transition hover:-translate-y-1 hover:shadow-2xl flex flex-col"
+  class="group relative overflow-hidden rounded-2xl border {$theme.border.default} {$theme.bg.card} shadow-lg transition hover:-translate-y-1 hover:shadow-2xl flex flex-col h-full"
   in:fly={{ y: 18, delay: index * 50 }}
 >
 
+  <!-- Image Section - Fixed Height -->
   <div class="relative h-48 overflow-hidden {$theme.bg.cardHover}">
     <img
       src={project.image}
@@ -52,21 +53,22 @@
   </div>
 
 
-  <div class="p-5 flex flex-col">
+  <div class="p-5 flex flex-col ">
     <!-- Block 1: Title, Duration, Status - Fixed Height -->
-    <div class="flex items-start justify-between gap-3 h-20">
-      <div>
+    <div class="flex items-start justify-between gap-3 min-h-[5rem] mb-2">
+      <div class="">
         <h3
           class="text-2xl font-semibold {$theme.text.secondary} transition"
         >
           {project.title}
         </h3>
-        <p class="text-sm uppercase tracking-[0.35em] {$theme.text.muted}">
-          {project.category}
+        
+        <p class="text-sm uppercase tracking-[0.35em] {$theme.text.muted} mt-1">
+          {project.category.join(", ")}
         </p>
       </div>
       
-      <div class="flex flex-col items-end gap-2">
+      <div class="flex flex-col items-end gap-2 flex-shrink-0">
         <span
           class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.25em] {$theme.bg.secondary} {$theme.text.primary}"
         >
@@ -85,15 +87,17 @@
       </div>
     </div>
 
+    
     <!-- Block 2: Description - Fixed Height -->
-    <div class="h-40 mb-4">
+    <div class="min-h-[7.5rem] mb-2">
       <p class="text-sm {$theme.text.secondary} line-clamp-5 font-sans">
         {project.description}
       </p>
     </div>
 
-    <!-- Block 3: Tech Badges - Fixed Height -->
-    <div class="h-20">
+
+    <!-- Block 3: Tech Badges - Fixed Height, pushed to bottom -->
+    <div class="mt-auto min-h-[4rem]">
       <div class="flex flex-wrap gap-2">
         {#each project.technologies.slice(0, 7) as tech, techIndex}
           <TechBadge {tech} index={techIndex} />
