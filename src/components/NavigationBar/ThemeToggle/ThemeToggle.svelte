@@ -1,11 +1,10 @@
 <script lang="ts">
   import { Coffee, Moon, Sun } from "lucide-svelte";
   import Button from "../../Button/Button.svelte";
-  import { darkModeStore } from "../../../lib/utils";
-  import { theme, themeToggle } from "../../../lib/stores";
+  import { theme, themeToggle, darkModeStore } from "../../../lib/stores";
   import { onMount, onDestroy } from "svelte";
 
-  let isDarkMode = true;
+  let isDarkMode: boolean;
   let unsubscribe: (() => void) | null = null;
 
   onMount(() => {

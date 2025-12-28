@@ -1,5 +1,6 @@
 import { writable, derived, get } from 'svelte/store';
-import { darkModeStore } from './utils';
+
+export const darkModeStore = writable(true);
 
 // Screen width store
 export const screenWidth = writable(0);
@@ -320,7 +321,7 @@ export const lightTheme = {
     cardElevated: 'bg-amber-200/80',
     secondary: 'bg-amber-100/50',                               // Secondary backgrounds
     navbar: 'bg-white/95 border-b border-amber-200 shadow-sm',  // Clean navbar
-    overlay: 'bg-amber-300',                      // High contrast badge
+    overlay: 'bg-amber-100',                      // High contrast badge
     black: 'bg-amber-950',
     backdrop: 'bg-white/98',
   },

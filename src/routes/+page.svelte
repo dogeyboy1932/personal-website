@@ -44,7 +44,7 @@
     <div class="flex flex-col flex-1 md:flex-[1] justify-center gap-3">
       
       <!-- Header Box -->
-      <div class="flex items-center justify-center backdrop-blur-sm shadow-2xl p-4 rounded-xl">
+      <div class="flex items-center justify-center backdrop-blur-sm p-4 rounded-xl">
         <div class="text-left">
           <div class="flex flex-col">
             <h1 class="uppercase text-5xl font-display font-bold tracking-tight {$theme.text.primary} leading-tight">
@@ -76,7 +76,7 @@
 
       
       <!-- Summary Text -->
-      <div class="flex items-center py-3 px-8 shadow-xl backdrop-blur-sm">
+      <div class="flex items-center py-3 px-8 backdrop-blur-sm">
         <p class="text-base text-lg leading-relaxed {$theme.text.secondary} font-sans font-light whitespace-pre-line">
           {homeHero.summary}
         </p>

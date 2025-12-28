@@ -2,8 +2,7 @@
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   
-  import { theme } from "./stores";
-  import { darkModeStore } from "./utils";
+  import { darkModeStore } from "./stores";
 
 
   
@@ -15,6 +14,7 @@
 
   $: primaryColor = isDarkMode ? "#0066ff" : "#e69a0dd3";
   $: secondaryColor = isDarkMode ? "#00ccff" : "#cb880dd3";
+
 
 
 
