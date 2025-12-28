@@ -1,5 +1,6 @@
 <script lang="ts">
   import { techColors } from "../../constants";
+  import { theme } from "../../lib/stores";
 
   export let tech: string;
   export let index: number = 0;
@@ -13,7 +14,7 @@
 </script>
 
 <span
-  class={`rounded px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] border border-slate-400/30 bg-slate-500/10 ${colorClass}`}
+  class={`rounded px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] border ${$theme.border.light} ${$theme.bg.overlay} ${colorClass}`}
 >
   {tech}
 </span>

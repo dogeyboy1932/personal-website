@@ -5,7 +5,7 @@
   import emblaCarouselSvelte from "embla-carousel-svelte";
   import { ArrowLeft, ArrowRight } from "lucide-svelte";
   import type { ComponentProps, ComponentType, SvelteComponent } from "svelte";
-  import { breakpoints } from "../../lib/stores";
+  import { breakpoints, theme } from "../../lib/stores";
 
   export let componentProps: ComponentProps<T>[] = [];
   export let component: ComponentType<T>;
@@ -58,20 +58,30 @@
 
   const onNext = () => {
     if (!api) return;
-    const nextIndex = Math.min(
-      (currentSection) * itemsPerSection,
-      componentProps.length - 1
-    );
-    api.scrollTo(nextIndex);
+    // If we're on the last section, go back to the first
+    if (currentSection >= totalSections) {
+      api.scrollTo(0);
+    } else {
+      const nextIndex = Math.min(
+        currentSection * itemsPerSection,
+        componentProps.length - 1
+      );
+      api.scrollTo(nextIndex);
+    }
   };
 
   const onPrev = () => {
     if (!api) return;
-    const prevIndex = Math.max(
-      (currentSection - 2) * itemsPerSection,
-      0
-    );
-    api.scrollTo(prevIndex);
+    // If we're on the first section, go to the last
+    if (currentSection <= 1) {
+      api.scrollTo((totalSections - 1) * itemsPerSection);
+    } else {
+      const prevIndex = Math.max(
+        (currentSection - 2) * itemsPerSection,
+        0
+      );
+      api.scrollTo(prevIndex);
+    }
   };
 
   $: {
@@ -143,13 +153,13 @@
    <!-- Left Arrow -->
     <button
       class={cn(
-        "flex items-center justify-center h-10 w-10 p-0 border border-slate-700 rounded-full bg-slate-800/50 border-violet-800 hover:bg-violet-500/20 hover:border-violet-500 transition-all shrink-0",
+        `flex items-center justify-center h-10 w-10 p-0 border rounded-full transition-all shrink-0 ${$theme.carousel.arrow.bg} ${$theme.carousel.arrow.border} ${$theme.carousel.arrow.hoverBg} ${$theme.carousel.arrow.hoverBorder}`,
         config?.options.axis === "x" ? "" : "rotate-90"
       )}
       disabled={!canScrollPrev}
       on:click={onPrev}
     >
-      <ArrowLeft class="w-5 h-5 text-slate-300" />
+      <ArrowLeft class="w-5 h-5 {$theme.carousel.arrow.icon}" />
       <span class="sr-only">Previous slide</span>
       </button>
 
@@ -161,8 +171,8 @@
         class={cn(
           "w-3 h-3 rounded-full transition-all duration-300",
           currentSection === i + 1
-            ? "bg-purple-400 scale-110"
-            : "bg-slate-600 hover:bg-slate-200/70"
+            ? `${$theme.carousel.dot.active} scale-110`
+            : `${$theme.carousel.dot.inactive} ${$theme.carousel.dot.hover}`
         )}
         on:click={() => api?.scrollTo(i * itemsPerSection)}
         aria-label={`Go to section ${i + 1}`}
@@ -173,13 +183,13 @@
    <!-- Right Arrow -->
     <button
       class={cn(
-        "flex items-center justify-center h-10 w-10 p-0 border border-slate-700 rounded-full bg-slate-800/50 border-violet-800 hover:bg-violet-500/20 hover:border-violet-500 transition-all shrink-0",
+        `flex items-center justify-center h-10 w-10 p-0 border rounded-full transition-all shrink-0 ${$theme.carousel.arrow.bg} ${$theme.carousel.arrow.border} ${$theme.carousel.arrow.hoverBg} ${$theme.carousel.arrow.hoverBorder}`,
         config?.options.axis === "x" ? "" : "rotate-90"
       )}
       disabled={!canScrollNext}
       on:click={onNext}
     >
-      <ArrowRight class="w-5 h-5 text-slate-300" />
+      <ArrowRight class="w-5 h-5 {$theme.carousel.arrow.icon}" />
       <span class="sr-only">Next slide</span>
     </button>
 

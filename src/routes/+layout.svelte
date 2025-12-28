@@ -7,7 +7,7 @@
   import { fade, fly } from "svelte/transition";
 
   import { lastUpdated } from "../constants/";
-  import { screenWidth } from "../lib/stores";
+  import { screenWidth, theme } from "../lib/stores";
 
   export const fonts = {
     primary: "font-sans", // Inter for body text
@@ -28,19 +28,19 @@
 
 <div class="min-h-screen relative">
   <div
-    class="pointer-events-none absolute inset-0 bg-gradient-to-br from-slate-500/10 via-transparent to-cyan-500/10"
+    class="pointer-events-none absolute inset-0"
   />
     <NavigationBar />
     <main
       class={`relative z-10 w-full px-4 md:px-8 ${fonts.primary}`}
     >
       <div in:fly={{ y: 6, duration: 350 }}
-        class="max-w-[1600px] mx-auto rounded-b-xl border border-slate-500/20 bg-black p-3 shadow-2xl backdrop-blur border-slate-500/30"
+        class="max-w-[1600px] mx-auto rounded-b-xl border {$theme.border.default} {$theme.bg.page} p-3 shadow-2xl backdrop-blur {$theme.border.light}"
       >
         <div in:fade={{ duration: 250 }}>
           <slot />
         </div>
-        <div class="flex flex-row justify-between text-[10px] uppercase text-slate-500 mt-10">
+        <div class="flex flex-row justify-between text-[10px] uppercase {$theme.text.muted} mt-10">
           <span class="tracking-[0.2em]">© 2025 Akhil Gogineni. All rights reserved.</span>
           <span class="tracking-[0.3em]">Last updated: {lastUpdated}</span>
         </div>
@@ -49,7 +49,13 @@
   </div>
 
 <style lang="postcss">
-  :global(body) {
+  :global(html.dark body) {
     @apply bg-slate-950;
+  }
+  :global(html:not(.dark) body) {
+    @apply bg-amber-50;
+  }
+  :global(body) {
+    @apply transition-colors duration-300;
   }
 </style>

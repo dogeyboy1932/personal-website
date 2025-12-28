@@ -51,7 +51,10 @@
             loop: true, 
             axis: "x",
             align: "start",
-            slidesToScroll: 1
+            slidesToScroll: 1,
+            dragFree: false,
+            dragThreshold: 5,
+            skipSnaps: false
           },
           plugins: []
         }}

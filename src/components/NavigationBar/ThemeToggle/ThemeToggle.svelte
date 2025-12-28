@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { Moon, Sun } from "lucide-svelte";
-  import Button from "./Button.svelte";
-  import { darkModeStore } from "../../lib/utils";
+  import { Coffee, Moon, Sun } from "lucide-svelte";
+  import Button from "../../Button/Button.svelte";
+  import { darkModeStore } from "../../../lib/utils";
+  import { theme, themeToggle } from "../../../lib/stores";
   import { onMount, onDestroy } from "svelte";
 
   let isDarkMode = true;
@@ -29,8 +30,14 @@
   }
 </script>
 
-<!-- <Button variant="ghost" size="icon" on:click={handleSwitchDarkMode}>
-  <Sun class="h-[1.5rem] w-[1.3rem] hidden text-slate-500" />
-  <Moon class="hidden h-5 w-5 block text-slate-500" />
-  <span class="sr-only">Toggle theme</span>
-</Button> -->
+<button 
+  on:click={handleSwitchDarkMode}
+  class="p-2 rounded-lg transition-all duration-200 {$theme.bg.secondary} {$theme.border.default} border hover:scale-105"
+  aria-label="Toggle theme"
+>
+  {#if isDarkMode}
+    <Coffee class="h-5 w-5 {themeToggle.sun}" />
+  {:else}
+    <Moon class="h-5 w-5 {themeToggle.moon}" />
+  {/if}
+</button>

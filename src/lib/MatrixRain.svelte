@@ -1,9 +1,22 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
+  
+  import { theme } from "./stores";
+  import { darkModeStore } from "./utils";
 
-  export let primaryColor: string = "#0066ff";
-  export let secondaryColor: string = "#00ccff";
+
+  
+  let isDarkMode: boolean
+  $: isDarkMode  = $darkModeStore;
+
+  let primaryColor: string;
+  let secondaryColor: string;
+
+  $: primaryColor = isDarkMode ? "#0066ff" : "#e69a0dd3";
+  $: secondaryColor = isDarkMode ? "#00ccff" : "#cb880dd3";
+
+
 
   let canvas: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D;
@@ -11,10 +24,12 @@
   let width = 0;
   let height = 0;
 
+
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()";
   const fontSize = 14;
   let columns: number[] = [];
   let drops: number[] = [];
+
 
   function initMatrix() {
     if (!browser) return;
@@ -41,7 +56,7 @@
   function draw() {
     if (!ctx || !canvas) return;
 
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)"
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = primaryColor;

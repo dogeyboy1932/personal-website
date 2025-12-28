@@ -39,8 +39,8 @@ export const more: MorePageData = {
 
   funFacts: [
     "Studied abroad in Singapore (NUS)- loved the traveling and cultural perspective",
-    "Avid chess player on Lichess (username: trashboatsr)",
-    "Love racquet sports [tennis doubles, learning table tennis, badminton, and pickleball]",
+    "Avid chess player",
+    "Love racquet sports [tennis, learning table tennis, badminton, and pickleball]",
     "Eagle Scout",
   ],
 
@@ -53,7 +53,7 @@ export const more: MorePageData = {
 
   lichess: {
     username: "trashboatsr",
-    label: "Lichess Rating",
+    label: "Lichess",
   },
 };
 

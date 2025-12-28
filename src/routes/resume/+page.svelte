@@ -5,16 +5,17 @@
   // Components
   import { PageHeader } from "../../components/Headers";
   
-  // Constants
+  // Constants and theme
   import { resume } from "../../constants";
+  import { theme } from "../../lib/stores";
 </script>
 
 <section class="space-y-6" in:fade>
   <PageHeader title={resume.pageTitle} />
   
   <!-- ===== RESUME DISPLAY CARD ===== -->
-  <div class="rounded-2xl border border-slate-500/20 bg-slate-900/70 p-6 shadow-lg" in:fly={{ y: 8 }}>
-    <p class="text-sm text-slate-300">{resume.description}</p>
+  <div class="rounded-2xl border {$theme.border.default} {$theme.bg.card} p-6 shadow-lg" in:fly={{ y: 8 }}>
+    <p class="text-sm {$theme.text.secondary}">{resume.description}</p>
     
     {#if resume.embed}
       <!-- Embedded resume iframe -->
@@ -31,7 +32,7 @@
       <!-- Open in new tab link -->
       <a 
         href={resume.url} 
-        class="mt-4 inline-flex items-center rounded-md border border-slate-400/60 px-4 py-2 text-sm uppercase tracking-[0.35em] font-semibold text-slate-200 bg-slate-500/10 hover:bg-slate-500/20 transition" 
+        class="mt-4 inline-flex items-center rounded-md border {$theme.border.light} px-4 py-2 text-sm uppercase tracking-[0.35em] font-semibold {$theme.text.primary} {$theme.bg.secondary} {$theme.hover.bgSecondary} transition" 
         target="_blank" 
         rel="noopener noreferrer"
       >
@@ -41,7 +42,7 @@
       <!-- Direct link to resume -->
       <a 
         href={resume.url} 
-        class="mt-4 inline-flex items-center rounded-md border border-slate-400/60 px-4 py-2 text-sm uppercase tracking-[0.35em] font-semibold text-slate-200 bg-slate-500/10 hover:bg-slate-500/20 transition" 
+        class="mt-4 inline-flex items-center rounded-md border {$theme.border.light} px-4 py-2 text-sm uppercase tracking-[0.35em] font-semibold {$theme.text.primary} {$theme.bg.secondary} {$theme.hover.bgSecondary} transition" 
         target="_blank" 
         rel="noopener noreferrer"
       >

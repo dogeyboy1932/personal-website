@@ -1,7 +1,9 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import { Logo } from "./Logo";
+  import { ThemeToggle } from "./ThemeToggle";
   import { navItems, site } from "../../constants";
+  import { theme } from "../../lib/stores";
 
   // Icon paths for each nav item
   const navIcons: Record<string, string> = {
@@ -13,7 +15,7 @@
 </script>
 
 <nav
-  class="w-full bg-slate-950/95 backdrop-blur-md px-4 sm:px-6 top-0 z-50 sticky"
+  class="w-full {$theme.bg.navbar} backdrop-blur-md px-4 sm:px-6 top-0 z-50 sticky"
 >
   <div class="flex flex-wrap mx-auto flex h-25 w-full max-w-[1400px] items-center justify-between p-2">
     
@@ -27,37 +29,42 @@
         class="w-12 h-12 transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]"
       />
       <span
-        class="font-sans sm:block text-md tracking-[0.25em] text-white uppercase group-hover:text-slate-300"
+        class="font-sans sm:block text-md tracking-[0.25em] {$theme.text.primary} uppercase {$theme.nav.logoHover}"
       >
         {site.author}
       </span>
     </a>
 
-    <!-- Navigation Pills -->
-    <div class="flex items-center p-1 shadow-purple-900/10 gap-5">
-      {#each navItems as item}
-        <a
-          href={item.href}
-          class={`relative flex items-center gap-2 p-2 rounded-sm text-md font-sans tracking-wide transition-all duration-300 ${
-            $page.url.pathname === item.href
-              ? "bg-slate-500 text-white shadow-md shadow-purple-500/25"
-              : "text-slate-400 hover:text-white hover:bg-slate-800/60"
-          }`}
-        >
-          <span>{item.label}</span>
-          
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke-width="1.5" 
-            stroke="currentColor" 
-            class="w-4 h-4"
+    <!-- Navigation Pills + Theme Toggle -->
+    <div class="flex flex-wrap items-center gap-4">
+      <div class="flex flex-wrap items-center p-1 {$theme.accent.purple.shadow} gap-5">
+        {#each navItems as item}
+          <a
+            href={item.href}
+            class={`relative flex items-center gap-2 p-2 rounded-sm text-md font-sans tracking-wide transition-all duration-300 ${
+              $page.url.pathname === item.href
+                ? $theme.nav.active
+                : $theme.nav.inactive
+            }`}
           >
-            <path stroke-linecap="round" stroke-linejoin="round" d={navIcons[item.href] || navIcons["/"]} />
-          </svg>
-        </a>
-      {/each}
+            <span>{item.label}</span>
+            
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke-width="1.5" 
+              stroke="currentColor" 
+              class="w-4 h-4"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d={navIcons[item.href] || navIcons["/"]} />
+            </svg>
+          </a>
+        {/each}
+      </div>
+      
+      <!-- Theme Toggle -->
+      <ThemeToggle />
     </div>
   </div>
 </nav>

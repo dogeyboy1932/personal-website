@@ -2,7 +2,7 @@
   // External dependencies
   import { MetaTags } from "svelte-meta-tags";
   import { fade } from "svelte/transition";
-  import { breakpoints } from "../lib/stores";
+  import { breakpoints, theme } from "../lib/stores";
 
   import { homeFocusAreas } from "../constants";
   
@@ -47,11 +47,11 @@
       <div class="flex items-center justify-center backdrop-blur-sm shadow-2xl p-4 rounded-xl">
         <div class="text-left">
           <div class="flex flex-col">
-            <h1 class="uppercase text-5xl font-display font-bold tracking-tight text-white leading-tight">
+            <h1 class="uppercase text-5xl font-display font-bold tracking-tight {$theme.text.primary} leading-tight">
               {homeHero.fullName}
             </h1>
             
-            <h3 class="text-sm sm:text-base md:text-lg font-display font-bold text-orange-400 tracking-widest uppercase">
+            <h3 class="text-sm sm:text-base md:text-lg font-display font-bold {$theme.accent.orange.text} tracking-widest uppercase">
               {homeHero.title}
             </h3>
           </div>
@@ -72,12 +72,12 @@
 
       
       <!-- Divider -->
-      <div class="mx-auto w-[90%] border-t border-slate-500/50" />
+      <div class="mx-auto w-[90%] border-t {$theme.border.divider}" />
 
       
       <!-- Summary Text -->
       <div class="flex items-center py-3 px-8 shadow-xl backdrop-blur-sm">
-        <p class="text-base text-lg leading-relaxed text-slate-100 font-sans font-light whitespace-pre-line">
+        <p class="text-base text-lg leading-relaxed {$theme.text.secondary} font-sans font-light whitespace-pre-line">
           {homeHero.summary}
         </p>
       </div>
@@ -105,7 +105,7 @@
 <section class="my-12">
 
   <div>
-    <h3 class="text-base text-xl uppercase tracking-[0.4em] text-slate-300 font-bold mb-3 ml-2">Mainly Focused on</h3>
+    <h3 class="text-base text-xl uppercase tracking-[0.4em] {$theme.text.muted} font-bold mb-3 ml-2">{sections.focuses}</h3>
     
     <div class="grid gap-4" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-3={!$breakpoints.isMobile}>
       {#each homeFocusAreas as focus, index}
@@ -120,8 +120,8 @@
 
 <!-- ===== NAVIGATION CARDS SECTION ===== -->
 <section>
-  <h3 class="text-base sm:text-lg md:text-xl font-display uppercase tracking-[0.4em] text-slate-300 font-bold mb-3 ml-2">
-    Also Check Out
+  <h3 class="text-base sm:text-lg md:text-xl font-display uppercase tracking-[0.4em] {$theme.text.muted} font-bold mb-3 ml-2">
+    {sections.navigation}
   </h3>
   
   <div class="grid gap-2 grid-cols-2">
@@ -141,7 +141,7 @@
 
 <!-- ===== TOOLKIT SECTION ===== -->
 <section class="my-6">
-  <h3 class="text-base sm:text-lg md:text-xl font-display uppercase tracking-[0.4em] text-slate-300 font-bold mb-3 ml-2">
+  <h3 class="text-base sm:text-lg md:text-xl font-display uppercase tracking-[0.4em] {$theme.text.muted} font-bold mb-3 ml-2">
     {sections.toolkit}
   </h3>
 
@@ -157,7 +157,7 @@
     <div class="flex items-center w-15">
       <a
         href="/portfolio"
-        class="w-full hover:opacity-100 opacity-80 group relative px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600/40 to-slate-400/40 text-white text-sm font-display font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105 border border-indigo-400/20 text-center"
+        class="w-full hover:opacity-100 opacity-80 group relative px-4 py-2 rounded-xl {$theme.gradient.button} {$theme.text.white} text-sm font-display font-bold uppercase tracking-widest transition-all duration-300 {$theme.hover.scaleSmall} border {$theme.accent.indigo.borderThin} text-center"
       >
         <span class="relative z-10">{home.skills.seeCompleteStack}</span>
       </a>

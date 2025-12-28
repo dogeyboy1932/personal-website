@@ -1,5 +1,6 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
+  import { theme } from "../../lib/stores";
   import TechBadge from "./TechBadge.svelte";
   import type { Project } from "../../types";
 
@@ -15,11 +16,11 @@
 </script>
 
 <div
-  class="group relative overflow-hidden rounded-2xl border border-slate-500/20 bg-slate-900/70 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl flex flex-col"
+  class="group relative overflow-hidden rounded-2xl border {$theme.border.default} {$theme.bg.card} shadow-lg transition hover:-translate-y-1 hover:shadow-2xl flex flex-col"
   in:fly={{ y: 18, delay: index * 50 }}
 >
 
-  <div class="relative h-48 overflow-hidden bg-slate-800">
+  <div class="relative h-48 overflow-hidden {$theme.bg.cardHover}">
     <img
       src={project.image}
       alt={project.title}
@@ -33,7 +34,7 @@
       {#if project.demo}
         <button
           on:click={() => openLink(project.demo)}
-          class="rounded-lg border border-slate-400/40 bg-slate-800/80 p-2 text-slate-400 hover:border-slate-300"
+          class="rounded-lg border {$theme.border.light} {$theme.bg.cardHover} p-2 {$theme.text.muted} hover:{$theme.border.hover}"
         >
           <img src="https://api.iconify.design/mdi:open-in-new.svg?color=%23cbd5e1" alt="Demo" class="h-4 w-4" />
         </button>
@@ -42,7 +43,7 @@
       {#if project.github}
         <button
           on:click={() => openLink(project.github)}
-          class="rounded-lg border border-slate-400/40 bg-slate-800/80 p-2 text-slate-600 hover:border-slate-300"
+          class="rounded-lg border {$theme.border.light} {$theme.bg.cardHover} p-2 {$theme.text.dim} hover:{$theme.border.hover}"
         >
           <img src="https://imgs.search.brave.com/w5LFW4ei3PC6DUOkw2jcpG1OVDzoYhDqENlECFBWUg8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy8y/LzI0L0dpdGh1Yl9s/b2dvX3N2Zy5zdmc" alt="GitHub" class="h-4 w-4" />
         </button>
@@ -56,18 +57,18 @@
     <div class="flex items-start justify-between gap-3 h-20 mb-4">
       <div>
         <h3
-          class="text-2xl font-semibold text-slate-300 transition"
+          class="text-2xl font-semibold {$theme.text.secondary} transition"
         >
           {project.title}
         </h3>
-        <p class="text-sm uppercase tracking-[0.35em] text-slate-500">
+        <p class="text-sm uppercase tracking-[0.35em] {$theme.text.muted}">
           {project.category}
         </p>
       </div>
       
       <div class="flex flex-col items-end gap-2">
         <span
-          class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.25em] bg-slate-500/10 text-slate-200"
+          class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.25em] {$theme.bg.secondary} {$theme.text.primary}"
         >
           {project.duration}
         </span>
@@ -75,8 +76,8 @@
         <span
           class={`rounded px-3 py-1 text-xs font-semibold uppercase tracking-[0.35em] border ${
             project.status === "Completed"
-              ? "border-green-400 bg-green-500/10 text-green-500"
-              : "border-blue-400 bg-blue-500/10 text-blue-400"
+              ? `${$theme.status.completed.border} ${$theme.status.completed.bg} ${$theme.status.completed.text}`
+              : `${$theme.status.inProgress.border} ${$theme.status.inProgress.bg} ${$theme.status.inProgress.text}`
           }`}
         >
           {project.status}
@@ -86,7 +87,7 @@
 
     <!-- Block 2: Description - Fixed Height -->
     <div class="h-20 mb-3">
-      <p class="text-sm text-slate-300 line-clamp-4 font-sans">
+      <p class="text-sm {$theme.text.secondary} line-clamp-4 font-sans">
         {project.description}
       </p>
     </div>
@@ -99,7 +100,7 @@
         {/each}
         {#if project.technologies.length > 7}
           <span
-            class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border border-slate-400/30 bg-slate-500/10 text-slate-200"
+            class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border {$theme.border.light} {$theme.bg.overlay} {$theme.text.primary}"
           >
             +{project.technologies.length - 7} more
           </span>

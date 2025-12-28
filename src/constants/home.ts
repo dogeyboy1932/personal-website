@@ -127,7 +127,7 @@ export const links: CustomLink[] = [
 
 
 export const sections = {
-  highlights: "Highlights",
+  focuses: "Mainly Focused On",
   navigation: "Also Check Out",
   toolkit: "Stack",
   openProject: "Open project ↗",
