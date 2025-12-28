@@ -93,9 +93,9 @@ export const home = {
   },
 };
 
-export const lastUpdated = "10/25";
 
 
+export const lastUpdated = "12/25";
 
 
 
@@ -124,8 +124,6 @@ export const links: CustomLink[] = [
 
 
 
-
-
 export const sections = {
   focuses: "Mainly Focused On",
   navigation: "Also Check Out",
@@ -137,7 +135,6 @@ export const sections = {
   more: "More",
   prof_experiences: "Experiences",
 };
-
 
 
 
