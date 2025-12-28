@@ -36,7 +36,7 @@
     </a>
 
     <!-- Navigation Pills + Theme Toggle -->
-    <div class="flex flex-wrap items-center gap-4">
+    <div class="flex items-center gap-4">
       <div class="flex flex-wrap items-center p-1 {$theme.accent.purple.shadow} gap-5">
         {#each navItems as item}
           <a
@@ -61,10 +61,10 @@
             </svg>
           </a>
         {/each}
+
+        <!-- Theme Toggle -->
+        <ThemeToggle />
       </div>
-      
-      <!-- Theme Toggle -->
-      <ThemeToggle />
     </div>
   </div>
 </nav>
