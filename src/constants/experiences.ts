@@ -7,7 +7,7 @@ export const experiences: Experience[] = [
   {
     role: "Software Developer Intern",
     company: "IDX Exchange",
-    duration: "Oct 2025 - Present",
+    duration: "Oct 2025 - Dec 2025",
     summary:
       "Building a real estate property search platform. Involved in API integration, database design, full-stack development with React.js, PHP, and MySQL.",
     skills: ["React.js", "PHP", "MySQL", "REST APIs", "Full-Stack"],
@@ -15,7 +15,7 @@ export const experiences: Experience[] = [
   {
     role: "Core Team Member",
     company: "CollegeDAO",
-    duration: "Oct 2024 - Present",
+    duration: "Oct 2024 - Sep 2025",
     summary:
       "Building Lateral, an AI-powered hiring platform. Also, co-leading global hacker houses and growing the Web3 student ecosystem nationwide.",
     skills: ["AI/ML", "Web3", "Leadership", "Product Dev"],
