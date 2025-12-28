@@ -2,6 +2,7 @@
   import { fly } from "svelte/transition";
   import { theme } from "../../lib/stores";
   import type { Experience } from "../../types";
+  import { TechBadge } from ".";
 
   export let experience: Experience;
   export let index: number = 0;
@@ -17,9 +18,9 @@
   <!-- Left accent bar with unique color -->
   <div class="absolute left-0 top-0 h-full w-1 bg-gradient-to-b {cardTheme.accent}" />
   
-  <div class="p-6 pl-5 space-y-4 flex-1 flex flex-col">
+  <div class="p-4 pl-5 space-y-4 flex-1 flex flex-col">
     <!-- Duration badge - top right corner style -->
-    <div class="flex items-start justify-between gap-4">
+    <div class="flex items-start justify-between gap-4 ">
       <div class="space-y-1">
         <h3 class="text-2xl font-bold bg-gradient-to-r {cardTheme.title} bg-clip-text text-transparent">
           {experience.company}
@@ -29,16 +30,32 @@
         </p>
       </div>
       
-      <span class="shrink-0 rounded-lg {cardTheme.badge} border px-3 py-1.5 text-xs font-bold tracking-wide">
+      <span class="shrink-0 rounded-sm {cardTheme.badge} border px-3 py-1.5 text-xs font-bold tracking-wide">
         {experience.duration}
       </span>
     </div>
 
     <!-- Summary with subtle separator -->
-    <div class="pt-2 border-t {cardTheme.divider}">
-      <p class="{$theme.text.secondary} leading-relaxed">
+    <div class="min-h-[4.5rem] pt-2 border-t {cardTheme.divider}">
+      <p class="{$theme.text.secondary} text-sm leading-relaxed">
         {experience.summary}
       </p>
+    </div>
+
+
+    <div class="mt-auto min-h-[3rem]">
+      <div class="flex flex-wrap gap-2">
+        {#each experience.skills.slice(0, 5) as tech, techIndex}
+          <TechBadge {tech} index={techIndex} />
+        {/each}
+        {#if experience.skills.length > 5}
+          <span
+            class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border {$theme.border.light} {$theme.bg.overlay} {$theme.text.primary}"
+          >
+            +{experience.skills.length - 5} more
+          </span>
+        {/if}
+      </div>
     </div>
   </div>
   

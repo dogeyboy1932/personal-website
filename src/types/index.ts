@@ -112,8 +112,7 @@ export interface Experience {
   company: string;
   duration: string;
   summary: string;
-  bullets?: string[];
-  skills?: string[];
+  skills: string[];
 }
 
 export interface Hobby {

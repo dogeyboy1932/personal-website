@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { breakpoints } from "$lib/stores";
+
   // Components
   import { SectionHeader } from "../../components/Headers";
   import { 
@@ -28,7 +30,7 @@
   <!-- ===== PROFESSIONAL EXPERIENCES SECTION ===== -->
   <section> 
     <SectionHeader id="experiences" title={sections.prof_experiences} />
-    <div class="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
+    <div class="grid gap-3 md:grid-cols-1 lg:grid-cols-2">
       {#each experiences as experience, i}
         <ExperienceCard {experience} index={i} />
       {/each}
@@ -64,7 +66,7 @@
   <!-- ===== SKILLS SECTION ===== -->
   <section>
     <SectionHeader id="skills" title={sections.skills} />
-    <div class="grid gap-2 grid-cols-1 min-[600px]:grid-cols-2 min-[1200px]:grid-cols-3">
+    <div class="grid gap-3" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-2={$breakpoints.isTablet} class:grid-cols-3={$breakpoints.isDesktop}>
       {#each skillsData.skills as category}
         <SkillCategoryCard {category} />
       {/each}

@@ -100,6 +100,8 @@
   $: currentSection = Math.ceil(currentCount / itemsPerSection);
 </script>
 
+
+
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <div
   class="relative"
@@ -120,7 +122,7 @@
       <div
         class={cn(
           "flex",
-          config?.options.axis === "x" ? "-ml-4" : "-mt-4 flex-col",
+          config?.options.axis === "x" ? "-ml-2" : "-mt-2 flex-col",
           carouselItemsClass
         )}
       >
@@ -131,7 +133,7 @@
             class={cn(
               "min-w-0 shrink-0 grow-0",
               basisClass,
-              config?.options.axis === "x" ? "pl-4" : "pt-4",
+              config?.options.axis === "x" ? "pl-3" : "pt-3",
               carouselItemClass
             )}
           >

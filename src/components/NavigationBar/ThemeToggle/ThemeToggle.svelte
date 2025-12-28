@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Coffee, Moon, Sun } from "lucide-svelte";
-  import Button from "../../Button/Button.svelte";
   import { theme, themeToggle, darkModeStore } from "../../../lib/stores";
   import { onMount, onDestroy } from "svelte";
 

@@ -16,7 +16,7 @@
 </script>
 
 <div
-  class="group relative overflow-hidden rounded-2xl border {$theme.border.default} {$theme.bg.card} shadow-lg transition hover:-translate-y-1 hover:shadow-2xl flex flex-col h-full"
+  class="group relative overflow-hidden rounded-sm border {$theme.border.default} {$theme.bg.card} shadow-lg transition hover:-translate-y-1 hover:shadow-2xl flex flex-col h-full"
   in:fly={{ y: 18, delay: index * 50 }}
 >
 
