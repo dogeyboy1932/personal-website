@@ -49,7 +49,7 @@ export const projectsData: Project[] = [
     description:
       "Trustless renting platform with crypto-staking verification and AI recommendations. Won 2nd Place ($1,500) at Solana University Hackathon. Built in one week.",
     technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Solana", "Rust", "Anchor"],
-    status: "Completed",
+    status: "MVP",
     complexity: "Advanced",
     category: "Blockchain",
     image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
