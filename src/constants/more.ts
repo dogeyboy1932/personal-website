@@ -48,7 +48,7 @@ export const more: MorePageData = {
     { name: "Chess", note: "Competitive player on Lichess - pattern recognition and strategic planning" },
     { name: "Racquet Sports", note: "Tennis doubles, learning table tennis, badminton, and pickleball" },
     { name: "Travel & Culture", note: "Study abroad in Singapore, exploring new cuisines and perspectives" },
-    { name: "Blockchain Gaming", note: "Following the intersection of Web3 and gaming economies" },
+    { name: "Movies / TV", note: "Very immersed in various genres and storytelling styles. I try to watch something new regularly" },
   ],
 
   lichess: {
