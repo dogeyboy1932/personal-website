@@ -221,10 +221,17 @@ export const darkTheme = {
       via: 'via-orange-300',
     },
     yellow: {
-      from: 'from-yellow-800',
-      to: 'to-yellow-800',
+      border: 'border-amber-500/30',
+      bg: 'bg-amber-50/50',
+      text: 'text-amber-300',
+      textMuted: 'text-amber-400/80',
+      glow: 'bg-amber-400/20',
+      from: 'from-amber-600',
+      to: 'to-yellow-600',
       hover: {
-        text: 'hover:text-yellow-400',
+        border: 'hover:border-amber-400/60',
+        bg: 'hover:bg-amber-400/30',
+        text: 'hover:text-amber-200',
       },
     },
     blue: {
@@ -266,6 +273,7 @@ export const darkTheme = {
     divider: 'bg-gradient-to-r from-yellow-800 via-orange-300 to-yellow-800',
     sectionLine: 'bg-gradient-to-r from-purple-500 to-cyan-500',
     overlay: 'bg-gradient-to-br from-slate-500/10 via-transparent to-cyan-500/10',
+    yellow: 'bg-gradient-to-br from-amber-900/60 via-yellow-950/40 to-amber-950/60',
   },
   
   // Hover effects
@@ -483,9 +491,16 @@ export const lightTheme = {
       via: 'via-orange-500',
     },
     yellow: {
+      border: 'border-amber-400',
+      bg: 'bg-gradient-to-br from-amber-50 to-yellow-50',
+      text: 'text-amber-800',
+      textMuted: 'text-amber-700',
+      glow: 'bg-amber-300/40',
       from: 'from-amber-500',
-      to: 'to-orange-500',
+      to: 'to-yellow-500',
       hover: {
+        border: 'hover:border-amber-500',
+        bg: 'hover:bg-amber-200/60',
         text: 'hover:text-amber-900',
       },
     },
@@ -510,6 +525,7 @@ export const lightTheme = {
     divider: 'bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500',
     sectionLine: 'bg-gradient-to-r from-orange-500 to-rose-500',
     overlay: 'bg-gradient-to-br from-orange-200/30 via-transparent to-amber-200/30',
+    yellow: 'bg-gradient-to-br from-amber-100 via-yellow-50 to-amber-50',
   },
   
   sectionHeader: 'text-amber-900',

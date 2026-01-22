@@ -45,14 +45,14 @@
 
 
 <div 
-  class="group relative overflow-hidden rounded-2xl border {$theme.accent.emerald.border} {$theme.gradient.emerald} p-6 shadow-xl {$theme.accent.emerald.hover.border} transition-colors"
+  class="group relative overflow-hidden rounded-2xl border {$theme.accent.yellow.border} {$theme.gradient.yellow} p-6 shadow-xl {$theme.accent.yellow.hover.border} transition-colors"
   in:fly={{ y: 20, delay: 250, duration: 400 }}
 >
   <!-- Glow effect -->
-  <div class="absolute -left-10 -bottom-10 h-40 w-40 rounded-full {$theme.accent.emerald.glow} blur-3xl {$theme.accent.emerald.hover.bg} transition" />
+  <div class="absolute -left-10 -bottom-10 h-40 w-40 rounded-full {$theme.accent.yellow.glow} blur-3xl {$theme.accent.yellow.hover.bg} transition" />
   
   <div class="relative">
-    <h3 class="text-lg font-semibold {$theme.accent.emerald.text} ">{label}</h3>
+    <h3 class="text-lg font-semibold {$theme.accent.yellow.text} ">{label}</h3>
     <h4 class="text-md font-semibold {$theme.accent.cyan.text} mb-3">  @{username}</h4>
     
     {#if rating}

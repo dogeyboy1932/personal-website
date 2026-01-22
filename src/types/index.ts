@@ -129,21 +129,21 @@ export interface MorePageData {
   title: string;
   subtitle: string;
   bio: string;
-  studyAbroad: {
+  studyAbroad?: {
     role: string;
     company: string;
     duration: string;
     summary: string;
   };
-  professionalIdentity: {
+  professionalIdentity?: {
     title: string;
     points: string[];
   };
-  achievements: {
+  achievements?: {
     title: string;
     items: AchievementItem[];
   };
-  philosophy: {
+  philosophy?: {
     title: string;
     description: string;
   };
