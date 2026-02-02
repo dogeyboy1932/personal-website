@@ -37,7 +37,7 @@
 
     <!-- Summary with subtle separator -->
     <div class="min-h-[4.5rem] pt-2 border-t {cardTheme.divider}">
-      <p class="{$theme.text.secondary} text-sm leading-relaxed">
+      <p class="{$theme.text.secondary} text-md leading-relaxed">
         {experience.summary}
       </p>
     </div>
