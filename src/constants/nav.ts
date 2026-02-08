@@ -1,10 +1,9 @@
-export const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/resume", label: "Resume" },
-  { href: "/more", label: "More" },
-  // { href: "/blog", label: "Blog" },
-  // { href: "/connect", label: "Connect" },
-  // { href: "/creative-zone", label: "Lab" },
-  // { href: "/zpage/experience", label: "Experience" },
-] as const;
+import { Home, Briefcase, FileText, Sparkles } from "lucide-svelte";
+import type { ComponentType } from "svelte";
+
+export const navItems: readonly { href: string; label: string; icon: ComponentType }[] = [
+  { href: "/", label: "Home", icon: Home }, 
+  { href: "/portfolio", label: "Portfolio", icon: Briefcase },
+  { href: "/resume", label: "Resume", icon: FileText },
+  { href: "/more", label: "More", icon: Sparkles },
+];

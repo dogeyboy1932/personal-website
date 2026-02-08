@@ -6,6 +6,19 @@ import type { Project } from "../types";
 
 export const projectsData: Project[] = [
   {
+    title: "DocAssist",
+    duration: "Jan 2026",
+    description:
+      "AI-powered clinical documentation platform. Patients and doctors upload health documents and/or query history via RAG. Personalized clinical notes auto-generated. Built overnight for Keywords AI Hackathon (Won Prompt Track)",
+    technologies: ["Next.js", "TypeScript", "Supabase", "Tailwind", "Keywords AI"],
+    status: "MVP",
+    complexity: "Beginner",
+    category: ["AI/ML"],
+    image: "/projectImages/DocAssist.png",
+    github: "https://github.com/kushal238/docassist",
+    demo: "https://devpost.com/software/doc-assist-6pz4rs",
+  },
+  {
     title: "MyCalPal",
     duration: "Sept 2025",
     description:

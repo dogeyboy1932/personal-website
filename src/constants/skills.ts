@@ -276,11 +276,18 @@ export const skillsData: SkillsData = {
             "https://avatars.githubusercontent.com/u/110818415?s=200&v=4",
         },
         {
-          name: "TensorFlow",
+          name: "Pytorch",
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
             "https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg",
+        },
+        {
+          name: "Scikit-learn",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learning,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg",
         },
       ],
     },

@@ -50,7 +50,7 @@
     "clsx": "^1.2.1",
     "embla-carousel-autoplay": "8.0.0-rc23",
     "embla-carousel-svelte": "8.0.0-rc18",
-    "lucide-svelte": "^0.252.0",
+    "lucide-svelte": "^0.563.0",
     "radix-svelte": "^0.8.0",
     "sharp": "^0.32.6",
     "tailwind-merge": "^1.14.0",
