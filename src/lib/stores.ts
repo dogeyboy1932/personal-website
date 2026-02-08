@@ -326,7 +326,7 @@ export const lightTheme = {
     card: 'bg-white border border-amber-200/80 shadow-md',      // Clean cards with warm border
     cardSolid: 'bg-white',
     cardHover: 'bg-amber-900',                                   // Warm hover state
-    cardElevated: 'bg-amber-200/80',
+    cardElevated: 'bg-amber-100/80',
     secondary: 'bg-amber-100/50',                               // Secondary backgrounds
     navbar: 'bg-white/95 border-b border-amber-200 shadow-sm',  // Clean navbar
     overlay: 'bg-amber-100',                      // High contrast badge
