@@ -95,7 +95,7 @@ export const home = {
 
 
 
-export const lastUpdated = "12/25";
+export const lastUpdated = "1/26";
 
 
 
