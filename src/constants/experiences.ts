@@ -25,7 +25,7 @@ export const experiences: Experience[] = [
     company: "CollegeDAO",
     duration: "Oct 2024 - Sep 2025",
     summary:
-      "Built a MVP for Lateral, an AI-powered hiring platform.",
+      "Built a MVP for Latent, an AI-powered hiring platform.",
     skills: ["AI/ML", "Web3", "Product Dev"],
   },
   {
