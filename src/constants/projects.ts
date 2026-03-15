@@ -6,6 +6,18 @@ import type { Project } from "../types";
 
 export const projectsData: Project[] = [
   {
+    title: "Blink API",
+    duration: "Feb 2026",
+    description:
+      "Trust-as-a-service escrow engine on Solana. Developers deploy on-chain escrow rooms via a single REST call. Supports Direct Mode (self-custody wallets) and Custodial Mode (Stripe fiat bridge) — making blockchain invisible to end users. Built for hackathon.",
+    technologies: ["Next.js", "TypeScript", "Rust", "Anchor", "Solana", "Supabase", "Stripe", "Railway"],
+    status: "MVP",
+    complexity: "Advanced",
+    category: ["Blockchain"],
+    image: "/projectImages/BlinkAPI.png",
+    github: "https://github.com/nbhide8/Universal-PactPay-Blink-API/",
+  },
+  {
     title: "DocAssist",
     duration: "Jan 2026",
     description:
