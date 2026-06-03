@@ -87,6 +87,34 @@ export const skillsData: SkillsData = {
           logoUrl:
             "https://imgs.search.brave.com/WvFM_NuTnQ7TFqY9ZRDfYRR3mVYpM4kme71eRZXR-DU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni8xNzEzNC8xNzEz/NDA2Ni5wbmc_c2Vt/dD1haXNfd2hpdGVf/bGFiZWw",
         },
+        {
+          name: "C#",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/4/4f/Csharp_Logo.png",
+        },
+        {
+          name: "HTML/CSS",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/1/10/CSS3_and_HTML5_logos_and_wordmarks.svg",
+        },
+        {
+          name: "PHP",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg",
+        },
+        {
+          name: "Dart",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/7/7e/Dart-logo.png",
+        }
       ],
     },
     {
@@ -128,7 +156,7 @@ export const skillsData: SkillsData = {
             "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg",
         },
                 {
-          name: "React Native",
+          name: "React Native / Expo",
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
@@ -161,6 +189,55 @@ export const skillsData: SkillsData = {
           status: SkillStatus.Learned,
           logoUrl:
             "https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png",
+        },
+        {
+          name: "NumPy",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/3/31/NumPy_logo_2020.svg",
+        },
+        {
+          name: "Pandas",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg",
+        },
+        {
+          name: "Flutter",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png",
+        },
+        {
+          name: "RESTful APIs",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://avatars.githubusercontent.com/u/104332851?s=200&v=4",
+        },
+        {
+          name: "WebRTC",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/d/d4/WebRTC_Logo.svg",
+        },
+        {
+          name: "WebSockets",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://avatars.githubusercontent.com/u/74617066?s=200&v=4",
+        },
+        {
+          name: "SciNCL",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/e/e0/Git-logo.svg",
         },
       ],
     },
@@ -202,6 +279,27 @@ export const skillsData: SkillsData = {
           logoUrl:
             "https://imgs.search.brave.com/KO0LdnYb-uykcgT_EQztTcp_3oJnwj8yScuY2u52kYM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/aWNvbnNjb3V0LmNv/bS9pY29uL2ZyZWUv/cG5nLTI1Ni9mcmVl/LW1vbmdvZGItbG9n/by1pY29uLXN2Zy1k/b3dubG9hZC1wbmct/MzAzMjMxMC5wbmc_/Zj13ZWJwJnc9MTI4",
         },
+        {
+          name: "pgvector",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg",
+        },
+        {
+          name: "Milvus",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://milvus.io/images/milvus_logo.svg",
+        },
+        {
+          name: "Neo4j",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/a/a2/Neo4j-logo-color.png",
+        },
       ],
     },
     {
@@ -220,6 +318,27 @@ export const skillsData: SkillsData = {
           status: SkillStatus.Learned,
           logoUrl:
             "https://imgs.search.brave.com/qcoXX3ekf6X_P-u5tdCXkPy6Iv0m7H9FX1xOpiWflWY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy9h/L2E3L0RvY2tlci1z/dmdyZXBvLWNvbS5z/dmc",
+        },
+        {
+          name: "AWS",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
+        },
+        {
+          name: "Azure",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/a/a8/Microsoft_Azure_Logo.svg",
+        },
+        {
+          name: "GCP",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg",
         },
         {
           name: "Heroku",
@@ -281,6 +400,13 @@ export const skillsData: SkillsData = {
           status: SkillStatus.Learned,
           logoUrl:
             "https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg",
+        },
+        {
+          name: "SciNCL",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/e/e0/Git-logo.svg",
         },
         {
           name: "Scikit-learn",
