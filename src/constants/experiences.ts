@@ -5,6 +5,22 @@ import type { Experience } from "../types";
 
 export const experiences: Experience[] = [
   {
+    role: "AI Engineer",
+    company: "PwC",
+    duration: "Jun 2026 - Aug 2026",
+    summary:
+      "Incoming",
+    skills: ["AI/ML", "Software Development", "Consulting"],
+  },
+  {
+    role: "Graduate Research Assistant",
+    company: "Mercor",
+    duration: "Mar 2026 - May 2026",
+    summary:
+      "Provided coded expertise for a leading AI research lab to train LLMs and improve their accuracy and reasoning.",
+    skills: ["AI Evaluation", "Coding Principles", "Quality Assurance"],
+  },
+  {
     role: "Coding Expert",
     company: "Mercor",
     duration: "Nov 2025 - Dec 2025",
@@ -15,7 +31,7 @@ export const experiences: Experience[] = [
   {
     role: "Software Developer Intern",
     company: "IDX Exchange",
-    duration: "Oct 2025 - Dec 2025",
+    duration: "Oct 2025 - Nov 2025",
     summary:
       "Lead a team to build a real estate property search platform. Involved in API integration, database design, full-stack development with React.js, PHP, and MySQL.",
     skills: ["React.js", "PHP", "MySQL", "REST APIs", "Project Management"],
