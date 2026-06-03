@@ -107,13 +107,6 @@ export const skillsData: SkillsData = {
           status: SkillStatus.Learned,
           logoUrl:
             "https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg",
-        },
-        {
-          name: "Dart",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/7/7e/Dart-logo.png",
         }
       ],
     },
@@ -211,34 +204,6 @@ export const skillsData: SkillsData = {
           logoUrl:
             "https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png",
         },
-        {
-          name: "RESTful APIs",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://avatars.githubusercontent.com/u/104332851?s=200&v=4",
-        },
-        {
-          name: "WebRTC",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/d/d4/WebRTC_Logo.svg",
-        },
-        {
-          name: "WebSockets",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://avatars.githubusercontent.com/u/74617066?s=200&v=4",
-        },
-        {
-          name: "SciNCL",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/e/e0/Git-logo.svg",
-        },
       ],
     },
     {
@@ -263,7 +228,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://imgs.search.brave.com/cipgXdptNpcsZAS1bgz1gvI5G-5xVQtBePAx3y7mq4A/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dGVjaC1sb2dvLmNv/bS9zdGF0aWMvaW1h/Z2VzL2ljb25zL2Zp/cmViYXNlL2ZpcmVi/YXNlLnN2Zw",
+            "https://imgs.search.brave.com/xqjvu9YcpQRhidfyqy58dDFVl2yzn1dKgtqfq0IvpHg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuY2RubG9nby5j/b20vbG9nb3MvZi82/Ny9maXJlYmFzZS5z/dmc",
         },
         {
           name: "Supabase",
@@ -298,12 +263,12 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/a/a2/Neo4j-logo-color.png",
+            "https://imgs.search.brave.com/pMMurtIx_165CkjcQpCX9fKrlVJBCZBjIGgXONyuinw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuY2RubG9nby5j/b20vbG9nb3Mvbi80/Mi9uZW80ai5zdmc",
         },
       ],
     },
     {
-      category: "Cloud & DevOps",
+      category: "Cloud",
       items: [
         {
           name: "Ubuntu/Linux",
