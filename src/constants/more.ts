@@ -39,9 +39,7 @@ export const more: MorePageData = {
 
   funFacts: [
     "Studied abroad in Singapore (NUS)- loved the traveling and cultural perspective",
-    "Avid chess player",
-    "Love racquet sports [tennis, learning table tennis, badminton, and pickleball]",
-    "Eagle Scout",
+    "Eagle Scout"
   ],
 
   hobbies: [

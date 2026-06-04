@@ -364,7 +364,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg",
+            "https://imgs.search.brave.com/rdD8MIx6SCwI2j_ZmcAQWJH3iyKa_GlVfmmsQw3fWEE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9ibG9n/LmNocmlzdGlhbnBl/cm9uZS5jb20vd3At/Y29udGVudC91cGxv/YWRzLzIwMTgvMTAv/cHl0b3JjaC1sb2dv/LTMwMHgzMDAucG5n",
         },
         {
           name: "SciNCL",

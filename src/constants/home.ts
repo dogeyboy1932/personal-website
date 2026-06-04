@@ -3,7 +3,7 @@ import type { CustomLink } from "../types";
 export const homeHero = {
   tagline: "Portfolio 2025",
   summary:
-    "Heyyy, I'm Akhil!👋 \n\n I'm focused on product development, data management, and AI-powered solutions. \n\n In my experiences, I’ve explored how emerging technologies can create real value and practical solutions. I try to strive to stay ahead of the curve and adapt to where our future is headed.",
+    "Heyyy, I'm Akhil!👋 \n\n I'm focused on product development, data management, and AI-powered solutions. \n\n In my experiences, I’ve explored how emerging technologies can create real value and practical solutions. I strive to stay ahead of the curve and adapt to where our future is headed.",
   // I see myself as highly driven, keeping myself informed of emerging trends and seeking opportunities to learn, grow, and deliver meaningful value. 
     image: {
     src: "/Linkedin_pfp.jpeg",
