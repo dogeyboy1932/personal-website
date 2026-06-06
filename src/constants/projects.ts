@@ -6,6 +6,18 @@ import type { Project } from "../types";
 
 export const projectsData: Project[] = [
   {
+    title: "SIIP",
+    duration: "March 2026 - May 2026",
+    description:
+      "Made an AI-powered platform that maps collegiate course data, allowing academics to seamlessly discover cross-disciplinary connections and uncover new collaborative research opportunities.",
+    technologies: ["PostgreSQL, FastAPI, Supabase, pgvector, PyTorch, AWS, D3.js, Docker, YAML, Gemini SDK, SciNCL"],
+    status: "MVP",
+    complexity: "Advanced",
+    category: ["AI/ML"],
+    image: "/projectImages/BlinkAPI.png",
+    github: "https://github.com/nbhide8/Universal-PactPay-Blink-API/",
+  },
+  {
     title: "Blink API",
     duration: "Feb 2026",
     description:
