@@ -3,14 +3,14 @@
   import { fade, fly } from "svelte/transition";
   
   // Icons
-  import { Heart, Gamepad2 } from "lucide-svelte";
-  
+  import { Heart, Gamepad2, Users } from "lucide-svelte";
+
   // Components
   import PageHeader from "../../components/Headers/PageHeader.svelte";
   import { BioCard, FunFactItem, HobbyCard, LichessCard } from "../../components/MORE";
-  
+
   // Constants and theme
-  import { more } from "../../constants";
+  import { more, clubs } from "../../constants";
   import { theme } from "../../lib/stores";
 </script>
 
@@ -54,6 +54,41 @@
           <HobbyCard name={hobby.name} note={hobby.note} index={i} />
         {/each}
       </ul>
+    </div>
+  </div>
+
+  <!-- ===== CLUBS & ORGANIZATIONS (framed, airy flow) ===== -->
+  <div
+    class="p-5 rounded-2xl border {$theme.accent.violet.border} {$theme.gradient.violet} shadow-lg {$theme.accent.violet.hover.border} transition-colors"
+    in:fly={{ y: 20, delay: 200, duration: 400 }}
+  >
+    <div class="flex items-center gap-2 mb-4">
+      <Users class="w-5 h-5 {$theme.accent.violet.text}" />
+      <h3 class="text-lg font-semibold {$theme.text.primary}">Clubs</h3>
+    </div>
+    <div class="flex flex-wrap gap-x-3 gap-y-2.5">
+      {#each clubs as club, i}
+        <span class="inline-flex items-baseline gap-2" in:fly={{ y: 8, delay: 220 + i * 25, duration: 300 }}>
+          <span class="inline-flex items-baseline">
+            {#if club.link}
+              <a
+                href={club.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="{$theme.text.primary} underline decoration-violet-400/50 decoration-1 underline-offset-4 hover:decoration-violet-300 transition-colors"
+              >{club.name}</a>
+            {:else}
+              <span class="{$theme.text.primary}">{club.name}</span>
+            {/if}
+            {#if club.tagline}
+              <span class="ml-1.5 {$theme.accent.violet.textMuted}">({club.tagline})</span>
+            {/if}
+          </span>
+          {#if i < clubs.length - 1}
+            <span class="{$theme.accent.violet.text}">/</span>
+          {/if}
+        </span>
+      {/each}
     </div>
   </div>
 

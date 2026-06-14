@@ -3,14 +3,14 @@
 
   // Components
   import { SectionHeader } from "../../components/Headers";
-  import { 
-    ExperienceCard, 
-    SkillCategoryCard, 
+  import {
+    ExperienceCard,
+    SkillCategoryCard,
     CategoryFilter,
     ProjectCard,
     Carousel
   } from "../../components/PORTFOLIO";
-  
+
   import { sections, experiences, skillsData, projectsData } from "../../constants";
   import { type ProjectCategory } from "../../types";
 

@@ -120,6 +120,14 @@ export interface Hobby {
   note: string;
 }
 
+export interface Club {
+  name: string;
+  /** Optional short role/note; left undefined for member-only clubs */
+  tagline?: string;
+  /** Optional external link; when set, the club name renders as an underlined link */
+  link?: string;
+}
+
 export interface AchievementItem {
   label: string;
   value: string;

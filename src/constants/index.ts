@@ -33,3 +33,6 @@ export {
 
 // More page
 export { more, hobbyData } from "./more";
+
+// Clubs and organizations
+export { clubs } from "./clubs";
