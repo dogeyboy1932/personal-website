@@ -9,15 +9,15 @@ export const experiences: Experience[] = [
     company: "PwC",
     duration: "Jun 2026 - Aug 2026",
     summary:
-      "Incoming",
+      "Ongoing",
     skills: ["AI/ML", "Software Development", "Consulting"],
   },
   {
     role: "Graduate Research Assistant",
-    company: "Mercor",
+    company: "UIUC",
     duration: "Mar 2026 - May 2026",
     summary:
-      "Provided coded expertise for a leading AI research lab to train LLMs and improve their accuracy and reasoning.",
+      "Built AI-powered system deployed on AWS that allows academics to identify cross-disciplinary connections across collegiate courses",
     skills: ["AI Evaluation", "Coding Principles", "Quality Assurance"],
   },
   {
