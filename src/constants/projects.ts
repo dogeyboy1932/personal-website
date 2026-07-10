@@ -6,16 +6,29 @@ import type { Project } from "../types";
 
 export const projectsData: Project[] = [
   {
-    title: "SIIP",
-    duration: "March 2026 - May 2026",
+    title: "ShotBook",
+    duration: "June 2026",
     description:
-      "Made an AI-powered platform that maps collegiate course data, allowing academics to seamlessly discover cross-disciplinary connections and uncover new collaborative research opportunities.",
-    technologies: ["PostgreSQL, FastAPI, Supabase, pgvector, PyTorch, AWS, D3.js, Docker, YAML, Gemini SDK, SciNCL"],
+      "Created AI-powered book-to-video platform that tracks evolving story lore to let users highlight text and generate scenes in real time.",
+    technologies: ["React", "FastAPI", "Pydantic", "PostgreSQL", "vLLM", "Wan 2.2"],
     status: "MVP",
     complexity: "Advanced",
     category: ["AI/ML"],
-    image: "/projectImages/BlinkAPI.png",
+    image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1200&q=80",
+    github: "https://github.com/dogeyboy1932",
+  },
+  {
+    title: "Weave",
+    duration: "March 2026 - May 2026",
+    description:
+      "Made an AI-powered platform that maps collegiate course data, allowing academics to seamlessly discover cross-disciplinary connections and uncover new collaborative research opportunities.",
+    technologies: ["PostgreSQL", "FastAPI", "Supabase", "pgvector", "PyTorch", "AWS", "D3.js", "Docker", "YAML", "Gemini SDK", "SciNCL"],
+    status: "MVP",
+    complexity: "Advanced",
+    category: ["AI/ML"],
+    image: "/projectImages/Weave.png",
     github: "https://github.com/nbhide8/Universal-PactPay-Blink-API/",
+    demo: "https://dogeyboy19-armchair.hf.space/",
   },
   {
     title: "Blink API",

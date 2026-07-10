@@ -209,6 +209,7 @@ export const skillsData: SkillsData = {
     {
       category: "Databases",
       items: [
+        
         {
           name: "PostgreSQL",
           proficiency: ProficiencyLevel.Proficient,
@@ -271,11 +272,11 @@ export const skillsData: SkillsData = {
       category: "Cloud",
       items: [
         {
-          name: "Ubuntu/Linux",
+          name: "Databricks",
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo-ubuntu_cof-orange-hex.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/63/Databricks_Logo.png",
         },
         {
           name: "Docker",
@@ -306,13 +307,6 @@ export const skillsData: SkillsData = {
             "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg",
         },
         {
-          name: "Heroku",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://imgs.search.brave.com/jksmgKmmZK94_qjlDblT933SQATcV1YGQY5f3pwgkZw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9yYXcu/Z2l0aHVidXNlcmNv/bnRlbnQuY29tL3Rh/bmRwZnVuL3NraWxs/LWljb25zL21haW4v/aWNvbnMvSGVyb2t1/LnN2Zw",
-        },
-        {
           name: "Railway",
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
@@ -325,6 +319,13 @@ export const skillsData: SkillsData = {
           status: SkillStatus.Learned,
           logoUrl:
             "https://upload.wikimedia.org/wikipedia/commons/9/97/Netlify_logo_%282%29.svg",
+        },
+        {
+          name: "Ubuntu/Linux",
+          proficiency: ProficiencyLevel.Proficient,
+          status: SkillStatus.Learned,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo-ubuntu_cof-orange-hex.svg",
         },
       ],
     },
