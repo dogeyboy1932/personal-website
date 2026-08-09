@@ -1,5 +1,9 @@
 import type { CustomLink } from "../types";
 
+
+export const lastUpdated = "8/26";
+
+
 export const homeHero = {
   tagline: "Portfolio 2026",
   summary:
@@ -94,9 +98,6 @@ export const home = {
   },
 };
 
-
-
-export const lastUpdated = "6/26";
 
 
 
