@@ -9,7 +9,7 @@ export const experiences: Experience[] = [
     company: "PwC",
     duration: "Jun 2026 - Aug 2026",
     summary:
-      "Ongoing",
+      "Worked on RAG Pipeline using Databricks",
     skills: ["AI/ML", "Software Development", "Consulting"],
   },
   {
@@ -25,7 +25,7 @@ export const experiences: Experience[] = [
     company: "Mercor",
     duration: "Nov 2025 - Dec 2025",
     summary:
-      "Provided coded expertise for a leading AI research lab to train LLMs and improve their accuracy and reasoning.",
+      "Provided coded expertise for a leading AI research lab to train LLMs and improve their accuracy and reasoning",
     skills: ["AI Evaluation", "Coding Principles", "Quality Assurance"],
   },
   {
@@ -41,7 +41,7 @@ export const experiences: Experience[] = [
     company: "CollegeDAO",
     duration: "Oct 2024 - Sep 2025",
     summary:
-      "Built a MVP for Latent, an AI-powered hiring platform.",
+      "Built a MVP for Latent, an AI-powered hiring platform",
     skills: ["AI/ML", "Web3", "Product Dev"],
   },
   {
@@ -49,7 +49,7 @@ export const experiences: Experience[] = [
     company: "Mercor",
     duration: "Feb 2025 - May 2025",
     summary:
-      "Audited 120+ AI evaluations to drive model improvements and optimize accuracy.",
+      "Audited 120+ AI evaluations to drive model improvements and optimize accuracy",
     skills: ["AI Evaluation", "Data Analysis"],
   },
   {
@@ -57,7 +57,7 @@ export const experiences: Experience[] = [
     company: "FreshCredit®",
     duration: "Jun 2024 - Aug 2024",
     summary:
-      "Managed 5-member dev team to build a substrate pallet to store credit-related metadata using a dNFT. Coordinated workshops and acted as PoC between dev team and leadership.",
+      "Managed 5-member dev team to build a substrate pallet to store credit-related metadata using a dNFT. Coordinated workshops and acted as PoC between dev team and leadership",
     skills: ["Substrate", "Blockchain", "Project Management"],
   }
 ];
