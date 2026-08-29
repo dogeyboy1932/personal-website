@@ -77,7 +77,10 @@ export default {
       fontFamily: {
         sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
         mono: ["JetBrains Mono", "Menlo", "Monaco", "monospace"],
-        display: ["Space Grotesk", "Inter", "sans-serif"],
+        // Chivo picked from the /fonts-lab sampler: highest contrast of the
+        // candidates at hero size. Space Grotesk stays as the first fallback so
+        // the layout doesn't shift if Chivo fails to load.
+        display: ["Chivo", "Space Grotesk", "Inter", "sans-serif"],
         cyber: ["Space Grotesk", "Inter", "sans-serif"],
         jakarta: ["Plus Jakarta Sans", ...fontFamily.sans],
       },

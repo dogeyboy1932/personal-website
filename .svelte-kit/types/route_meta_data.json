@@ -3,7 +3,12 @@
 	"/.well-known/appspecific/com.chrome.devtools.json": [
 		"src/routes/.well-known/appspecific/com.chrome.devtools.json/+server.js"
 	],
+	"/api/chess-challenge": [
+		"src/routes/api/chess-challenge/+server.ts"
+	],
 	"/more": [],
+	"/pictures": [],
 	"/portfolio": [],
-	"/resume": []
+	"/resume": [],
+	"/writings": []
 }
