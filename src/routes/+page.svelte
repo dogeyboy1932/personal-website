@@ -44,7 +44,7 @@
 <!-- FX:scroll-reveal (hero reveals immediately; no offset so it does not fight the fly-in) -->
 <section class="relative mb-3 font-sans" use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
   <!-- FX:side-rays -->
-  <SideRays side="left" count={7} opacity={0.45} speed={13} hue="warm" />
+  <SideRays side="left" count={9} opacity={0.4} speed={13} hue="warm" />
   <!-- /FX:side-rays -->
 
   <div class="relative z-10 grid gap-3" class:grid-cols-1={!$breakpoints.isDesktop} class:grid-cols-[65%_1fr]={$breakpoints.isDesktop}>

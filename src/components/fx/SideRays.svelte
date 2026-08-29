@@ -28,10 +28,10 @@
   import { darkModeStore } from "../../lib/stores";
 
   export let side: "left" | "right" | "both" = "left";
-  export let count = 7;
-  export let opacity = 0.5;
+  export let count = 9;
+  export let opacity = 0.42;
   export let speed = 12;
-  export let spread = 42;
+  export let spread = 72;
   export let hue: "warm" | "cool" = "warm";
   let klass = "";
   export { klass as class };
@@ -63,7 +63,7 @@
       const t = n === 1 ? 0.5 : i / (n - 1);
       return {
         angle: -deg / 2 + t * deg,
-        width: 4 + ((i * 37) % 9),          // 4-12vw, deterministic so SSR matches
+        width: 1.1 + ((i * 37) % 26) / 10,  // 1.1-3.6vw, deterministic so SSR matches
         delay: -((i * 1.7) % speed),        // negative = already mid-cycle on load
         duration: speed + ((i * 3) % 7),
         strength: 0.45 + ((i * 13) % 55) / 100,
@@ -105,14 +105,14 @@
      sweeps down and across the hero the way a window light would. */
   .fx-rays-origin {
     position: absolute;
-    top: -12%;
-    left: -6%;
+    top: -14%;
+    left: 6%;
     width: 0;
     height: 0;
   }
   .fx-rays-origin.from-right {
     left: auto;
-    right: -6%;
+    right: 6%;
   }
 
   .fx-ray {
@@ -123,17 +123,21 @@
     /* Long enough to cross the section at any angle. */
     height: 190vh;
     /* Base rotation is a variable so one keyframe set serves both edges —
-       hardcoding it here would be overridden by the animation's transform. */
-    --ray-base: 150deg;
+       hardcoding it here would be overridden by the animation's transform.
+       A blade hangs straight down at 0deg (origin is its top edge), so a
+       small positive tilt rakes it down-and-right across the section. Large
+       angles like 150deg would swing it back off the top of the screen. */
+    --ray-base: 34deg;
     transform-origin: 50% 0;
     transform: rotate(calc(var(--ray-base) + var(--ray-angle)));
     background: linear-gradient(
       to bottom,
-      rgba(var(--ray-color), var(--ray-opacity)) 0%,
-      rgba(var(--ray-color), calc(var(--ray-opacity) * 0.45)) 35%,
-      rgba(var(--ray-color), 0) 78%
+      rgba(var(--ray-color), calc(var(--ray-opacity) * 0.7)) 0%,
+      rgba(var(--ray-color), var(--ray-opacity)) 18%,
+      rgba(var(--ray-color), calc(var(--ray-opacity) * 0.6)) 55%,
+      rgba(var(--ray-color), 0) 95%
     );
-    filter: blur(28px);
+    filter: blur(13px);
     opacity: 0;
     animation: fx-ray-drift var(--ray-duration) ease-in-out var(--ray-delay) infinite;
     will-change: opacity, transform;
@@ -141,14 +145,14 @@
 
   /* Mirror the fan when it originates from the right edge. */
   .from-right .fx-ray {
-    --ray-base: 210deg;
+    --ray-base: -34deg;
   }
 
   @keyframes fx-ray-drift {
     0%,
     100% {
-      opacity: 0.25;
-      transform: rotate(calc(var(--ray-base) + var(--ray-angle))) scaleX(0.9);
+      opacity: 0.4;
+      transform: rotate(calc(var(--ray-base) + var(--ray-angle))) scaleX(0.85);
     }
     50% {
       opacity: 1;

@@ -108,6 +108,9 @@
   });
 </script>
 
-<!-- FX:side-rays — dimmed from full strength so the rain reads as a faint
-     glimmer behind the side rays and the translucent page panel -->
-<canvas bind:this={canvas} class="fixed top-0 left-0 w-full h-full -z-10 opacity-50" />
+<!-- FX:side-rays — the trail fade (rgba(0,0,0,0.05) per frame) accumulates, so
+     this canvas is an opaque black sheet carrying dim glyphs. Dimming the
+     canvas itself therefore just darkens the page without making the rain any
+     more visible; the glimmer is dialled in via the translucent page panel
+     (theme bg.page) instead, so the canvas stays at full strength. -->
+<canvas bind:this={canvas} class="fixed top-0 left-0 w-full h-full -z-10" />

@@ -81,12 +81,24 @@
     animation: fx-shiny var(--fx-speed) linear infinite;
   }
 
+  /*
+    Percentage background-position aligns image edge to box edge, so with
+    no-repeat the usable travel is 0%..100% regardless of background-size.
+    The fill layer must stay inside that range — push it negative and the
+    layer paints nothing, leaving the glyphs fully transparent. The ramp's
+    first and last stops are the same color, so 0% -> 100% loops seamlessly.
+
+    The shine layer is deliberately the exception: it starts and ends outside
+    the range so the highlight enters from off-glyph, crosses, and exits. It
+    is the top layer and mostly transparent, so where it paints nothing the
+    fill layer below still shows through.
+  */
   @keyframes fx-shiny {
     0% {
       background-position: 180% 50%, 0% 50%;
     }
     100% {
-      background-position: -80% 50%, -300% 50%;
+      background-position: -80% 50%, 100% 50%;
     }
   }
 
