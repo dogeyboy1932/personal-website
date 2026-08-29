@@ -12,13 +12,13 @@
 </script>
 
 <div 
-  class="group relative overflow-hidden rounded-2xl border {cardTheme.border} {$theme.bg.card} backdrop-blur-sm shadow-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col"
+  class="group relative overflow-hidden rounded-2xl border {cardTheme.border} {$theme.bg.card} backdrop-blur-sm shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col"
   in:fly={{ y: 18, delay: index * 100 }}
 >
   <!-- Left accent bar with unique color -->
   <div class="absolute left-0 top-0 h-full w-1 bg-gradient-to-b {cardTheme.accent}" />
   
-  <div class="p-4 pl-5 space-y-4 flex-1 flex flex-col">
+  <div class="p-5 pl-6 space-y-5 flex-1 flex flex-col">
     <!-- Duration badge - top right corner style -->
     <div class="flex items-start justify-between gap-4 ">
       <div class="space-y-1">

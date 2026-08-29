@@ -20,48 +20,30 @@ export const breakpoints = derived(screenWidth, ($width) => ({
 export const darkTheme = {
   // Tech stack colors - for dark theme (light, vibrant)
   techColors: [
+    "text-sky-300",
     "text-blue-300",
     "text-blue-400",
-    "text-cyan-300",
-    "text-cyan-400",
-    "text-teal-300",
-    "text-emerald-300",
-    "text-emerald-400",
-    "text-green-300",
-    "text-green-400",
-    "text-lime-300",
-    "text-yellow-300",
-    "text-yellow-400",
-    "text-amber-300",
-    "text-orange-300",
-    "text-orange-400",
-    "text-red-300",
-    "text-rose-300",
-    "text-pink-300",
-    "text-pink-400",
-    "text-purple-300",
-    "text-purple-400",
-    "text-violet-300",
-    "text-violet-400",
     "text-indigo-300",
     "text-indigo-400",
-    "text-sky-300",
+    "text-violet-300",
+    "text-violet-400",
+    "text-purple-300",
+    "text-slate-200",
     "text-slate-300",
-    "text-slate-400",
   ],
   // Background colors
   bg: {
     body: 'bg-slate-950',
     page: 'bg-black',
-    card: 'bg-slate-900/70',
-    cardSolid: 'bg-slate-900',
-    cardHover: 'bg-slate-800/60',
-    cardElevated: 'bg-slate-600/80',
-    secondary: 'bg-slate-800/50',
-    navbar: 'bg-slate-950/95',
-    overlay: 'bg-slate-500/10',
+    card: 'bg-slate-950/80',
+    cardSolid: 'bg-slate-950',
+    cardHover: 'bg-slate-900/90',
+    cardElevated: 'bg-slate-900/80',
+    secondary: 'bg-indigo-950/50',
+    navbar: 'bg-black/90',
+    overlay: 'bg-blue-400/10',
     black: 'bg-black',
-    backdrop: 'bg-slate-900/80',
+    backdrop: 'bg-slate-950/90',
   },
   
   // Text colors
@@ -76,53 +58,53 @@ export const darkTheme = {
   
   // Border colors
   border: {
-    default: 'border-slate-500/20',
-    secondary: 'border-slate-500/30',
+    default: 'border-blue-400/15',
+    secondary: 'border-indigo-400/25',
     tertiary: 'border-slate-700',
-    accent: 'border-slate-800',
-    light: 'border-slate-400/20',
-    hover: 'border-slate-600',
-    divider: 'border-slate-500/50',
+    accent: 'border-violet-500/20',
+    light: 'border-slate-300/15',
+    hover: 'border-blue-400/60',
+    divider: 'border-blue-400/25',
   },
   
   // Status colors (for project cards)
   status: {
     completed: {
-      border: 'border-emerald-500/30',
-      bg: 'bg-emerald-500/10',
-      text: 'text-emerald-400',
+      border: 'border-sky-400/30',
+      bg: 'bg-sky-400/10',
+      text: 'text-sky-300',
     },
     inProgress: {
-      border: 'border-amber-500/30',
-      bg: 'bg-amber-500/10',
-      text: 'text-amber-400',
+      border: 'border-violet-400/30',
+      bg: 'bg-violet-400/10',
+      text: 'text-violet-300',
     },
   },
-  
+
 // Filter colors
   filter: {
     active: {
-      bg: 'bg-white',
-      text: 'text-indigo-950',
-      border: 'border-white',
+      bg: 'bg-gradient-to-r from-sky-400 to-blue-500',
+      text: 'text-slate-950',
+      border: 'border-sky-300',
     },
     inactive: {
-      hoverBg: 'hover:bg-indigo-900',
-      hoverText: 'hover:text-indigo-100',
-      hoverBorder: 'hover:border-indigo-700',
+      hoverBg: 'hover:bg-violet-500/15',
+      hoverText: 'hover:text-slate-100',
+      hoverBorder: 'hover:border-violet-400/50',
     },
   },
-  
+
   // Navigation link colors
   nav: {
-    active: 'bg-violet-600 text-white shadow-md shadow-purple-500/25',
-    inactive: 'text-slate-400 hover:text-white hover:bg-slate-800/60',
-    logoHover: 'group-hover:text-slate-300',
+    active: 'bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-md shadow-blue-500/25',
+    inactive: 'text-slate-400 hover:text-white hover:bg-blue-500/10',
+    logoHover: 'group-hover:text-sky-300',
   },
-  
+
   // Glow effects
   glow: {
-    primary: 'bg-indigo-500/10',
+    primary: 'bg-blue-500/10',
     secondary: 'bg-violet-500/10',
   },
   
@@ -143,11 +125,11 @@ export const darkTheme = {
   
   // Card color themes (for experience cards, etc.)
   cardThemes: [
-    { accent: 'from-cyan-400 via-teal-400 to-emerald-400', border: 'border-cyan-500/20 hover:shadow-cyan-500/20', badge: 'bg-cyan-500/15 border-cyan-400/30 text-cyan-300', title: 'from-cyan-300 via-teal-200 to-white', role: 'text-teal-400', divider: 'border-cyan-500/10', glow: 'from-cyan-500/10' },
-    { accent: 'from-orange-400 via-amber-400 to-yellow-400', border: 'border-orange-500/20 hover:shadow-orange-500/20', badge: 'bg-orange-500/15 border-orange-400/30 text-orange-300', title: 'from-orange-300 via-amber-200 to-white', role: 'text-orange-400', divider: 'border-orange-500/10', glow: 'from-orange-500/10' },
-    { accent: 'from-purple-400 via-violet-400 to-fuchsia-400', border: 'border-purple-500/20 hover:shadow-purple-500/20', badge: 'bg-purple-500/15 border-purple-400/30 text-purple-300', title: 'from-purple-300 via-violet-200 to-white', role: 'text-purple-400', divider: 'border-purple-500/10', glow: 'from-purple-500/10' },
-    { accent: 'from-slate-400 via-gray-400 to-zinc-400', border: 'border-slate-500/20 hover:shadow-slate-500/20', badge: 'bg-slate-500/15 border-slate-400/30 text-slate-300', title: 'from-slate-300 via-gray-200 to-white', role: 'text-slate-400', divider: 'border-slate-500/10', glow: 'from-slate-500/10' },
-    { accent: 'from-blue-400 via-indigo-400 to-sky-400', border: 'border-blue-500/20 hover:shadow-blue-500/20', badge: 'bg-blue-500/15 border-blue-400/30 text-blue-300', title: 'from-blue-300 via-indigo-200 to-white', role: 'text-indigo-400', divider: 'border-blue-500/10', glow: 'from-blue-500/10' },
+    { accent: 'from-sky-400 via-blue-400 to-violet-400', border: 'border-sky-400/25 hover:shadow-sky-500/20', badge: 'bg-sky-400/10 border-sky-300/30 text-sky-300', title: 'from-sky-300 via-blue-200 to-white', role: 'text-sky-300', divider: 'border-sky-400/15', glow: 'from-sky-500/10' },
+    { accent: 'from-violet-400 via-purple-400 to-indigo-400', border: 'border-violet-400/25 hover:shadow-violet-500/20', badge: 'bg-violet-400/10 border-violet-300/30 text-violet-300', title: 'from-violet-300 via-purple-200 to-white', role: 'text-violet-300', divider: 'border-violet-400/15', glow: 'from-violet-500/10' },
+    { accent: 'from-blue-400 via-indigo-400 to-violet-400', border: 'border-blue-400/25 hover:shadow-blue-500/20', badge: 'bg-blue-400/10 border-blue-300/30 text-blue-300', title: 'from-blue-300 via-indigo-200 to-white', role: 'text-indigo-300', divider: 'border-blue-400/15', glow: 'from-blue-500/10' },
+    { accent: 'from-slate-300 via-blue-300 to-indigo-400', border: 'border-slate-300/20 hover:shadow-blue-500/15', badge: 'bg-slate-300/10 border-slate-200/25 text-slate-200', title: 'from-slate-200 via-blue-100 to-white', role: 'text-slate-300', divider: 'border-slate-300/15', glow: 'from-blue-500/10' },
+    { accent: 'from-purple-400 via-violet-400 to-blue-400', border: 'border-purple-400/25 hover:shadow-purple-500/20', badge: 'bg-purple-400/10 border-purple-300/30 text-purple-300', title: 'from-purple-300 via-violet-200 to-white', role: 'text-purple-300', divider: 'border-purple-400/15', glow: 'from-purple-500/10' },
   ],
   
   // Accent colors
@@ -201,19 +183,19 @@ export const darkTheme = {
       },
     },
     indigo: {
-      bg: 'bg-indigo-950',
-      border: 'border-indigo-800/60',
-      borderThin: 'border-indigo-400/20',
-      text: 'text-indigo-400',
-      textLight: 'text-indigo-300',
-      textDark: 'text-indigo-950',
-      glow: 'shadow-indigo-900/30',
-      shadow: 'shadow-indigo-900/30',
+      bg: 'bg-slate-950/90',
+      border: 'border-blue-400/25',
+      borderThin: 'border-blue-300/15',
+      text: 'text-sky-300',
+      textLight: 'text-blue-200',
+      textDark: 'text-slate-950',
+      glow: 'shadow-blue-950/50',
+      shadow: 'shadow-blue-950/50',
       hover: {
-        border: 'hover:border-indigo-500',
-        bg: 'hover:bg-indigo-500/10',
-        bgDark: 'hover:bg-indigo-900',
-        text: 'hover:text-indigo-100',
+        border: 'hover:border-sky-400/60',
+        bg: 'hover:bg-blue-500/10',
+        bgDark: 'hover:bg-indigo-950',
+        text: 'hover:text-sky-100',
       },
     },
     orange: {
@@ -248,31 +230,31 @@ export const darkTheme = {
   // Carousel controls
   carousel: {
     arrow: {
-      bg: 'bg-slate-800/50',
-      border: 'border-violet-800',
-      hoverBg: 'hover:bg-violet-500/20',
-      hoverBorder: 'hover:border-violet-500',
-      icon: 'text-slate-300',
+      bg: 'bg-slate-950/80',
+      border: 'border-blue-400/30',
+      hoverBg: 'hover:bg-blue-500/15',
+      hoverBorder: 'hover:border-sky-400/70',
+      icon: 'text-sky-200',
     },
     dot: {
-      active: 'bg-purple-400',
-      inactive: 'bg-slate-600',
-      hover: 'hover:bg-slate-400',
+      active: 'bg-sky-400',
+      inactive: 'bg-slate-700',
+      hover: 'hover:bg-violet-400',
     },
   },
   
   // Gradient backgrounds
   gradient: {
     primary: 'bg-gradient-to-br from-slate-900 via-violet-950/30 to-slate-900',
-    secondary: 'bg-gradient-to-br from-slate-900 via-emerald-950/30 to-slate-900',
+    secondary: 'bg-gradient-to-br from-slate-900 via-blue-950/30 to-slate-900',
     violet: 'bg-gradient-to-br from-violet-950/50 via-slate-900/70 to-slate-900/70',
     pink: 'bg-gradient-to-br from-pink-950/40 via-slate-900/70 to-slate-900/70',
     cyan: 'bg-gradient-to-br from-cyan-950/40 via-slate-900/70 to-slate-900/70',
     emerald: 'bg-gradient-to-br from-emerald-950/50 via-slate-900 to-slate-800',
     button: 'bg-gradient-to-r from-blue-600/40 to-slate-400/40',
     divider: 'bg-gradient-to-r from-yellow-800 via-orange-300 to-yellow-800',
-    sectionLine: 'bg-gradient-to-r from-purple-500 to-cyan-500',
-    overlay: 'bg-gradient-to-br from-slate-500/10 via-transparent to-cyan-500/10',
+    sectionLine: 'bg-gradient-to-r from-sky-400 via-blue-500 to-violet-500',
+    overlay: 'bg-gradient-to-br from-blue-500/10 via-transparent to-violet-500/10',
     yellow: 'bg-gradient-to-br from-amber-900/60 via-yellow-950/40 to-amber-950/60',
   },
   

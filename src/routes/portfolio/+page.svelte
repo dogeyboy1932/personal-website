@@ -26,11 +26,11 @@
   $: projectProps = filteredProjects.map((project, index) => ({ project, index }));
 </script>
 
-<section>
+<section class="space-y-10 pb-4">
   <!-- ===== PROFESSIONAL EXPERIENCES SECTION ===== -->
   <section> 
     <SectionHeader id="experiences" title={sections.prof_experiences} />
-    <div class="grid gap-3 md:grid-cols-1 lg:grid-cols-2">
+    <div class="grid gap-5 md:grid-cols-1 lg:grid-cols-2">
       {#each experiences as experience, i}
         <ExperienceCard {experience} index={i} />
       {/each}
@@ -66,7 +66,7 @@
   <!-- ===== SKILLS SECTION ===== -->
   <section>
     <SectionHeader id="skills" title={sections.skills} />
-    <div class="grid gap-3" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-2={$breakpoints.isTablet} class:grid-cols-3={$breakpoints.isDesktop}>
+    <div class="grid gap-5" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-2={$breakpoints.isTablet} class:grid-cols-3={$breakpoints.isDesktop}>
       {#each skillsData.skills as category}
         <SkillCategoryCard {category} />
       {/each}
