@@ -1,22 +1,17 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
   import { theme } from "../../lib/stores";
+  import LinkPreview from "../LinkPreview.svelte";
   import TechBadge from "./TechBadge.svelte";
   import type { Project } from "../../types";
 
   export let project: Project;
   export let index: number = 0;
 
-  function openLink(url?: string) {
-    if (!url) return;
-    if (typeof window !== "undefined") {
-      window.open(url, "_blank", "noopener");
-    }
-  }
 </script>
 
 <div
-  class="group relative overflow-hidden rounded-xl border {$theme.border.default} {$theme.bg.card} shadow-lg transition hover:-translate-y-1 hover:shadow-2xl flex flex-col h-full"
+  class="group relative overflow-visible rounded-xl border {$theme.border.default} {$theme.bg.card} shadow-lg transition hover:-translate-y-1 hover:shadow-2xl flex flex-col h-full"
   in:fly={{ y: 18, delay: index * 50 }}
 >
 
@@ -33,21 +28,15 @@
       class="absolute top-2 left-2 flex gap-2 opacity-50 transition group-hover:opacity-100"
     >
       {#if project.demo}
-        <button
-          on:click={() => openLink(project.demo)}
-          class="rounded-lg border {$theme.border.light} {$theme.bg.cardHover} p-2 {$theme.text.muted} hover:{$theme.border.hover}"
-        >
+        <LinkPreview href={project.demo} label={project.title + " demo"} className="inline-flex rounded-lg border {$theme.border.light} {$theme.bg.cardHover} p-2 {$theme.text.muted} hover:{$theme.border.hover}">
           <img src="https://api.iconify.design/mdi:open-in-new.svg?color=%23cbd5e1" alt="Demo" class="h-4 w-4" />
-        </button>
+        </LinkPreview>
       {/if}
 
       {#if project.github}
-        <button
-          on:click={() => openLink(project.github)}
-          class="rounded-lg border {$theme.border.light} {$theme.bg.cardHover} p-2 {$theme.text.dim} hover:{$theme.border.hover}"
-        >
+        <LinkPreview href={project.github} label={project.title + " GitHub"} className="inline-flex rounded-lg border {$theme.border.light} {$theme.bg.cardHover} p-2 {$theme.text.dim} hover:{$theme.border.hover}">
           <img src="https://imgs.search.brave.com/w5LFW4ei3PC6DUOkw2jcpG1OVDzoYhDqENlECFBWUg8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy8y/LzI0L0dpdGh1Yl9s/b2dvX3N2Zy5zdmc" alt="GitHub" class="h-4 w-4" />
-        </button>
+        </LinkPreview>
       {/if}
     </div>
   </div>

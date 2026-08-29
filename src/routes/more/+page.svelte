@@ -8,6 +8,7 @@
   // Components
   import PageHeader from "../../components/Headers/PageHeader.svelte";
   import { BioCard, FunFactItem, HobbyCard, LichessCard } from "../../components/MORE";
+  import LinkPreview from "../../components/LinkPreview.svelte";
 
   // Constants and theme
   import { more, clubs } from "../../constants";
@@ -71,12 +72,11 @@
         <span class="inline-flex items-baseline gap-2" in:fly={{ y: 8, delay: 220 + i * 25, duration: 300 }}>
           <span class="inline-flex items-baseline">
             {#if club.link}
-              <a
+              <LinkPreview
                 href={club.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="{$theme.text.primary} underline decoration-violet-400/50 decoration-1 underline-offset-4 hover:decoration-violet-300 transition-colors"
-              >{club.name}</a>
+                label={club.name}
+                className="{$theme.text.primary} underline decoration-violet-400/50 decoration-1 underline-offset-4 hover:decoration-violet-300 transition-colors"
+              >{club.name}</LinkPreview>
             {:else}
               <span class="{$theme.text.primary}">{club.name}</span>
             {/if}

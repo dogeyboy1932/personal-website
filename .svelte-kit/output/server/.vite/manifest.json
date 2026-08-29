@@ -1,0 +1,187 @@
+{
+  ".svelte-kit/generated/server/internal.js": {
+    "file": "internal.js",
+    "imports": [
+      "_internal.js"
+    ],
+    "isEntry": true,
+    "src": ".svelte-kit/generated/server/internal.js"
+  },
+  "_Icon.js": {
+    "file": "chunks/Icon.js",
+    "imports": [
+      "_ssr.js"
+    ]
+  },
+  "_LinkPreview.js": {
+    "file": "chunks/LinkPreview.js",
+    "imports": [
+      "_ssr.js"
+    ]
+  },
+  "_PageHeader.js": {
+    "file": "chunks/PageHeader.js",
+    "imports": [
+      "_ssr.js",
+      "_skills.js"
+    ]
+  },
+  "_home.js": {
+    "file": "chunks/home.js"
+  },
+  "_index.js": {
+    "file": "chunks/index.js",
+    "imports": [
+      "_ssr.js"
+    ]
+  },
+  "_internal.js": {
+    "file": "chunks/internal.js",
+    "imports": [
+      "_ssr.js"
+    ]
+  },
+  "_skills.js": {
+    "file": "chunks/skills.js",
+    "imports": [
+      "_index.js"
+    ]
+  },
+  "_sparkles.js": {
+    "file": "chunks/sparkles.js",
+    "imports": [
+      "_ssr.js",
+      "_Icon.js"
+    ]
+  },
+  "_ssr.js": {
+    "file": "chunks/ssr.js"
+  },
+  "_stores.js": {
+    "file": "chunks/stores.js",
+    "imports": [
+      "_ssr.js"
+    ]
+  },
+  "node_modules/.pnpm/@fontsource+plus-jakarta-sans@5.3.0/node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-400-normal.woff": {
+    "file": "_app/immutable/assets/plus-jakarta-sans-latin-400-normal.97091671.woff",
+    "src": "node_modules/.pnpm/@fontsource+plus-jakarta-sans@5.3.0/node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-400-normal.woff"
+  },
+  "node_modules/.pnpm/@fontsource+plus-jakarta-sans@5.3.0/node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-400-normal.woff2": {
+    "file": "_app/immutable/assets/plus-jakarta-sans-latin-400-normal.221a4135.woff2",
+    "src": "node_modules/.pnpm/@fontsource+plus-jakarta-sans@5.3.0/node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-400-normal.woff2"
+  },
+  "node_modules/.pnpm/@fontsource+plus-jakarta-sans@5.3.0/node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-ext-400-normal.woff": {
+    "file": "_app/immutable/assets/plus-jakarta-sans-latin-ext-400-normal.d0a823b7.woff",
+    "src": "node_modules/.pnpm/@fontsource+plus-jakarta-sans@5.3.0/node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-ext-400-normal.woff"
+  },
+  "node_modules/.pnpm/@fontsource+plus-jakarta-sans@5.3.0/node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-ext-400-normal.woff2": {
+    "file": "_app/immutable/assets/plus-jakarta-sans-latin-ext-400-normal.65b5680b.woff2",
+    "src": "node_modules/.pnpm/@fontsource+plus-jakarta-sans@5.3.0/node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-ext-400-normal.woff2"
+  },
+  "node_modules/.pnpm/@fontsource+plus-jakarta-sans@5.3.0/node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-vietnamese-400-normal.woff": {
+    "file": "_app/immutable/assets/plus-jakarta-sans-vietnamese-400-normal.4af41a5d.woff",
+    "src": "node_modules/.pnpm/@fontsource+plus-jakarta-sans@5.3.0/node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-vietnamese-400-normal.woff"
+  },
+  "node_modules/.pnpm/@fontsource+plus-jakarta-sans@5.3.0/node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-vietnamese-400-normal.woff2": {
+    "file": "_app/immutable/assets/plus-jakarta-sans-vietnamese-400-normal.89bca04c.woff2",
+    "src": "node_modules/.pnpm/@fontsource+plus-jakarta-sans@5.3.0/node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-vietnamese-400-normal.woff2"
+  },
+  "node_modules/.pnpm/@sveltejs+kit@1.30.4_svelte@4.2.20_vite@4.5.14_@types+node@26.4.0_/node_modules/@sveltejs/kit/src/runtime/components/error.svelte": {
+    "file": "entries/fallbacks/error.svelte.js",
+    "imports": [
+      "_ssr.js",
+      "_stores.js"
+    ],
+    "isEntry": true,
+    "src": "node_modules/.pnpm/@sveltejs+kit@1.30.4_svelte@4.2.20_vite@4.5.14_@types+node@26.4.0_/node_modules/@sveltejs/kit/src/runtime/components/error.svelte"
+  },
+  "node_modules/.pnpm/@sveltejs+kit@1.30.4_svelte@4.2.20_vite@4.5.14_@types+node@26.4.0_/node_modules/@sveltejs/kit/src/runtime/server/index.js": {
+    "file": "index.js",
+    "imports": [
+      "_internal.js",
+      "_index.js"
+    ],
+    "isEntry": true,
+    "src": "node_modules/.pnpm/@sveltejs+kit@1.30.4_svelte@4.2.20_vite@4.5.14_@types+node@26.4.0_/node_modules/@sveltejs/kit/src/runtime/server/index.js"
+  },
+  "src/routes/+layout.css": {
+    "file": "_app/immutable/assets/_layout.01c87dfa.css",
+    "src": "src/routes/+layout.css"
+  },
+  "src/routes/+layout.svelte": {
+    "assets": [
+      "_app/immutable/assets/plus-jakarta-sans-vietnamese-400-normal.89bca04c.woff2",
+      "_app/immutable/assets/plus-jakarta-sans-vietnamese-400-normal.4af41a5d.woff",
+      "_app/immutable/assets/plus-jakarta-sans-latin-ext-400-normal.65b5680b.woff2",
+      "_app/immutable/assets/plus-jakarta-sans-latin-ext-400-normal.d0a823b7.woff",
+      "_app/immutable/assets/plus-jakarta-sans-latin-400-normal.221a4135.woff2",
+      "_app/immutable/assets/plus-jakarta-sans-latin-400-normal.97091671.woff"
+    ],
+    "css": [
+      "_app/immutable/assets/_layout.01c87dfa.css"
+    ],
+    "file": "entries/pages/_layout.svelte.js",
+    "imports": [
+      "_ssr.js",
+      "_skills.js",
+      "_stores.js",
+      "_Icon.js",
+      "_sparkles.js",
+      "_home.js"
+    ],
+    "isEntry": true,
+    "src": "src/routes/+layout.svelte"
+  },
+  "src/routes/+page.svelte": {
+    "file": "entries/pages/_page.svelte.js",
+    "imports": [
+      "_ssr.js",
+      "_skills.js",
+      "_home.js",
+      "_LinkPreview.js"
+    ],
+    "isEntry": true,
+    "src": "src/routes/+page.svelte"
+  },
+  "src/routes/.well-known/appspecific/com.chrome.devtools.json/+server.js": {
+    "file": "entries/endpoints/.well-known/appspecific/com.chrome.devtools.json/_server.js",
+    "isEntry": true,
+    "src": "src/routes/.well-known/appspecific/com.chrome.devtools.json/+server.js"
+  },
+  "src/routes/more/+page.svelte": {
+    "file": "entries/pages/more/_page.svelte.js",
+    "imports": [
+      "_ssr.js",
+      "_PageHeader.js",
+      "_skills.js",
+      "_sparkles.js",
+      "_LinkPreview.js",
+      "_Icon.js"
+    ],
+    "isEntry": true,
+    "src": "src/routes/more/+page.svelte"
+  },
+  "src/routes/portfolio/+page.svelte": {
+    "file": "entries/pages/portfolio/_page.svelte.js",
+    "imports": [
+      "_ssr.js",
+      "_skills.js",
+      "_LinkPreview.js",
+      "_Icon.js",
+      "_home.js"
+    ],
+    "isEntry": true,
+    "src": "src/routes/portfolio/+page.svelte"
+  },
+  "src/routes/resume/+page.svelte": {
+    "file": "entries/pages/resume/_page.svelte.js",
+    "imports": [
+      "_ssr.js",
+      "_skills.js",
+      "_PageHeader.js"
+    ],
+    "isEntry": true,
+    "src": "src/routes/resume/+page.svelte"
+  }
+}

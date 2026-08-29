@@ -2,6 +2,7 @@
   import { fly, scale } from "svelte/transition";
   import { onMount } from "svelte";
   import { theme } from "../../lib/stores";
+  import LinkPreview from "../LinkPreview.svelte";
 
   export let label: string;
   export let username: string;
@@ -62,14 +63,13 @@
         </div>
         <span class="text-sm font-medium uppercase tracking-wider {$theme.lichess.perfType}">({perfType})</span>
       </div>
-      <a 
+      <LinkPreview
         href={`https://lichess.org/@/${username}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="mt-4 inline-flex items-center text-xs font-semibold uppercase tracking-[0.35em] {$theme.lichess.link} transition"
+        label={`@${username} on Lichess`}
+        className="mt-4 inline-flex items-center text-xs font-semibold uppercase tracking-[0.35em] {$theme.lichess.link} transition"
       >
         View Profile →
-      </a>
+      </LinkPreview>
     {:else if error}
       <div class="text-sm {$theme.lichess.error}">{error}</div>
     {:else}
