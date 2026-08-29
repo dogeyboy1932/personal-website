@@ -1,0 +1,9 @@
+{
+	"/": [],
+	"/.well-known/appspecific/com.chrome.devtools.json": [
+		"src/routes/.well-known/appspecific/com.chrome.devtools.json/+server.js"
+	],
+	"/more": [],
+	"/portfolio": [],
+	"/resume": []
+}
