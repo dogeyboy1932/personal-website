@@ -63,7 +63,6 @@
                 href={link.href} 
                 logo={link.logo} 
                 title={link.title}
-                isExternal={link.isExternal}
                 {index} 
               />
             {/each}

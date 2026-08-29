@@ -13,12 +13,6 @@
       "_ssr.js"
     ]
   },
-  "_LinkPreview.js": {
-    "file": "chunks/LinkPreview.js",
-    "imports": [
-      "_ssr.js"
-    ]
-  },
   "_PageHeader.js": {
     "file": "chunks/PageHeader.js",
     "imports": [
@@ -106,7 +100,7 @@
     "src": "node_modules/.pnpm/@sveltejs+kit@1.30.4_svelte@4.2.20_vite@4.5.14_@types+node@26.4.0_/node_modules/@sveltejs/kit/src/runtime/server/index.js"
   },
   "src/routes/+layout.css": {
-    "file": "_app/immutable/assets/_layout.01c87dfa.css",
+    "file": "_app/immutable/assets/_layout.2d83c18b.css",
     "src": "src/routes/+layout.css"
   },
   "src/routes/+layout.svelte": {
@@ -119,7 +113,7 @@
       "_app/immutable/assets/plus-jakarta-sans-latin-400-normal.97091671.woff"
     ],
     "css": [
-      "_app/immutable/assets/_layout.01c87dfa.css"
+      "_app/immutable/assets/_layout.2d83c18b.css"
     ],
     "file": "entries/pages/_layout.svelte.js",
     "imports": [
@@ -138,8 +132,7 @@
     "imports": [
       "_ssr.js",
       "_skills.js",
-      "_home.js",
-      "_LinkPreview.js"
+      "_home.js"
     ],
     "isEntry": true,
     "src": "src/routes/+page.svelte"
@@ -156,7 +149,6 @@
       "_PageHeader.js",
       "_skills.js",
       "_sparkles.js",
-      "_LinkPreview.js",
       "_Icon.js"
     ],
     "isEntry": true,
@@ -167,7 +159,6 @@
     "imports": [
       "_ssr.js",
       "_skills.js",
-      "_LinkPreview.js",
       "_Icon.js",
       "_home.js"
     ],

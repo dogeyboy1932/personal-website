@@ -164,7 +164,7 @@ const CursorParticles = create_ssr_component(($$result, $$props, $$bindings, slo
   onDestroy(() => {
     return;
   });
-  return `<canvas class="pointer-events-none fixed inset-0 z-0 h-full w-full" aria-hidden="true"${add_attribute("this", canvas, 0)}></canvas>`;
+  return `<canvas class="pointer-events-none fixed inset-0 z-20 h-full w-full" aria-hidden="true"${add_attribute("this", canvas, 0)}></canvas>`;
 });
 const index = "";
 const styles = "";

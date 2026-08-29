@@ -75,26 +75,6 @@
     }
   }
 
-  function drawHalo(timestamp: number) {
-    if (!context || !hasPointer) return;
-
-    const pulse = reducedMotion ? 0 : Math.sin(timestamp / 260) * 2;
-    const radius = 12 + pulse;
-
-    context.save();
-    context.translate(cursorX, cursorY);
-    context.strokeStyle = "rgba(250, 204, 21, 0.8)";
-    context.lineWidth = 1;
-    context.setLineDash([3, 4]);
-    context.beginPath();
-    context.arc(0, 0, radius, 0, Math.PI * 2);
-    context.stroke();
-    context.setLineDash([]);
-    context.fillStyle = "rgba(250, 204, 21, 0.95)";
-    context.fillRect(-1.5, -1.5, 3, 3);
-    context.restore();
-  }
-
   function drawParticles(delta: number) {
     if (!context) return;
 
@@ -128,7 +108,6 @@
       cursorX += (pointerX - cursorX) * Math.min(1, delta * 14);
       cursorY += (pointerY - cursorY) * Math.min(1, delta * 14);
       drawParticles(delta);
-      drawHalo(timestamp);
     }
 
     animationFrame = requestAnimationFrame(animate);
@@ -154,4 +133,4 @@
   });
 </script>
 
-<canvas bind:this={canvas} class="pointer-events-none fixed inset-0 z-0 h-full w-full" aria-hidden="true"></canvas>
+<canvas bind:this={canvas} class="pointer-events-none fixed inset-0 z-20 h-full w-full" aria-hidden="true"></canvas>

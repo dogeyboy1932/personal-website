@@ -1,7 +1,6 @@
 import { c as create_ssr_component, g as escape, d as add_attribute, h as each, e as spread, f as escape_object, a as validate_store, b as subscribe, v as validate_component } from "../../chunks/ssr.js";
 import { t as theme, b as skillsData, c as breakpoints } from "../../chunks/skills.js";
 import { s as site, h as homeHero, a as links, b as homeFocusAreas, c as homeNavigationCards, d as sections, e as home } from "../../chunks/home.js";
-import { L as LinkPreview } from "../../chunks/LinkPreview.js";
 const MetaTags = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let updatedTitle;
   let { title = "" } = $$props;
@@ -94,7 +93,6 @@ const SocialLinkButton = create_ssr_component(($$result, $$props, $$bindings, sl
   let { href } = $$props;
   let { logo } = $$props;
   let { title } = $$props;
-  let { isExternal = false } = $$props;
   let { index = 0 } = $$props;
   if ($$props.href === void 0 && $$bindings.href && href !== void 0)
     $$bindings.href(href);
@@ -102,25 +100,10 @@ const SocialLinkButton = create_ssr_component(($$result, $$props, $$bindings, sl
     $$bindings.logo(logo);
   if ($$props.title === void 0 && $$bindings.title && title !== void 0)
     $$bindings.title(title);
-  if ($$props.isExternal === void 0 && $$bindings.isExternal && isExternal !== void 0)
-    $$bindings.isExternal(isExternal);
   if ($$props.index === void 0 && $$bindings.index && index !== void 0)
     $$bindings.index(index);
   $$unsubscribe_theme();
-  return `${isExternal ? `${validate_component(LinkPreview, "LinkPreview").$$render(
-    $$result,
-    {
-      href,
-      label: title,
-      className: "group inline-flex items-center justify-center rounded-2xl border " + $theme.border.tertiary + " " + $theme.bg.secondary + " p-2 transition-all " + $theme.hover.scale + " " + $theme.accent.indigo.hover.border + " " + $theme.accent.indigo.hover.bg
-    },
-    {},
-    {
-      default: () => {
-        return `${logo ? `<div class="h-6 w-6"><img${add_attribute("src", logo, 0)}${add_attribute("alt", title, 0)} class="h-full w-full object-contain group-hover:opacity-100 transition-all"></div>` : ``}`;
-      }
-    }
-  )}` : `<a${add_attribute("href", href, 0)} class="${"group flex items-center justify-center rounded-2xl border " + escape($theme.border.tertiary, true) + " " + escape($theme.bg.secondary, true) + " p-2 transition-all " + escape($theme.hover.scale, true) + " " + escape($theme.accent.indigo.hover.border, true) + " " + escape($theme.accent.indigo.hover.bg, true)}">${logo ? `<div class="h-6 w-6"><img${add_attribute("src", logo, 0)}${add_attribute("alt", title, 0)} class="h-full w-full object-contain group-hover:opacity-100 transition-all"></div>` : ``}</a>`}`;
+  return `<a${add_attribute("href", href, 0)} target="_blank" rel="noopener noreferrer" class="${"group flex items-center justify-center rounded-2xl border " + escape($theme.border.tertiary, true) + " " + escape($theme.bg.secondary, true) + " p-2 transition-all " + escape($theme.hover.scale, true) + " " + escape($theme.accent.indigo.hover.border, true) + " " + escape($theme.accent.indigo.hover.bg, true)}">${logo ? `<div class="h-6 w-6"><img${add_attribute("src", logo, 0)}${add_attribute("alt", title, 0)} class="h-full w-full object-contain group-hover:opacity-100 transition-all"></div>` : ``}</a>`;
 });
 const NavigationCard = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $theme, $$unsubscribe_theme;
@@ -220,7 +203,6 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         href: link.href,
         logo: link.logo,
         title: link.title,
-        isExternal: link.isExternal,
         index
       },
       {},

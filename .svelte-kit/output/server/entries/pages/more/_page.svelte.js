@@ -1,8 +1,7 @@
-import { c as create_ssr_component, v as validate_component, a as validate_store, b as subscribe, g as escape, h as each, d as add_attribute } from "../../../chunks/ssr.js";
+import { c as create_ssr_component, v as validate_component, a as validate_store, b as subscribe, g as escape, d as add_attribute, h as each } from "../../../chunks/ssr.js";
 import { P as PageHeader } from "../../../chunks/PageHeader.js";
 import { t as theme } from "../../../chunks/skills.js";
 import { S as Sparkles } from "../../../chunks/sparkles.js";
-import { L as LinkPreview } from "../../../chunks/LinkPreview.js";
 import { I as Icon } from "../../../chunks/Icon.js";
 const Gamepad_2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   const iconNode = [
@@ -201,6 +200,28 @@ const HobbyCard = create_ssr_component(($$result, $$props, $$bindings, slots) =>
     $$bindings.index(index);
   $$unsubscribe_theme();
   return `<li class="${"group relative overflow-hidden rounded-xl border " + escape($theme.accent.cyan.border, true) + " " + escape($theme.bg.secondary, true) + " p-4 transition hover:-translate-y-0.5 hover:shadow-lg " + escape($theme.accent.cyan.hover.border, true)}"> <div class="${"absolute -right-6 -top-6 h-20 w-20 rounded-full " + escape($theme.accent.cyan.glow, true) + " blur-2xl transition group-hover:scale-110 " + escape($theme.accent.cyan.hover.glow, true)}"></div> <div class="relative"><div class="${"font-semibold " + escape($theme.text.secondary, true)}">${escape(name)}</div> <div class="${"mt-1 text-xs " + escape($theme.accent.cyan.textMuted, true)}">${escape(note)}</div></div></li>`;
+});
+const LinkPreview = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let previewStyle;
+  let { href } = $$props;
+  let { label } = $$props;
+  let { className = "" } = $$props;
+  let trigger;
+  let isOpen = false;
+  let previewX = 0;
+  let previewY = 0;
+  if ($$props.href === void 0 && $$bindings.href && href !== void 0)
+    $$bindings.href(href);
+  if ($$props.label === void 0 && $$bindings.label && label !== void 0)
+    $$bindings.label(label);
+  if ($$props.className === void 0 && $$bindings.className && className !== void 0)
+    $$bindings.className(className);
+  previewStyle = `left: ${previewX}px; top: ${previewY}px;`;
+  return ` <a${add_attribute("href", href, 0)} target="_blank" rel="noopener noreferrer"${add_attribute("class", className, 0)}${add_attribute("data-state", "closed", 0)}${add_attribute("this", trigger, 0)}>${slots.default ? slots.default({}) : ``}</a> <div${add_attribute(
+    "class",
+    `pointer-events-none fixed z-[100] w-60 overflow-hidden rounded-xl border border-yellow-300/40 bg-slate-950/95 p-2 shadow-xl shadow-black/40 transition-all duration-200 motion-reduce:transition-none ${"invisible translate-y-1 opacity-0"}`,
+    0
+  )}${add_attribute("style", previewStyle, 0)}${add_attribute("aria-hidden", !isOpen, 0)}>${``}</div>`;
 });
 const LichessCard = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $theme, $$unsubscribe_theme;
