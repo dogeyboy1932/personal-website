@@ -3,6 +3,8 @@
   import { theme } from "../../lib/stores";
   import type { Experience } from "../../types";
   import { TechBadge } from ".";
+  // FX:background-gradient — animated halo behind the card
+  import { BackgroundGradient } from "../fx";
 
   export let experience: Experience;
   export let index: number = 0;
@@ -11,8 +13,11 @@
   $: cardTheme = $theme.cardThemes[index % $theme.cardThemes.length];
 </script>
 
+<!-- FX:background-gradient — see the note in ProjectCard.svelte for why this
+     wraps instead of overlaying. Delete the wrapper tags to remove. -->
+<BackgroundGradient class="h-full" radius="1rem" palette="violet" spread={3} idle={0.28}>
 <div 
-  class="group relative overflow-hidden rounded-2xl border {cardTheme.border} {$theme.bg.card} backdrop-blur-sm shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col"
+  class="group relative overflow-hidden rounded-2xl border {cardTheme.border} {$theme.bg.card} backdrop-blur-sm shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col h-full"
   in:fly={{ y: 18, delay: index * 100 }}
 >
   <!-- Left accent bar with unique color -->
@@ -62,3 +67,5 @@
   <!-- Bottom glow on hover -->
   <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t {cardTheme.glow} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 </div>
+</BackgroundGradient>
+<!-- /FX:background-gradient -->

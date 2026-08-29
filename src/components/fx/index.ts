@@ -29,3 +29,6 @@ export { default as QuoteCarousel } from "./QuoteCarousel.svelte";
 
 // FX:pill-nav — reactbits pill-nav, applied to the project category filter
 export { default as PillNav } from "./PillNav.svelte";
+
+// FX:background-gradient — aceternity background-gradient (project + experience cards)
+export { default as BackgroundGradient } from "./BackgroundGradient.svelte";

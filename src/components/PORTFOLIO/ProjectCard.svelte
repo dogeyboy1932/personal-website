@@ -3,12 +3,18 @@
   import { theme } from "../../lib/stores";
   import TechBadge from "./TechBadge.svelte";
   import type { Project } from "../../types";
+  // FX:background-gradient — animated halo behind the card
+  import { BackgroundGradient } from "../fx";
 
   export let project: Project;
   export let index: number = 0;
 
 </script>
 
+<!-- FX:background-gradient — wraps rather than overlays: the card sets
+     overflow-hidden, so a glow rendered inside would be clipped at exactly the
+     edge it needs to bleed past. Delete the wrapper tags to remove. -->
+<BackgroundGradient class="h-full" radius="0.75rem" palette="aurora" spread={3} idle={0.3}>
 <div
   class="group relative overflow-hidden rounded-xl border {$theme.border.default} {$theme.bg.card} shadow-lg transition hover:-translate-y-1 hover:shadow-2xl flex flex-col h-full"
   in:fly={{ y: 18, delay: index * 50 }}
@@ -101,3 +107,5 @@
     </div>
   </div>
 </div>
+</BackgroundGradient>
+<!-- /FX:background-gradient -->
