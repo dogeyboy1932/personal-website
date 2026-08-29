@@ -287,6 +287,19 @@
     transition: color 300ms ease;
   }
 
+  /* On narrow screens the four items wrapped to two rows, which pushed the
+     theme toggle onto a third. Tightening padding and gap fits them on one. */
+  @media (max-width: 640px) {
+    .fx-goo-items {
+      gap: 0.15rem;
+    }
+    .fx-goo-item {
+      padding: 0.4rem 0.55rem;
+      font-size: 0.82rem;
+      gap: 0.3rem;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .fx-goo-blob,
     .fx-goo-item {
