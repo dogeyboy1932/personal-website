@@ -8,13 +8,16 @@
   // Constants and theme
   import { resume } from "../../constants";
   import { theme } from "../../lib/stores";
+  // FX:scroll-reveal
+  import { scrollReveal } from "../../lib/actions/scrollReveal";
 </script>
 
 <section class="space-y-6" in:fade>
   <PageHeader title={resume.pageTitle} />
   
   <!-- ===== RESUME DISPLAY CARD ===== -->
-  <div class="rounded-2xl border {$theme.border.default} {$theme.bg.card} p-6 shadow-lg" in:fly={{ y: 8 }}>
+  <!-- FX:scroll-reveal -->
+  <div class="rounded-2xl border {$theme.border.default} {$theme.bg.card} p-6 shadow-lg" in:fly={{ y: 8 }} use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
     <p class="text-sm {$theme.text.secondary}">{resume.description}</p>
     
     {#if resume.embed}

@@ -1,5 +1,7 @@
 <script lang="ts">
   import { breakpoints } from "$lib/stores";
+  // FX:scroll-reveal
+  import { scrollReveal } from "$lib/actions/scrollReveal";
 
   // Components
   import { SectionHeader } from "../../components/Headers";
@@ -28,7 +30,8 @@
 
 <section class="space-y-10 pb-4">
   <!-- ===== PROFESSIONAL EXPERIENCES SECTION ===== -->
-  <section> 
+  <!-- FX:scroll-reveal -->
+  <section use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}> 
     <SectionHeader id="experiences" title={sections.prof_experiences} />
     <div class="grid gap-5 md:grid-cols-1 lg:grid-cols-2">
       {#each experiences as experience, i}
@@ -38,7 +41,8 @@
   </section>
 
   <!-- ===== PROJECTS GALLERY SECTION ===== -->
-  <section>
+  <!-- FX:scroll-reveal -->
+  <section use:scrollReveal>
     <SectionHeader id="gallery" title={sections.projectGallery} />
     
     <!-- Category filter -->
@@ -64,7 +68,8 @@
   </section>
 
   <!-- ===== SKILLS SECTION ===== -->
-  <section>
+  <!-- FX:scroll-reveal -->
+  <section use:scrollReveal>
     <SectionHeader id="skills" title={sections.skills} />
     <div class="grid gap-5" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-2={$breakpoints.isTablet} class:grid-cols-3={$breakpoints.isDesktop}>
       {#each skillsData.skills as category}

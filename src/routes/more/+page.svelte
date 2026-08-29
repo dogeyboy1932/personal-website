@@ -13,6 +13,8 @@
   // Constants and theme
   import { more, clubs } from "../../constants";
   import { theme } from "../../lib/stores";
+  // FX:scroll-reveal
+  import { scrollReveal } from "../../lib/actions/scrollReveal";
 </script>
 
 
@@ -23,7 +25,8 @@
   <BioCard subtitle={more.subtitle} bio={more.bio} />
 
   <!-- ===== TWO COLUMN LAYOUT ===== -->
-  <div class="grid gap-6 lg:grid-cols-2">
+  <!-- FX:scroll-reveal -->
+  <div class="grid gap-6 lg:grid-cols-2" use:scrollReveal>
     
     <!-- Fun Facts Card -->
     <div 
@@ -59,7 +62,9 @@
   </div>
 
   <!-- ===== CLUBS & ORGANIZATIONS (framed, airy flow) ===== -->
+  <!-- FX:scroll-reveal -->
   <div
+    use:scrollReveal
     class="p-5 rounded-2xl border {$theme.accent.violet.border} {$theme.gradient.violet} shadow-lg {$theme.accent.violet.hover.border} transition-colors"
     in:fly={{ y: 20, delay: 200, duration: 400 }}
   >
@@ -93,5 +98,8 @@
   </div>
 
   <!-- ===== LICHESS RATING CARD ===== -->
+  <!-- FX:scroll-reveal -->
+  <div use:scrollReveal>
   <LichessCard label={more.lichess.label} username={more.lichess.username} />
+  </div>
 </section>

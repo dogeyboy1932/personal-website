@@ -1,0 +1,122 @@
+/**
+ * FX: scroll-reveal
+ * Source: https://reactbits.dev/text-animations/scroll-reveal (React) — reimplemented as a Svelte action.
+ *
+ * Elements start blurred + nudged down, then resolve to crisp as they scroll into view.
+ * The original is text-only; per the design brief this is generalised so any block
+ * ("the bottom should appear from blurred to unblurred") can use it.
+ *
+ * Usage:  <section use:scrollReveal>                       // defaults
+ *         <section use:scrollReveal={{ delay: 120 }}>       // stagger within a group
+ *         <div use:scrollReveal={{ blur: 4, y: 8, once: false }}>
+ *
+ * Tunables (all optional):
+ *   blur      px of blur at rest                    default 10
+ *   y         px of downward offset at rest         default 24
+ *   duration  ms of the reveal transition           default 700
+ *   delay     ms before this element starts         default 0
+ *   threshold fraction visible before firing        default 0.15
+ *   once      unreveal when scrolled back out?      default true (stays revealed)
+ *
+ * Honours `prefers-reduced-motion` and degrades to "always visible" when
+ * IntersectionObserver is missing, so content is never trapped invisible.
+ */
+
+export interface ScrollRevealOptions {
+  blur?: number;
+  y?: number;
+  duration?: number;
+  delay?: number;
+  threshold?: number;
+  once?: boolean;
+}
+
+const DEFAULTS: Required<ScrollRevealOptions> = {
+  blur: 10,
+  y: 24,
+  duration: 700,
+  delay: 0,
+  threshold: 0.15,
+  once: true,
+};
+
+/**
+ * Shared observer pool, keyed by threshold. One observer per distinct threshold
+ * instead of one per element — the /more page alone reveals ~30 nodes.
+ */
+const pools = new Map<number, IntersectionObserver>();
+const handlers = new WeakMap<Element, (visible: boolean) => void>();
+
+function getObserver(threshold: number): IntersectionObserver {
+  let observer = pools.get(threshold);
+  if (!observer) {
+    observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          handlers.get(entry.target)?.(entry.isIntersecting);
+        }
+      },
+      { threshold, rootMargin: "0px 0px -8% 0px" }
+    );
+    pools.set(threshold, observer);
+  }
+  return observer;
+}
+
+export function scrollReveal(node: HTMLElement, options: ScrollRevealOptions = {}) {
+  const opts = { ...DEFAULTS, ...options };
+
+  const reducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+  // No observer support (or motion suppressed) → render plainly, never hidden.
+  if (typeof IntersectionObserver === "undefined" || reducedMotion) {
+    node.style.opacity = "1";
+    return { destroy() {} };
+  }
+
+  const hide = () => {
+    node.style.opacity = "0";
+    node.style.filter = `blur(${opts.blur}px)`;
+    node.style.transform = `translate3d(0, ${opts.y}px, 0)`;
+  };
+
+  const show = () => {
+    node.style.opacity = "1";
+    node.style.filter = "blur(0px)";
+    node.style.transform = "translate3d(0, 0, 0)";
+  };
+
+  node.style.willChange = "opacity, filter, transform";
+  node.style.transition =
+    `opacity ${opts.duration}ms cubic-bezier(0.22, 1, 0.36, 1) ${opts.delay}ms, ` +
+    `filter ${opts.duration}ms cubic-bezier(0.22, 1, 0.36, 1) ${opts.delay}ms, ` +
+    `transform ${opts.duration}ms cubic-bezier(0.22, 1, 0.36, 1) ${opts.delay}ms`;
+  hide();
+
+  const observer = getObserver(opts.threshold);
+
+  handlers.set(node, (visible: boolean) => {
+    if (visible) {
+      show();
+      if (opts.once) {
+        observer.unobserve(node);
+        handlers.delete(node);
+      }
+    } else if (!opts.once) {
+      hide();
+    }
+  });
+
+  observer.observe(node);
+
+  return {
+    destroy() {
+      observer.unobserve(node);
+      handlers.delete(node);
+    },
+  };
+}
+
+export default scrollReveal;

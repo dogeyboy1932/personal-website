@@ -3,6 +3,8 @@
   import { MetaTags } from "svelte-meta-tags";
   import { fade } from "svelte/transition";
   import { breakpoints, theme } from "../lib/stores";
+  // FX:scroll-reveal — blurred-to-crisp entrance as each section scrolls in
+  import { scrollReveal } from "../lib/actions/scrollReveal";
 
   import { homeFocusAreas } from "../constants";
   
@@ -37,7 +39,8 @@
 
 
 <!-- ===== HERO SECTION ===== -->
-<section class="mb-3 font-sans">
+<!-- FX:scroll-reveal (hero reveals immediately; no offset so it does not fight the fly-in) -->
+<section class="mb-3 font-sans" use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
   <div class="grid gap-3" class:grid-cols-1={!$breakpoints.isDesktop} class:grid-cols-[65%_1fr]={$breakpoints.isDesktop}>
     
     <!-- Left Column: Header and Summary -->
@@ -102,7 +105,8 @@
 
 
 <!-- ===== FOCUS AREAS SECTION ===== -->
-<section class="my-12">
+<!-- FX:scroll-reveal -->
+<section class="my-12" use:scrollReveal>
 
   <div>
     <h3 class="text-base text-xl uppercase tracking-[0.4em] {$theme.text.muted} font-bold mb-3 ml-2">{sections.focuses}</h3>
@@ -119,7 +123,8 @@
 
 
 <!-- ===== NAVIGATION CARDS SECTION ===== -->
-<section>
+<!-- FX:scroll-reveal -->
+<section use:scrollReveal>
   <h3 class="text-base sm:text-lg md:text-xl font-display uppercase tracking-[0.4em] {$theme.text.muted} font-bold mb-3 ml-2">
     {sections.navigation}
   </h3>
@@ -140,7 +145,8 @@
 
 
 <!-- ===== TOOLKIT SECTION ===== -->
-<section class="my-6">
+<!-- FX:scroll-reveal -->
+<section class="my-6" use:scrollReveal>
   <h3 class="text-base sm:text-lg md:text-xl font-display uppercase tracking-[0.4em] {$theme.text.muted} font-bold mb-3 ml-2">
     {sections.toolkit}
   </h3>
