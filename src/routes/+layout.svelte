@@ -1,6 +1,7 @@
 <script lang="ts">
   import MatrixRain from "../lib/MatrixRain.svelte";
   import { NavigationBar } from "../components/NavigationBar";
+import { CursorParticles } from "../components/PORTFOLIO";
 
   import "@fontsource/plus-jakarta-sans";
   import "../styles.css";
@@ -25,6 +26,7 @@
 <svelte:window bind:innerWidth={$screenWidth} />
 
 <MatrixRain />
+<CursorParticles />
 
 <div class="min-h-screen relative">
   <div

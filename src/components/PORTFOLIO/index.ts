@@ -4,3 +4,4 @@ export { default as TechBadge } from "./TechBadge.svelte";
 export { default as SkillCategoryCard } from "./SkillCategoryCard.svelte";
 export { default as CategoryFilter } from "./CategoryFilter.svelte";
 export { default as Carousel } from "./Carousel.svelte";
+export { default as CursorParticles } from "./CursorParticles.svelte";
