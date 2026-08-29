@@ -19,7 +19,13 @@ export const homeHero = {
   // FX:sparkles over the same title block, and the brief flagged it as
   // "we'll see if it's worth keeping".
   particleName: false,
-  title: "Computer Science @ UIUC",
+  // Hero identity line, split into parts so the copy is editable without
+  // touching markup. Modelled on the GitHub profile header
+  // ("AI Engineer · MCS UIUC '26 · Chicago") but with the age dropped —
+  // it dates a portfolio and recruiters don't need it.
+  role: "AI Engineer",
+  credential: "MCS @ UIUC '26",
+  location: "Based in Chicago",
   // FX:quote-carousel — was a single `quote`/`voice` pair; the carousel cycles
   // this list and shuffles the order on each page load.
   // The first entry is the original. The rest are placeholders — swap the text

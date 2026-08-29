@@ -66,7 +66,7 @@
           <div class="flex flex-col">
             <!-- FX:particle-text — gated by homeHero.particleName in
                  src/constants/home.ts; off renders the plain heading -->
-            <h1 class="uppercase text-5xl font-display font-bold tracking-tight {$theme.text.primary} leading-tight">
+            <h1 class="uppercase text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight {$theme.text.primary} leading-[0.95]">
               {#if homeHero.particleName}
                 <ParticleText text={homeHero.fullName.toUpperCase()} gap={4} radius={95} />
               {:else}
@@ -74,10 +74,19 @@
               {/if}
             </h1>
             <!-- /FX:particle-text -->
-            
-            <h3 class="text-sm sm:text-base md:text-lg font-display font-bold {$theme.accent.orange.text} tracking-widest uppercase">
-              {homeHero.title}
-            </h3>
+
+            <!-- Two lines by design: the role carries more weight than the
+                 credentials, so it gets its own line rather than being buried
+                 in a single run-on row of separators. -->
+            <h2 class="mt-3 text-lg sm:text-xl md:text-2xl font-display font-bold {$theme.accent.orange.text} tracking-[0.2em] uppercase">
+              {homeHero.role}
+            </h2>
+
+            <p class="mt-1 text-xs sm:text-sm font-sans {$theme.text.muted} tracking-[0.18em] uppercase">
+              {homeHero.credential}
+              <span aria-hidden="true" class="{$theme.text.dim} mx-1.5">·</span>
+              {homeHero.location}
+            </p>
           </div>
 
           <!-- Social Links -->
