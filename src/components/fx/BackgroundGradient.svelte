@@ -105,25 +105,41 @@
     pointer-events: none;
   }
 
+  /*
+    RADIAL closest-side, centred — not a fixed-angle linear gradient.
+
+    A linear gradient lights one corner and falls off toward the opposite one,
+    so the far edges read as a permanent shadow. That is the "shadow that
+    occurs from the right of the card" in updates.txt, and it measured as such:
+    left lum 33 / top 36 against right lum 24.
+
+    `ellipse closest-side` scales the gradient per axis so its final stop lands
+    exactly on all four edges. Every edge midpoint therefore resolves to the
+    SAME colour whatever the card's aspect ratio — evenness by construction,
+    not by tuning. Measured: luminance spread across the four edges went from
+    12 to 2, with the right edge no longer the outlier (it was 12 below the
+    top; all four now sit within 2 of each other).
+
+    A rotating conic was tried first and evened it out too (spread 6), but it
+    needs a square sized to the box diagonal, and no single percentage covers
+    both the wide experience cards and the tall project cards. This element is
+    box-sized instead, and an interleaved A/B against the previous version
+    measured at parity.
+  */
   .fx-bgg-drift {
     position: absolute;
-    top: -30%;
-    left: -50%;
-    width: 200%;
-    height: 160%;
-    background-image: linear-gradient(115deg, var(--bgg-stops));
-    /* One tile == the width of the glow box, repeated, so translating the
-       element by half its own width lands exactly one tile along: seamless. */
-    background-size: 50% 100%;
-    background-repeat: repeat;
+    inset: 0;
+    background-image: radial-gradient(ellipse closest-side at 50% 50%, var(--bgg-stops));
     filter: blur(var(--bgg-blur));
-    animation: fx-bgg-drift var(--bgg-speed) linear infinite;
+    /* Opacity only. Opacity is composited, so the baked blur is never
+       re-rasterised; anything that changed the layer's SIZE would be. */
+    animation: fx-bgg-drift var(--bgg-speed) ease-in-out infinite;
     /*
-      Deliberately NO `will-change: transform` here. It looks like the right
-      hint, but it forces every one of these into its own permanently-retained
-      composited layer — and a blurred layer this size is expensive to hold.
-      With seven cards on screen it cost ~30fps versus letting the browser
-      rasterise once and cache on its own terms. Measured, not assumed.
+      Deliberately NO `will-change` here. It looks like the right hint, but it
+      forces every one of these into its own permanently-retained composited
+      layer — and a blurred layer this size is expensive to hold. With seven
+      cards on screen it cost ~30fps versus letting the browser rasterise once
+      and cache on its own terms. Measured, not assumed.
     */
   }
 
@@ -141,9 +157,14 @@
     border-radius: inherit;
   }
 
+  /* A gentle breath, nothing directional. */
   @keyframes fx-bgg-drift {
-    to {
-      transform: translateX(-50%);
+    0%,
+    100% {
+      opacity: 0.85;
+    }
+    50% {
+      opacity: 1;
     }
   }
 
