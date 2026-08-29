@@ -16,6 +16,7 @@
     "@neoconfetti/svelte": "^1.0.0",
     "@playwright/test": "^1.40.1",
     "@sveltejs/adapter-auto": "^2.1.1",
+    "@sveltejs/adapter-netlify": "^2",
     "@sveltejs/kit": "^1.30.3",
     "@tailwindcss/typography": "^0.5.13",
     "@types/cookie": "^0.5.4",

@@ -1,0 +1,17 @@
+# Netlify build config.
+#
+# adapter-netlify warns "No netlify.toml found. Using default publish
+# directory" without this, which leaves the publish path implicit and easy to
+# get wrong in the dashboard.
+#
+# The Lichess challenge endpoint (src/routes/api/chess-challenge) reads
+# LICHESS_TOKEN from the environment. Set it in
+# Site settings -> Environment variables — never in this file, which is
+# committed.
+
+[build]
+  command = "npm run build"
+  publish = "build"
+
+[build.environment]
+  NODE_VERSION = "20"

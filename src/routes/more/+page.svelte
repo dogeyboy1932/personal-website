@@ -13,6 +13,7 @@
     LeadershipSection,
     HonorShelf,
     ConnectFooter,
+    ChessChallenge,
   } from "../../components/MORE";
   import { FlipWords } from "../../components/fx";
 
@@ -113,10 +114,17 @@
     <HonorShelf honors={more.honors ?? []} />
   </section>
 
-  <!-- ===== LICHESS + CONNECT ===== -->
+  <!-- ===== LICHESS + CHALLENGE + CONNECT ===== -->
   <!-- FX:scroll-reveal -->
   <div class="grid gap-4 lg:grid-cols-2" use:scrollReveal>
     <LichessCard label={more.lichess.label} username={more.lichess.username} />
+    <!-- Sits beside the live rating on purpose: the rating is the invitation,
+         this is the way to act on it. -->
+    <ChessChallenge />
+  </div>
+
+  <!-- FX:scroll-reveal -->
+  <div use:scrollReveal>
     <ConnectFooter socials={more.socials ?? []} />
   </div>
 </section>

@@ -8,6 +8,7 @@ export { default as InterestGrid } from "./InterestGrid.svelte";
 export { default as LeadershipSection } from "./LeadershipSection.svelte";
 export { default as HonorShelf } from "./HonorShelf.svelte";
 export { default as ConnectFooter } from "./ConnectFooter.svelte";
+export { default as ChessChallenge } from "./ChessChallenge.svelte";
 
 /* Superseded by the sections above but kept so a revert has something to land
    on: FunFactItem (-> HonorShelf + TravelSection) and HobbyCard (-> InterestGrid). */
