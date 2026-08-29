@@ -23,3 +23,6 @@ export { default as BorderGlow } from "./BorderGlow.svelte";
 
 // FX:hover-border-gradient — aceternity hover-border-gradient
 export { default as HoverBorderGradient } from "./HoverBorderGradient.svelte";
+
+// FX:quote-carousel — reactbits carousel, applied to the hero quotes
+export { default as QuoteCarousel } from "./QuoteCarousel.svelte";

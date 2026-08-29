@@ -103,8 +103,7 @@
       <HeroImage 
         src={homeHero.image.src} 
         alt={homeHero.image.alt} 
-        quote={homeHero.quote} 
-        voice={homeHero.voice} 
+        quotes={homeHero.quotes} 
       />
     </div>
 

@@ -15,8 +15,29 @@ export const homeHero = {
   },
   fullName: "Akhil Gogineni",
   title: "Computer Science @ UIUC",
-  quote: "\"It gets easier. Every day it gets a little easier. But you gotta do it every day. That's the hard part. But it does get easier\" \n",
-  voice: "— A Jogging Baboon"
+  // FX:quote-carousel — was a single `quote`/`voice` pair; the carousel cycles
+  // this list and shuffles the order on each page load.
+  // The first entry is the original. The rest are placeholders — swap the text
+  // and attribution for whatever you actually want quoted.
+  quotes: [
+    {
+      quote:
+        "\"It gets easier. Every day it gets a little easier. But you gotta do it every day. That's the hard part. But it does get easier\"",
+      voice: "— A Jogging Baboon",
+    },
+    {
+      quote: "\"The best way to predict the future is to invent it.\"",
+      voice: "— Alan Kay",
+    },
+    {
+      quote: "\"Talk is cheap. Show me the code.\"",
+      voice: "— Linus Torvalds",
+    },
+    {
+      quote: "\"Premature optimization is the root of all evil.\"",
+      voice: "— Donald Knuth",
+    },
+  ],
 };
 
 export const homeQuickLinks = [

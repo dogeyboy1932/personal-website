@@ -2,10 +2,12 @@
   import { fly } from "svelte/transition";
   import { theme } from "../../lib/stores";
 
+  // FX:quote-carousel — was a single `quote`/`voice` pair
+  import { QuoteCarousel } from "../fx";
+
   export let src: string;
   export let alt: string;
-  export let quote: string;
-  export let voice: string;
+  export let quotes: { quote: string; voice: string }[] = [];
 </script>
 
 <figure class="group relative flex flex-col mx-auto" in:fly={{ x: -24, duration: 400 }}>
@@ -20,8 +22,9 @@
   </div>
 
   <!-- Quote caption -->
-  <figcaption class="mt-2 p-4 rounded-2xl border {$theme.border.accent} {$theme.bg.backdrop} backdrop-blur-md shadow-lg">
-    <p class="text-md italic {$theme.text.primary} leading-snug">{quote}</p>
-    <p class="mt-3 text-sm {$theme.accent.indigo.text} font-bold uppercase tracking-widest text-right">{voice}</p>
-  </figcaption>
+  <!-- FX:quote-carousel — autoplaying, shuffled on load -->
+  <div class="mt-2">
+    <QuoteCarousel {quotes} interval={7000} shuffle />
+  </div>
+  <!-- /FX:quote-carousel -->
 </figure>
