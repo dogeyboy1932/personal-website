@@ -6,7 +6,7 @@
   // FX:scroll-reveal — blurred-to-crisp entrance as each section scrolls in
   import { scrollReveal } from "../lib/actions/scrollReveal";
   // FX:side-rays — volumetric light fanning across the hero
-  import { SideRays } from "../components/fx";
+  import { SideRays, SparkleField } from "../components/fx";
 
   import { homeFocusAreas } from "../constants";
   
@@ -53,8 +53,13 @@
     <div class="flex flex-col flex-1 md:flex-[1] justify-center gap-3">
       
       <!-- Header Box -->
-      <div class="flex items-center justify-center backdrop-blur-sm p-4 rounded-xl">
-        <div class="text-left">
+      <div class="relative flex items-center justify-center backdrop-blur-sm p-4 rounded-xl">
+        <!-- FX:sparkles FX:gravity-stars — covers the whole title block: name,
+             university and the three social links -->
+        <SparkleField density={1.1} color="warm" pointerPull={150} />
+        <!-- /FX:sparkles /FX:gravity-stars -->
+
+        <div class="relative z-10 text-left">
           <div class="flex flex-col">
             <h1 class="uppercase text-5xl font-display font-bold tracking-tight {$theme.text.primary} leading-tight">
               {homeHero.fullName}

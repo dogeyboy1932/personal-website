@@ -14,3 +14,6 @@ export { default as SpinLogo } from "./SpinLogo.svelte";
 
 // FX:side-rays — reactbits side-rays
 export { default as SideRays } from "./SideRays.svelte";
+
+// FX:sparkles + FX:gravity-stars — aceternity sparkles fused with animate-ui gravity-stars
+export { default as SparkleField } from "./SparkleField.svelte";
