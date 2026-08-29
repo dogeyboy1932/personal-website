@@ -70,7 +70,7 @@
     --bgg-stops: {stops};
   "
 >
-  <span class="fx-bgg-glow" aria-hidden="true" />
+  <span class="fx-bgg-glow" aria-hidden="true"><span class="fx-bgg-drift" /></span>
   <div class="fx-bgg-content"><slot /></div>
 </div>
 
@@ -80,18 +80,51 @@
     border-radius: var(--bgg-radius);
   }
 
+  /*
+    The glow is split across two elements on purpose.
+
+    Originally this was one element carrying both `filter: blur()` and an
+    animated `background-position`. background-position is a paint property, so
+    every frame repainted the element AND re-ran the blur over it. With seven
+    cards on screen that was most of a 17fps portfolio page.
+
+    Now the outer box only clips and fades, while the inner tile carries the
+    blur and animates `transform`. The blur bakes into the inner element's
+    composited layer once, and translating that layer is free. The translation
+    must not change the layer's size either — a scale here would put the
+    re-rasterisation straight back.
+  */
   .fx-bgg-glow {
     position: absolute;
     inset: calc(var(--bgg-spread) * -1);
     z-index: 0;
     border-radius: calc(var(--bgg-radius) + var(--bgg-spread));
-    background-image: linear-gradient(115deg, var(--bgg-stops));
-    background-size: 300% 300%;
-    filter: blur(var(--bgg-blur));
+    overflow: hidden;
     opacity: var(--bgg-idle);
     transition: opacity 350ms ease;
-    animation: fx-bgg-drift var(--bgg-speed) linear infinite;
     pointer-events: none;
+  }
+
+  .fx-bgg-drift {
+    position: absolute;
+    top: -30%;
+    left: -50%;
+    width: 200%;
+    height: 160%;
+    background-image: linear-gradient(115deg, var(--bgg-stops));
+    /* One tile == the width of the glow box, repeated, so translating the
+       element by half its own width lands exactly one tile along: seamless. */
+    background-size: 50% 100%;
+    background-repeat: repeat;
+    filter: blur(var(--bgg-blur));
+    animation: fx-bgg-drift var(--bgg-speed) linear infinite;
+    /*
+      Deliberately NO `will-change: transform` here. It looks like the right
+      hint, but it forces every one of these into its own permanently-retained
+      composited layer — and a blurred layer this size is expensive to hold.
+      With seven cards on screen it cost ~30fps versus letting the browser
+      rasterise once and cache on its own terms. Measured, not assumed.
+    */
   }
 
   .fx-background-gradient:hover .fx-bgg-glow,
@@ -109,21 +142,17 @@
   }
 
   @keyframes fx-bgg-drift {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
+    to {
+      transform: translateX(-50%);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .fx-bgg-glow {
-      animation: none;
       transition: none;
+    }
+    .fx-bgg-drift {
+      animation: none;
     }
   }
 </style>

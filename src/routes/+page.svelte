@@ -53,7 +53,10 @@
     <div class="flex flex-col flex-1 md:flex-[1] justify-center gap-3">
       
       <!-- Header Box -->
-      <div class="relative flex items-center justify-center backdrop-blur-sm p-4 rounded-xl">
+      <!-- backdrop-blur-sm removed: this box has no background of its own, so
+           the blur only softened the matrix rain behind the text, and it sits
+           over an animating canvas so it could never be cached. -->
+      <div class="relative flex items-center justify-center p-4 rounded-xl">
         <!-- FX:sparkles FX:gravity-stars — covers the whole title block: name,
              university and the three social links -->
         <SparkleField density={1.1} color="warm" pointerPull={150} />
@@ -97,7 +100,8 @@
 
       
       <!-- Summary Text -->
-      <div class="flex items-center py-3 px-8 backdrop-blur-sm">
+      <!-- backdrop-blur-sm removed; see the note on the header box above. -->
+      <div class="flex items-center py-3 px-8">
         <p class="text-base text-lg leading-relaxed {$theme.text.secondary} font-sans font-light whitespace-pre-line">
           {homeHero.summary}
         </p>

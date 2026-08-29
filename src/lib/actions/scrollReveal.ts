@@ -88,6 +88,28 @@ export function scrollReveal(node: HTMLElement, options: ScrollRevealOptions = {
     node.style.transform = "translate3d(0, 0, 0)";
   };
 
+  /**
+   * Strip every style this action set once the reveal has finished.
+   *
+   * This matters for more than tidiness. A `filter` of ANY value — `blur(0px)`
+   * included — promotes the element to its own composited layer for as long as
+   * it is set, and `will-change` pins that layer explicitly. Leaving both on
+   * every revealed section meant each page permanently carried a stack of
+   * full-width GPU layers, which is what dragged rendering down to single-digit
+   * fps once an animated backdrop sat behind them. A lingering `filter` also
+   * disables subpixel text antialiasing, so the copy renders slightly softer.
+   *
+   * Only safe when `once` is set; a re-hiding reveal still needs its styles.
+   */
+  let cleanupTimer: ReturnType<typeof setTimeout> | undefined;
+  const clearStyles = () => {
+    node.style.removeProperty("filter");
+    node.style.removeProperty("transform");
+    node.style.removeProperty("will-change");
+    node.style.removeProperty("transition");
+    node.style.removeProperty("opacity");
+  };
+
   node.style.willChange = "opacity, filter, transform";
   node.style.transition =
     `opacity ${opts.duration}ms cubic-bezier(0.22, 1, 0.36, 1) ${opts.delay}ms, ` +
@@ -103,6 +125,8 @@ export function scrollReveal(node: HTMLElement, options: ScrollRevealOptions = {
       if (opts.once) {
         observer.unobserve(node);
         handlers.delete(node);
+        // Drop the composited layer once the transition has actually finished.
+        cleanupTimer = setTimeout(clearStyles, opts.duration + opts.delay + 60);
       }
     } else if (!opts.once) {
       hide();
@@ -113,6 +137,7 @@ export function scrollReveal(node: HTMLElement, options: ScrollRevealOptions = {
 
   return {
     destroy() {
+      clearTimeout(cleanupTimer);
       observer.unobserve(node);
       handlers.delete(node);
     },

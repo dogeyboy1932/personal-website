@@ -140,7 +140,7 @@
     filter: blur(13px);
     opacity: 0;
     animation: fx-ray-drift var(--ray-duration) ease-in-out var(--ray-delay) infinite;
-    will-change: opacity, transform;
+    will-change: opacity;
   }
 
   /* Mirror the fan when it originates from the right edge. */
@@ -148,15 +148,22 @@
     --ray-base: -34deg;
   }
 
+  /*
+    Deliberately animates ONLY opacity and rotation. Both ride the element's
+    existing composited layer. scaleX changes the layer's size, which forces
+    the 13px blur across ~1.5M px to be re-rasterised every single frame —
+    nine blades doing that was a large part of an 8fps landing page.
+    The breathing that scaleX gave is approximated by the rotation sweep.
+  */
   @keyframes fx-ray-drift {
     0%,
     100% {
       opacity: 0.4;
-      transform: rotate(calc(var(--ray-base) + var(--ray-angle))) scaleX(0.85);
+      transform: rotate(calc(var(--ray-base) + var(--ray-angle)));
     }
     50% {
       opacity: 1;
-      transform: rotate(calc(var(--ray-base) + var(--ray-angle) + 4deg)) scaleX(1.15);
+      transform: rotate(calc(var(--ray-base) + var(--ray-angle) + 6deg));
     }
   }
 

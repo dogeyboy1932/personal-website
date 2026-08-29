@@ -34,8 +34,11 @@ export const darkTheme = {
   // Background colors
   bg: {
     body: 'bg-slate-950',
-    // FX:side-rays — was 'bg-black'; translucent so MatrixRain glimmers behind the content
-    page: 'bg-black/65',
+    // FX:side-rays — was 'bg-black'; translucent so MatrixRain glimmers behind
+    // the content. Raised from /65 once this panel's backdrop-blur was removed
+    // for performance: that blur used to soften the rain into a wash, so at the
+    // same alpha without it, crisp scrolling glyphs came through behind body text.
+    page: 'bg-black/90',
     card: 'bg-slate-950/80',
     cardSolid: 'bg-slate-950',
     cardHover: 'bg-slate-900/90',
@@ -314,7 +317,7 @@ export const lightTheme = {
   bg: {
     body: 'bg-amber-50',                                        // Warm cream base
     // FX:side-rays — was 'bg-white'; translucent so MatrixRain glimmers behind the content
-    page: 'bg-white/80',                                        // Clean white for content
+    page: 'bg-white/90',                                        // Clean white for content
     card: 'bg-white border border-amber-200/80 shadow-md',      // Clean cards with warm border
     cardSolid: 'bg-white',
     cardHover: 'bg-amber-900',                                   // Warm hover state

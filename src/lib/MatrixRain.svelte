@@ -53,31 +53,76 @@
     }
   }
 
+  /**
+   * Pre-rendered glyphs, one per character.
+   *
+   * The previous draw loop called createLinearGradient AND set shadowBlur once
+   * per character per frame — roughly 100 of each at 60fps, so ~6000 gradient
+   * allocations and 6000 shadowed fills a second. Canvas shadowBlur is one of
+   * the slowest 2D operations there is, and it was the single largest remaining
+   * cost on the landing page.
+   *
+   * Every glyph is identical apart from its position, so each is rasterised
+   * once here — gradient and glow baked in — and the loop becomes a plain
+   * drawImage blit. Visually identical, a fraction of the cost.
+   */
+  const GLOW = 5;
+  const PAD = GLOW + 3;
+  let glyphs: HTMLCanvasElement[] = [];
+  let glyphW = 0;
+  let glyphH = 0;
+  /** Baseline offset inside a sprite, so blits land where fillText used to. */
+  let glyphBaseline = 0;
+
+  function buildGlyphs() {
+    if (!browser) return;
+
+    glyphW = fontSize + PAD * 2;
+    glyphH = fontSize + PAD * 2;
+    glyphBaseline = PAD + fontSize;
+
+    glyphs = chars.split("").map((char) => {
+      const sprite = document.createElement("canvas");
+      sprite.width = glyphW;
+      sprite.height = glyphH;
+      const g = sprite.getContext("2d");
+      if (!g) return sprite;
+
+      g.font = `${fontSize}px monospace`;
+      g.textAlign = "center";
+
+      // Same vertical ramp the old per-character gradient produced: the cell
+      // runs from one em above the baseline down to it.
+      const gradient = g.createLinearGradient(0, glyphBaseline - fontSize, 0, glyphBaseline);
+      gradient.addColorStop(0, primaryColor);
+      gradient.addColorStop(1, secondaryColor);
+
+      g.shadowBlur = GLOW;
+      g.shadowColor = primaryColor;
+      g.fillStyle = gradient;
+      g.fillText(char, glyphW / 2, glyphBaseline);
+
+      return sprite;
+    });
+  }
+
+  // Rebuild the atlas when the theme flips the colors.
+  $: if (browser && primaryColor && secondaryColor) buildGlyphs();
+
   function draw() {
     if (!ctx || !canvas) return;
 
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)"
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = primaryColor;
-    ctx.textAlign = "center";
-
     for (let i = 0; i < columns.length; i++) {
-      const char = chars[Math.floor(Math.random() * chars.length)];
+      const sprite = glyphs[Math.floor(Math.random() * glyphs.length)];
       const x = i * fontSize;
       const y = drops[i] * fontSize;
 
-      ctx.shadowBlur = 5;
-      ctx.shadowColor = primaryColor;
-
-      const gradient = ctx.createLinearGradient(x, y - fontSize, x, y);
-      gradient.addColorStop(0, primaryColor);
-      gradient.addColorStop(1, secondaryColor);
-      ctx.fillStyle = gradient;
-
-      ctx.fillText(char, x, y);
-
-      ctx.shadowBlur = 0;
+      if (sprite) {
+        ctx.drawImage(sprite, x - glyphW / 2, y - glyphBaseline);
+      }
 
       if (y > canvas.height && Math.random() > 0.975) {
         drops[i] = 0;

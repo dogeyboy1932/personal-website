@@ -15,9 +15,12 @@
 
 <!-- FX:background-gradient — see the note in ProjectCard.svelte for why this
      wraps instead of overlaying. Delete the wrapper tags to remove. -->
+<!-- backdrop-blur-sm was removed from the card below: bg.card is already 80%
+     opaque so it contributed almost nothing visually, but seven of these sat
+     over the animating MatrixRain and re-blurred ~180K px each every frame. -->
 <BackgroundGradient class="h-full" radius="1rem" palette="violet" spread={3} idle={0.28}>
 <div 
-  class="group relative overflow-hidden rounded-2xl border {cardTheme.border} {$theme.bg.card} backdrop-blur-sm shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col h-full"
+  class="group relative overflow-hidden rounded-2xl border {cardTheme.border} {$theme.bg.card} shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col h-full"
   in:fly={{ y: 18, delay: index * 100 }}
 >
   <!-- Left accent bar with unique color -->

@@ -68,6 +68,43 @@
   let pointerX = -9999;
   let pointerY = -9999;
 
+  /**
+   * Pre-rendered glow sprite.
+   *
+   * The draw loop used to set ctx.shadowBlur per particle per frame — with ~130
+   * particles that is ~8000 shadowed fills a second, and canvas shadowBlur is
+   * among the slowest 2D operations available. Every particle is the same dot
+   * at a different size and alpha, so it is rasterised once and blitted with
+   * drawImage instead. Same look, a fraction of the cost.
+   */
+  const SPRITE_R = 8;
+  const SPRITE_SIZE = SPRITE_R * 6;
+  let sprite: HTMLCanvasElement | null = null;
+
+  function buildSprite() {
+    if (!browser) return;
+    const c = document.createElement("canvas");
+    c.width = SPRITE_SIZE;
+    c.height = SPRITE_SIZE;
+    const g = c.getContext("2d");
+    if (!g) return;
+
+    const mid = SPRITE_SIZE / 2;
+    // Solid core out to SPRITE_R, then a soft falloff standing in for the glow.
+    const grad = g.createRadialGradient(mid, mid, 0, mid, mid, mid);
+    grad.addColorStop(0, `rgba(${rgb}, 1)`);
+    grad.addColorStop(SPRITE_R / mid, `rgba(${rgb}, 0.85)`);
+    grad.addColorStop(0.55, `rgba(${rgb}, 0.25)`);
+    grad.addColorStop(1, `rgba(${rgb}, 0)`);
+
+    g.fillStyle = grad;
+    g.fillRect(0, 0, SPRITE_SIZE, SPRITE_SIZE);
+    sprite = c;
+  }
+
+  // Rebuild when the theme changes the particle color.
+  $: if (browser && rgb) buildSprite();
+
   $: isDark = $darkModeStore;
   $: rgb =
     color === "warm"
@@ -153,14 +190,14 @@
       // pop in and out.
       const alpha = (0.25 + 0.75 * (0.5 + 0.5 * Math.sin(p.phase))) * p.peak;
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${rgb}, ${alpha})`;
-      ctx.shadowBlur = p.r * 4;
-      ctx.shadowColor = `rgba(${rgb}, ${alpha * 0.8})`;
-      ctx.fill();
-      ctx.shadowBlur = 0;
+      if (sprite) {
+        // Scale the sprite so its solid core matches this particle's radius.
+        const size = (p.r / SPRITE_R) * SPRITE_SIZE;
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(sprite, p.x - size / 2, p.y - size / 2, size, size);
+      }
     }
+    ctx.globalAlpha = 1;
 
     frame = requestAnimationFrame(step);
   }
