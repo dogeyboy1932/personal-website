@@ -32,7 +32,7 @@
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import type { ComponentType } from "svelte";
-  import { theme } from "../../lib/stores";
+  import { theme, darkModeStore } from "../../lib/stores";
 
   export let items: readonly { href: string; label: string; icon: ComponentType }[] = [];
   export let current = "/";
@@ -77,6 +77,14 @@
 
   const reduced = () =>
     browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+  /*
+    The pill inverts with the theme. "White tabs" is right on the dark navbar
+    (bg-black/90), but the light navbar is bg-white/95 — a white pill there
+    would be invisible, so it goes near-black and the label flips with it.
+  */
+  $: pillFill = $darkModeStore ? "#ffffff" : "#111827";
+  $: pillLabel = $darkModeStore ? "#0b0b0f" : "#f8fafc";
 
   function measure() {
     // Unknown route (activeIndex -1): retire the blob rather than leaving it
@@ -156,7 +164,11 @@
   </defs>
 </svg>
 
-<div class="fx-gooey-nav" bind:this={container}>
+<div
+  class="fx-gooey-nav"
+  bind:this={container}
+  style="--goo-fill: {pillFill}; --goo-label: {pillLabel};"
+>
   <!-- Decoration only: sits under the links and never takes pointer events. -->
   <div
     class="fx-goo-layer"
@@ -165,7 +177,7 @@
   >
     {#if measured}
       <span
-        class="fx-goo-blob {$theme.accent.orange.solid}"
+        class="fx-goo-blob fx-goo-fill"
         class:is-instant={reduced()}
         style="
           transform: translate({blob.x}px, {blob.y}px);
@@ -178,7 +190,7 @@
 
     {#each droplets as drop (drop.id)}
       <span
-        class="fx-goo-droplet {$theme.accent.orange.solid}"
+        class="fx-goo-droplet fx-goo-fill"
         style="
           left: {drop.x}px;
           top: {drop.y}px;
@@ -196,7 +208,7 @@
       <a
         bind:this={refs[i]}
         href={item.href}
-        class="fx-goo-item {isActive(item.href) ? $theme.text.white : $theme.nav.inactive}"
+        class="fx-goo-item {isActive(item.href) ? 'fx-goo-item-active' : $theme.nav.inactive}"
         aria-current={isActive(item.href) ? "page" : undefined}
         on:click={() => burst(i)}
       >
@@ -208,6 +220,23 @@
 </div>
 
 <style>
+  /*
+    Blob and droplets are white (updates.txt: "Make the navbar tabs white
+    instead of yellow pilled"). They share one class so the burst can never
+    drift out of sync with the pill it comes from.
+
+    The active label has to flip with it: it was theme.text.white, which would
+    have rendered white-on-white and made the current tab unreadable.
+  */
+  .fx-goo-fill {
+    background-color: var(--goo-fill);
+  }
+
+  .fx-goo-item-active {
+    color: var(--goo-label);
+    font-weight: 600;
+  }
+
   .fx-goo-defs {
     position: absolute;
     width: 0;
