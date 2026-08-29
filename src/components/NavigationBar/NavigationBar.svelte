@@ -4,6 +4,8 @@
   import { ThemeToggle } from "./ThemeToggle";
   import { navItems, site } from "../../constants";
   import { theme } from "../../lib/stores";
+  // FX:shiny-text — animated gradient + specular sweep on the name
+  import { ShinyText } from "../fx";
 </script>
 
 <nav
@@ -20,11 +22,15 @@
       <Logo
         class="w-9 h-9 transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]"
       />
-      <span
-        class="font-sans sm:block text-md tracking-[0.25em] {$theme.text.primary} uppercase {$theme.nav.logoHover}"
+      <!-- FX:shiny-text -->
+      <ShinyText
+        variant="both"
+        speed={5}
+        class="font-sans sm:block text-md tracking-[0.25em] uppercase"
       >
         {site.author}
-      </span>
+      </ShinyText>
+      <!-- /FX:shiny-text -->
     </a>
 
     <!-- Navigation Pills + Theme Toggle -->

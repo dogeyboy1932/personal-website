@@ -1,0 +1,100 @@
+<!--
+  FX: shiny-text
+  Source: https://reactbits.dev/text-animations/shiny-text
+      and https://reactbits.dev/text-animations/gradient-text  (React) — reimplemented in Svelte
+
+  The brief listed both as alternatives ("shiny-text OR gradient-text") for the
+  navbar name, so this is one component with a `variant` switch instead of two
+  files — flip the prop to compare them, no revert needed.
+
+  Used by: src/components/NavigationBar/NavigationBar.svelte
+
+  Tunables:
+    variant   "shine"    dim base text with a specular highlight sweeping across
+              "gradient" animated multi-stop gradient fill
+              "both"     gradient fill WITH the sweeping highlight riding over it
+    speed     seconds per sweep / gradient cycle       default 4
+    disabled  render as plain text (kills the animation, keeps layout)
+
+  Implementation note: both the ramp and the highlight are stacked as two
+  background-image layers on a single element, all clipped with
+  background-clip:text. A ::after overlay would need the string duplicated into
+  an attribute to have glyphs to clip against — this avoids that entirely.
+
+  Colors come off the theme's warm accent ramp so it matches the animated logo,
+  and both light and dark are defined. Respects prefers-reduced-motion.
+-->
+<script lang="ts">
+  import { darkModeStore } from "../../lib/stores";
+
+  export let variant: "shine" | "gradient" | "both" = "both";
+  export let speed = 4;
+  export let disabled = false;
+  /** Extra classes for the text itself (sizing, tracking, weight). */
+  let klass = "";
+  export { klass as class };
+
+  $: isDark = $darkModeStore;
+
+  // Warm amber/orange ramp in both themes, echoing the logo's #FFD700 → #FF8C00.
+  $: ramp = isDark
+    ? "#fde68a, #fb923c, #f59e0b, #fcd34d, #fde68a"
+    : "#b45309, #ea580c, #d97706, #92400e, #b45309";
+
+  $: shineColor = isDark ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.9)";
+  $: baseColor = isDark ? "#e2e8f0" : "#334155";
+
+  $: useGradient = variant === "gradient" || variant === "both";
+  $: useShine = variant === "shine" || variant === "both";
+
+  // Layer 1 (top) = the moving highlight, or nothing when shine is off.
+  $: shineLayer = useShine
+    ? `linear-gradient(110deg, transparent 25%, ${shineColor} 45%, ${shineColor} 55%, transparent 75%)`
+    : "linear-gradient(transparent, transparent)";
+
+  // Layer 2 (bottom) = the color the glyphs actually read as.
+  $: fillLayer = useGradient
+    ? `linear-gradient(110deg, ${ramp})`
+    : `linear-gradient(${baseColor}, ${baseColor})`;
+</script>
+
+<span
+  class="fx-shiny-text {klass}"
+  class:is-animated={!disabled}
+  style="--fx-speed:{speed}s; --fx-shine-layer:{shineLayer}; --fx-fill-layer:{fillLayer}; --fx-base:{baseColor};"
+><slot /></span>
+
+<style>
+  .fx-shiny-text {
+    display: inline-block;
+    color: var(--fx-base);
+  }
+
+  .is-animated {
+    background-image: var(--fx-shine-layer), var(--fx-fill-layer);
+    background-size: 220% 100%, 300% 100%;
+    background-position: 180% 50%, 0% 50%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: fx-shiny var(--fx-speed) linear infinite;
+  }
+
+  @keyframes fx-shiny {
+    0% {
+      background-position: 180% 50%, 0% 50%;
+    }
+    100% {
+      background-position: -80% 50%, -300% 50%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .is-animated {
+      animation: none;
+      /* Park the highlight off-glyph and show the ramp at a fixed offset. */
+      background-position: 180% 50%, 50% 50%;
+    }
+  }
+</style>
