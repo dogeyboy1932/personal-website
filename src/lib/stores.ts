@@ -202,6 +202,14 @@ export const darkTheme = {
     orange: {
       text: 'text-orange-400',
       via: 'via-orange-300',
+      // Added for FX:gooey-nav and the /more honors shelf: this ramp only had
+      // `text` and `via`, so `accent.orange.bg` resolved to undefined and the
+      // class silently vanished.
+      bg: 'bg-orange-500/15',
+      border: 'border-orange-400/30',
+      textMuted: 'text-orange-300/80',
+      /** Opaque fill — the gooey blob needs solid alpha for the filter to bite. */
+      solid: 'bg-amber-500',
     },
     yellow: {
       border: 'border-amber-500/30',
@@ -473,6 +481,12 @@ export const lightTheme = {
     orange: {
       text: 'text-orange-700',
       via: 'via-orange-500',
+      // See the dark-theme note above.
+      bg: 'bg-orange-100',
+      border: 'border-orange-400/50',
+      textMuted: 'text-orange-600',
+      /** Opaque fill — the gooey blob needs solid alpha for the filter to bite. */
+      solid: 'bg-amber-500',
     },
     yellow: {
       border: 'border-amber-400',

@@ -44,3 +44,6 @@ export { default as FlowingMenu } from "./FlowingMenu.svelte";
 
 // FX:share-button — animate-ui share-button (/more footer)
 export { default as ShareButton } from "./ShareButton.svelte";
+
+// FX:gooey-nav — reactbits gooey-nav (main navigation)
+export { default as GooeyNav } from "./GooeyNav.svelte";

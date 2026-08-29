@@ -5,7 +5,7 @@
   import { navItems, site } from "../../constants";
   import { theme } from "../../lib/stores";
   // FX:shiny-text — animated gradient + specular sweep on the name
-  import { ShinyText, SpinLogo } from "../fx";
+  import { ShinyText, SpinLogo, GooeyNav } from "../fx";
 </script>
 
 <nav
@@ -39,20 +39,11 @@
 
     <!-- Navigation Pills + Theme Toggle -->
     <div class="flex items-center gap-4">
-      <div class="flex flex-wrap items-center p-1 {$theme.accent.purple.shadow} gap-5">
-        {#each navItems as item}
-          <a
-            href={item.href}
-            class={`relative flex items-center gap-2 p-2 rounded-sm text-md font-sans tracking-wide transition-all duration-300 ${
-              $page.url.pathname === item.href
-                ? $theme.nav.active
-                : $theme.nav.inactive
-            }`}
-          >
-            <span>{item.label}</span>
-            <svelte:component this={item.icon} class="w-4 h-4" />
-          </a>
-        {/each}
+      <div class="flex flex-wrap items-center p-1 {$theme.accent.purple.shadow} gap-3">
+        <!-- FX:gooey-nav — the links and their active state live in the fx
+             component now; the blob replaces the old per-link active pill -->
+        <GooeyNav items={navItems} current={$page.url.pathname} />
+        <!-- /FX:gooey-nav -->
 
         <!-- Theme Toggle -->
         <ThemeToggle />
