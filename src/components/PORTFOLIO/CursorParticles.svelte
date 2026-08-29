@@ -25,6 +25,7 @@
   let cursorY = 0;
   let hasPointer = false;
   let reducedMotion = false;
+  let idleSpawnAccumulator = 0;
   let particles: Particle[] = [];
 
   function resizeCanvas() {
@@ -107,6 +108,16 @@
     if (hasPointer) {
       cursorX += (pointerX - cursorX) * Math.min(1, delta * 14);
       cursorY += (pointerY - cursorY) * Math.min(1, delta * 14);
+
+      if (!reducedMotion) {
+        idleSpawnAccumulator += delta * 12;
+        const idleParticleCount = Math.floor(idleSpawnAccumulator);
+        if (idleParticleCount > 0) {
+          addParticles(idleParticleCount);
+          idleSpawnAccumulator -= idleParticleCount;
+        }
+      }
+
       drawParticles(delta);
     }
 
