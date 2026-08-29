@@ -26,3 +26,6 @@ export { default as HoverBorderGradient } from "./HoverBorderGradient.svelte";
 
 // FX:quote-carousel — reactbits carousel, applied to the hero quotes
 export { default as QuoteCarousel } from "./QuoteCarousel.svelte";
+
+// FX:pill-nav — reactbits pill-nav, applied to the project category filter
+export { default as PillNav } from "./PillNav.svelte";
