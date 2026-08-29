@@ -8,3 +8,6 @@
 
 // FX:shiny-text — reactbits shiny-text / gradient-text
 export { default as ShinyText } from "./ShinyText.svelte";
+
+// FX:spin-logo — drag-to-rotate with inertial coast (no React original)
+export { default as SpinLogo } from "./SpinLogo.svelte";

@@ -5,7 +5,7 @@
   import { navItems, site } from "../../constants";
   import { theme } from "../../lib/stores";
   // FX:shiny-text — animated gradient + specular sweep on the name
-  import { ShinyText } from "../fx";
+  import { ShinyText, SpinLogo } from "../fx";
 </script>
 
 <nav
@@ -19,9 +19,13 @@
       class="flex flex-shrink-0 items-center gap-4 group"
       aria-label="Go to home"
     >
-      <Logo
-        class="w-9 h-9 transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]"
-      />
+      <!-- FX:spin-logo — grab the mark and throw it; it coasts to a stop -->
+      <SpinLogo>
+        <Logo
+          class="w-9 h-9 transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]"
+        />
+      </SpinLogo>
+      <!-- /FX:spin-logo -->
       <!-- FX:shiny-text -->
       <ShinyText
         variant="both"
