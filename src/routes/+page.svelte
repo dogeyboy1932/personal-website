@@ -6,7 +6,7 @@
   // FX:scroll-reveal — blurred-to-crisp entrance as each section scrolls in
   import { scrollReveal } from "../lib/actions/scrollReveal";
   // FX:side-rays — volumetric light fanning across the hero
-  import { SideRays, SparkleField } from "../components/fx";
+  import { SideRays, SparkleField, HoverBorderGradient } from "../components/fx";
 
   import { homeFocusAreas } from "../constants";
   
@@ -172,12 +172,17 @@
 
     <!-- View full stack button -->
     <div class="flex items-center w-15">
-      <a
+      <!-- FX:hover-border-gradient — replaces the plain bordered link; the
+           travelling arc is the border now, so the old `border` class is gone -->
+      <HoverBorderGradient
         href="/portfolio"
-        class="w-full hover:opacity-100 opacity-80 group relative px-4 py-2 rounded-xl {$theme.gradient.button} {$theme.text.white} text-sm font-display font-bold uppercase tracking-widest transition-all duration-300 {$theme.hover.scaleSmall} border {$theme.accent.indigo.borderThin} text-center"
+        radius="0.75rem"
+        duration={4}
+        class="w-full hover:opacity-100 opacity-90 px-4 py-2 {$theme.gradient.button} {$theme.text.white} text-sm font-display font-bold uppercase tracking-widest transition-all duration-300 {$theme.hover.scaleSmall} text-center"
       >
-        <span class="relative z-10">{home.skills.seeCompleteStack}</span>
-      </a>
+        {home.skills.seeCompleteStack}
+      </HoverBorderGradient>
+      <!-- /FX:hover-border-gradient -->
     </div>
   </div>
 </section>

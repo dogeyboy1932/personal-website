@@ -20,3 +20,6 @@ export { default as SparkleField } from "./SparkleField.svelte";
 
 // FX:border-glow — reactbits border-glow
 export { default as BorderGlow } from "./BorderGlow.svelte";
+
+// FX:hover-border-gradient — aceternity hover-border-gradient
+export { default as HoverBorderGradient } from "./HoverBorderGradient.svelte";
