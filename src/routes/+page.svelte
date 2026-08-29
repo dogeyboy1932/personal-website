@@ -6,7 +6,7 @@
   // FX:scroll-reveal — blurred-to-crisp entrance as each section scrolls in
   import { scrollReveal } from "../lib/actions/scrollReveal";
   // FX:side-rays — volumetric light fanning across the hero
-  import { SideRays, SparkleField, HoverBorderGradient } from "../components/fx";
+  import { SideRays, SparkleField, HoverBorderGradient, ParticleText } from "../components/fx";
 
   import { homeFocusAreas } from "../constants";
   
@@ -61,9 +61,16 @@
 
         <div class="relative z-10 text-left">
           <div class="flex flex-col">
+            <!-- FX:particle-text — gated by homeHero.particleName in
+                 src/constants/home.ts; off renders the plain heading -->
             <h1 class="uppercase text-5xl font-display font-bold tracking-tight {$theme.text.primary} leading-tight">
-              {homeHero.fullName}
+              {#if homeHero.particleName}
+                <ParticleText text={homeHero.fullName.toUpperCase()} gap={4} radius={95} />
+              {:else}
+                {homeHero.fullName}
+              {/if}
             </h1>
+            <!-- /FX:particle-text -->
             
             <h3 class="text-sm sm:text-base md:text-lg font-display font-bold {$theme.accent.orange.text} tracking-widest uppercase">
               {homeHero.title}

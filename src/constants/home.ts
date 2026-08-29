@@ -14,6 +14,11 @@ export const homeHero = {
     alt: "Placeholder headshot",
   },
   fullName: "Akhil Gogineni",
+  // FX:particle-text — flip to true to render the hero name as a cursor-reactive
+  // particle cloud instead of plain type. Off by default: it competes with
+  // FX:sparkles over the same title block, and the brief flagged it as
+  // "we'll see if it's worth keeping".
+  particleName: false,
   title: "Computer Science @ UIUC",
   // FX:quote-carousel — was a single `quote`/`voice` pair; the carousel cycles
   // this list and shuffles the order on each page load.

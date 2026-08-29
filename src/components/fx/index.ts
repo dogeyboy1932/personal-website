@@ -47,3 +47,6 @@ export { default as ShareButton } from "./ShareButton.svelte";
 
 // FX:gooey-nav — reactbits gooey-nav (main navigation)
 export { default as GooeyNav } from "./GooeyNav.svelte";
+
+// FX:particle-text — reactbits particle-text (hero name; gated by homeHero.particleName)
+export { default as ParticleText } from "./ParticleText.svelte";
