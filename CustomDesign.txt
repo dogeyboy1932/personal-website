@@ -1,0 +1,54 @@
+https://reactbits.dev/components/gooey-nav
+For navbar
+
+https://reactbits.dev/components/border-glow
+For "mainly focused on"
+
+https://reactbits.dev/components/flowing-menu
+Something for the more page...let's discuss this later
+
+https://reactbits.dev/components/carousel
+Let's have more than one quote. Use this carousel to scroll. And then periodically it should shuffle on it's own without manual movement.
+
+https://reactbits.dev/text-animations/particle-text
+Let's add this for my name on the main screen? We'll see it's worth keeping.
+
+https://reactbits.dev/text-animations/shiny-text
+or
+https://reactbits.dev/text-animations/gradient-text
+For my name in the navbar
+
+https://reactbits.dev/text-animations/scroll-reveal
+For the stuff on my portfolio page mainly. But I guess it can be applied to all four pages? On mobile there's scrolling one way or another. Ik this is for text but I'd like the bottom to "appear" from blurred to unblurred.
+
+https://reactbits.dev/backgrounds/side-rays
+I think it's worth having a side rays for the landing page? We have a black background anyway. Let's also make the opacity for the background less so that we can get a faint glimmer of the matrix rain behind it.
+
+
+https://ui.aceternity.com/components/flip-words
+Let's have this for the more page
+
+https://ui.aceternity.com/components/sparkles
+AND
+https://animate-ui.com/docs/components/backgrounds/gravity-stars
+In the entire "title section" with my name, my university and the 3 links, there should be sparkles of some kind...this is a good hook for the landing page.
+Then those sparkles or stars should have a gravity movement
+
+
+https://ui.aceternity.com/components/hover-border-gradient
+Have this for "see full stack"
+
+https://ui.aceternity.com/components/background-gradient
+Have this for the foci card, experience cards, or project card. One of them should do well.
+
+https://reactbits.dev/components/pill-nav
+For projects navbar
+
+
+https://animate-ui.com/docs/components/community/flip-card
+I think a flipcard for the more page would prob be a good idea?
+
+https://animate-ui.com/docs/components/community/share-button
+I wanna add this somewhere...maybe the more page? I like the hover and being able to click around icons
+
+Make the logo spinnable...I can drag it in any direction. 
