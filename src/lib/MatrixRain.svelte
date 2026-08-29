@@ -108,4 +108,6 @@
   });
 </script>
 
-<canvas bind:this={canvas} class="fixed top-0 left-0 w-full h-full -z-10" />
+<!-- FX:side-rays — dimmed from full strength so the rain reads as a faint
+     glimmer behind the side rays and the translucent page panel -->
+<canvas bind:this={canvas} class="fixed top-0 left-0 w-full h-full -z-10 opacity-50" />

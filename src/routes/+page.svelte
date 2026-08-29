@@ -5,6 +5,8 @@
   import { breakpoints, theme } from "../lib/stores";
   // FX:scroll-reveal — blurred-to-crisp entrance as each section scrolls in
   import { scrollReveal } from "../lib/actions/scrollReveal";
+  // FX:side-rays — volumetric light fanning across the hero
+  import { SideRays } from "../components/fx";
 
   import { homeFocusAreas } from "../constants";
   
@@ -40,8 +42,12 @@
 
 <!-- ===== HERO SECTION ===== -->
 <!-- FX:scroll-reveal (hero reveals immediately; no offset so it does not fight the fly-in) -->
-<section class="mb-3 font-sans" use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
-  <div class="grid gap-3" class:grid-cols-1={!$breakpoints.isDesktop} class:grid-cols-[65%_1fr]={$breakpoints.isDesktop}>
+<section class="relative mb-3 font-sans" use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
+  <!-- FX:side-rays -->
+  <SideRays side="left" count={7} opacity={0.45} speed={13} hue="warm" />
+  <!-- /FX:side-rays -->
+
+  <div class="relative z-10 grid gap-3" class:grid-cols-1={!$breakpoints.isDesktop} class:grid-cols-[65%_1fr]={$breakpoints.isDesktop}>
     
     <!-- Left Column: Header and Summary -->
     <div class="flex flex-col flex-1 md:flex-[1] justify-center gap-3">

@@ -34,7 +34,8 @@ export const darkTheme = {
   // Background colors
   bg: {
     body: 'bg-slate-950',
-    page: 'bg-black',
+    // FX:side-rays — was 'bg-black'; translucent so MatrixRain glimmers behind the content
+    page: 'bg-black/80',
     card: 'bg-slate-950/80',
     cardSolid: 'bg-slate-950',
     cardHover: 'bg-slate-900/90',
@@ -304,7 +305,8 @@ export const lightTheme = {
   // Background colors - warm cream base with rich coffee tones
   bg: {
     body: 'bg-amber-50',                                        // Warm cream base
-    page: 'bg-white',                                           // Clean white for content
+    // FX:side-rays — was 'bg-white'; translucent so MatrixRain glimmers behind the content
+    page: 'bg-white/85',                                        // Clean white for content
     card: 'bg-white border border-amber-200/80 shadow-md',      // Clean cards with warm border
     cardSolid: 'bg-white',
     cardHover: 'bg-amber-900',                                   // Warm hover state
