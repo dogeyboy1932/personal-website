@@ -43,9 +43,14 @@
       </span>
     </div>
 
-    <!-- Summary with subtle separator -->
-    <div class="min-h-[4.5rem] pt-2 border-t {cardTheme.divider}">
-      <p class="{$theme.text.secondary} text-md leading-relaxed">
+    <!-- Summary with subtle separator.
+         FIXED height, not min-height: summaries run 1-3 lines, and with only a
+         minimum the block grew and pushed the tech row down, so the stacks
+         started at different heights across cards (measured 193px vs 208px
+         from the card top). A fixed three-line box lands every card's stack on
+         the same line. updates.txt: "the stacks must start from same height". -->
+    <div class="h-[5.5rem] pt-2 border-t {cardTheme.divider}">
+      <p class="{$theme.text.secondary} text-md leading-relaxed line-clamp-3">
         {experience.summary}
       </p>
     </div>

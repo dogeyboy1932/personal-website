@@ -128,12 +128,25 @@ export const darkTheme = {
   },
   
   // Card color themes (for experience cards, etc.)
+  /*
+    Five genuinely separate hues, in the SAME order as the light-theme table
+    below (orange, rose, teal, violet, sky) so a given card keeps its identity
+    when the theme is toggled.
+
+    Previously all five dark variants were sky/blue/violet/purple/slate, which
+    made them near-indistinguishable — updates.txt: "Find more contrasting
+    colors for the card spec." The light table was already well spread; only
+    this one needed the work.
+
+    Titles resolve to white at the last stop so the company name stays legible
+    whatever the hue.
+  */
   cardThemes: [
-    { accent: 'from-sky-400 via-blue-400 to-violet-400', border: 'border-sky-400/25 hover:shadow-sky-500/20', badge: 'bg-sky-400/10 border-sky-300/30 text-sky-300', title: 'from-sky-300 via-blue-200 to-white', role: 'text-sky-300', divider: 'border-sky-400/15', glow: 'from-sky-500/10' },
-    { accent: 'from-violet-400 via-purple-400 to-indigo-400', border: 'border-violet-400/25 hover:shadow-violet-500/20', badge: 'bg-violet-400/10 border-violet-300/30 text-violet-300', title: 'from-violet-300 via-purple-200 to-white', role: 'text-violet-300', divider: 'border-violet-400/15', glow: 'from-violet-500/10' },
-    { accent: 'from-blue-400 via-indigo-400 to-violet-400', border: 'border-blue-400/25 hover:shadow-blue-500/20', badge: 'bg-blue-400/10 border-blue-300/30 text-blue-300', title: 'from-blue-300 via-indigo-200 to-white', role: 'text-indigo-300', divider: 'border-blue-400/15', glow: 'from-blue-500/10' },
-    { accent: 'from-slate-300 via-blue-300 to-indigo-400', border: 'border-slate-300/20 hover:shadow-blue-500/15', badge: 'bg-slate-300/10 border-slate-200/25 text-slate-200', title: 'from-slate-200 via-blue-100 to-white', role: 'text-slate-300', divider: 'border-slate-300/15', glow: 'from-blue-500/10' },
-    { accent: 'from-purple-400 via-violet-400 to-blue-400', border: 'border-purple-400/25 hover:shadow-purple-500/20', badge: 'bg-purple-400/10 border-purple-300/30 text-purple-300', title: 'from-purple-300 via-violet-200 to-white', role: 'text-purple-300', divider: 'border-purple-400/15', glow: 'from-purple-500/10' },
+    { accent: 'from-amber-400 via-orange-400 to-yellow-300', border: 'border-amber-400/30 hover:shadow-amber-500/20', badge: 'bg-amber-400/10 border-amber-300/30 text-amber-300', title: 'from-amber-300 via-orange-200 to-white', role: 'text-amber-300', divider: 'border-amber-400/20', glow: 'from-amber-500/10' },
+    { accent: 'from-rose-400 via-pink-400 to-fuchsia-400', border: 'border-rose-400/30 hover:shadow-rose-500/20', badge: 'bg-rose-400/10 border-rose-300/30 text-rose-300', title: 'from-rose-300 via-pink-200 to-white', role: 'text-rose-300', divider: 'border-rose-400/20', glow: 'from-rose-500/10' },
+    { accent: 'from-teal-400 via-emerald-400 to-green-300', border: 'border-teal-400/30 hover:shadow-teal-500/20', badge: 'bg-teal-400/10 border-teal-300/30 text-teal-300', title: 'from-teal-300 via-emerald-200 to-white', role: 'text-teal-300', divider: 'border-teal-400/20', glow: 'from-teal-500/10' },
+    { accent: 'from-violet-400 via-purple-400 to-fuchsia-400', border: 'border-violet-400/30 hover:shadow-violet-500/20', badge: 'bg-violet-400/10 border-violet-300/30 text-violet-300', title: 'from-violet-300 via-purple-200 to-white', role: 'text-violet-300', divider: 'border-violet-400/20', glow: 'from-violet-500/10' },
+    { accent: 'from-sky-400 via-cyan-400 to-blue-400', border: 'border-sky-400/30 hover:shadow-sky-500/20', badge: 'bg-sky-400/10 border-sky-300/30 text-sky-300', title: 'from-sky-300 via-cyan-200 to-white', role: 'text-sky-300', divider: 'border-sky-400/20', glow: 'from-sky-500/10' },
   ],
   
   // Accent colors
