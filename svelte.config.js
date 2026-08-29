@@ -13,7 +13,14 @@ const config = {
     // See https://kit.svelte.dev/docs/adapters for more information about adapters.
     adapter: adapter(),
     prerender: {
-      entries: ["*"],
+      /*
+        "*" only crawls outward from pages that are actually linked. /pictures
+        and /writings are deliberately absent from the navbar (updates.txt:
+        "leave the route outside the navbar but still active"), so nothing
+        links to them and the crawler would never find them — they'd 404 on the
+        built site. Listing them explicitly is what keeps them live.
+      */
+      entries: ["*", "/pictures", "/writings"],
     },
   },
 };
