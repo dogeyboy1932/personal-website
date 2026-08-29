@@ -1,30 +1,33 @@
-DEVLOG — CustomDesign.txt effects pass (17 commits, f416e27..4a5cf83)
+DEVLOG — performance pass (ed138b6)
 
-All 16 items from CustomDesign.txt shipped. Every source library
-(reactbits.dev, ui.aceternity.com, animate-ui.com) is React-only, so each
-effect was re-engineered by hand for Svelte 4.
+The site rendered at 8-16fps. Profiled with Playwright + a rAF frame
+counter, disabling one suspect at a time rather than guessing.
 
-Structure: one file per effect in src/components/fx/, each with a header
-comment naming its React source and tunables. Call sites bracketed with
-<!-- FX:slug --> markers so grep finds all usage and one git revert rolls
-back exactly one effect.
+Result: home 8->52, portfolio 7->52, more 12->57, resume 59. Load time was
+never the problem; frame cost was.
 
-Non-obvious decisions worth remembering:
-- sparkles + gravity-stars fused into ONE canvas; the brief put both over
-  the same region and two rAF loops on one box is waste.
-- quote-carousel uses a plain interval, not embla-carousel-autoplay: the
-  installed plugin is 8.0.0-rc23 against an 8.0.0-rc18 core and the plugin
-  API moved between those RCs.
-- particle-text ships behind homeHero.particleName (default false). It
-  competes with sparkles over the same title block and the user flagged it
-  as 'we'll see if it's worth keeping'.
-- background-gradient applied to BOTH project and experience cards so the
-  better fit could be picked later.
+Five causes, three self-inflicted:
+1. scroll-reveal never cleaned up — left filter:blur(0px) and will-change
+   on every revealed section permanently. A filter of ANY value pins a
+   composited layer and disables subpixel text antialiasing.
+2. Viewport-sized backdrop-blur on the layout panel (pre-existing) over the
+   animating MatrixRain, so it could never be cached.
+3. background-gradient animated background-position (a paint property) on a
+   blurred element. Split into a clipping box + an inner tile that animates
+   transform.
+4. Canvas shadowBlur per glyph/particle per frame in MatrixRain and
+   SparkleField (~6000 shadowed fills/sec each). Both now pre-rasterise to
+   an offscreen sprite and blit with drawImage.
+5. side-rays animated scaleX, which resizes a blurred layer and forces
+   re-rasterisation of ~1.5M px nine times a frame.
 
-Pre-existing bugs found and fixed along the way:
-- Logo SVG path ended in a stray 'C' (incomplete curve command); browsers
-  were dropping the final segment.
-- Nav active state compared '/portfolio' against SvelteKit's '/portfolio/',
-  so it was wrong on every page except home. The gooey blob made it visible.
-- theme.accent.orange had only 'text' and 'via', so accent.orange.bg
-  silently resolved to undefined.
+THE COUNTERINTUITIVE ONE: removing 'will-change: transform' from the
+background-gradient tile was worth ~30fps on its own. It reads like the
+correct hint but forces every tile into a permanently retained composited
+layer, and blurred layers that size are expensive to hold. Do not add it
+back. There is a comment in the file saying so.
+
+Also: 'bg-black/88' generates NO CSS rule. Tailwind's default opacity scale
+runs in steps of 5, so 88 is off-scale and the panel silently had no
+background at all. Verified against a standalone tailwind 3.4.19 run —
+/65, /85, /90 and /[0.88] all emit, /88 does not.
