@@ -1,0 +1,30 @@
+DEVLOG — CustomDesign.txt effects pass (17 commits, f416e27..4a5cf83)
+
+All 16 items from CustomDesign.txt shipped. Every source library
+(reactbits.dev, ui.aceternity.com, animate-ui.com) is React-only, so each
+effect was re-engineered by hand for Svelte 4.
+
+Structure: one file per effect in src/components/fx/, each with a header
+comment naming its React source and tunables. Call sites bracketed with
+<!-- FX:slug --> markers so grep finds all usage and one git revert rolls
+back exactly one effect.
+
+Non-obvious decisions worth remembering:
+- sparkles + gravity-stars fused into ONE canvas; the brief put both over
+  the same region and two rAF loops on one box is waste.
+- quote-carousel uses a plain interval, not embla-carousel-autoplay: the
+  installed plugin is 8.0.0-rc23 against an 8.0.0-rc18 core and the plugin
+  API moved between those RCs.
+- particle-text ships behind homeHero.particleName (default false). It
+  competes with sparkles over the same title block and the user flagged it
+  as 'we'll see if it's worth keeping'.
+- background-gradient applied to BOTH project and experience cards so the
+  better fit could be picked later.
+
+Pre-existing bugs found and fixed along the way:
+- Logo SVG path ended in a stray 'C' (incomplete curve command); browsers
+  were dropping the final segment.
+- Nav active state compared '/portfolio' against SvelteKit's '/portfolio/',
+  so it was wrong on every page except home. The gooey blob made it visible.
+- theme.accent.orange had only 'text' and 'via', so accent.orange.bg
+  silently resolved to undefined.
