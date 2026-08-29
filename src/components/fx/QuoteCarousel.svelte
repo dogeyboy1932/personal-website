@@ -39,6 +39,11 @@
   export let interval = 7000;
   export let shuffle = true;
   export let pauseOnHover = true;
+  // Root is a plain <div>: <figcaption> is only valid as a direct child of
+  // <figure>, and Svelte cannot verify that across a component boundary, so
+  // the figcaption stays in HeroImage and this renders inside it.
+  let klass = "";
+  export { klass as class };
 
   let api: EmblaCarouselType | undefined;
   let selected = 0;
@@ -95,8 +100,8 @@
   }
 </script>
 
-<figcaption
-  class="fx-quote-carousel relative p-4 rounded-2xl border {$theme.border.accent} {$theme.bg.backdrop} backdrop-blur-md shadow-lg"
+<div
+  class="fx-quote-carousel {klass} relative p-4 rounded-2xl border {$theme.border.accent} {$theme.bg.backdrop} backdrop-blur-md shadow-lg"
   on:pointerenter={() => pauseOnHover && (paused = true)}
   on:pointerleave={() => (paused = false)}
 >
@@ -138,4 +143,4 @@
       {/each}
     </div>
   {/if}
-</figcaption>
+</div>

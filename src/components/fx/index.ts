@@ -32,3 +32,15 @@ export { default as PillNav } from "./PillNav.svelte";
 
 // FX:background-gradient — aceternity background-gradient (project + experience cards)
 export { default as BackgroundGradient } from "./BackgroundGradient.svelte";
+
+// FX:flip-words — aceternity flip-words (/more identity line)
+export { default as FlipWords } from "./FlipWords.svelte";
+
+// FX:flip-card — animate-ui flip-card (/more interests)
+export { default as FlipCard } from "./FlipCard.svelte";
+
+// FX:flowing-menu — reactbits flowing-menu (/more travel)
+export { default as FlowingMenu } from "./FlowingMenu.svelte";
+
+// FX:share-button — animate-ui share-button (/more footer)
+export { default as ShareButton } from "./ShareButton.svelte";

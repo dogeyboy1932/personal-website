@@ -23,8 +23,8 @@
 
   <!-- Quote caption -->
   <!-- FX:quote-carousel — autoplaying, shuffled on load -->
-  <div class="mt-2">
+  <figcaption class="mt-2">
     <QuoteCarousel {quotes} interval={7000} shuffle />
-  </div>
+  </figcaption>
   <!-- /FX:quote-carousel -->
 </figure>
