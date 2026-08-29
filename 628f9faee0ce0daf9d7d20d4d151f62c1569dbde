@@ -1,0 +1,33 @@
+DEVLOG — updates.txt second pass (b2bc765..628f9fa)
+
+Worked through static/updates.txt. Items shipped: hero two-line identity
+block, /pictures + /writings coming-soon routes, white navbar pill, even
+card halo, experience-card alignment + contrasting dark palette, Lichess
+challenge box, git-notes dev log, font sampler at /fonts-lab (pending a
+pick).
+
+TWO THINGS THAT WERE NOT IN THE FILE BUT MATTERED MORE:
+
+1. static/updates.txt was being PUBLISHED. Everything in static/ is copied
+   into the deploy output; it landed at build/updates.txt and Netlify would
+   have served it at akhilgogineni.lol/updates.txt. The file containing the
+   request for a log 'not visible to public eye' was itself public. It is
+   gitignored, which is exactly why this was easy to miss — untracked says
+   nothing about whether something ships. Moved to the repo root, where the
+   same ignore rule still covers it. No git diff exists for this because the
+   file was never tracked, which is why it is recorded here.
+
+2. Prerendering has never actually run. No route sets
+   'export const prerender = true' and SvelteKit 1 defaults it to false, so
+   'prerender: { entries: [...] }' has been inert since before this work.
+   Every page is rendered on demand by the Netlify function; the build emits
+   no HTML at all (find build -name '*.html' is empty). I had claimed the
+   opposite while planning the new routes. The entries list stays because it
+   would matter the moment prerendering is enabled.
+
+MEASUREMENT NOTE: fps numbers taken during this pass are unreliable. The
+machine was loaded enough that the unchanged committed BackgroundGradient
+also dropped from ~52 to ~23 between runs. Comparisons here were done as
+interleaved A/B rather than as before/after readings, and the halo change
+measured at parity. Re-baseline on a quiet machine before trusting any
+absolute number.
