@@ -161,4 +161,81 @@ export interface MorePageData {
     username: string;
     label: string;
   };
+
+  /* ---- /more rebuild -------------------------------------------------
+     Content sourced from the "On My Break", "Leadership" and "Honors"
+     sections of GitHub_README_config/README.md, expanded for the website.
+     Optional so the older shape still type-checks if a section is dropped. */
+
+  /** FX:flip-words — rotating identity words under the page title. */
+  identityWords?: string[];
+  /** Count-up figures in the stat band. */
+  stats?: MoreStat[];
+  travel?: {
+    /** Life path, in order: where he was born through where he is now. */
+    path: TravelStop[];
+    /** FX:flowing-menu — one row per country visited. */
+    countries: TravelCountry[];
+  };
+  /** FX:flip-card — emoji + name on the front, detail on the back. */
+  interests?: Interest[];
+  /** Orgs with a real role, shown as spotlight cards above the club chips. */
+  leadership?: LeadershipRole[];
+  honors?: Honor[];
+  /** FX:share-button — the hover-fan in the page footer. */
+  socials?: SocialHandle[];
+}
+
+export interface MoreStat {
+  /** Numeric target; the counter animates 0 -> value on scroll into view. */
+  value: number;
+  /** Rendered straight after the number, e.g. "K+". */
+  suffix?: string;
+  label: string;
+}
+
+export interface TravelStop {
+  place: string;
+  /** What that stop was: "born", "raised", "college"... */
+  note: string;
+}
+
+export interface TravelCountry {
+  flag: string;
+  name: string;
+  /** Shown in the marquee panel that slides in on hover. */
+  note: string;
+}
+
+export interface Interest {
+  emoji: string;
+  name: string;
+  /** Back of the flip card. */
+  detail: string;
+}
+
+export interface LeadershipRole {
+  org: string;
+  role: string;
+  /** Secondary role line, e.g. "Now Alumni Advisor". */
+  tenure?: string;
+  summary: string;
+  link?: string;
+}
+
+export interface Honor {
+  /** "2nd Place", "Track Win", "Rank". */
+  placement: string;
+  event: string;
+  detail?: string;
+  /** Eagle Scout is a rank, not a competition — rendered apart from the rest. */
+  kind: "competition" | "rank";
+}
+
+export interface SocialHandle {
+  label: string;
+  handle: string;
+  /** Absent for handles with no linkable profile (Discord) — those copy instead. */
+  href?: string;
+  icon: "instagram" | "discord" | "lichess" | "mail" | "github" | "linkedin";
 }
