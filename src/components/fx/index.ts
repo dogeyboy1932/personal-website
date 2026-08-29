@@ -17,3 +17,6 @@ export { default as SideRays } from "./SideRays.svelte";
 
 // FX:sparkles + FX:gravity-stars — aceternity sparkles fused with animate-ui gravity-stars
 export { default as SparkleField } from "./SparkleField.svelte";
+
+// FX:border-glow — reactbits border-glow
+export { default as BorderGlow } from "./BorderGlow.svelte";
