@@ -140,7 +140,17 @@
                against this box. -->
           <div class="relative flex flex-col">
             <!-- FX:particle-text — gated by homeHero.particleName in
-                 src/constants/home.ts; off renders the plain heading -->
+                 src/constants/home.ts; off renders the plain heading.
+
+                 look="plain", not "nanotech". ("there are lines between each
+                 letter for the particles words...remove those.") The nanotech
+                 pass strokes hairlines between neighbouring particles, and
+                 since the particles sit on a lattice those links landed as
+                 visible threads spanning the gaps between glyphs. It was also
+                 the only thing "nanotech" still did — its other half, the
+                 per-dot glow, was removed when the container glow replaced it —
+                 so switching to plain drops the whole extra draw pass rather
+                 than just hiding it. linkDistance goes with it, unused now. -->
             <!--
               ONE CONTAINER GLOW, not a glow per letter.
               ("Rather than having each letter emit a glow of its own...the
@@ -185,11 +195,10 @@
               {#if homeHero.particleName}
                 <ParticleText
                   text={homeHero.fullName.toUpperCase()}
-                  look="nanotech"
+                  look="plain"
                   gap={2}
                   radius={110}
                   force={3}
-                  linkDistance={13}
                 />
               {:else}
                 {homeHero.fullName}
