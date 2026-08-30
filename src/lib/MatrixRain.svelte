@@ -3,6 +3,7 @@
   import { browser } from "$app/environment";
   
   import { darkModeStore } from "./stores";
+  import { tokens, css } from "./tokens";
 
 
   
@@ -12,18 +13,9 @@
   let primaryColor: string;
   let secondaryColor: string;
 
-  /* Colours from the --rain / --rain-tail tokens (src/styles/tokens.css) so a
-     site recolour picks the rain up too. */
-  function token(name: string, fallback: string) {
-    if (!browser) return fallback;
-    const raw = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-    return raw ? `rgb(${raw})` : fallback;
-  }
-  $: primaryColor = isDarkMode !== undefined ? token("--rain", "#22d3ee") : "#22d3ee";
-  $: secondaryColor = isDarkMode !== undefined ? token("--rain-tail", "#0e7490") : "#0e7490";
-
-
-
+  /* Colours from the --rain / --rain-tail tokens via the shared token store. */
+  $: primaryColor = css($tokens, "rain");
+  $: secondaryColor = css($tokens, "rain-tail");
 
   let canvas: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D;
@@ -116,8 +108,27 @@
   // Rebuild the atlas when the theme flips the colors.
   $: if (browser && primaryColor && secondaryColor) buildGlyphs();
 
-  function draw() {
+  /*
+    Frame throttle. The rain advanced one row per animation frame, i.e. at the
+    display's refresh rate — too fast, and it repainted a full-viewport canvas
+    60 times a second for no visual gain. Stepping at ~20fps both slows the
+    fall and cuts the canvas work to a third. ("THe matrix rain is too fast. To
+    lower processing, make it go a little slower.")
+
+    Raise STEP_MS to slow it further; lower it to speed it up.
+  */
+  const STEP_MS = 50;
+  let lastStep = 0;
+
+  function draw(now = 0) {
     if (!ctx || !canvas) return;
+
+    // Keep the rAF loop (so it pauses in background tabs) but skip the work.
+    if (now - lastStep < STEP_MS) {
+      animationFrame = requestAnimationFrame(draw);
+      return;
+    }
+    lastStep = now;
 
     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);

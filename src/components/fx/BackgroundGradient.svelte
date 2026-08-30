@@ -30,6 +30,7 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import { darkModeStore } from "../../lib/stores";
+  import { tokens, css, type TokenName } from "../../lib/tokens";
 
   export let radius = "0.75rem";
   export let spread = 3;
@@ -49,22 +50,17 @@
     `palette` still shifts the mix so project and experience cards read
     differently without needing separate tokens.
   */
-  const paletteOrder: Record<string, string[]> = {
-    aurora: ["--halo-1", "--halo-2", "--halo-3"],
-    violet: ["--halo-3", "--halo-2", "--halo-1"],
-    warm: ["--warm", "--halo-3", "--halo-1"],
+  const paletteOrder: Record<string, TokenName[]> = {
+    aurora: ["halo-1", "halo-2", "halo-3"],
+    violet: ["halo-3", "halo-2", "halo-1"],
+    warm: ["warm", "halo-3", "halo-1"],
   };
 
-  let stops = "rgb(34 211 238), rgb(99 102 241), rgb(168 85 247)";
-  $: if (browser && isDark !== undefined && palette) {
-    const names = paletteOrder[palette] ?? paletteOrder.aurora;
-    const cs = getComputedStyle(document.documentElement);
-    const parts = names
-      .map((n) => cs.getPropertyValue(n).trim())
-      .filter(Boolean)
-      .map((v) => `rgb(${v})`);
-    if (parts.length) stops = parts.join(", ");
-  }
+  $: names = paletteOrder[palette] ?? paletteOrder.aurora;
+  $: stops = names.map((n) => css($tokens, n)).join(", ");
+  /* The rim uses the FIRST token only — a multi-stop ramp is what produced the
+     concentric "target" rings in the previous version. */
+  $: edge = css($tokens, names[0]);
 </script>
 
 <div
@@ -77,6 +73,7 @@
     --bgg-idle: {idle};
     --bgg-active: {active};
     --bgg-stops: {stops};
+    --bgg-edge: {edge};
   "
 >
   <span class="fx-bgg-glow" aria-hidden="true"><span class="fx-bgg-drift" /></span>
@@ -115,30 +112,31 @@
   }
 
   /*
-    RADIAL closest-side, centred — not a fixed-angle linear gradient.
+    An EDGE glow, not a filled gradient.
 
-    A linear gradient lights one corner and falls off toward the opposite one,
-    so the far edges read as a permanent shadow. That is the "shadow that
-    occurs from the right of the card" in updates.txt, and it measured as such:
-    left lum 33 / top 36 against right lum 24.
+    History worth keeping, because both previous attempts were wrong in
+    instructive ways:
+      1. linear-gradient(115deg) lit one corner and fell off toward the
+         opposite one, so the right edge read as a permanent shadow.
+      2. radial closest-side fixed the evenness but put every colour stop in a
+         concentric ring centred on the card — which reads as a bullseye.
+         ("the gradient background looks like a target and it looks kinda bad")
 
-    `ellipse closest-side` scales the gradient per axis so its final stop lands
-    exactly on all four edges. Every edge midpoint therefore resolves to the
-    SAME colour whatever the card's aspect ratio — evenness by construction,
-    not by tuning. Measured: luminance spread across the four edges went from
-    12 to 2, with the right edge no longer the outlier (it was 12 below the
-    top; all four now sit within 2 of each other).
-
-    A rotating conic was tried first and evened it out too (spread 6), but it
-    needs a square sized to the box diagonal, and no single percentage covers
-    both the wide experience cards and the tall project cards. This element is
-    box-sized instead, and an interleaved A/B against the previous version
-    measured at parity.
+    This version is transparent through the whole middle and only carries
+    colour in the last ~15% of the radius, so what shows is a rim of light
+    around the card rather than rings across it. closest-side keeps that rim
+    landing on all four edges at once whatever the aspect ratio, so it stays
+    even — which was the point of attempt 2 and is preserved here.
   */
   .fx-bgg-drift {
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(ellipse closest-side at 50% 50%, var(--bgg-stops));
+    background-image: radial-gradient(
+      ellipse closest-side at 50% 50%,
+      transparent 0%,
+      transparent 72%,
+      var(--bgg-edge) 100%
+    );
     filter: blur(var(--bgg-blur));
     /* Opacity only. Opacity is composited, so the baked blur is never
        re-rasterised; anything that changed the layer's SIZE would be. */

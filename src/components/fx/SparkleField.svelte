@@ -31,6 +31,7 @@
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import { darkModeStore } from "../../lib/stores";
+  import { tokens, channels } from "../../lib/tokens";
 
   export let density = 1.6;
   export let minSize = 0.6;
@@ -114,22 +115,18 @@
     the split/join.
   */
   $: isDark = $darkModeStore;
-  let tokenRgb = "34, 211, 238";
-  function readToken() {
-    if (!browser) return;
-    const raw = getComputedStyle(document.documentElement)
-      .getPropertyValue("--particles")
-      .trim();
-    if (raw) tokenRgb = raw.split(/\s+/).join(", ");
-  }
-  // Re-read on theme flip: the light palette redefines the token.
-  $: if (browser && isDark !== undefined) readToken();
-  /* Only a numeric triple is accepted as an override. A stale keyword from an
-     old call site would otherwise reach the canvas as rgba(warm, 1) and throw
-     during hydration, taking the rest of the page's onMount work with it. */
-  $: rgb = color && /^\s*\d+\s*[, ]\s*\d+\s*[, ]\s*\d+\s*$/.test(color)
-    ? color.trim().split(/[\s,]+/).join(", ")
-    : tokenRgb;
+
+  /*
+    Colour comes from the --particles token (src/styles/tokens.css) via the
+    shared token store, so recolouring the site never means editing this file.
+    `color` overrides it per call site, but only when it is a numeric triple —
+    a stale keyword reaching the canvas as rgba(warm, 1) throws and takes
+    hydration down with it.
+  */
+  $: rgb =
+    color && /^\s*\d+\s*[, ]\s*\d+\s*[, ]\s*\d+\s*$/.test(color)
+      ? color.trim().split(/[\s,]+/).join(", ")
+      : channels($tokens, "particles");
 
   const reducedMotion = () =>
     browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;

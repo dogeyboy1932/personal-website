@@ -33,6 +33,7 @@
   import { browser } from "$app/environment";
   import type { ComponentType } from "svelte";
   import { theme, darkModeStore } from "../../lib/stores";
+  import { tokens, css } from "../../lib/tokens";
 
   export let items: readonly { href: string; label: string; icon: ComponentType }[] = [];
   export let current = "/";
@@ -83,8 +84,10 @@
     (bg-black/90), but the light navbar is bg-white/95 — a white pill there
     would be invisible, so it goes near-black and the label flips with it.
   */
-  $: pillFill = $darkModeStore ? "#ffffff" : "#111827";
-  $: pillLabel = $darkModeStore ? "#0b0b0f" : "#f8fafc";
+  /* Colours via the shared token store, which re-reads a frame after any theme
+     change — see src/lib/tokens.ts for why that timing matters. */
+  $: pillFill = css($tokens, "nav-pill");
+  $: pillLabel = css($tokens, "nav-pill-label");
 
   function measure() {
     // Unknown route (activeIndex -1): retire the blob rather than leaving it
@@ -114,17 +117,32 @@
 
     const cx = el.offsetLeft + el.offsetWidth / 2;
     const cy = el.offsetTop + el.offsetHeight / 2;
+    // Half-extents of the pill, so droplets can start ON its edge.
+    const rx = el.offsetWidth / 2;
+    const ry = el.offsetHeight / 2;
 
+    /*
+      Droplets spawn on the pill's PERIMETER and travel outward from there,
+      rather than starting at the centre where the blob hides them.
+      ("the bubbles should be outside the pill (if that makes sense)")
+
+      Angles are biased away from vertical: the pill is much wider than it is
+      tall, so an even spread put most droplets out the flat top and bottom
+      where they had almost no pill to clear.
+    */
     const made: Droplet[] = Array.from({ length: particles }, (_, i) => {
-      const angle = (Math.PI * 2 * i) / particles + Math.random() * 0.5;
-      const distance = 26 + Math.random() * 26;
+      const angle = (Math.PI * 2 * i) / particles + (Math.random() - 0.5) * 0.4;
+      const cos = Math.cos(angle);
+      const sin = Math.sin(angle);
+      const distance = 18 + Math.random() * 22;
       return {
         id: dropletId++,
-        x: cx,
-        y: cy,
-        dx: Math.cos(angle) * distance,
-        dy: Math.sin(angle) * distance,
-        size: 5 + Math.random() * 7,
+        // On the edge, nudged just past it so nothing is born under the blob.
+        x: cx + cos * (rx + 2),
+        y: cy + sin * (ry + 2),
+        dx: cos * distance,
+        dy: sin * distance,
+        size: 6 + Math.random() * 6,
       };
     });
 
@@ -280,17 +298,19 @@
     animation: fx-goo-fling 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
+  /* Born on the pill's rim, so they travel outward and fade where they land
+     rather than being reeled back to a centre they never came from. */
   @keyframes fx-goo-fling {
     0% {
-      transform: translate(0, 0) scale(0.4);
-      opacity: 1;
+      transform: translate(0, 0) scale(0.35);
+      opacity: 0.9;
     }
-    55% {
-      transform: translate(var(--goo-dx), var(--goo-dy)) scale(1);
+    45% {
+      transform: translate(calc(var(--goo-dx) * 0.7), calc(var(--goo-dy) * 0.7)) scale(1);
       opacity: 1;
     }
     100% {
-      transform: translate(0, 0) scale(0.2);
+      transform: translate(var(--goo-dx), var(--goo-dy)) scale(0.35);
       opacity: 0;
     }
   }

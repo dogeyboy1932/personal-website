@@ -27,6 +27,7 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import { darkModeStore } from "../../lib/stores";
+  import { tokens, channels } from "../../lib/tokens";
 
   export let side: "left" | "right" | "both" = "left";
   export let count = 9;
@@ -39,16 +40,8 @@
 
   $: isDark = $darkModeStore;
 
-  /* Colour from tokens: --rays for the brand hue, --warm for the logo hue.
-     See src/styles/tokens.css. */
-  $: tokenName = hue === "warm" ? "--warm" : "--rays";
-  let rayColor = "34, 211, 238";
-  $: if (browser && isDark !== undefined && tokenName) {
-    const raw = getComputedStyle(document.documentElement)
-      .getPropertyValue(tokenName)
-      .trim();
-    if (raw) rayColor = raw.split(/\s+/).join(", ");
-  }
+  /* Colour from tokens: --rays for the brand hue, --warm for the logo hue. */
+  $: rayColor = channels($tokens, hue === "warm" ? "warm" : "rays");
 
   // Light mode needs less punch — the page ground is amber-50, not black.
   $: peak = isDark ? opacity : opacity * 0.45;

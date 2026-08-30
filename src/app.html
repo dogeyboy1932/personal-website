@@ -36,6 +36,17 @@
       href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     />
 
+    <!--
+      Dark by default, set BEFORE first paint. darkModeStore defaults to true,
+      but the class used to be applied in ThemeToggle's onMount, which meant a
+      flash of the light body and — worse — components resolving CSS colour
+      tokens against the wrong palette during init. ThemeToggle still owns the
+      class after hydration; this only fixes the starting state.
+    -->
+    <script>
+      document.documentElement.classList.add("dark");
+    </script>
+
     %sveltekit.head%
   </head>
 
