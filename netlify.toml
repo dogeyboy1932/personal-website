@@ -9,8 +9,19 @@
 # Site settings -> Environment variables — never in this file, which is
 # committed.
 
+# PACKAGE MANAGER: bun, and only bun.
+#
+# ("let's make bun the single source of truth") package.json no longer pins
+# `packageManager: pnpm`, pnpm-lock.yaml is deleted and gitignored, and bun.lock
+# is the only lockfile in the repo. Netlify picks its installer from the
+# lockfile it finds, so with just bun.lock present it installs with bun.
+#
+# The build command is explicit rather than `npm run build` so the whole
+# pipeline reads as one tool. This is what the previous deploy failure was
+# about: two lockfiles meant `bun add` updated one while CI resolved the other.
+
 [build]
-  command = "npm run build"
+  command = "bun run build"
   publish = "build"
 
 [build.environment]
