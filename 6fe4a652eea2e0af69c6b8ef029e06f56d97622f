@@ -1,0 +1,34 @@
+DEVLOG — updates.txt fourth pass (6fe4a65)
+
+THE OVERFLOW BUG, because it will recur: grid-cols-[65%_1fr] overflowed
+because a bare '1fr' is minmax(AUTO,1fr) — the column will not shrink below
+its content's min-content width. Fixed with minmax(0,1fr) PLUS min-w-0 on
+both grid children PLUS max-w-full on the image. Any one of those missing
+reintroduces the floor by a different route. Test at 390-1600px and assert
+document.scrollWidth == clientWidth.
+
+SIDE RAYS have two perf regimes and the difference is large:
+  - behind content (default): blurred rotating blades are effectively free,
+    because the backdrop under them is static and gets cached.
+  - overlay mode (over live canvases): each blade costs real frames.
+    mix-blend-mode:screen measured 19fps and was removed; blade count is
+    capped at 4 in overlay mode because 9 cost another ~30fps.
+Overlay mode exists only because the hero's right half is an opaque photo,
+so rays behind it are invisible.
+
+SPARKLES: gravity defaults to 0 on purpose. ANY shared downward constant
+makes the field fall in unison and read as rain. Two things had to change
+together — the per-frame integration AND the recycling, because respawning
+particles at the top reintroduced the same bias even with gravity at zero.
+
+GOOEY BUBBLES cannot be drawn over browser chrome. Asked and answered: no
+z-index, portal or stacking context does it. The burst arc is biased
+downward instead so they stay in the page.
+
+Line 12 of updates.txt (play me / find me / knight) was a verbatim carry-over
+from the previous file — all of it was already live. Verified before acting,
+then added the inset panel as the one genuine remaining improvement. Worth
+checking for stale lines before redoing work.
+
+NOTED FOR LATER, not yet actioned: 'later we'll add more stuff and content on
+the more page'. /more is intentionally light for now.
