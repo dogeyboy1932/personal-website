@@ -4,7 +4,6 @@
   import PageHeader from "../../components/Headers/PageHeader.svelte";
   import ComingSoon from "../../lib/ComingSoon.svelte";
   import { theme } from "../../lib/stores";
-  // FX:scroll-reveal
   import { scrollReveal } from "../../lib/actions/scrollReveal";
 
   /* "hot takes is part of it (idea)" — kept as a named strand rather than a
@@ -23,7 +22,6 @@
     <PageHeader title="Writings" />
   </div>
 
-  <!-- FX:scroll-reveal -->
   <div use:scrollReveal>
     <ComingSoon
       blurb="Essays, build notes, and hot takes."

@@ -12,6 +12,7 @@
 
 <!-- ===== HERO ===== -->
 <section class="relative mb-0 font-sans rounded-lg" use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
+
   <!-- FX:side-rays — section level, no `overlay`, so z-index 0 paints behind
        BOTH columns. CAVEAT: siblings that must sit above it need `relative`;
        a non-positioned block child paints earlier than a positioned z-0 one. -->
@@ -24,15 +25,14 @@
     widthScale={1.8}
     hue="warm"
   />
-  <!-- /FX:side-rays -->
 
-    <!-- CAVEAT: minmax(0,1fr), not 1fr. -->
+  <!-- CAVEAT: minmax(0,1fr), not 1fr. -->
   <div
     class="relative z-10 grid gap-3 rounded-lg"
     class:grid-cols-1={!$breakpoints.isDesktop}
     class:grid-cols-[65%_minmax(0,1fr)]={$breakpoints.isDesktop}
   >
-    
+
     <!-- Left Column: Header and Summary -->
     <!-- min-w-0: without it a grid child's min-content width becomes the
          column's floor, which is the same overflow bug by another route. -->
@@ -85,24 +85,24 @@
           </div>
 
           <!-- Social Links -->
-          <div class="flex flex-row gap-2 items-center justify-start mt-4"> 
+          <div class="flex flex-row gap-2 items-center justify-start mt-4">
             {#each links as link, index}
-              <SocialLinkButton 
-                href={link.href} 
-                logo={link.logo} 
+              <SocialLinkButton
+                href={link.href}
+                logo={link.logo}
                 title={link.title}
-                {index} 
+                {index}
               />
             {/each}
           </div>
         </div>
       </div>
 
-      
+
       <!-- Divider. `relative` for the same paint-order reason as the summary. -->
       <div class="relative mx-auto w-[90%] border-t {$theme.border.divider}" />
 
-      
+
       <!-- `relative` is load-bearing — see the side-rays caveat above. -->
       <div class="relative flex flex-col items-center gap-5 py-3 px-8">
         <p class="text-lg sm:text-xl leading-relaxed {$theme.text.primary} font-sans font-normal whitespace-pre-line">
@@ -139,11 +139,11 @@
 
     <!-- Right column: photo and quote. -->
     <div class="relative z-40 flex min-w-0 flex-col gap-4">
-      <HeroImage 
-        src={homeHero.image.src} 
-        alt={homeHero.image.alt} 
+      <HeroImage
+        src={homeHero.image.src}
+        alt={homeHero.image.alt}
       />
-      
+
       <SmallCarousel
         items={homeHero.quotes}
         interval={7000}
@@ -169,7 +169,7 @@
 <!-- ===== FOCUS AREAS ===== -->
 <section class="mt-0 mb-8" use:scrollReveal>
     <h3 class="meta-label text-xl {$theme.text.muted} font-bold mb-3 ml-2">{sections.focuses}</h3>
-    
+
     <div class="grid gap-4" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-3={!$breakpoints.isMobile}>
       {#each homeFocusAreas as focus, index}
         <FocusCard title={focus.title} description={focus.description} {index} />

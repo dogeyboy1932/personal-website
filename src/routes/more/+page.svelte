@@ -1,8 +1,5 @@
 <script lang="ts">
-  // External dependencies
   import { fade } from "svelte/transition";
-
-  // Components
   import PageHeader from "../../components/Headers/PageHeader.svelte";
   import {
     LichessCard,
@@ -14,19 +11,13 @@
     HonorShelf,
     ConnectFooter,
     ChessChallenge,
-
-    // FunFactItem
   } from "../../components/MORE";
   import { FlipWords } from "../../components/Creative";
-
-  // Constants and theme
+  import { scrollReveal } from "../../lib/actions/scrollReveal";
   import { more, clubs } from "../../constants";
   import { theme } from "../../lib/stores";
-  // FX:scroll-reveal
-  import { scrollReveal } from "../../lib/actions/scrollReveal";
 
-  /* Section labels. "What I won" was dropped — HonorShelf already labels
-     itself, so the heading duplicated it. */
+  /* Band headings. HonorShelf labels itself, so it has no entry here. */
   const sections = [
     { id: "travel", label: "Where I've been" },
     { id: "interests", label: "What I'm into" },
@@ -35,8 +26,6 @@
 </script>
 
 <section class="space-y-8 pb-4" in:fade>
-
-  <!-- ===== HEADER ===== -->
   <div use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
     <PageHeader title={more.title} />
   </div>
@@ -65,7 +54,7 @@
       />
 
       <StatStrip stats={more.stats ?? []} />
-      
+
 
       <div
         class="mx-auto h-px w-4/5 bg-gradient-to-r from-transparent via-slate-400/35 to-transparent"
@@ -92,7 +81,7 @@
     </div>
 
 
-    
+
   </div>
 
   <!-- Was part of: roles left, club chips + honors right -->

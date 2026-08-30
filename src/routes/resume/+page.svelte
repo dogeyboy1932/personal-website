@@ -1,56 +1,43 @@
 <script lang="ts">
-  // External dependencies
   import { fade, fly } from "svelte/transition";
-  
-  // Components
   import { PageHeader } from "../../components/Headers";
-  
-  // Constants and theme
+  import { scrollReveal } from "../../lib/actions/scrollReveal";
   import { resume } from "../../constants";
   import { theme } from "../../lib/stores";
-  // FX:scroll-reveal
-  import { scrollReveal } from "../../lib/actions/scrollReveal";
+
+
+  /* Both branches render the same link, so the class lives here once. */
+  $: linkClass =
+    `mt-4 inline-flex items-center rounded-md border px-4 py-2 text-sm font-semibold uppercase ` +
+    `tracking-[0.35em] transition ${$theme.border.light} ${$theme.text.primary} ` +
+    `${$theme.bg.secondary} ${$theme.hover.bgSecondary}`;
 </script>
 
 <section class="space-y-6" in:fade>
   <PageHeader title={resume.pageTitle} />
-  
-  <!-- ===== RESUME DISPLAY CARD ===== -->
+
   <!-- FX:scroll-reveal -->
-  <div class="rounded-2xl border {$theme.border.default} {$theme.bg.card} p-6 shadow-lg" in:fly={{ y: 8 }} use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
+  <div
+    class="rounded-2xl border p-6 shadow-lg {$theme.border.default} {$theme.bg.card}"
+    in:fly={{ y: 8 }}
+    use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}
+  >
     <p class="text-sm {$theme.text.secondary}">{resume.description}</p>
-    
+
     {#if resume.embed}
-      <!-- Embedded resume iframe -->
-      <div class="mt-4 w-full rounded-md overflow-hidden border">
-        <iframe 
-          title={resume.label} 
-          src={resume.url} 
-          width={resume.embedWidth} 
-          height={resume.embedHeight} 
-          class="w-full h-[900px]" 
+      <div class="mt-4 w-full overflow-hidden rounded-md border">
+        <iframe
+          title={resume.label}
+          src={resume.url}
+          width={resume.embedWidth}
+          height={resume.embedHeight}
+          class="h-[900px] w-full"
         />
       </div>
-      
-      <!-- Open in new tab link -->
-      <a 
-        href={resume.url} 
-        class="mt-4 inline-flex items-center rounded-md border {$theme.border.light} px-4 py-2 text-sm uppercase tracking-[0.35em] font-semibold {$theme.text.primary} {$theme.bg.secondary} {$theme.hover.bgSecondary} transition" 
-        target="_blank" 
-        rel="noopener noreferrer"
-      >
-        Open in New Tab
-      </a>
-    {:else}
-      <!-- Direct link to resume -->
-      <a 
-        href={resume.url} 
-        class="mt-4 inline-flex items-center rounded-md border {$theme.border.light} px-4 py-2 text-sm uppercase tracking-[0.35em] font-semibold {$theme.text.primary} {$theme.bg.secondary} {$theme.hover.bgSecondary} transition" 
-        target="_blank" 
-        rel="noopener noreferrer"
-      >
-        {resume.label}
-      </a>
     {/if}
+
+    <a href={resume.url} class={linkClass} target="_blank" rel="noopener noreferrer">
+      {resume.embed ? "Open in New Tab" : resume.label}
+    </a>
   </div>
 </section>

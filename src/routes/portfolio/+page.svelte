@@ -1,9 +1,6 @@
 <script lang="ts">
-  import { breakpoints } from "$lib/stores";
-  // FX:scroll-reveal
-  import { scrollReveal } from "$lib/actions/scrollReveal";
-
-  // Components
+  import { breakpoints } from "../../lib/stores";
+  import { scrollReveal } from "../../lib/actions/scrollReveal";
   import { SectionHeader } from "../../components/Headers";
   import {
     ExperienceCard,
@@ -11,32 +8,24 @@
     CategoryFilter,
     ProjectCard,
   } from "../../components/PORTFOLIO";
-
-  // Carousel moved to components/Creative and is exported from that barrel.
   import { Carousel } from "../../components/Creative";
-
   import { sections, experiences, skillsData, projectsData } from "../../constants";
   import { type ProjectCategory } from "../../types";
 
-  // Project filtering state
   let selectedCategory = "All";
-  
-  // Reactive statements
-  $: categories = ["All", ...new Set(projectsData.flatMap(p => p.category))];
-  
-  $: filteredProjects = selectedCategory === "All" 
-    ? projectsData 
-    : projectsData.filter(p => p.category.includes(selectedCategory as ProjectCategory));
+
+  $: categories = ["All", ...new Set(projectsData.flatMap((p) => p.category))];
+  $: filteredProjects =
+    selectedCategory === "All"
+      ? projectsData
+      : projectsData.filter((p) => p.category.includes(selectedCategory as ProjectCategory));
   $: projectProps = filteredProjects.map((project, index) => ({ project, index }));
-  
 </script>
 
 <section class="space-y-10 pb-4">
-  <!-- ===== PROFESSIONAL EXPERIENCES SECTION ===== -->
-  <!-- FX:scroll-reveal -->
-  <section use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}> 
+  <section use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
     <SectionHeader id="experiences" title={sections.prof_experiences} />
-        <!-- 2-up by default, 3-up only when there is genuinely room. -->
+    <!-- 2-up by default; 3-up only where there is genuinely room for it. -->
     <div class="grid gap-5 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
       {#each experiences as experience, i}
         <ExperienceCard {experience} index={i} />
@@ -44,22 +33,19 @@
     </div>
   </section>
 
-  <!-- ===== PROJECTS GALLERY SECTION ===== -->
-  <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
     <SectionHeader id="gallery" title={sections.projectGallery} />
-    
-    <!-- Category filter -->
+
     <CategoryFilter {categories} bind:selectedCategory />
 
-    <!-- Projects carousel -->
+    <!-- {#key} remounts the carousel so Embla re-measures after a filter change. -->
     {#key selectedCategory}
-      <Carousel 
+      <Carousel
         component={ProjectCard}
         componentProps={projectProps}
         config={{
-          options: { 
-            loop: true, 
+          options: {
+            loop: true,
             axis: "x",
             align: "start",
             slidesToScroll: 1
@@ -71,8 +57,6 @@
     {/key}
   </section>
 
-  <!-- ===== SKILLS SECTION ===== -->
-  <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
     <SectionHeader id="skills" title={sections.skills} />
     <div class="grid gap-3" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-2={$breakpoints.isTablet} class:grid-cols-3={$breakpoints.isDesktop}>

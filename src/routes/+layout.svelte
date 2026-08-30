@@ -1,35 +1,24 @@
 <script lang="ts">
-  import MatrixRain from "../lib/MatrixRain.svelte";
-  import  CursorParticles  from "../lib/CursorParticles.svelte";
-  import { NavigationBar } from "../components/NAVIGATIONBAR";
-  
-  import "@fontsource/plus-jakarta-sans";
-  import "../styles.css";
+  import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
 
-  import { lastUpdated } from "../constants/";
+  import MatrixRain from "../lib/MatrixRain.svelte";
+  import CursorParticles from "../lib/CursorParticles.svelte";
+  import { NavigationBar } from "../components/NAVIGATIONBAR";
   import { screenWidth, displayWidth, theme } from "../lib/stores";
-  import { onMount } from "svelte";
+  import { lastUpdated } from "../constants";
 
-  // Physical display width drives the mobile threshold (40% of it).
+  import "@fontsource/plus-jakarta-sans";
+  import "../styles.css";
+
+  /* Physical display width drives the mobile threshold (40% of it), so the
+     switch tracks how much of the screen the window occupies, not a px value. */
   onMount(() => {
     const sync = () => displayWidth.set(window.screen?.width || window.innerWidth);
     sync();
     window.addEventListener("resize", sync);
     return () => window.removeEventListener("resize", sync);
   });
-
-  export const fonts = {
-    primary: "font-sans", // Inter for body text
-    secondary: "font-display", // Space Grotesk for headings
-    fun: "font-mono", // JetBrains Mono for code/accents
-    options: [
-      { id: "inter", label: "Inter (clean)", class: "font-sans" },
-      { id: "display", label: "Space Grotesk (display)", class: "font-display" },
-      { id: "mono", label: "JetBrains Mono (coder)", class: "font-mono" },
-    ],
-  };
-
 </script>
 
 <svelte:window bind:innerWidth={$screenWidth} />
@@ -37,30 +26,27 @@
 <MatrixRain />
 <CursorParticles />
 
-<div class="min-h-screen relative">
-  <div
-    class="pointer-events-none absolute inset-0"
-  />
-    <NavigationBar />
-    <main
-      class={`relative z-10 w-full px-4 md:px-8 ${fonts.primary}`}
+<div class="relative min-h-screen">
+  <NavigationBar />
+
+  <main class="relative z-10 w-full px-4 font-sans md:px-8">
+    <!-- No backdrop-blur here: the panel is viewport-sized and MatrixRain animates behind it, so the
+         blur could never be cached and was re-computed across the whole page every frame. -->
+    <div
+      class="mx-auto max-w-[1600px] rounded-b-xl border p-3 shadow-2xl {$theme.border.default} {$theme.bg.page} {$theme.border.light}"
+      in:fly={{ y: 6, duration: 350 }}
     >
-            <!-- No backdrop-blur on this panel, on purpose: it is viewport-sized and MatrixRain animates
-           behind it, so the blur could never be cached and was re-computed across the whole page
-           every frame. -->
-      <div in:fly={{ y: 6, duration: 350 }}
-        class="max-w-[1600px] mx-auto rounded-b-xl border {$theme.border.default} {$theme.bg.page} p-3 shadow-2xl {$theme.border.light}"
-      >
-        <div in:fade={{ duration: 250 }}>
-          <slot />
-        </div>
-        <div class="flex flex-row justify-between text-[10px] uppercase {$theme.text.muted} mt-10">
-          <span class="tracking-[0.2em]">© 2025 Akhil Gogineni. All rights reserved.</span>
-          <span class="tracking-[0.3em]">Last updated: {lastUpdated}</span>
-        </div>
+      <div in:fade={{ duration: 250 }}>
+        <slot />
       </div>
-    </main>
-  </div>
+
+      <footer class="mt-10 flex flex-row justify-between text-[10px] uppercase {$theme.text.muted}">
+        <span class="tracking-[0.2em]">© 2025 Akhil Gogineni. All rights reserved.</span>
+        <span class="tracking-[0.3em]">Last updated: {lastUpdated}</span>
+      </footer>
+    </div>
+  </main>
+</div>
 
 <style lang="postcss">
   :global(html.dark body) {

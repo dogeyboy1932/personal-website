@@ -3,7 +3,6 @@
   import { MetaTags } from "svelte-meta-tags";
   import PageHeader from "../../components/Headers/PageHeader.svelte";
   import ComingSoon from "../../lib/ComingSoon.svelte";
-  // FX:scroll-reveal
   import { scrollReveal } from "../../lib/actions/scrollReveal";
 </script>
 
@@ -14,7 +13,6 @@
     <PageHeader title="Pictures" />
   </div>
 
-  <!-- FX:scroll-reveal -->
   <div use:scrollReveal>
     <ComingSoon
       blurb="Photos from the seven countries, the courts, and whatever else is worth keeping."
