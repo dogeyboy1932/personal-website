@@ -57,7 +57,7 @@
   */
   const accents = [
     // AI Alignment @ Illinois — orange
-    { bar: "from-orange-700 via-orange-600 to-orange-700", edge: "hover:border-orange-400/60", rule: "decoration-orange-400/60 hover:decoration-orange-300", icon: "text-orange-400/70" },
+    { bar: "from-orange-500 via-orange-400 to-orange-500", edge: "hover:border-orange-400/60", rule: "decoration-orange-400/60 hover:decoration-orange-300", icon: "text-orange-400/70" },
     /*
       Sigma Phi Delta — actual red. rose-300 -> red-400 -> rose-500 was chosen
       to avoid "evil red" and landed so warm it read as the orange card again:
@@ -112,7 +112,10 @@
           squeezing; the role keeps its own baseline either way.
         -->
         <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h4 class="inline-flex items-baseline gap-1.5 font-display text-lg font-bold leading-tight text-slate-50">
+          <!-- font-casual (Nunito) rather than font-display (Chivo). ("I want a
+               better font...less robotic. More casual. Do this for all clubs
+               too including leadership.") -->
+          <h4 class="inline-flex items-baseline gap-1.5 font-casual text-lg font-extrabold leading-tight text-slate-50">
             {#if role.link}
               <LinkPreview
                 href={role.link}
@@ -129,12 +132,14 @@
 
           <!-- Neutral text. The role reads by weight, and now by POSITION —
                it sits on the title's baseline rather than in its own band. -->
-          <p class="text-sm font-semibold text-slate-100">
-            {role.role}{#if role.tenure}<span class="font-normal text-slate-400"> · {role.tenure}</span>{/if}
+          <p class="font-casual text-sm font-bold text-slate-100">
+            {role.role}{#if role.tenure}<span class="font-medium text-slate-400"> · {role.tenure}</span>{/if}
           </p>
         </div>
 
-        <p class="mt-2.5 text-sm leading-relaxed text-slate-300">{role.summary}</p>
+        <p class="mt-2.5 font-casual text-[0.925rem] leading-relaxed text-slate-300">
+          {role.summary}
+        </p>
       </div>
     {/each}
   </div>
@@ -154,7 +159,7 @@
     <div class="flex flex-wrap gap-2">
       {#each rest as club, i}
         <span
-          class="inline-flex items-baseline gap-1.5 rounded-full border {$theme.border.light} bg-slate-900/70 px-3.5 py-1.5 text-sm text-slate-200"
+          class="inline-flex items-baseline gap-1.5 rounded-full border {$theme.border.light} bg-slate-900/70 px-3.5 py-1.5 font-casual text-sm font-semibold text-slate-200"
           in:fly={{ y: 8, delay: 200 + i * 25, duration: 280 }}
         >
           {club.name}
@@ -163,7 +168,7 @@
                  tinted text through the chip cloud — the most literal reading
                  of "the text color for the clubs stuff". Neutral now; the
                  tagline is secondary, so it recedes by tone, not by hue. -->
-            <span class="text-[0.8rem] text-slate-400">({club.tagline})</span>
+            <span class="text-[0.8rem] font-medium text-slate-400">({club.tagline})</span>
           {/if}
         </span>
       {/each}

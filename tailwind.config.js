@@ -113,6 +113,12 @@ export default {
         // the layout doesn't shift if Chivo fails to load.
         display: ["Chivo", "Space Grotesk", "Inter", "sans-serif"],
         cyber: ["Space Grotesk", "Inter", "sans-serif"],
+        // "I want a better font...less robotic. More casual." Nunito: rounded
+        // terminals and a high x-height, which is what reads as friendly rather
+        // than corporate. Same reason Fredoka won the navbar. Used on the
+        // clubs and leadership blocks via `font-casual`; NOT site-wide, because
+        // Inter still carries the long-form copy better.
+        casual: ["Nunito", "Plus Jakarta Sans", "Inter", "sans-serif"],
         jakarta: ["Plus Jakarta Sans", ...fontFamily.sans],
       },
       keyframes: {
