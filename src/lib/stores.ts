@@ -174,26 +174,30 @@ export const darkTheme = {
     whatever the hue.
   */
   /*
-    CYBERPUNK RAMP, not a rainbow. ("I don't like the rainbow colors in
-    portfolio. Make the stack colorful but try beind consistent with cyberpunk
-    and futuristic theme on the portfolio page.")
+    ONE NARROW RAMP: cyan -> indigo. No pink, no violet, no wide hue jumps.
 
-    The old table ran amber -> rose -> teal -> violet -> sky: five unrelated
-    hues, so a column of experience cards read as a colour wheel with no
-    relationship to the site.
+    "Rainbow means we are alternating and having so much disparity. I want
+    somethng a little more consistent. Don't use pinkish colors either"
 
-    These five walk one arc of the neon spectrum — cyan, azure, indigo, violet,
-    magenta — which is the cyberpunk palette proper. Adjacent cards still read
-    as different, but the set reads as one system, and every stop already
-    exists elsewhere on the site (--brand is cyan, the card halos run
-    cyan/indigo/purple).
+    History, because this is the third table here:
+      1. amber / rose / teal / violet / sky — five unrelated hues.
+      2. cyan / azure / indigo / violet / magenta — one arc of the neon
+         spectrum, which fixed the "unrelated" half but still spanned ~180deg of
+         hue and ended in fuchsia. Still read as alternating, and the pink was
+         called out by name.
+      3. HERE: cyan-300 through indigo-500, about 60deg of hue total. Adjacent
+         cards differ by roughly one step, so the column reads as a gradient
+         down the page rather than as five choices.
+
+    The stop-to-stop distance IS the disparity, so it is the thing to shrink —
+    picking prettier individual colours was never going to fix it.
   */
   cardThemes: [
-    { accent: 'from-cyan-300 via-cyan-400 to-sky-500', border: 'border-cyan-400/30 hover:shadow-cyan-500/20', badge: 'bg-cyan-400/10 border-cyan-300/30 text-cyan-200', title: 'from-cyan-200 via-cyan-100 to-white', role: 'text-cyan-300', divider: 'border-cyan-400/20', glow: 'from-cyan-500/10' },
-    { accent: 'from-sky-400 via-blue-500 to-indigo-500', border: 'border-blue-400/30 hover:shadow-blue-500/20', badge: 'bg-blue-400/10 border-blue-300/30 text-blue-200', title: 'from-sky-200 via-blue-100 to-white', role: 'text-sky-300', divider: 'border-blue-400/20', glow: 'from-blue-500/10' },
-    { accent: 'from-indigo-400 via-indigo-500 to-violet-600', border: 'border-indigo-400/30 hover:shadow-indigo-500/20', badge: 'bg-indigo-400/10 border-indigo-300/30 text-indigo-200', title: 'from-indigo-200 via-indigo-100 to-white', role: 'text-indigo-300', divider: 'border-indigo-400/20', glow: 'from-indigo-500/10' },
-    { accent: 'from-violet-400 via-purple-500 to-fuchsia-600', border: 'border-violet-400/30 hover:shadow-violet-500/20', badge: 'bg-violet-400/10 border-violet-300/30 text-violet-200', title: 'from-violet-200 via-purple-100 to-white', role: 'text-violet-300', divider: 'border-violet-400/20', glow: 'from-violet-500/10' },
-    { accent: 'from-fuchsia-400 via-fuchsia-500 to-pink-500', border: 'border-fuchsia-400/30 hover:shadow-fuchsia-500/20', badge: 'bg-fuchsia-400/10 border-fuchsia-300/30 text-fuchsia-200', title: 'from-fuchsia-200 via-pink-100 to-white', role: 'text-fuchsia-300', divider: 'border-fuchsia-400/20', glow: 'from-fuchsia-500/10' },
+    { accent: 'from-cyan-300 via-cyan-400 to-sky-400', border: 'border-cyan-400/30 hover:shadow-cyan-500/20', badge: 'bg-cyan-400/10 border-cyan-300/30 text-cyan-200', title: 'from-cyan-200 via-cyan-100 to-white', role: 'text-cyan-300', divider: 'border-cyan-400/20', glow: 'from-cyan-500/10' },
+    { accent: 'from-cyan-400 via-sky-400 to-sky-500', border: 'border-sky-400/30 hover:shadow-sky-500/20', badge: 'bg-sky-400/10 border-sky-300/30 text-sky-200', title: 'from-sky-200 via-cyan-100 to-white', role: 'text-sky-300', divider: 'border-sky-400/20', glow: 'from-sky-500/10' },
+    { accent: 'from-sky-400 via-blue-400 to-blue-500', border: 'border-blue-400/30 hover:shadow-blue-500/20', badge: 'bg-blue-400/10 border-blue-300/30 text-blue-200', title: 'from-blue-200 via-sky-100 to-white', role: 'text-blue-300', divider: 'border-blue-400/20', glow: 'from-blue-500/10' },
+    { accent: 'from-blue-400 via-blue-500 to-indigo-500', border: 'border-blue-500/30 hover:shadow-blue-600/20', badge: 'bg-blue-500/10 border-blue-400/30 text-blue-200', title: 'from-blue-200 via-blue-100 to-white', role: 'text-blue-300', divider: 'border-blue-500/20', glow: 'from-blue-600/10' },
+    { accent: 'from-blue-500 via-indigo-500 to-indigo-600', border: 'border-indigo-400/30 hover:shadow-indigo-500/20', badge: 'bg-indigo-400/10 border-indigo-300/30 text-indigo-200', title: 'from-indigo-200 via-blue-100 to-white', role: 'text-indigo-300', divider: 'border-indigo-400/20', glow: 'from-indigo-500/10' },
   ],
   
   // Accent colors
@@ -467,13 +471,13 @@ export const lightTheme = {
   },
   
   // Card color themes - warm, rich palette with high contrast
-  /* Same cyan -> magenta arc as the dark table, darkened for cream. */
+  /* Same narrow cyan -> indigo ramp as the dark table, darkened for cream. */
   cardThemes: [
     { accent: 'from-cyan-500 via-cyan-600 to-sky-600', border: 'border-cyan-400 hover:shadow-xl hover:shadow-cyan-300/40', badge: 'bg-cyan-100 border-cyan-400 text-cyan-900', title: 'from-cyan-800 via-cyan-700 to-sky-700', role: 'text-cyan-800', divider: 'border-cyan-300', glow: 'from-cyan-200' },
-    { accent: 'from-sky-500 via-blue-600 to-indigo-600', border: 'border-blue-400 hover:shadow-xl hover:shadow-blue-300/40', badge: 'bg-blue-100 border-blue-400 text-blue-900', title: 'from-sky-800 via-blue-700 to-indigo-700', role: 'text-blue-800', divider: 'border-blue-300', glow: 'from-blue-200' },
-    { accent: 'from-indigo-500 via-indigo-600 to-violet-700', border: 'border-indigo-400 hover:shadow-xl hover:shadow-indigo-300/40', badge: 'bg-indigo-100 border-indigo-400 text-indigo-900', title: 'from-indigo-800 via-indigo-700 to-violet-700', role: 'text-indigo-800', divider: 'border-indigo-300', glow: 'from-indigo-200' },
-    { accent: 'from-violet-500 via-purple-600 to-fuchsia-700', border: 'border-violet-400 hover:shadow-xl hover:shadow-violet-300/40', badge: 'bg-violet-100 border-violet-400 text-violet-900', title: 'from-violet-800 via-purple-700 to-fuchsia-700', role: 'text-violet-800', divider: 'border-violet-300', glow: 'from-violet-200' },
-    { accent: 'from-fuchsia-500 via-fuchsia-600 to-pink-600', border: 'border-fuchsia-400 hover:shadow-xl hover:shadow-fuchsia-300/40', badge: 'bg-fuchsia-100 border-fuchsia-400 text-fuchsia-900', title: 'from-fuchsia-800 via-fuchsia-700 to-pink-700', role: 'text-fuchsia-800', divider: 'border-fuchsia-300', glow: 'from-fuchsia-200' },
+    { accent: 'from-cyan-600 via-sky-600 to-sky-700', border: 'border-sky-400 hover:shadow-xl hover:shadow-sky-300/40', badge: 'bg-sky-100 border-sky-400 text-sky-900', title: 'from-sky-800 via-cyan-700 to-sky-700', role: 'text-sky-800', divider: 'border-sky-300', glow: 'from-sky-200' },
+    { accent: 'from-sky-600 via-blue-600 to-blue-700', border: 'border-blue-400 hover:shadow-xl hover:shadow-blue-300/40', badge: 'bg-blue-100 border-blue-400 text-blue-900', title: 'from-blue-800 via-sky-700 to-blue-700', role: 'text-blue-800', divider: 'border-blue-300', glow: 'from-blue-200' },
+    { accent: 'from-blue-600 via-blue-700 to-indigo-700', border: 'border-blue-500 hover:shadow-xl hover:shadow-blue-400/40', badge: 'bg-blue-100 border-blue-500 text-blue-900', title: 'from-blue-800 via-blue-700 to-indigo-700', role: 'text-blue-900', divider: 'border-blue-400', glow: 'from-blue-200' },
+    { accent: 'from-blue-700 via-indigo-600 to-indigo-700', border: 'border-indigo-400 hover:shadow-xl hover:shadow-indigo-300/40', badge: 'bg-indigo-100 border-indigo-400 text-indigo-900', title: 'from-indigo-800 via-blue-700 to-indigo-700', role: 'text-indigo-800', divider: 'border-indigo-300', glow: 'from-indigo-200' },
   ],
 
   // Accent colors - warm coffee tones with high contrast
