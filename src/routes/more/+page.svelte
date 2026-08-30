@@ -50,14 +50,27 @@
     hidden or truncated — the saving comes from pairing, not from cutting.
   -->
 
-  <!-- ===== HEADER + IDENTITY + STATS (one row, not three) ===== -->
+  <!-- ===== HEADER ===== -->
   <div use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
     <PageHeader title={more.title} />
+  </div>
 
-    <div class="mt-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+  <!-- ===== WHERE I'VE BEEN (path only) =====
+       Left as-is on request: "All that's untouched on the more page is the
+       where I've been and the find me." -->
+  <!-- FX:scroll-reveal -->
+  <section use:scrollReveal>
+    <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[0].label}</h3>
+    <TravelSection path={more.travel?.path ?? []} show="path" />
+  </section>
+
+  <!-- ===== LEFT: identity + stats + countries | RIGHT: interests wheel =====
+       "Put the stats and off the clock line both to the left. Line them up
+       above countries. THis is the left side." -->
+  <!-- FX:scroll-reveal -->
+  <div class="grid items-start gap-6 lg:grid-cols-[1.1fr_1fr]" use:scrollReveal>
+    <div class="space-y-4">
       <!-- FX:flip-words — rotating identity line -->
-      <!-- Both scaled up on request: "The \"off the clock\" line is too small
-           and the stats row can be a bit bigger." -->
       <p class="text-xl sm:text-2xl {$theme.text.muted}">
         Off the clock, I'm
         <FlipWords
@@ -68,26 +81,11 @@
       <!-- /FX:flip-words -->
 
       <StatStrip stats={more.stats ?? []} />
-    </div>
-  </div>
 
-  <!-- ===== WHERE I'VE BEEN (path only) =====
-       Left as-is on request: "All that's untouched on the more page is the
-       where I've been and the find me. Leave those as is for now". -->
-  <!-- FX:scroll-reveal -->
-  <section use:scrollReveal>
-    <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[0].label}</h3>
-    <TravelSection path={more.travel?.path ?? []} show="path" />
-  </section>
-
-  <!-- ===== COUNTRIES (left) + INTERESTS WHEEL (right) =====
-       "Make the option wheel verticle and keep it to the right side. The
-       countries should take up the left side." -->
-  <!-- FX:scroll-reveal -->
-  <div class="grid items-start gap-5 lg:grid-cols-[1.15fr_1fr]" use:scrollReveal>
-    <div>
-      <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">Countries</h3>
-      <TravelSection countries={more.travel?.countries ?? []} show="countries" columns={3} />
+      <div>
+        <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">Countries</h3>
+        <TravelSection countries={more.travel?.countries ?? []} show="countries" columns={4} />
+      </div>
     </div>
 
     <div>

@@ -58,12 +58,15 @@
           {/if}
         </div>
 
-        <p class="mt-0.5 text-sm font-semibold text-violet-200">
-          {role.role}{#if role.tenure}<span class="font-normal text-violet-300/70"> · {role.tenure}</span>{/if}
+        <p class="mt-0.5 text-sm font-semibold text-amber-300">
+          {role.role}{#if role.tenure}<span class="font-normal text-slate-300/80"> · {role.tenure}</span>{/if}
         </p>
 
-        <!-- Brighter than theme.text.secondary: on the violet gradient the muted
-             slate read as low-contrast grey. -->
+        <!-- The role line is AMBER, not violet. Violet text on a violet card is
+             purple-on-purple: it was technically "brighter" than the muted
+             token it replaced but still low contrast, which is why the colour
+             kept getting flagged. A different hue separates; a lighter shade of
+             the same hue does not. -->
         <p class="mt-2 text-sm leading-relaxed text-slate-100/90">{role.summary}</p>
       </div>
     {/each}

@@ -121,11 +121,6 @@ export const more: MorePageData = {
         "I'm a movie guy — every genre, and I read film lore for fun. The 10,000+ hours up top is not a typo.",
     },
     {
-      emoji: "🕉️",
-      name: "Sanskrit",
-      detail: "Tried learning it for fun. Got far enough to appreciate exactly how hard it is.",
-    },
-    {
       emoji: "🧀",
       name: "Cheese",
       detail: "Yes.",

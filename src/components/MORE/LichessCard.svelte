@@ -46,19 +46,19 @@
 
 
 <div 
-  class="group relative overflow-hidden rounded-2xl border {$theme.accent.yellow.border} {$theme.gradient.yellow} p-6 shadow-xl {$theme.accent.yellow.hover.border} transition-colors"
+  class="group relative overflow-hidden rounded-2xl border {$theme.accent.yellow.border} {$theme.gradient.yellow} p-5 shadow-xl {$theme.accent.yellow.hover.border} transition-colors"
   in:fly={{ y: 20, delay: 250, duration: 400 }}
 >
   <!-- Glow effect -->
   <div class="absolute -left-10 -bottom-10 h-40 w-40 rounded-full {$theme.accent.yellow.glow} blur-3xl {$theme.accent.yellow.hover.bg} transition" />
   
   <div class="relative">
-    <h3 class="text-lg font-semibold {$theme.accent.yellow.text} ">{label}</h3>
-    <h4 class="text-md font-semibold {$theme.accent.cyan.text} mb-3">  @{username}</h4>
+    <h3 class="text-base font-semibold {$theme.accent.yellow.text}">{label}</h3>
+    <h4 class="text-sm font-semibold {$theme.accent.cyan.text} mb-2">@{username}</h4>
     
     {#if rating}
       <div class="flex items-baseline gap-2" in:scale={{ delay: 400, duration: 300 }}>
-        <div class="text-5xl font-extrabold text-transparent bg-clip-text {$theme.lichess.rating}">
+        <div class="text-4xl font-extrabold text-transparent bg-clip-text {$theme.lichess.rating}">
           {rating}
         </div>
         <span class="text-sm font-medium uppercase tracking-wider {$theme.lichess.perfType}">({perfType})</span>
@@ -66,7 +66,7 @@
       <LinkPreview
         href={`https://lichess.org/@/${username}`}
         label={`@${username} on Lichess`}
-        className="mt-4 inline-flex items-center text-xs font-semibold uppercase tracking-[0.35em] {$theme.lichess.link} transition"
+        className="mt-3 inline-flex items-center text-[10px] font-semibold uppercase tracking-[0.3em] {$theme.lichess.link} transition"
       >
         View Profile →
       </LinkPreview>
@@ -94,7 +94,7 @@
         warm gradient, and hue is what finally made it findable after
         brightness alone repeatedly failed.
       -->
-      <div class="-mx-6 -mb-6 mt-5 border-t-2 border-brand/50 bg-slate-950/90 px-6 py-5">
+      <div class="-mx-5 -mb-5 mt-4 border-t-2 border-brand/50 bg-slate-950/90 px-5 py-4">
         <slot />
       </div>
     {/if}

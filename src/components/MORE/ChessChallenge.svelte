@@ -133,7 +133,7 @@
     <KnightIcon class="h-5 w-5 {$theme.text.white}" />
     <h4 class="meta-label text-sm {$theme.text.white}">Play me</h4>
   </div>
-  <p class="mb-4 text-sm {$theme.text.secondary}">
+  <p class="mb-3 text-xs {$theme.text.secondary}">
     Drop your Lichess username and I'll send a casual 10+0 challenge.
   </p>
 
@@ -148,7 +148,7 @@
         placeholder="your lichess username"
         aria-label="Lichess username"
         aria-invalid={state === "invalid" || state === "error"}
-        class="w-full rounded-xl border-2 {$theme.bg.cardSolid} px-4 py-3 pr-10 text-sm outline-none transition-colors {$theme.text.primary} {ringClass}"
+        class="w-full rounded-xl border-2 {$theme.bg.cardSolid} px-3 py-2.5 pr-9 text-sm outline-none transition-colors {$theme.text.primary} {ringClass}"
       />
 
       <!-- Status glyph, so the state reads without relying on colour alone -->
@@ -166,7 +166,7 @@
     <button
       type="submit"
       disabled={state !== "valid" || sending}
-      class="rounded-xl border-2 px-5 py-3 font-display text-xs font-bold uppercase tracking-[0.18em] transition-all disabled:cursor-not-allowed disabled:opacity-40 {$theme.accent.orange.border} {$theme.accent.orange.bg} {$theme.text.primary} hover:enabled:scale-[1.03]"
+      class="rounded-xl border-2 px-4 py-2.5 font-display text-xs font-bold uppercase tracking-[0.18em] transition-all disabled:cursor-not-allowed disabled:opacity-40 {$theme.accent.orange.border} {$theme.accent.orange.bg} {$theme.text.primary} hover:enabled:scale-[1.03]"
     >
       {sending ? "Sending" : "Challenge"}
     </button>

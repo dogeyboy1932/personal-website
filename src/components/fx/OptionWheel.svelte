@@ -27,7 +27,6 @@
   to the first slides one place rather than unwinding the whole set.
 -->
 <script lang="ts">
-  import { ChevronLeft, ChevronRight } from "lucide-svelte";
 
   type Item = $$Generic;
 
@@ -107,6 +106,24 @@
   }
 
   const endDrag = () => (dragging = false);
+
+  /* ---- scroll to rotate ------------------------------------------------
+     The wheel consumes vertical scroll while the pointer is over it, which is
+     what "I should be able to scroll when I hover it" asks for. Deltas are
+     accumulated against a threshold so a trackpad's many small events don't
+     spin it wildly, and preventDefault stops the page scrolling underneath.  */
+  const WHEEL_THRESHOLD = 42;
+  let wheelAcc = 0;
+
+  function onWheel(event: WheelEvent) {
+    if (!count) return;
+    event.preventDefault();
+    wheelAcc += event.deltaY;
+    while (Math.abs(wheelAcc) >= WHEEL_THRESHOLD) {
+      step(wheelAcc > 0 ? 1 : -1);
+      wheelAcc -= Math.sign(wheelAcc) * WHEEL_THRESHOLD;
+    }
+  }
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
@@ -116,6 +133,7 @@
   role="group"
   aria-label={label}
   on:keydown={onKeydown}
+  on:wheel|nonpassive={onWheel}
   on:pointerdown={onPointerDown}
   on:pointermove={onPointerMove}
   on:pointerup={endDrag}
@@ -138,7 +156,7 @@
         style="
           --ow-x: {orientation === 'vertical' ? Math.abs(offset) * dip : offset * spreadX}px;
           --ow-y: {orientation === 'vertical' ? offset * spreadX : Math.abs(offset) * dip}px;
-          --ow-scale: {Math.max(0.62, 1 - Math.abs(offset) * 0.13)};
+          --ow-scale: {Math.max(0.55, 1 - Math.abs(offset) * 0.22)};
           --ow-rot: {orientation === 'vertical' ? 0 : offset * 6}deg;
           --ow-fade: {offset === 0 ? 1 : Math.max(0.25, 1 - Math.abs(offset) * 0.28)};
           z-index: {100 - Math.abs(offset)};
@@ -159,14 +177,11 @@
     {/each}
   </div>
 
+  <!-- Arrows removed on request; scroll, drag, arrow keys or clicking a
+       neighbour all rotate it. The counter stays so the set has a visible
+       length. -->
   <div class="fx-ow-controls">
-    <button type="button" on:click={() => step(-1)} aria-label="Previous">
-      <ChevronLeft class="h-4 w-4" />
-    </button>
     <span class="fx-ow-count">{count ? active + 1 : 0} / {count}</span>
-    <button type="button" on:click={() => step(1)} aria-label="Next">
-      <ChevronRight class="h-4 w-4" />
-    </button>
   </div>
 </div>
 
@@ -237,23 +252,6 @@
     justify-content: center;
     gap: 0.75rem;
     margin-top: 0.25rem;
-  }
-
-  .fx-ow-controls button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 9999px;
-    border: 1px solid rgb(148 163 184 / 0.3);
-    color: rgb(203 213 225);
-    transition: background-color 200ms ease, transform 200ms ease;
-  }
-
-  .fx-ow-controls button:hover {
-    background: rgb(148 163 184 / 0.15);
-    transform: scale(1.08);
   }
 
   .fx-ow-count {

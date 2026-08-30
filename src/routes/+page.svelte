@@ -69,7 +69,7 @@
            context. Confining the rays to the text column means they physically
            cannot reach the photo or the quote, with no z-index reasoning to get
            wrong. ("AND THE BEAM STILL CROSSES THE PHOTO AND QUOTES") -->
-      <SideRays side="right" count={1} opacity={0.55} speed={13} spread={0} hue="warm" overlay />
+      <SideRays side="right" count={2} opacity={0.5} speed={13} spread={16} hue="warm" overlay />
       <!-- /FX:side-rays -->
 
       
