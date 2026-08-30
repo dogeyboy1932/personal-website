@@ -75,5 +75,17 @@
     {:else}
       <div class="text-sm {$theme.lichess.loading}">Loading rating...</div>
     {/if}
+
+    <!--
+      Slot for the challenge form. updates.txt: "the 'play me' should be in the
+      lichess container...keep it all contained." The rating is the invitation
+      and the form is the way to act on it, so they belong in one box rather
+      than two side by side.
+    -->
+    {#if $$slots.default}
+      <div class="mt-5 border-t {$theme.accent.yellow.border} pt-5">
+        <slot />
+      </div>
+    {/if}
   </div>
 </div>

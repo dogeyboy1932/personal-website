@@ -5,7 +5,7 @@
 import type { Club } from "../types";
 
 export const clubs: Club[] = [
-  { name: "AI Alignment @ Illinois", tagline: "Vice President", link: "https://aialignmentillinois.org/spring-2026/" },
+  { name: "AI Alignment @ Illinois", tagline: "Vice President", link: "https://aialignmentillinois.org/" },
   { name: "Sigma Phi Delta (ΣΦΔ)", link: "https://sigphis.org/" },
   { name: "Illini Blockchain", tagline: "Partnerships Lead; Developer", link: "https://linktr.ee/illiniblockchain" },
   { name: "ACM", tagline: "SIGMobile · SIGGLUG" },

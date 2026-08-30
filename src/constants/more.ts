@@ -136,11 +136,14 @@ export const more: MorePageData = {
   leadership: [
     {
       org: "AI Alignment @ Illinois",
-      role: "Co-Founder & VP",
+      // Not co-founder — joined while the group was still emerging and served
+      // as VP on the founding team. Corrected from the GitHub README, which
+      // overstated it.
+      role: "VP, Founding Team",
       tenure: "Now Alumni Advisor",
       summary:
-        "Built UIUC's first AI safety community from zero. Now 400+ members, 20 core, and 7+ research projects running. Co-ran an 8-week fellowship on RLHF, interpretability, and scalable oversight.",
-      link: "https://aialignmentillinois.org/spring-2026/",
+        "Helped build UIUC's first AI safety community while it was still getting off the ground. Now 400+ members, 20 core, and 7+ research projects running. Co-ran an 8-week fellowship on RLHF, interpretability, and scalable oversight.",
+      link: "https://aialignmentillinois.org/",
     },
     {
       org: "Illini Blockchain",

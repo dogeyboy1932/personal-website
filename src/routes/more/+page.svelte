@@ -5,7 +5,6 @@
   // Components
   import PageHeader from "../../components/Headers/PageHeader.svelte";
   import {
-    BioCard,
     LichessCard,
     StatStrip,
     TravelSection,
@@ -29,15 +28,16 @@
    * -> how to reach me. Each section is a labelled band so the page reads as
    * a sequence rather than a wall of cards.
    */
+  /* Section labels. "What I won" was dropped — HonorShelf already labels
+     itself, so the heading duplicated it. */
   const sections = [
     { id: "travel", label: "Where I've been" },
     { id: "interests", label: "What I'm into" },
     { id: "leadership", label: "What I ran" },
-    { id: "honors", label: "What I won" },
   ] as const;
 </script>
 
-<section class="space-y-10 pb-4" in:fade>
+<section class="space-y-7 pb-4" in:fade>
   <!-- ===== IDENTITY HEADER ===== -->
   <div use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
     <PageHeader title={more.title} />
@@ -49,7 +49,7 @@
       Off the clock, I'm
       <FlipWords
         words={more.identityWords ?? []}
-        class="font-semibold {$theme.accent.orange.text}"
+        class="font-semibold text-brand"
       />
     </p>
     <!-- /FX:flip-words -->
@@ -61,17 +61,11 @@
     <StatStrip stats={more.stats ?? []} />
   </div>
 
-  <!-- ===== BIO ===== -->
-  <!-- FX:scroll-reveal -->
-  <div use:scrollReveal>
-    <BioCard subtitle={more.subtitle} bio={more.bio} />
-  </div>
-
   <!-- ===== TRAVEL ===== -->
   <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
     <h3
-      class="mb-4 ml-1 text-base font-bold uppercase tracking-[0.4em] {$theme.text.muted} sm:text-lg"
+      class="mb-3 ml-1 text-sm font-bold uppercase tracking-[0.35em] {$theme.text.muted}"
     >
       {sections[0].label}
     </h3>
@@ -85,7 +79,7 @@
   <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
     <h3
-      class="mb-4 ml-1 text-base font-bold uppercase tracking-[0.4em] {$theme.text.muted} sm:text-lg"
+      class="mb-3 ml-1 text-sm font-bold uppercase tracking-[0.35em] {$theme.text.muted}"
     >
       {sections[1].label}
     </h3>
@@ -96,7 +90,7 @@
   <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
     <h3
-      class="mb-4 ml-1 text-base font-bold uppercase tracking-[0.4em] {$theme.text.muted} sm:text-lg"
+      class="mb-3 ml-1 text-sm font-bold uppercase tracking-[0.35em] {$theme.text.muted}"
     >
       {sections[2].label}
     </h3>
@@ -104,27 +98,21 @@
   </section>
 
   <!-- ===== HONORS ===== -->
+  <!-- Headline dropped on request; HonorShelf labels itself, so a section
+       heading above it was saying the same thing twice. -->
   <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
-    <h3
-      class="mb-4 ml-1 text-base font-bold uppercase tracking-[0.4em] {$theme.text.muted} sm:text-lg"
-    >
-      {sections[3].label}
-    </h3>
     <HonorShelf honors={more.honors ?? []} />
   </section>
 
-  <!-- ===== LICHESS + CHALLENGE + CONNECT ===== -->
+  <!-- ===== LICHESS (WITH CHALLENGE) + CONNECT ===== -->
+  <!-- "the 'play me' should be in the lichess container...keep it all
+       contained. THe find me container should be where play me is right now" -->
   <!-- FX:scroll-reveal -->
   <div class="grid gap-4 lg:grid-cols-2" use:scrollReveal>
-    <LichessCard label={more.lichess.label} username={more.lichess.username} />
-    <!-- Sits beside the live rating on purpose: the rating is the invitation,
-         this is the way to act on it. -->
-    <ChessChallenge />
-  </div>
-
-  <!-- FX:scroll-reveal -->
-  <div use:scrollReveal>
+    <LichessCard label={more.lichess.label} username={more.lichess.username}>
+      <ChessChallenge />
+    </LichessCard>
     <ConnectFooter socials={more.socials ?? []} />
   </div>
 </section>

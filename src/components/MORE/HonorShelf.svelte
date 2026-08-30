@@ -24,7 +24,7 @@
   <!-- ===== Competition placements ===== -->
   <div class="rounded-2xl border {$theme.accent.orange.border} {$theme.bg.card} p-5">
     <div class="mb-4 flex items-center gap-2">
-      <Trophy class="h-4 w-4 {$theme.accent.orange.text}" />
+      <Trophy class="h-4 w-4 text-brand" />
       <h4 class="text-[11px] uppercase tracking-[0.3em] {$theme.text.muted}">Hackathons</h4>
     </div>
 
@@ -35,7 +35,7 @@
           in:fly={{ x: -10, delay: i * 70, duration: 320 }}
         >
           <span
-            class="flex-shrink-0 rounded-md {$theme.accent.orange.bg} px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] {$theme.accent.orange.text}"
+            class="flex-shrink-0 rounded-md {$theme.accent.orange.bg} px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-brand"
           >
             {honor.placement}
           </span>

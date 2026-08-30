@@ -32,6 +32,9 @@
   let message = "";
   let handoffUrl: string | null = null;
 
+  /** Render with its own card border/background. Off when nested. */
+  export let standalone = false;
+
   let debounce: ReturnType<typeof setTimeout>;
   /** Guards against an earlier, slower check overwriting a newer one. */
   let checkId = 0;
@@ -122,9 +125,11 @@
       : `${$theme.border.light} focus:border-slate-400`;
 </script>
 
-<div class="rounded-2xl border {$theme.border.default} {$theme.bg.card} p-6">
+<!-- No card chrome of its own: this now renders inside LichessCard's box.
+     Pass `standalone` to get the border/background back. -->
+<div class={standalone ? `rounded-2xl border ${$theme.border.default} ${$theme.bg.card} p-6` : ""}>
   <div class="mb-1 flex items-center gap-2">
-    <Swords class="h-4 w-4 {$theme.accent.orange.text}" />
+    <Swords class="h-4 w-4 text-brand" />
     <h4 class="text-[11px] uppercase tracking-[0.3em] {$theme.text.muted}">Play me</h4>
   </div>
   <p class="mb-4 text-sm {$theme.text.dim}">
