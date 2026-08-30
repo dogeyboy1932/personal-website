@@ -43,7 +43,9 @@
 <div class="space-y-4">
   {#if show !== "countries"}
   <!-- ===== Life path stepper ===== -->
-  <div class="flex flex-wrap items-stretch gap-1.5">
+  <!-- justify-center so the stepper sits under the centred heading rather than
+       hugging the left edge. ("The left side should be centered.") -->
+  <div class="flex flex-wrap items-stretch justify-center gap-1.5">
     {#each path as stop, i}
       <div class="flex items-center gap-1.5">
         <div

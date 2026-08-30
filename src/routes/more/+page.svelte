@@ -37,7 +37,7 @@
   ] as const;
 </script>
 
-<section class="space-y-5 pb-4" in:fade>
+<section class="space-y-8 pb-4" in:fade>
   <!--
     LAYOUT NOTE
     -----------
@@ -71,7 +71,18 @@
     class="grid items-start gap-6 lg:grid-cols-[1.85fr_1fr] lg:divide-x lg:divide-slate-500/25"
     use:scrollReveal
   >
-    <div class="space-y-5 lg:pr-7">
+    <!--
+      CENTRED and spaced out. ("The left side should be centered. I can see that
+      it's right now aligned to the left. Also have some space between the
+      different sections. Everything looks like a blob")
+
+      text-center centres the headings and the stepper; space-y-9 (was 5) is
+      what stops the four blocks reading as one mass. The blob was as much about
+      the missing gaps as the alignment — at space-y-5 the stat row, the
+      stepper and the country grid had less air between them than the country
+      cells had between each other.
+    -->
+    <div class="space-y-9 text-center lg:pr-7">
       <!-- FX:flip-words — rotating identity line -->
       <!-- Full row and centred, matching the scorecard beneath it. Display
            face. Colour is text-lede, the same token the scorecard figures use,
@@ -90,7 +101,7 @@
       <!-- Left as-is on request: "All that's untouched on the more page is the
            where I've been and the find me." Only its POSITION moved. -->
       <div>
-        <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[0].label}</h3>
+        <h3 class="meta-label mb-4 text-sm {$theme.text.muted}">{sections[0].label}</h3>
         <TravelSection path={more.travel?.path ?? []} show="path" />
       </div>
 
@@ -116,7 +127,10 @@
   <section use:scrollReveal>
     <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[2].label}</h3>
 
-    <div class="grid gap-4 lg:grid-cols-[1.35fr_1fr]">
+    <!-- 1.75fr/1fr, up from 1.35fr. ("Under was part of, you can once again
+         make the left side wider and right side less wider. Ration wisely.")
+         The role cards carry paragraphs; the chips and honors are short. -->
+    <div class="grid gap-5 lg:grid-cols-[1.75fr_1fr]">
       <LeadershipSection leadership={more.leadership ?? []} {clubs} show="roles" />
 
       <div class="flex flex-col gap-4">

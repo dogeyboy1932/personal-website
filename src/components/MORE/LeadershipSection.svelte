@@ -44,10 +44,24 @@
     border, link underline), which is where the "better assortment of colors"
     still reads across the three boxes without tinting a single word.
   */
+  /*
+    Named per club, in order. ("AI alignment should be orange. Illini Blockchian
+    should be yellow. Sigma phi delta should be somewhat red but not evil red.")
+
+    "not evil red" is why the third is rose-400 -> red-400 rather than a pure
+    red-600: rose keeps a little pink in it and reads warm instead of like an
+    error state.
+
+    Text stays neutral — that was the previous note and it still holds. These
+    colours live on the bar, the hover border and the link underline only.
+  */
   const accents = [
-    { bar: "from-cyan-300 via-sky-400 to-blue-500", edge: "hover:border-cyan-400/60", rule: "decoration-cyan-400/60 hover:decoration-cyan-300" },
-    { bar: "from-violet-300 via-fuchsia-400 to-purple-500", edge: "hover:border-fuchsia-400/60", rule: "decoration-fuchsia-400/60 hover:decoration-fuchsia-300" },
-    { bar: "from-amber-300 via-orange-400 to-rose-400", edge: "hover:border-amber-400/60", rule: "decoration-amber-400/60 hover:decoration-amber-300" },
+    // AI Alignment @ Illinois — orange
+    { bar: "from-amber-400 via-orange-500 to-orange-600", edge: "hover:border-orange-400/60", rule: "decoration-orange-400/60 hover:decoration-orange-300", icon: "text-orange-400/70" },
+    // Illini Blockchain — yellow
+    { bar: "from-yellow-200 via-yellow-400 to-amber-500", edge: "hover:border-yellow-400/60", rule: "decoration-yellow-400/60 hover:decoration-yellow-300", icon: "text-yellow-400/70" },
+    // Sigma Phi Delta — warm red, not alarm red
+    { bar: "from-rose-300 via-red-400 to-rose-500", edge: "hover:border-rose-400/60", rule: "decoration-rose-400/60 hover:decoration-rose-300", icon: "text-rose-400/70" },
   ];
 
   // Orgs already spotlighted above shouldn't repeat in the chip cloud.
@@ -60,10 +74,12 @@
   <!-- ===== Spotlight roles ===== -->
   <!-- Stacked rows, not columns. ("the clubs can be stacked like rows instead
        of columns on the left") -->
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-4">
     {#each leadership as role, i}
+      <!-- p-5 pl-6 and a wider gap below: "Everything looks kinda crammed right
+           now...space it out wisely." -->
       <div
-        class="group relative flex flex-col overflow-hidden rounded-2xl border {$theme.border.default} bg-slate-900/70 p-4 pl-5 shadow-lg transition-colors {accents[i % accents.length].edge}"
+        class="group relative flex flex-col overflow-hidden rounded-2xl border {$theme.border.default} bg-slate-900/70 p-5 pl-6 shadow-lg transition-colors {accents[i % accents.length].edge}"
       >
         <!-- The card's entire colour identity: this bar, plus the hover border
              and the link underline. Nothing tints text. -->
@@ -72,30 +88,43 @@
           aria-hidden="true"
         />
 
-        <div class="flex items-start justify-between gap-3">
-          <h4 class="font-display text-lg font-bold leading-tight text-slate-50">
+        <!--
+          ONE header row: org name, its link icon, then the role.
+          ("the role should be next to the club...space it out wisely" and "put
+          the link icon next to the club so it's more understandable.")
+
+          The icon sat at the far right on a justify-between row, which put a
+          gap between the name and the thing that says the name is clickable —
+          it read as unrelated page furniture. It is now immediately after the
+          name, so the two are obviously one control.
+
+          flex-wrap so a long org + long role drop onto two lines instead of
+          squeezing; the role keeps its own baseline either way.
+        -->
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <h4 class="inline-flex items-baseline gap-1.5 font-display text-lg font-bold leading-tight text-slate-50">
             {#if role.link}
               <LinkPreview
                 href={role.link}
                 label={role.org}
                 className="underline {accents[i % accents.length].rule} decoration-1 underline-offset-4 transition-colors"
               >{role.org}</LinkPreview>
+              <ExternalLink
+                class="h-3.5 w-3.5 flex-shrink-0 self-center {accents[i % accents.length].icon}"
+              />
             {:else}
               {role.org}
             {/if}
           </h4>
-          {#if role.link}
-            <ExternalLink class="mt-1 h-4 w-4 flex-shrink-0 {$theme.text.dim}" />
-          {/if}
+
+          <!-- Neutral text. The role reads by weight, and now by POSITION —
+               it sits on the title's baseline rather than in its own band. -->
+          <p class="text-sm font-semibold text-slate-100">
+            {role.role}{#if role.tenure}<span class="font-normal text-slate-400"> · {role.tenure}</span>{/if}
+          </p>
         </div>
 
-        <!-- Neutral. The role reads by weight against the summary beneath it,
-             the same way the hero's "AI ENGINEER" does. -->
-        <p class="mt-0.5 text-sm font-semibold text-slate-100">
-          {role.role}{#if role.tenure}<span class="font-normal text-slate-400"> · {role.tenure}</span>{/if}
-        </p>
-
-        <p class="mt-2 text-sm leading-relaxed text-slate-300">{role.summary}</p>
+        <p class="mt-2.5 text-sm leading-relaxed text-slate-300">{role.summary}</p>
       </div>
     {/each}
   </div>
