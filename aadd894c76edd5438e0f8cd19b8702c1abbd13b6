@@ -1,0 +1,32 @@
+DEVLOG — updates.txt ninth pass (aadd894)
+
+/more layout is now:
+  header + identity + stats (one row)
+  where I've been (path stepper, full width)   <- LEAVE ALONE, user's request
+  countries (left) | vertical option wheel (right)
+  what I ran: roles stacked left | club chips + honors stacked right
+  lichess with full-bleed play me | find me    <- find me: LEAVE ALONE
+
+OPTION WHEEL, vertical mode gotchas:
+  - trackHeight MUST be >= cardHeight + 2 * visible * step. Get it wrong and
+    the outer cards spill out of the track and land on the controls. That
+    happened on the first attempt.
+  - per-card rotation has to be zero when stacked. The 6deg-per-step tilt that
+    works in the horizontal fan reads as scattered cards vertically.
+  - the axis swap is on --ow-x / --ow-y only; spreadX stays the per-step
+    distance along whichever axis is active.
+
+VIOLET LEADERSHIP CARDS: theme.text.secondary and accent.violet.text both
+read as low-contrast grey on that gradient. They use literal white /
+violet-200 / slate-100 now. Same class of trap as the Eagle Scout chip —
+check a token against its actual background rather than assuming.
+
+BEAM/PHOTO REGRESSION TEST: compare FULL 2D rectangle intersection, not just
+horizontal extents. At mobile widths the hero columns stack, so the photo sits
+below the rays and a horizontal-only check reports a false positive. Verified
+clean at 1440/900/700/420/380.
+
+STILL UNTOUCHED, deliberately: the where-I've-been stepper, Find Me, and the
+placeholder country descriptions the user intends to rewrite.
+
+STILL OPEN: "later we'll add more stuff and content on the more page".
