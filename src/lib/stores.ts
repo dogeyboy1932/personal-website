@@ -51,17 +51,35 @@ export const breakpoints = derived(
 // Dark theme colors (the source of truth)
 export const darkTheme = {
   // Tech stack colors - for dark theme (light, vibrant)
+  /*
+    STACK BADGES ONLY. ("The stack can be alternate colors. Find better colors
+    more vibrant and colorful. just for stack")
+
+    The old set was sky/blue/indigo/violet/purple plus two slates — about 60deg
+    of hue, all at the -300/-400 muted end, and two entries with no hue at all.
+    On a dark card that reads as one blue-grey smear, which is why "alternate
+    colors" did not look like alternating anything.
+
+    This set is deliberately WIDE and deliberately bright: eight distinct hues
+    at the -300/-400 saturated end, no neutrals. That is the opposite of the
+    rule for the experience CARDS, which stay silver, and of the portfolio card
+    ramp, which is intentionally narrow — hence "just for stack". Badges are
+    small, sparse and read as tags, so hue variety is legible information
+    rather than the "rainbow" disparity that was wrong at card scale.
+
+    No pink or fuchsia: "Don't use pinkish colors either" still stands.
+  */
   techColors: [
-    "text-sky-300",
-    "text-blue-300",
-    "text-blue-400",
-    "text-indigo-300",
-    "text-indigo-400",
+    "text-cyan-300",
+    "text-emerald-300",
+    "text-amber-300",
     "text-violet-300",
-    "text-violet-400",
-    "text-purple-300",
-    "text-slate-200",
-    "text-slate-300",
+    "text-sky-400",
+    "text-lime-300",
+    "text-orange-300",
+    "text-teal-300",
+    "text-indigo-300",
+    "text-yellow-300",
   ],
   // Background colors
   bg: {
@@ -282,7 +300,7 @@ export const darkTheme = {
       bg: 'bg-slate-950/90',
       border: 'border-blue-400/25',
       borderThin: 'border-blue-300/15',
-      text: 'text-sky-300',
+      text: 'text-yellow-500',
       textLight: 'text-blue-200',
       textDark: 'text-slate-950',
       glow: 'shadow-blue-950/50',
@@ -392,9 +410,9 @@ export const lightTheme = {
     "text-green-700",
     "text-lime-600",
     "text-red-600",
-    "text-rose-600",
-    "text-pink-600",
-    "text-pink-700",
+    "text-orange-600",
+    "text-amber-600",
+    "text-yellow-700",
     "text-purple-600",
     "text-purple-700",
     "text-violet-600",
