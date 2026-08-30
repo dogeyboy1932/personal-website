@@ -2,6 +2,58 @@
    every colour the design iterates on. */
 @import "./styles/tokens.css";
 
+/*
+  ============================================================================
+  GLOBAL ZOOM
+  ============================================================================
+  ("make everything zoomed in by 125%. Right now the main screen is pretty
+  screen in default look. It's a bad look.")
+
+  `zoom` rather than a root font-size bump or a transform, because it is the
+  only one of the three that does what browser Ctrl+ does:
+
+    - `html { font-size: 125% }` scales rem-based type and spacing but leaves
+      every px value behind. This codebase has a lot of those — the option
+      wheel's card geometry, the sparkle-field bleed, the travel stepper's
+      width budget — so the layout would come apart at the seams.
+    - `transform: scale()` does not reflow. It would scale the page and then
+      leave it overflowing the viewport with a horizontal scrollbar.
+    - `zoom` reflows: the layout viewport becomes 1/1.25 of the real one, the
+      page lays out inside that, then the whole thing is scaled up. Media
+      queries evaluate against the reduced viewport, which is correct — a
+      zoomed 1440px screen SHOULD behave like a 1152px one.
+
+  Consequence worth knowing: every hard-coded breakpoint on this site now
+  triggers at 1.25x its written value in physical pixels. The travel stepper's
+  1439px cutoff, for instance, now fires on a ~1800px monitor.
+
+  DESKTOP ONLY, and this is not a nicety. Media queries evaluate against the
+  REAL viewport — zoom on :root does not change what they see — so a zoomed page
+  has Tailwind's breakpoints firing at one width while the layout actually has
+  1/1.25 of it to work with. On a wide screen that mismatch is harmless. On a
+  phone it is not: at 1.25 a 360px device lays out as 288px, and / , /portfolio
+  and /more all gained real horizontal scroll (35px, 58px, 61px).
+
+  So the zoom starts at 1280px real width, which is 1024px effective — exactly
+  Tailwind's `lg`, so the breakpoint the layout switches on and the width it
+  actually gets agree. Below that the page renders at 1, i.e. exactly as it did
+  before this change, which is the configuration every earlier responsive pass
+  verified.
+
+  One knob. Set the 1.25 below to 1 to turn it off entirely.
+  ============================================================================
+*/
+:root {
+  --page-zoom: 1;
+  zoom: var(--page-zoom);
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --page-zoom: 1.25;
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
