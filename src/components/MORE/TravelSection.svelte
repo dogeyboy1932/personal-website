@@ -30,8 +30,8 @@
    */
   export let show: "all" | "path" | "countries" = "all";
 
-  // Hides a connector arrow that ends a wrapped row — see the action's note.
-  import { rowEndArrows } from "../../lib/actions/rowEndArrows";
+  // Scales the whole row down so it never wraps — see the action's note.
+  import { fitRow } from "../../lib/actions/fitRow";
   /** Columns for the country grid; fewer when it sits in a half-width cell. */
   export let columns = 7;
 
@@ -49,62 +49,38 @@
   <!-- justify-center so the stepper sits under the centred heading rather than
        hugging the left edge. ("The left side should be centered.") -->
   <!--
-    UNIFORM BOXES. ("make the 'where I've been' section a little wider and more
-    elegant. All boxes same size and text a little bigger and arrow a little
-    bigger")
+    UNIFORM BOXES ON ONE LINE, ALWAYS.
+    ("make the 'where I've been' section a little wider and more elegant. All
+    boxes same size and text a little bigger and arrow a little bigger", then
+    "smaller window means the whole row shrinks proportionally")
 
-    The boxes used to size to their content, so "India" was roughly half the
-    width of "Singapore" and the row read as a ragged strip rather than as a
-    sequence of equal steps. A fixed w-36 makes every stop the same size, which
-    is both the "same size" ask and most of the "more elegant" one — a stepper
-    reads as a stepper when the steps match.
+    Every stop is the same fixed width, so the row reads as equal steps rather
+    than the ragged strip it started as — "India" used to be half the width of
+    "Singapore".
 
-    THE ROW MUST STAY ON ONE LINE. The column gives it 833px, and five equal
-    boxes plus four arrows plus gaps have to fit inside that. At the obvious
-    w-36 (144px, set by "semester at NUS" at meta-label's 0.18em tracking) the
-    row needed 864px and Chicago wrapped to a second line — uniform boxes, but
-    a broken stepper.
+    It used to fight a width budget: five boxes plus four arrows need 804px and
+    the column only gives 681px at 1280, so it wrapped and left a connector
+    arrow dangling at a line end. That was patched twice, with a media-query
+    step-down and then a measured arrow-hiding action. Both are gone — use:fitRow
+    scales the single line to whatever width exists, so there is no budget to
+    exceed and no wrap to clean up after.
 
-    The width is driven by the widest NOTE, not by any place name, so that is
-    where the space was found: tracking 0.18em -> 0.1em and px-3 -> px-2.5 take
-    the widest note from 119px to ~110px and the box to 132px. Total 804px,
-    inside the budget with room to spare.
-
-    whitespace-nowrap on the note is a hard guarantee, not decoration — if it
-    ever wrapped, that one box would grow a line taller than the rest and the
-    uniformity this was all for would silently break.
-
-    Any future change to a note string, the font size or the tracking has to be
-    re-checked against the 833px budget.
-
-    BUDGET SHRINKS WITH THE VIEWPORT. The left column is 1.85fr of the page, so
-    at 1280px it is 746px, not 833, and the full-size row (804px) wrapped there
-    — 1280 is an ordinary laptop width, not an edge case. The scoped media query
-    below steps the boxes and gaps down under 1400px so the chain stays on one
-    line at 1280. Below ~1150 it wraps, which is fine: uniform boxes wrap into
-    an orderly 3+2 rather than the ragged strip this replaced.
+    whitespace-nowrap on the note still matters: without it a long note could
+    wrap INSIDE its box and make that one box a line taller than the rest,
+    which breaks the uniformity all of this is for.
   -->
   <!--
-    ONE FLAT ROW, not [box+arrow] groups.
-
-    Grouping each box with its trailing arrow meant a wrap could only ever break
-    AFTER an arrow, leaving it dangling at the end of the line pointing at
-    nothing. Flat, the arrow is a sibling of the stop that follows it, which is
-    what lets use:rowEndArrows measure whether the two are on the same line and
-    hide the arrow when they are not.
+    The wrapper is the measuring box; the row inside is scaled to fit it.
+    flex-nowrap + w-max means the row keeps its natural single-line width and
+    use:fitRow shrinks the whole thing — boxes, type, gaps, arrows — by one
+    factor. ("smaller window means the whole row shrinks proportionally")
   -->
-  <div
-    class="travel-row flex flex-wrap items-stretch justify-center gap-2"
-    use:rowEndArrows
-  >
+  <div class="travel-fit flex items-start justify-center" use:fitRow>
+    <div class="travel-row flex w-max flex-nowrap items-stretch justify-center gap-2">
     {#each path as stop, i}
       {#if i > 0}
-        <!-- Arrow BEFORE the stop it points at, so `nextElementSibling` is that
-             stop and the same-line test is a single comparison. -->
-        <span
-          data-arrow
-          aria-hidden="true"
-          class="travel-arrow self-center text-xl {$theme.text.dim}">&rarr;</span
+        <span aria-hidden="true" class="travel-arrow self-center text-xl {$theme.text.dim}"
+          >&rarr;</span
         >
       {/if}
       <div
@@ -122,6 +98,7 @@
         </div>
       </div>
     {/each}
+    </div>
   </div>
 
   {/if}
@@ -136,47 +113,13 @@
 
 <style>
   /*
-    Step-down for the life-path stepper below 1400px.
+    NO SIZE MEDIA QUERY HERE ANY MORE.
 
-    The row's budget is the left grid column, 1.85fr of the page. MEASURED, not
-    estimated — my arithmetic was 40px optimistic and put the cutoff in the
-    wrong place on the first try:
-
-      viewport   budget    full-size chain (804px)   stepped chain (728px)
-      1536       895       fits                      fits
-      1440       833       fits                      fits
-      1400       801       wraps by 3px              fits
-      1366       767       wraps                     fits
-      1280       681       wraps                     wraps
-
-    So the cutoff is 1439px, not 1399px. Below ~1300 the chain cannot stay on
-    one line with legible text — fitting 681px would need ~108px boxes and an
-    8px note — so it wraps there, which is fine: uniform boxes wrap into an
-    orderly 3+2 rather than the ragged strip this replaced.
-
-    A media query rather than Tailwind breakpoint prefixes because the threshold
-    comes from the layout's own arithmetic and lands between the default stops:
-    `xl` is 1280 (already too narrow) and `2xl` is 1536 (would leave 1280-1535
-    broken).
-
-    Note tracking and size come down together, because the box width is driven
-    by the widest NOTE ("semester at NUS") rather than by any place name — so
-    that string is the only thing that can be traded for width.
+    There used to be a step-down below 1439px that shrank the boxes, the note
+    type and the gaps so the row could stay on one line a bit longer, and it
+    still wrapped below ~1300px. use:fitRow replaces both behaviours with one
+    continuous scale, so a discrete jump would only fight it — and the whole
+    point of the note ("smaller window means the whole row shrinks
+    proportionally") is that there is no jump.
   */
-  @media (max-width: 1439px) {
-    .travel-stop {
-      width: 7.5rem;
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-    }
-
-    .travel-note {
-      font-size: 9px;
-      letter-spacing: 0.06em;
-    }
-
-    .travel-row {
-      gap: 0.375rem;
-    }
-  }
 </style>
