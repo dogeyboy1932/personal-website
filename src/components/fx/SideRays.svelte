@@ -98,16 +98,20 @@
 
   /* Anchor point the blades rotate around: just off the top corner, so the fan
      sweeps down and across the hero the way a window light would. */
+  /* Origin pulled well inward. Hard against the edge the fan only lit the
+     first ~150px and read as a stain in the corner rather than as light
+     crossing the section. ("Make the side light appear more closer to middle.
+     It's like a stain on the left right now") */
   .fx-rays-origin {
     position: absolute;
     top: -14%;
-    left: 6%;
+    left: 34%;
     width: 0;
     height: 0;
   }
   .fx-rays-origin.from-right {
     left: auto;
-    right: 6%;
+    right: 34%;
   }
 
   .fx-ray {

@@ -18,7 +18,7 @@
 <div
   class="relative overflow-hidden rounded-2xl border {$theme.border.default} {$theme.bg.card} p-10 text-center"
 >
-  <p class="text-[11px] uppercase tracking-[0.4em] text-brand">Coming soon</p>
+  <p class="text-[11px] uppercase tracking-[0.4em] {$theme.accent.orange.text}">Coming soon</p>
 
   <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed {$theme.text.secondary}">
     {blurb}

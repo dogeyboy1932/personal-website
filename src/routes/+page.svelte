@@ -59,7 +59,7 @@
       <div class="relative flex items-center justify-center p-4 rounded-xl">
         <!-- FX:sparkles FX:gravity-stars — covers the whole title block: name,
              university and the three social links -->
-        <SparkleField density={2.4} pointerPull={150} />
+        <SparkleField density={3.6} pointerPull={150} />
         <!-- /FX:sparkles /FX:gravity-stars -->
 
         <div class="relative z-10 text-left">
@@ -78,9 +78,12 @@
             <!-- Two lines by design: the role carries more weight than the
                  credentials, so it gets its own line rather than being buried
                  in a single run-on row of separators. -->
-            <!-- Colour is the --brand token, not the amber used by the logo/nav, so the
-                 role reads as its own thing rather than echoing the chrome. -->
-            <h2 class="mt-3 text-lg sm:text-xl md:text-2xl font-display font-bold text-brand tracking-[0.2em] uppercase">
+            <!-- Bright primary text, not amber and not cyan. Two notes pulled in
+                 opposite directions here — "AI Engineer should be a diff color
+                 than orange" and later "the cyan text is looking kinda ugly.
+                 revert the text color for all of it" — so the role reads by
+                 WEIGHT rather than by hue. -->
+            <h2 class="mt-3 text-lg sm:text-xl md:text-2xl font-display font-extrabold {$theme.text.primary} tracking-[0.2em] uppercase">
               {homeHero.role}
             </h2>
 

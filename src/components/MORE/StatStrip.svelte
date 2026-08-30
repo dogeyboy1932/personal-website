@@ -63,7 +63,7 @@
   {#each stats as stat, i}
     <div class="text-center">
       <div
-        class="font-display text-4xl font-extrabold tracking-tight sm:text-5xl text-brand"
+        class="font-display text-4xl font-extrabold tracking-tight sm:text-5xl {$theme.accent.orange.text}"
       >
         {shown[i] ?? 0}{stat.suffix ?? ""}
       </div>

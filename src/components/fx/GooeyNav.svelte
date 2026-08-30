@@ -14,7 +14,7 @@
   Tunables:
     items       [{ href, label, icon }]
     current     active pathname
-    particles   droplets flung per click     default 8
+    particles   droplets flung per click     default 16
     blur        goo filter blur radius       default 6
     duration    ms for the blob to travel    default 520
 
@@ -37,7 +37,7 @@
 
   export let items: readonly { href: string; label: string; icon: ComponentType }[] = [];
   export let current = "/";
-  export let particles = 8;
+  export let particles = 16;
   export let blur = 6;
   export let duration = 520;
 
@@ -134,7 +134,7 @@
       const angle = (Math.PI * 2 * i) / particles + (Math.random() - 0.5) * 0.4;
       const cos = Math.cos(angle);
       const sin = Math.sin(angle);
-      const distance = 18 + Math.random() * 22;
+      const distance = 14 + Math.random() * 20;
       return {
         id: dropletId++,
         // On the edge, nudged just past it so nothing is born under the blob.
@@ -142,7 +142,7 @@
         y: cy + sin * (ry + 2),
         dx: cos * distance,
         dy: sin * distance,
-        size: 6 + Math.random() * 6,
+        size: 2.5 + Math.random() * 3,
       };
     });
 

@@ -50,7 +50,10 @@
   --warm-deep: 217 119 6; /* amber-600 */
 
   /* --- Effect-specific, so an effect can be retuned in isolation --------- */
-  --particles: var(--brand); /* FX:sparkles + gravity-stars */
+  /* Yellow, deliberately: "The yellow particles behind the title were really
+     good." The cursor trail is a SEPARATE token so the two never collide. */
+  --particles: var(--warm); /* FX:sparkles + gravity-stars */
+  --cursor: 226 232 240; /* CursorParticles — silver, neutral on both themes */
   --rays: var(--brand); /* FX:side-rays                */
   --rain: 34 211 238; /* MatrixRain glyph head       */
   --rain-tail: 14 116 144; /* MatrixRain glyph tail       */
@@ -84,6 +87,8 @@ html:not(.dark) {
 
   --rain: 8 145 178;
   --rain-tail: 165 243 252;
+
+  --cursor: 71 85 105;
 
   --nav-pill: 17 24 39;
   --nav-pill-label: 248 250 252;

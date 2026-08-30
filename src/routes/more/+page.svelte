@@ -49,7 +49,7 @@
       Off the clock, I'm
       <FlipWords
         words={more.identityWords ?? []}
-        class="font-semibold text-brand"
+        class="font-semibold {$theme.accent.orange.text}"
       />
     </p>
     <!-- /FX:flip-words -->

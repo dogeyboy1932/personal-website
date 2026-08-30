@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { tokens } from "../../lib/tokens";
   import { browser } from "$app/environment";
   import { onDestroy, onMount } from "svelte";
 
@@ -92,7 +93,10 @@
       context.translate(particle.x, particle.y);
       context.rotate(Math.PI / 4);
       context.globalAlpha = opacity;
-      context.fillStyle = "#facc15";
+      // Colour from the --cursor token (src/styles/tokens.css). Kept distinct
+      // from --particles so the cursor trail and the title sparkles never
+      // read as the same effect.
+      context.fillStyle = `rgb(${$tokens.cursor ?? "226, 232, 240"})`;
       context.fillRect(-particle.size / 2, -particle.size / 2, particle.size, particle.size);
       context.restore();
     }

@@ -129,7 +129,7 @@
      Pass `standalone` to get the border/background back. -->
 <div class={standalone ? `rounded-2xl border ${$theme.border.default} ${$theme.bg.card} p-6` : ""}>
   <div class="mb-1 flex items-center gap-2">
-    <Swords class="h-4 w-4 text-brand" />
+    <Swords class="h-4 w-4 {$theme.accent.orange.text}" />
     <h4 class="text-[11px] uppercase tracking-[0.3em] {$theme.text.muted}">Play me</h4>
   </div>
   <p class="mb-4 text-sm {$theme.text.dim}">

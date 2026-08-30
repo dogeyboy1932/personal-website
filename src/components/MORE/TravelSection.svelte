@@ -36,7 +36,7 @@
           class="rounded-xl border {$theme.border.default} {$theme.bg.secondary} px-4 py-3 text-center"
         >
           <div class="font-semibold {$theme.text.secondary}">{stop.place}</div>
-          <div class="text-[10px] uppercase tracking-[0.22em] text-brand">
+          <div class="text-[10px] uppercase tracking-[0.22em] {$theme.accent.orange.text}">
             {stop.note}
           </div>
         </div>

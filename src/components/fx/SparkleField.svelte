@@ -17,8 +17,8 @@
     density     particles per 10,000 px^2 of container    default 1.6
     minSize     smallest particle radius, px              default 0.6
     maxSize     largest particle radius, px               default 1.9
-    gravity     downward acceleration, px/frame^2         default 0.0055
-    drift       horizontal wander strength                default 0.16
+    gravity     downward acceleration, px/frame^2         default 0.0022
+    drift       horizontal wander strength                default 0.09
     twinkle     seconds for a full opacity cycle          default 2.4
     pointerPull cursor attraction radius in px (0 = off)  default 130
     color       null = use the --particles token; or an explicit "r, g, b"
@@ -33,12 +33,12 @@
   import { darkModeStore } from "../../lib/stores";
   import { tokens, channels } from "../../lib/tokens";
 
-  export let density = 1.6;
+  export let density = 3.2;
   export let minSize = 0.6;
   export let maxSize = 1.9;
-  export let gravity = 0.0055;
-  export let drift = 0.16;
-  export let twinkle = 2.4;
+  export let gravity = 0.0022;
+  export let drift = 0.09;
+  export let twinkle = 3.2;
   export let pointerPull = 130;
   export let color: string | null = null;
   let klass = "";
@@ -137,7 +137,7 @@
       // atTop = respawning a particle that fell out; start it just above the box.
       y: atTop ? -Math.random() * h * 0.25 : Math.random() * h,
       vx: (Math.random() - 0.5) * drift,
-      vy: Math.random() * 0.12,
+      vy: Math.random() * 0.05,
       r: minSize + Math.random() * (maxSize - minSize),
       phase: Math.random() * Math.PI * 2,
       // 60fps assumed; a full cycle takes `twinkle` seconds.
