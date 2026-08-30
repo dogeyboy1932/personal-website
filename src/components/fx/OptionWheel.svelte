@@ -110,9 +110,8 @@
     startX = event.clientX;
     startY = event.clientY;
     startActive = active;
-    /* The handlers live on the CARDS now, so a drag that wanders off the card
-       would otherwise stop getting events. Capturing keeps them coming until
-       pointerup, wherever the pointer ends up. */
+    /* Keep receiving pointermove after the cursor leaves the track, so a drag
+       that overshoots sideways still tracks until pointerup. */
     (event.currentTarget as HTMLElement)?.setPointerCapture?.(event.pointerId);
   }
 
@@ -128,17 +127,25 @@
   const endDrag = () => (dragging = false);
 
   /* ---- scroll to rotate ------------------------------------------------
-     Bound to each visible CARD, not to the track and not to the wrapper.
+     Bound to the TRACK — a stable, non-animating box exactly one card wide.
 
-     Two earlier versions widened and then narrowed the capture BOX and still
-     leaked: the track is card-width but full fan height, and the outer cards
-     are scaled down to 0.6, so up to ~55px either side of them was bare track
-     that still swallowed the page scroll. ("when my cursor doesn't touch a
-     card on the wheel, I should not scroll.")
+     Binding to the individual cards instead looked more precise and broke
+     scrolling outright: "The ENTIRE page is scrolling down when I just try to
+     scroll the wheel."
 
-     A card's own hit area is its transformed box, so binding here makes the
-     capture region exactly the pixels the cursor can see. Off-window cards are
-     pointer-events:none, so they never capture.
+     Why it fails. A wheel gesture is LATCHED by the browser: the target is
+     chosen when the gesture starts and the rest of the gesture follows it. The
+     cards are transform-animated (420ms per rotation) and are scaled down as
+     they move off centre, so the moment the wheel turns, the element under the
+     cursor slides and shrinks away from it. One event missing the card hands
+     the entire remaining gesture to the document, and the page scrolls.
+
+     A capture region must not be the thing that moves. The track does not
+     move, and at one card wide it is still narrow enough to leave the
+     counter/hint pocket beside it free of scroll capture — which is what the
+     original complaint was about ("There's a lot of empty space in the left of
+     the wheel that should be void of scrolling"); that empty space was the
+     wrapper, and the wrapper is not bound.
 
      Deltas accumulate against a threshold so a trackpad's many small events
      don't spin it wildly; preventDefault stops the page moving underneath.  */
@@ -165,29 +172,31 @@
   on:keydown={onKeydown}
 >
   <!--
-    The track is just the fan's box now. It carries NO scroll or drag handlers
-    — see the note on onWheel: those are on the individual cards, so bare track
-    beside a scaled-down card no longer eats the page scroll.
+    Scroll and drag are bound HERE. Not on the wrapper (that would include the
+    counter pocket beside the fan) and NOT on the cards (they animate out from
+    under the cursor mid-gesture and the browser latches the rest of the scroll
+    to the page). See the note on onWheel.
   -->
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
     class="fx-ow-track"
     class:is-dragging={dragging}
     class:is-vertical={orientation === "vertical"}
     style="height: {trackHeight}px;"
+    on:wheel|nonpassive={onWheel}
+    on:pointerdown={onPointerDown}
+    on:pointermove={onPointerMove}
+    on:pointerup={endDrag}
+    on:pointerleave={endDrag}
+    on:pointercancel={endDrag}
   >
     {#each items as item, i}
       {@const offset = offsets[i] ?? 0}
       {@const shown = Math.abs(offset) <= visible}
-      <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div
         class="fx-ow-slot"
         class:is-hidden={!shown}
         class:is-active={offset === 0}
-        on:wheel|nonpassive={onWheel}
-        on:pointerdown={onPointerDown}
-        on:pointermove={onPointerMove}
-        on:pointerup={endDrag}
-        on:pointercancel={endDrag}
         style="
           --ow-x: {orientation === 'vertical' ? Math.abs(offset) * dip : offset * spreadX}px;
           --ow-y: {orientation === 'vertical' ? offset * spreadX : Math.abs(offset) * dip}px;
@@ -257,16 +266,14 @@
 
   .fx-ow-track {
     position: relative;
-    /* No cursor here — the track is inert. Grab lives on the cards. */
+    cursor: grab;
+    /* One card wide: this box is the scroll-capture region, and it is
+       deliberately NOT the cards themselves, which move. */
     width: var(--ow-card);
     flex: 0 0 auto;
   }
 
-  .fx-ow-slot {
-    cursor: grab;
-  }
-
-  .is-dragging .fx-ow-slot {
+  .is-dragging {
     cursor: grabbing;
   }
 
