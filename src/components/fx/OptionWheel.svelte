@@ -241,6 +241,9 @@
     position: relative;
     display: flex;
     align-items: center;
+    /* Right-aligned, so the fan sits as far right in its column as the pocket
+       allows. ("move option wheel closer to the right") */
+    justify-content: flex-end;
     gap: 0.5rem;
     outline: none;
     touch-action: pan-y;
@@ -310,8 +313,11 @@
      or clips no matter how wide the cards get. */
   .fx-ow-aside {
     display: flex;
-    flex: 1 1 auto;
-    min-width: 7.25rem;
+    /* 0 0 auto, not 1 1 auto: the pocket takes only what the text needs so the
+       leftover goes to pushing the fan rightward, rather than the pocket
+       absorbing it. */
+    flex: 0 0 auto;
+    min-width: 7rem;
     flex-direction: column;
     align-items: flex-end;
     gap: 0.45rem;
@@ -339,6 +345,43 @@
     opacity: 0.8;
     white-space: nowrap;
     line-height: 1.3;
+  }
+
+  /*
+    Mobile step-down. The fan is a FIXED px width and the pocket sizes to its
+    text, so together they set the flex row's min-content width — at 296px card
+    + 138px pocket that is 442px, which pushed 51px of horizontal scroll onto
+    the page at 420px wide. The desktop enlargement is what introduced it.
+
+    --ow-card is written inline by the component, so a media query cannot
+    override the custom property (inline wins). The two consumers are overridden
+    with literals instead; same specificity, later in the sheet, so these win.
+  */
+  @media (max-width: 520px) {
+    .fx-ow-track {
+      width: 200px;
+    }
+
+    .fx-ow-slot {
+      width: 200px;
+      margin-left: -100px;
+    }
+
+    .fx-ow-aside {
+      min-width: 0;
+    }
+
+    /* The hint is nowrap by requirement, so its own width is part of the row's
+       min-content. At 0.74rem it is 138px, which still overflowed a 360px
+       screen; 0.6rem brings it to ~112px. */
+    .fx-ow-hint {
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+    }
+
+    .fx-ow-count {
+      font-size: 1.5rem;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

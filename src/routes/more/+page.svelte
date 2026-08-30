@@ -56,9 +56,11 @@
   </div>
 
   <!-- ===== LEFT: identity + stats + where I've been + countries | RIGHT: wheel
-       1.4fr/1fr, up from 1.15fr: "Make more right side a bit smaller in width
-       and left a little bigger. option wheel doesn't take up too much space so
-       let's ration wisely."
+       1.85fr/1fr, up from 1.4fr and 1.15fr before that: "Make more right side a
+       bit smaller in width and left a little bigger", then "Make left section
+       bigger and right smaller. move the divider right." lg:divide-x draws the
+       rule at the column boundary, so widening the left column IS moving the
+       divider right — they are the same number.
 
        "Put the stats and off the clock line both to the left... Where I've been
        should be below the stats row but above countries." -->
@@ -66,7 +68,7 @@
   <!-- lg:divide-x draws the rule between the two halves; the padding keeps
        content off it. ("have a divider in teh top sections btwn left and right") -->
   <div
-    class="grid items-start gap-6 lg:grid-cols-[1.4fr_1fr] lg:divide-x lg:divide-slate-500/25"
+    class="grid items-start gap-6 lg:grid-cols-[1.85fr_1fr] lg:divide-x lg:divide-slate-500/25"
     use:scrollReveal
   >
     <div class="space-y-5 lg:pr-7">
@@ -93,8 +95,10 @@
       </div>
 
       <!-- No "Countries" heading: removed on request, and the flags say what
-           this is without one. 2-up so seven countries make four rows. -->
-      <TravelSection countries={more.travel?.countries ?? []} show="countries" columns={2} />
+           this is without one. 3-up now the left column is 1.85fr — at 2-up the
+           cells were wide enough that each flag/name pair floated in the middle
+           of a lot of nothing. Seven countries make three rows. -->
+      <TravelSection countries={more.travel?.countries ?? []} show="countries" columns={3} />
     </div>
 
     <div class="lg:pl-7">
