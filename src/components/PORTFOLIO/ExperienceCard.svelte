@@ -49,8 +49,11 @@
   
   <div class="p-5 pl-6 space-y-5 flex-1 flex flex-col">
     <!-- Duration badge - top right corner style -->
+    <!-- min-w-0 on the text side: without it the title block's min-content
+         width is its longest word, which pushed the shrink-0 date badge past
+         the card's right edge on narrow cards. -->
     <div class="flex items-start justify-between gap-4 ">
-      <div class="space-y-1">
+      <div class="min-w-0 space-y-1">
         <h3 class="text-2xl font-bold bg-gradient-to-r {cardTheme.title} bg-clip-text text-transparent">
           {experience.company}
         </h3>
