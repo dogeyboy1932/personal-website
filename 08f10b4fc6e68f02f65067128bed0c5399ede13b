@@ -1,0 +1,29 @@
+DEVLOG — updates.txt fifth pass (08f10b4)
+
+TWO SELF-INFLICTED BUGS from the previous pass, both worth remembering:
+
+1. Sparkles froze. Fixing 'it looks like rain' by removing gravity, I
+   replaced directed motion with damped Brownian noise: symmetric random
+   impulses averaging zero, damped 0.97/frame. Net motion ~0. The lesson is
+   that 'not rain' and 'not moving' are different requirements — the fix is a
+   persistent per-particle HEADING with constant speed that slowly turns, so
+   velocity is recomputed (never accumulated) and there is no shared axis.
+   Test by diffing the canvas 1s apart, not by eye.
+
+2. Find Me grew on hover. The fan was animating slot WIDTH 0 -> 2.6rem, which
+   necessarily resizes the pill. Reserving width at rest and animating only
+   opacity/translateY is what keeps the button a fixed size. The clip that
+   makes icons look like they rise from below must live on an INNER mask —
+   putting overflow:hidden on the slot also swallows the tooltip.
+
+PLAY ME took three attempts because I kept raising LUMINANCE inside a warm
+amber card. Brightness cannot separate an element from a bright background;
+hue can. Cool panel + cyan border on the warm card finally worked. Reach for
+hue contrast before brightness when something 'won't stand out'.
+
+SIDE BEAMS in overlay mode wash over whatever is beneath them. The photo and
+quote are lifted to z-40 (rays are z-30) so the beams only cross the text
+column. If more content is added to the hero, decide per element whether it
+should be above or below z-30.
+
+Chess challenge is now 10+0 (clock.limit 600, increment 0).
