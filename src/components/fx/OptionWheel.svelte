@@ -99,32 +99,70 @@
     }
   }
 
-  /* ---- drag to spin ---------------------------------------------------- */
+  /* ---- drag to spin ----------------------------------------------------
+     WHY CAPTURE IS LAZY. setPointerCapture used to run on pointerdown. While a
+     pointer is captured, the browser dispatches the resulting CLICK at the
+     capturing element rather than at whatever is under the cursor — so every
+     click landed on .fx-ow-track and the FlipCard <button> inside it never saw
+     one. ("in optionwheel now the bloody card won't flip")
+
+     Capture is still needed, but only once a real drag is under way, so it is
+     taken on the first pointermove that clears DRAG_THRESHOLD. A click never
+     moves that far, so a click is never captured and reaches the card; a drag
+     captures immediately on the first meaningful movement and keeps tracking
+     even if the cursor leaves the track.
+
+     The threshold does double duty: `dragging` no longer goes true on mousedown,
+     so a click can't nudge the wheel by a pixel of hand tremor either.  */
+  const DRAG_THRESHOLD = 6;
+
+  let pointerDown = false;
   let dragging = false;
   let startX = 0;
   let startY = 0;
   let startActive = 0;
+  let capturedOn: HTMLElement | null = null;
 
   function onPointerDown(event: PointerEvent) {
-    dragging = true;
+    pointerDown = true;
+    dragging = false;
     startX = event.clientX;
     startY = event.clientY;
     startActive = active;
-    /* Keep receiving pointermove after the cursor leaves the track, so a drag
-       that overshoots sideways still tracks until pointerup. */
-    (event.currentTarget as HTMLElement)?.setPointerCapture?.(event.pointerId);
+    // Deliberately NO setPointerCapture here — see the note above.
   }
 
   function onPointerMove(event: PointerEvent) {
-    if (!dragging || !count) return;
-    // One card per step of travel, so the wheel tracks the pointer 1:1.
+    if (!pointerDown || !count) return;
+
     const delta =
       orientation === "vertical" ? startY - event.clientY : startX - event.clientX;
+
+    if (!dragging) {
+      if (Math.abs(delta) < DRAG_THRESHOLD) return;
+      dragging = true;
+      const el = event.currentTarget as HTMLElement;
+      el?.setPointerCapture?.(event.pointerId);
+      capturedOn = el;
+    }
+
+    // One card per step of travel, so the wheel tracks the pointer 1:1.
     const moved = Math.round(delta / spreadX);
     active = ((startActive + moved) % count + count) % count;
   }
 
-  const endDrag = () => (dragging = false);
+  function endDrag(event?: PointerEvent) {
+    if (capturedOn && event) {
+      try {
+        capturedOn.releasePointerCapture(event.pointerId);
+      } catch {
+        /* already released, or a pointer id the element never held */
+      }
+    }
+    capturedOn = null;
+    pointerDown = false;
+    dragging = false;
+  }
 
   /* ---- scroll to rotate ------------------------------------------------
      Bound to the TRACK — a stable, non-animating box exactly one card wide.
