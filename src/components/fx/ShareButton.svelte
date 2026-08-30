@@ -21,7 +21,8 @@
   icons instead of the group collapsing the moment hover ends.
 -->
 <script lang="ts">
-  import { Instagram, MessageCircle, Crown, Mail, Github, Linkedin, Check, Copy } from "lucide-svelte";
+  import { Instagram, MessageCircle, Mail, Github, Linkedin, Check, Copy } from "lucide-svelte";
+  import KnightIcon from "../icons/KnightIcon.svelte";
   import { theme } from "../../lib/stores";
   import type { SocialHandle } from "../../types";
 
@@ -32,7 +33,8 @@
   const icons = {
     instagram: Instagram,
     discord: MessageCircle,
-    lichess: Crown,
+    // A knight, not a crown — the crown reads as king/queen.
+    lichess: KnightIcon,
     mail: Mail,
     github: Github,
     linkedin: Linkedin,
@@ -76,9 +78,9 @@
             on:click={() => !action.href && copy(action)}
           >
             {#if copied === action.handle}
-              <Check class="h-4 w-4" />
+              <Check class="h-5 w-5" />
             {:else}
-              <svelte:component this={Icon} class="h-4 w-4" />
+              <svelte:component this={Icon} class="h-5 w-5" />
             {/if}
           </svelte:element>
 
@@ -100,15 +102,16 @@
     display: inline-block;
   }
 
+  /* Enlarged: "The find me button is too small." */
   .fx-sb-pill {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.9rem;
+    gap: 0.65rem;
+    padding: 0.8rem 1.4rem;
     border-radius: 9999px;
     border-width: 1px;
     border-style: solid;
-    font-size: 0.8rem;
+    font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -127,7 +130,9 @@
        the pill itself grow instead of the icons overflowing it. */
     width: 0;
     opacity: 0;
-    transform: translateX(-6px) scale(0.7);
+    /* Rises from below on hover: "WHen I hover, the logos should appear from
+       the bottom." Was a sideways slide. */
+    transform: translateY(14px) scale(0.7);
     transition:
       width 320ms cubic-bezier(0.22, 1, 0.36, 1),
       opacity 260ms ease,
@@ -137,17 +142,17 @@
 
   .fx-sb-pill:hover .fx-sb-slot,
   .fx-sb-pill:focus-within .fx-sb-slot {
-    width: 2rem;
+    width: 2.6rem;
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: translateY(0) scale(1);
   }
 
   .fx-sb-action {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2rem;
-    height: 2rem;
+    width: 2.6rem;
+    height: 2.6rem;
     border-radius: 9999px;
     border-width: 1px;
     border-style: solid;

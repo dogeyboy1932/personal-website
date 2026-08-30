@@ -17,7 +17,8 @@
   the token exists rather than being dead UI.
 -->
 <script lang="ts">
-  import { Swords, Check, X, Loader2, ExternalLink } from "lucide-svelte";
+  import { Check, X, Loader2, ExternalLink } from "lucide-svelte";
+  import KnightIcon from "../icons/KnightIcon.svelte";
   import { theme } from "../../lib/stores";
 
   /** Same shape Lichess accepts: 2-30 chars, alphanumeric plus _ and -. */
@@ -129,10 +130,10 @@
      Pass `standalone` to get the border/background back. -->
 <div class={standalone ? `rounded-2xl border ${$theme.border.default} ${$theme.bg.card} p-6` : ""}>
   <div class="mb-1 flex items-center gap-2">
-    <Swords class="h-4 w-4 {$theme.accent.orange.text}" />
-    <h4 class="text-[11px] uppercase tracking-[0.3em] {$theme.text.muted}">Play me</h4>
+    <KnightIcon class="h-5 w-5 {$theme.accent.orange.text}" />
+    <h4 class="font-display text-sm font-bold uppercase tracking-[0.28em] {$theme.text.primary}">Play me</h4>
   </div>
-  <p class="mb-4 text-sm {$theme.text.dim}">
+  <p class="mb-4 text-sm {$theme.text.secondary}">
     Drop your Lichess username and I'll send a casual 10+5 challenge.
   </p>
 
@@ -147,7 +148,7 @@
         placeholder="your lichess username"
         aria-label="Lichess username"
         aria-invalid={state === "invalid" || state === "error"}
-        class="w-full rounded-xl border bg-transparent px-4 py-2.5 pr-10 text-sm outline-none transition-colors {$theme.text.secondary} {ringClass}"
+        class="w-full rounded-xl border-2 {$theme.bg.cardSolid} px-4 py-3 pr-10 text-sm outline-none transition-colors {$theme.text.primary} {ringClass}"
       />
 
       <!-- Status glyph, so the state reads without relying on colour alone -->
@@ -165,7 +166,7 @@
     <button
       type="submit"
       disabled={state !== "valid" || sending}
-      class="rounded-xl border px-4 py-2.5 text-xs font-bold uppercase tracking-[0.18em] transition-all disabled:cursor-not-allowed disabled:opacity-40 {$theme.border.light} {$theme.bg.secondary} {$theme.text.secondary} hover:enabled:scale-[1.03]"
+      class="rounded-xl border-2 px-5 py-3 font-display text-xs font-bold uppercase tracking-[0.18em] transition-all disabled:cursor-not-allowed disabled:opacity-40 {$theme.accent.orange.border} {$theme.accent.orange.bg} {$theme.text.primary} hover:enabled:scale-[1.03]"
     >
       {sending ? "Sending" : "Challenge"}
     </button>
