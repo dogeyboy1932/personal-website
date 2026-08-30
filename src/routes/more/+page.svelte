@@ -56,13 +56,17 @@
   </div>
 
   <!-- ===== LEFT: identity + stats + where I've been + countries | RIGHT: wheel
+       1.4fr/1fr, up from 1.15fr: "Make more right side a bit smaller in width
+       and left a little bigger. option wheel doesn't take up too much space so
+       let's ration wisely."
+
        "Put the stats and off the clock line both to the left... Where I've been
        should be below the stats row but above countries." -->
   <!-- FX:scroll-reveal -->
   <!-- lg:divide-x draws the rule between the two halves; the padding keeps
        content off it. ("have a divider in teh top sections btwn left and right") -->
   <div
-    class="grid items-start gap-6 lg:grid-cols-[1.15fr_1fr] lg:divide-x lg:divide-slate-500/25"
+    class="grid items-start gap-6 lg:grid-cols-[1.4fr_1fr] lg:divide-x lg:divide-slate-500/25"
     use:scrollReveal
   >
     <div class="space-y-5 lg:pr-7">

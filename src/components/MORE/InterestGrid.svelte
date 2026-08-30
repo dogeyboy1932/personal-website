@@ -45,20 +45,28 @@
      more visible non-selected rows (5 maybe)")
 
      trackHeight MUST be >= cardHeight + 2*visible*spreadX, here
-     98 + 2*2*76 = 402. Get it wrong and the outer cards spill past the track
+     126 + 2*2*86 = 470. Get it wrong and the outer cards spill past the track
      onto whatever sits below.
 
-     Sized down on request: "Option wheel is the whole section. Too big." -->
+     Scaled UP on request — "The cards are actually a bit too small. Enlarge the
+     whole wheel component." The column around it got NARROWER at the same time
+     ("reduce the width of the right section overall"), which only works because
+     the counter/hint pocket is now a declared flex column rather than whatever
+     slack was left beside a centred track.
+
+     spreadX (86) is deliberately LESS than cardHeight (126): the cards overlap
+     by 40px, which both reads as a stack and leaves no bare gap between them
+     for a scroll to fall through. -->
 <OptionWheel
   items={interests}
   bind:active
   orientation="vertical"
   visible={2}
-  spreadX={76}
+  spreadX={86}
   dip={14}
-  cardWidth={272}
-  cardHeight={98}
-  trackHeight={402}
+  cardWidth={296}
+  cardHeight={126}
+  trackHeight={470}
   label="Interests"
   hint="Click to flip card"
   let:item
@@ -67,19 +75,19 @@
 >
   <!-- FX:flip-card — click, not hover -->
   {#key active}
-  <FlipCard class="h-[116px]" trigger="click" duration={480}>
+  <FlipCard class="h-[126px]" trigger="click" duration={480}>
     <div
       slot="front"
       class="flex h-full flex-row items-center justify-start gap-3 rounded-xl border {isActive
         ? $theme.accent.cyan.hover.border
         : $theme.accent.cyan.border} {$theme.bg.secondary} px-4 text-left shadow-lg"
     >
-      <span class="text-3xl leading-none">{item.emoji}</span>
+      <span class="text-4xl leading-none">{item.emoji}</span>
       <!-- No per-card "click to flip": it now lives once, beside the counter.
            ("Instead of click to flip on every card. Put click to flip on the
            right too. smae color text.") -->
       <span class="min-w-0">
-        <span class="block text-base font-semibold leading-tight {$theme.text.secondary}">
+        <span class="block text-lg font-semibold leading-tight {$theme.text.secondary}">
           {item.name}
         </span>
       </span>
@@ -89,8 +97,8 @@
       slot="back"
       class="flex h-full flex-col justify-center rounded-xl border {$theme.accent.cyan.hover.border} {$theme.bg.cardElevated} px-4 text-left shadow-lg"
     >
-      <span class="meta-label text-[10px] {$theme.accent.cyan.text}">{item.name}</span>
-      <p class="mt-1.5 text-sm leading-snug {$theme.text.secondary}">{item.detail}</p>
+      <span class="meta-label text-[11px] {$theme.accent.cyan.text}">{item.name}</span>
+      <p class="mt-1.5 text-[0.95rem] leading-snug {$theme.text.secondary}">{item.detail}</p>
     </div>
   </FlipCard>
   {/key}

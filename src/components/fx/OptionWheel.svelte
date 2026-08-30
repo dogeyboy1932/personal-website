@@ -110,6 +110,10 @@
     startX = event.clientX;
     startY = event.clientY;
     startActive = active;
+    /* The handlers live on the CARDS now, so a drag that wanders off the card
+       would otherwise stop getting events. Capturing keeps them coming until
+       pointerup, wherever the pointer ends up. */
+    (event.currentTarget as HTMLElement)?.setPointerCapture?.(event.pointerId);
   }
 
   function onPointerMove(event: PointerEvent) {
@@ -124,10 +128,20 @@
   const endDrag = () => (dragging = false);
 
   /* ---- scroll to rotate ------------------------------------------------
-     The wheel consumes vertical scroll while the pointer is over it, which is
-     what "I should be able to scroll when I hover it" asks for. Deltas are
-     accumulated against a threshold so a trackpad's many small events don't
-     spin it wildly, and preventDefault stops the page scrolling underneath.  */
+     Bound to each visible CARD, not to the track and not to the wrapper.
+
+     Two earlier versions widened and then narrowed the capture BOX and still
+     leaked: the track is card-width but full fan height, and the outer cards
+     are scaled down to 0.6, so up to ~55px either side of them was bare track
+     that still swallowed the page scroll. ("when my cursor doesn't touch a
+     card on the wheel, I should not scroll.")
+
+     A card's own hit area is its transformed box, so binding here makes the
+     capture region exactly the pixels the cursor can see. Off-window cards are
+     pointer-events:none, so they never capture.
+
+     Deltas accumulate against a threshold so a trackpad's many small events
+     don't spin it wildly; preventDefault stops the page moving underneath.  */
   const WHEEL_THRESHOLD = 28;
   let wheelAcc = 0;
 
@@ -151,34 +165,29 @@
   on:keydown={onKeydown}
 >
   <!--
-    Scroll and drag are bound HERE, not on the wrapper. The wrapper spans the
-    whole column, so listening there meant the large empty area beside the cards
-    also swallowed page scroll. ("If my cursor leaves the wheel hover directly,
-    then I shouldn't scroll. There's a lot of empty space in the left of the
-    wheel that should be void of scrolling.")
-
-    The track is only as wide as a card, so the capture region is the cards
-    themselves.
+    The track is just the fan's box now. It carries NO scroll or drag handlers
+    — see the note on onWheel: those are on the individual cards, so bare track
+    beside a scaled-down card no longer eats the page scroll.
   -->
   <div
     class="fx-ow-track"
     class:is-dragging={dragging}
     class:is-vertical={orientation === "vertical"}
     style="height: {trackHeight}px;"
-    on:wheel|nonpassive={onWheel}
-    on:pointerdown={onPointerDown}
-    on:pointermove={onPointerMove}
-    on:pointerup={endDrag}
-    on:pointerleave={endDrag}
-    on:pointercancel={endDrag}
   >
     {#each items as item, i}
       {@const offset = offsets[i] ?? 0}
       {@const shown = Math.abs(offset) <= visible}
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div
         class="fx-ow-slot"
         class:is-hidden={!shown}
         class:is-active={offset === 0}
+        on:wheel|nonpassive={onWheel}
+        on:pointerdown={onPointerDown}
+        on:pointermove={onPointerMove}
+        on:pointerup={endDrag}
+        on:pointercancel={endDrag}
         style="
           --ow-x: {orientation === 'vertical' ? Math.abs(offset) * dip : offset * spreadX}px;
           --ow-y: {orientation === 'vertical' ? offset * spreadX : Math.abs(offset) * dip}px;
@@ -219,8 +228,20 @@
 </div>
 
 <style>
+  /*
+    A flex ROW: the fan on the left, the counter/hint pocket on the right.
+
+    The aside used to be position:absolute against a centred track, which left
+    it whatever slack happened to remain beside the cards — so making the
+    counter legible and making the cards bigger were in direct competition, and
+    the hint clipped. As a real flex item it gets a declared minimum and the
+    cards take the rest.
+  */
   .fx-option-wheel {
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     outline: none;
     touch-action: pan-y;
     user-select: none;
@@ -233,10 +254,17 @@
 
   .fx-ow-track {
     position: relative;
-    cursor: grab;
-    /* Only as wide as a card: this box is the scroll-capture region. */
+    /* No cursor here — the track is inert. Grab lives on the cards. */
     width: var(--ow-card);
-    margin-inline: auto;
+    flex: 0 0 auto;
+  }
+
+  .fx-ow-slot {
+    cursor: grab;
+  }
+
+  .is-dragging .fx-ow-slot {
+    cursor: grabbing;
   }
 
   /* Vertical: slots are centred on BOTH axes, since the step now runs down the
@@ -244,10 +272,6 @@
   .is-vertical .fx-ow-slot {
     top: 50%;
     margin-top: calc(var(--ow-card-h, 120px) / -2);
-  }
-
-  .is-dragging {
-    cursor: grabbing;
   }
 
   .fx-ow-slot {
@@ -282,22 +306,23 @@
     border: 0;
   }
 
-  /* Parked against the right edge, vertically centred on the fan. */
+  /* The right-hand pocket. min-width is what guarantees the hint never wraps
+     or clips no matter how wide the cards get. */
   .fx-ow-aside {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
     display: flex;
+    flex: 1 1 auto;
+    min-width: 7.25rem;
     flex-direction: column;
     align-items: flex-end;
-    gap: 0.4rem;
+    gap: 0.45rem;
     text-align: right;
     pointer-events: none;
   }
 
+  /* Bigger, on request: "Make the text right of the wheel bigger...its hard to
+     see." */
   .fx-ow-count {
-    font-size: 1.35rem;
+    font-size: 1.9rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     color: rgb(var(--brand));
@@ -307,8 +332,8 @@
   /* One line, never wrapped. ("Click to flip should be in one row...no wraps
      should occur.") */
   .fx-ow-hint {
-    font-size: 0.62rem;
-    letter-spacing: 0.14em;
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: rgb(var(--brand));
     opacity: 0.8;
