@@ -1,0 +1,39 @@
+updates.txt pass 20.
+
+THE ACCUMULATION FAILURE, and it is a new one worth naming.
+
+'Rather than having each letter emit a glow of its own' revealed that I had
+THREE glyph-shaped light sources stacked on the hero name — canvas shadowBlur
+per dot, a drop-shadow on the canvas, and a radial ellipse. I added them across
+three separate passes, each time answering a 'make it brighter' note by adding
+a layer rather than by fixing the one already there. Nobody asked for three;
+each was locally reasonable and the set was absurd.
+
+The tell was available every pass and I never read it: I was writing comments
+that said 'THREE layers of glow, each doing a different job'. Enumerating your
+own accumulated workarounds in a comment is a smell, not documentation. When a
+comment has to justify why N mechanisms coexist, the honest move is to delete
+N-1.
+
+Deleting all three for one rectangle also took the home page from 28 to 60 fps
+(/more 55 -> 60), because canvas shadowBlur forces a blurred rasterisation of
+the entire draw pass every frame. The visual fix and the perf fix were the same
+edit. Layers you added defensively are usually not free.
+
+SECOND, ON SCOPE OF A DIRECTIVE. Last pass's 'make everything in experience
+white/silver' — I applied it to the tech badges too, and the correction came
+back as 'less stale...the stack can be alternate colors'. The rule the user
+actually held was about CHROME (halo, border, accent bar, title, divider), not
+CONTENT. Badges are content, where variation is information rather than noise.
+When a styling directive says 'everything', check whether it means the frame or
+the things inside it before flattening both.
+
+Also: the intermittent orange line on the country cards was a hover panel parked
+at exactly translateY(100%) — its edge landing exactly on a rounded, clipped,
+fractionally-positioned grid cell's edge. Sub-pixel rounding decided whether it
+showed, which is why it was 'occasional'. Fixed with 101% AND visibility:hidden;
+the second is the actual guarantee, the first just moves the edge off the
+boundary. Verified at 7 widths including deliberately awkward ones.
+
+Standing: /portfolio overflows 10px at 360px from an off-screen carousel slide.
+Pre-existing, flagged seven passes, never in updates.txt.
