@@ -69,11 +69,14 @@
     read yellow: "Make the particles color more white. It's still dim yellow
     right now. Silvery white is what I want."
 
-    Deliberately brighter than --cursor (which is slate-200): these are small,
-    fast, and semi-transparent, so at slate-200 they read grey rather than
-    silver. --cursor stays separate so the trail and the sparkles never collide.
+    slate-100 was still not it ("Brightest silver It's still dim yellow right
+    now"), and the reason is that these are drawn as a radial sprite that fades
+    to alpha 0 at the rim — so the AVERAGE pixel is well below the nominal
+    colour, and any tint at all in the base compounds with the warm SideRays
+    behind them. Pure white is the only value with no tint left to compound.
+    --cursor stays separate so the trail and the sparkles never collide.
   */
-  --particles: 241 245 249; /* slate-100 — FX:sparkles + gravity-stars */
+  --particles: 255 255 255; /* FX:sparkles + gravity-stars */
   --cursor: 226 232 240; /* CursorParticles — silver, neutral on both themes */
   --rays: var(--brand); /* FX:side-rays                */
   --rain: 34 211 238; /* MatrixRain glyph head       */

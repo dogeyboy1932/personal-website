@@ -61,7 +61,7 @@ const FALLBACK: Record<string, string> = {
   warm: "251, 191, 36",
   "warm-strong": "253, 230, 138",
   "warm-deep": "217, 119, 6",
-  particles: "241, 245, 249",
+  particles: "255, 255, 255",
   cursor: "226, 232, 240",
   rays: "34, 211, 238",
   rain: "34, 211, 238",

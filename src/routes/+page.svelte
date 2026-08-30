@@ -130,13 +130,22 @@
             <!-- FX:particle-text — gated by homeHero.particleName in
                  src/constants/home.ts; off renders the plain heading -->
             <!--
-              THREE layers of glow, each doing a different job:
-                1. canvas shadowBlur (in ParticleText) — glows each dot.
-                2. the radial halo below — light BEHIND the word, which is what
-                   "Apply a glow behind it so it looks brighter" asks for. A
-                   drop-shadow can only trace the shape it is given; it cannot
-                   put light on the background the letters sit on.
-                3. drop-shadow on the canvas — lifts the whole word as one shape.
+              ONE CONTAINER GLOW, not a glow per letter.
+              ("Rather than having each letter emit a glow of its own...the
+              entire string should have a 'container' glow. like a rectangle
+              glow if that makes sense.")
+
+              What was here before was three glyph-shaped light sources stacked:
+              canvas shadowBlur haloing every dot, a drop-shadow tracing the
+              word's outline, and a radial ellipse. All three followed the
+              LETTERFORMS, which is exactly what the note rules out.
+
+              All three are gone. What remains is a single blurred rounded
+              rectangle sized to the title block, sitting behind it at -z-10 —
+              a lit panel the word sits on rather than a word that emits light.
+              A rectangle also cannot be "too bright" the way per-letter halos
+              were, because the light is spread over a constant area instead of
+              concentrating along every stroke.
             -->
             <!--
               WHY THIS LOOKED YELLOW. The halo was already pure white, but at
@@ -156,9 +165,11 @@
             -->
             <span
               aria-hidden="true"
-              class="pointer-events-none absolute -inset-x-10 -inset-y-12 -z-10 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.14),rgba(226,232,240,0.07)_42%,rgba(203,213,225,0.025)_62%,transparent_78%)] blur-2xl"
+              class="pointer-events-none absolute -inset-x-6 -inset-y-5 -z-10 rounded-3xl bg-white/[0.07] blur-2xl"
             />
-            <h1 class="relative uppercase text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight {$theme.text.primary} leading-[0.95] [&_canvas]:drop-shadow-[0_0_22px_rgba(255,255,255,0.45)]">
+            <!-- No drop-shadow: that is a glyph-shaped glow, which is the
+                 thing being replaced by the rectangle above. -->
+            <h1 class="relative uppercase text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight {$theme.text.primary} leading-[0.95]">
               {#if homeHero.particleName}
                 <ParticleText
                   text={homeHero.fullName.toUpperCase()}
@@ -188,12 +199,13 @@
 
             <!-- .meta-label-strong — the same class as "Also around campus"
                  and "Honors" on /more, so the three move together. -->
-            <!-- The credential is the one warm accent left in the hero now
-                 that the sparkles went silver. ("Make UIUC '26 orange") -->
+            <!-- The one warm accent left in the hero now that the sparkles
+                 went silver. text-warm-deep (amber-600) rather than text-warm
+                 (amber-400): "Make UIUC '26 a lil darker orange". -->
             <p class="meta-label-strong mt-1.5 text-xs sm:text-sm {$theme.text.muted}">
               {homeHero.age}
               <span aria-hidden="true" class="{$theme.text.dim} mx-1.5">·</span>
-              <span class="text-warm">{homeHero.credential}</span>
+              <span class="text-warm-deep">{homeHero.credential}</span>
               <span aria-hidden="true" class="{$theme.text.dim} mx-1.5">·</span>
               {homeHero.location}
             </p>
@@ -278,9 +290,9 @@
               />
 
               <span class="relative flex items-center gap-2.5">
-                <span class="text-[0.65rem] font-extrabold tabular-nums text-warm/70"
+                <!-- <span class="text-[0.65rem] font-extrabold tabular-nums text-warm/70"
                   >0{i + 1}</span
-                >
+                > -->
                 {link.label}
                 <span
                   aria-hidden="true"

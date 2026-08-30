@@ -202,17 +202,19 @@
       ctx.globalAlpha = 1;
 
       /*
-        One cheap shadow setup for the whole pass, not per particle — canvas
-        shadowBlur per item per frame is what tanked the site once already.
+        NO PER-PARTICLE GLOW. ("Rather than having each letter emit a glow of
+        its own...the entire string should have a 'container' glow. like a
+        rectangle glow if that makes sense.")
 
-        Raised 10 -> 18 on request: "Add a glow to the name since it is still
-        looking dim from the beam." The beams already moved behind the copy,
-        so this is the name emitting light rather than compensating for
-        something painted over it. Still one setup per frame, so the cost does
-        not scale with particle count.
+        shadowBlur here gave every dot its own halo, so the word glowed
+        letter-by-letter and the light followed the glyph shapes. The glow is
+        now a single rectangle behind the whole string, rendered in
+        src/routes/+page.svelte — see the note there.
+
+        Dropping it is also free performance: shadowBlur forces canvas to
+        rasterise a blurred copy of the whole draw pass every frame.
       */
-      ctx.shadowBlur = 18;
-      ctx.shadowColor = fill;
+      ctx.shadowBlur = 0;
     }
 
     for (const p of particles) {
