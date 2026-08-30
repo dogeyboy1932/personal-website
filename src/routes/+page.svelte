@@ -71,10 +71,31 @@
            context. Confining the rays to the text column means they physically
            cannot reach the photo or the quote, with no z-index reasoning to get
            wrong. ("AND THE BEAM STILL CROSSES THE PHOTO AND QUOTES") -->
-      <!-- Dimmer: at 0.5 the wash was competing with the hero copy.
-           ("don't make the beams too bright...it's becomming a bit an issue
-           with seeing the hero text.") -->
-      <SideRays side="right" count={2} opacity={0.28} speed={13} spread={16} hue="warm" overlay />
+      <!--
+        BEHIND the copy, not over it. `overlay` put .fx-side-rays at z-index:30,
+        above the title block and the summary, so the blades were literally
+        painting a warm wash ON TOP of the particle name and the hero text.
+
+        That is what both of these notes were about, and dimming was the wrong
+        lever for either:
+          "make my particle name a bit brighter. the beams are darkening it and
+           making it look a bit worse. [missed]"
+          "don't make the beams too bright...it's becomming a bit an issue with
+           seeing the hero text."
+        Two passes of lowering opacity (0.5 -> 0.42 -> 0.28) faded the effect
+        without ever removing the layer that sat on the text. The particles were
+        already pure #ffffff; nothing about them was dim.
+
+        Without `overlay` the component is z-index:0, so it paints in DOM order
+        among the positioned siblings and lands under everything that follows.
+        Opacity goes back UP to 0.40 — behind the copy there is nothing left for
+        it to wash out.
+
+        NOTE: siblings that must stay above this need `relative`. A
+        non-positioned block child paints EARLIER than a z-index:0 positioned
+        one, so the summary below carries `relative` deliberately.
+      -->
+      <SideRays side="right" count={2} opacity={0.4} speed={13} spread={16} hue="warm" />
       <!-- /FX:side-rays -->
 
       
@@ -144,13 +165,17 @@
       </div>
 
       
-      <!-- Divider -->
-      <div class="mx-auto w-[90%] border-t {$theme.border.divider}" />
+      <!-- Divider. `relative` for the same paint-order reason as the summary. -->
+      <div class="relative mx-auto w-[90%] border-t {$theme.border.divider}" />
 
       
       <!-- Summary Text -->
       <!-- backdrop-blur-sm removed; see the note on the header box above. -->
-      <div class="flex items-center py-3 px-8">
+      <!-- `relative` is load-bearing: FX:side-rays is a z-index:0 POSITIONED
+           sibling, and positioned z-0 descendants paint after non-positioned
+           block ones. Without this the beams would cross this paragraph even
+           though they sit earlier in the DOM. -->
+      <div class="relative flex items-center py-3 px-8">
         <!-- Larger and brighter than before: this is the five-second answer to
              "who is this", and it was previously small, light-weight grey that
              read as filler next to the name. -->
