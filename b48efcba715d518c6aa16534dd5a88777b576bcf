@@ -1,0 +1,32 @@
+updates.txt pass 16.
+
+THE SIDE-RAYS THREAD, now resolved after three moves, and the sequence is the
+lesson. Same component, three positions, each one a correct fix for the
+complaint in front of me and wrong for the one behind it:
+  1. section + overlay (z-30)  -> painted over the photo and quote.
+  2. inside the left column    -> could not reach the photo, but the light also
+                                  stopped at the column boundary.
+  3. section, z-0, before the  -> behind BOTH columns. 'Behind everything but
+     z-10 grid                    still visible' is only satisfiable here.
+
+What I should have noticed at step 2: I solved 'must not cross the photo' by
+shrinking the element's REACH, when the actual requirement was about DEPTH.
+Reach and depth are different axes; constraining the wrong one produces a fix
+that passes the current test and fails the next one. When a complaint is about
+what is in front of what, the answer is always the stacking order, never the
+bounding box.
+
+Line 11 closed the club-colour thread for good, and it is worth recording that
+the correction was to my own over-correction: I picked rose to avoid 'evil red'
+and landed so warm it read as the orange card again ('Sigma phi is same as ai
+alignment'). Avoiding one failure mode by a wide margin walked straight into
+the opposite one. Aim for the middle of the target, not the far edge of the
+acceptable region.
+
+Line 15 was two symptoms of one cause: rainbow experience cards ABOVE a
+monochrome stack. Fixing either alone would have left the page incoherent.
+Both now walk one cyan->magenta ramp from a single table, so they cannot drift.
+
+Standing: /portfolio still overflows 10px at 360px from an off-screen carousel
+slide. Pre-existing, flagged three passes running, never in updates.txt, so it
+stays untouched until asked.
