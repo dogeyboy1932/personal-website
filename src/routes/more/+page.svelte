@@ -86,23 +86,27 @@
     <InterestGrid interests={more.interests ?? []} />
   </section>
 
-  <!-- ===== LEADERSHIP & CLUBS ===== -->
+  <!-- ===== WHAT I RAN + WHAT I WON =====
+       One region, two registers. Fused because they are both credentials and
+       two stacked headed sections cost real height; kept visually distinct
+       because they are not the same claim — leadership is roles with substance
+       behind them, honors are one-line results. ("Leadership and honors could
+       be fused somewhat but they shouldn't appear the same. There's def a lot
+       more to articulate wiht leadership. Honors could be more compact.")
+
+       Leadership keeps full width and card treatment; there is more to say
+       there later. Honors sits underneath as a single chip strip. -->
   <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
-    <h3
-      class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}"
-    >
+    <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">
       {sections[2].label}
     </h3>
     <LeadershipSection leadership={more.leadership ?? []} {clubs} />
-  </section>
 
-  <!-- ===== HONORS ===== -->
-  <!-- Headline dropped on request; HonorShelf labels itself, so a section
-       heading above it was saying the same thing twice. -->
-  <!-- FX:scroll-reveal -->
-  <section use:scrollReveal>
-    <HonorShelf honors={more.honors ?? []} />
+    <div class="mt-4">
+      <h4 class="meta-label mb-2 ml-1 text-[11px] {$theme.text.dim}">Honors</h4>
+      <HonorShelf honors={more.honors ?? []} />
+    </div>
   </section>
 
   <!-- ===== LICHESS (WITH CHALLENGE) + CONNECT ===== -->
