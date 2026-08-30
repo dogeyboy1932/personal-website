@@ -1,0 +1,30 @@
+updates.txt pass 14 (interview-driven).
+
+The user said I had been 'largely ignoring' the asks and told me to interview
+them. That was correct, and the interview is what made this pass different: the
+three newest lines (21, 23, 25) had never been worked at all, and two of the
+older ones had been answered by moving the wrong lever repeatedly.
+
+TWO CLASS-OF-ERROR FIXES, both the same shape — I had been tuning a parameter
+when the structure was wrong:
+
+1. Club text colour, 6 attempts. Every prior attempt picked a different colour
+   to tint the text with. The note said 'text color' each time. The answer was
+   to stop colouring text at all; the per-card assortment now lives entirely on
+   the bar, border and underline.
+
+2. Beams darkening the particle name, 3 attempts. Every prior attempt lowered
+   opacity (0.5 -> 0.42 -> 0.28). SideRays was rendered with overlay=z-index:30,
+   i.e. painting ON TOP of the name and the hero copy. Dropping overlay put it
+   at z-index:0 and the opacity went back UP to 0.40.
+
+The generalisable rule, and it is the same one from pass 13 stated better:
+when repeated tuning does not satisfy a note, the note is not about the value.
+Find the structural fact — a stacking context, a paint order, a category
+decision like 'should this be coloured at all' — and change that instead.
+
+Also: enlarging the wheel while narrowing its column only worked once the
+counter/hint pocket stopped being absolute-positioned slack, because until then
+'bigger cards' and 'bigger counter' were competing for the same pixels. Two
+requirements that seem contradictory usually share one under-specified
+resource.
