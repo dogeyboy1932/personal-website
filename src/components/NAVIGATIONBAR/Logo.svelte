@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { darkModeStore } from "../../../lib/stores";
+  import { darkModeStore } from "../../lib/stores";
 
   let isDarkMode = true;
 
