@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { Logo, ThemeToggle } from "./parts";
+  import { Logo, ThemeToggle } from "./index";
   import { navItems, site } from "../../constants";
   import { theme } from "../../lib/stores";
   // FX:shiny-text — animated gradient + specular sweep on the name.
