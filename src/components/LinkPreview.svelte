@@ -91,9 +91,9 @@
         on:error={() => (imageFailed = true)}
       />
     {/if}
-    <div class="flex items-center justify-between gap-2 px-1 pb-1 pt-2">
-      <span class="truncate text-xs font-semibold text-slate-100">{label}</span>
-      <span class="shrink-0 text-[10px] font-bold uppercase tracking-[0.16em] text-yellow-300">Open</span>
-    </div>
+    <!-- The footer row (site name + an "Open" tag) is gone: the label already
+         sits in the link you are hovering, and a preview card is self-evidently
+         openable. ("remove the 'open' text + the website name...that's
+         redundant") -->
   {/if}
 </div>
