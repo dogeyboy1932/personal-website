@@ -31,6 +31,9 @@ export default {
           strong: "rgb(var(--warm-strong) / <alpha-value>)",
           deep: "rgb(var(--warm-deep) / <alpha-value>)",
         },
+        /* The /more one-liner + scorecard figures. Its own token so that pair
+           can be recoloured without touching brand or warm. */
+        lede: "rgb(var(--lede) / <alpha-value>)",
         ok: "rgb(var(--ok) / <alpha-value>)",
         bad: "rgb(var(--bad) / <alpha-value>)",
 

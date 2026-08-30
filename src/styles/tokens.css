@@ -49,6 +49,18 @@
   --warm-strong: 253 230 138; /* amber-200 */
   --warm-deep: 217 119 6; /* amber-600 */
 
+  /* --- Lede: the /more one-liner and the scorecard numerals -------------- */
+  /*
+    A SEPARATE token from --brand and --warm on purpose. This pair has been
+    recoloured three times on its own (amber -> cyan -> yellow) while the rest
+    of the site stayed put, so it gets its own switch: change this one line and
+    the flip-word and all four stat figures move together.
+
+    Yellow for now, per "Also a better color than blue for the one liner and
+    stats. Make it yellow for now."
+  */
+  --lede: 250 204 21; /* yellow-400 */
+
   /* --- Effect-specific, so an effect can be retuned in isolation --------- */
   /* Yellow, deliberately: "The yellow particles behind the title were really
      good." The cursor trail is a SEPARATE token so the two never collide. */
@@ -84,6 +96,9 @@ html:not(.dark) {
   --warm: 217 119 6;
   --warm-strong: 180 83 9;
   --warm-deep: 120 53 15;
+
+  /* yellow-600: yellow-400 is invisible on cream. */
+  --lede: 202 138 4;
 
   --rain: 8 145 178;
   --rain-tail: 165 243 252;

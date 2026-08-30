@@ -72,13 +72,14 @@
     <div class="space-y-5 lg:pr-7">
       <!-- FX:flip-words — rotating identity line -->
       <!-- Full row and centred, matching the scorecard beneath it. Display
-           face, and cyan rather than amber. ("Same with one liner. Use a diff
-           color than orange for this text.") -->
+           face. Colour is text-lede, the same token the scorecard figures use,
+           so the two always move together. Yellow now. ("Also a better color
+           than blue for the one liner and stats. Make it yellow for now.") -->
       <p
         class="w-full text-center font-display text-2xl font-semibold {$theme.text.secondary} sm:text-3xl"
       >
         Off the clock, I'm
-        <FlipWords words={more.identityWords ?? []} class="font-semibold text-brand" />
+        <FlipWords words={more.identityWords ?? []} class="font-semibold text-lede" />
       </p>
       <!-- /FX:flip-words -->
 

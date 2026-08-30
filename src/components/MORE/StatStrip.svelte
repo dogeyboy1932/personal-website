@@ -64,7 +64,10 @@
   divide-x draws the rules; each cell is flex-1 so the four split the row
   evenly whatever the label lengths.
 
-  Colour is cyan, not amber — "Use a diff color than orange for this text."
+  Colour comes off --lede in src/styles/tokens.css, not a literal. Amber first,
+  then cyan, now yellow ("Also a better color than blue for the one liner and
+  stats. Make it yellow for now.") — a pair that keeps moving belongs behind
+  one switch rather than being edited in two files each time.
 -->
 <div
   class="flex w-full divide-x {$theme.border.light} rounded-2xl border {$theme.border.default} {$theme.bg.card} py-4"
@@ -72,7 +75,7 @@
 >
   {#each stats as stat, i}
     <div class="flex flex-1 flex-col items-center justify-center px-2">
-      <span class="font-display text-3xl font-extrabold tracking-tight text-brand sm:text-4xl">
+      <span class="font-display text-3xl font-extrabold tracking-tight text-lede sm:text-4xl">
         {shown[i] ?? 0}{stat.suffix ?? ""}
       </span>
       <span class="meta-label mt-1 text-[10px] {$theme.text.muted} sm:text-xs">{stat.label}</span>
