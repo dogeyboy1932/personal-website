@@ -101,7 +101,7 @@
   .fx-drift-wall {
     display: grid;
     grid-template-columns: repeat(var(--dw-cols), minmax(0, 1fr));
-    gap: 0.5rem;
+    gap: 0.35rem;
     /* Perspective on the wall so the per-tile tilt has somewhere to happen. */
     perspective: 900px;
   }
@@ -117,7 +117,13 @@
       rotateY(calc(var(--dw-x, 0) * var(--dw-tilt) * var(--dw-depth)))
       rotateX(calc(var(--dw-y, 0) * var(--dw-tilt) * var(--dw-depth) * -1));
     transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
-    transform-style: preserve-3d;
+    /*
+      Deliberately NOT transform-style: preserve-3d. The tile itself rotates,
+      but it has no 3D children that need it — and with preserve-3d its
+      descendants join a 3D rendering context where they interleave with
+      unrelated elements instead of painting flat. That made the interest
+      popover render see-through, with the section behind bleeding into it.
+    */
   }
 
   /* The hovered tile comes forward and stops drifting, so it is easy to read. */
@@ -127,13 +133,21 @@
     z-index: 2;
   }
 
-  @media (max-width: 900px) {
+  /* Column count is a prop, but it can't survive every width — these floors
+     stop tiles collapsing to unreadable slivers on narrow screens. */
+  @media (max-width: 1100px) {
+    .fx-drift-wall {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 700px) {
     .fx-drift-wall {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 
-  @media (max-width: 560px) {
+  @media (max-width: 480px) {
     .fx-drift-wall {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
