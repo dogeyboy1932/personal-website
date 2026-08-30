@@ -64,7 +64,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Beginner,
           status: SkillStatus.Learning,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/d/d5/Rust_programming_language_black_logo.svg",
+            "https://cdn.simpleicons.org/rust/E2E8F0",
         },
         {
           name: "Bash",
@@ -160,14 +160,14 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://cdn.simpleicons.org/nodedotjs/5FA04E",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain.svg",
         },
         {
           name: "Express.js",
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://icon.icepanel.io/Technology/png-shadow-512/Express.png",
+            "https://cdn.simpleicons.org/express/E2E8F0",
         },
         {
           name: "Flask",
@@ -368,13 +368,6 @@ export const skillsData: SkillsData = {
             "https://imgs.search.brave.com/rdD8MIx6SCwI2j_ZmcAQWJH3iyKa_GlVfmmsQw3fWEE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9ibG9n/LmNocmlzdGlhbnBl/cm9uZS5jb20vd3At/Y29udGVudC91cGxv/YWRzLzIwMTgvMTAv/cHl0b3JjaC1sb2dv/LTMwMHgzMDAucG5n",
         },
         {
-          name: "SciNCL",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/e/e0/Git-logo.svg",
-        },
-        {
           name: "Scikit-learn",
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learning,
@@ -405,7 +398,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/9/98/Solidity_logo.svg",
+            "https://cdn.simpleicons.org/solidity/E2E8F0",
         },
       ],
     },
