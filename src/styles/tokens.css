@@ -62,9 +62,18 @@
   --lede: 250 204 21; /* yellow-400 */
 
   /* --- Effect-specific, so an effect can be retuned in isolation --------- */
-  /* Yellow, deliberately: "The yellow particles behind the title were really
-     good." The cursor trail is a SEPARATE token so the two never collide. */
-  --particles: var(--warm); /* FX:sparkles + gravity-stars */
+  /*
+    SILVER, not amber. It was var(--warm) on the strength of "The yellow
+    particles behind the title were really good", but with the beam behind the
+    hero brightened the two warm sources compounded and the whole title block
+    read yellow: "Make the particles color more white. It's still dim yellow
+    right now. Silvery white is what I want."
+
+    Deliberately brighter than --cursor (which is slate-200): these are small,
+    fast, and semi-transparent, so at slate-200 they read grey rather than
+    silver. --cursor stays separate so the trail and the sparkles never collide.
+  */
+  --particles: 241 245 249; /* slate-100 — FX:sparkles + gravity-stars */
   --cursor: 226 232 240; /* CursorParticles — silver, neutral on both themes */
   --rays: var(--brand); /* FX:side-rays                */
   --rain: 34 211 238; /* MatrixRain glyph head       */
@@ -76,6 +85,13 @@
   --halo-1: 34 211 238;
   --halo-2: 99 102 241;
   --halo-3: 168 85 247;
+  /* Neutral halo, for cards that must carry no hue. The experience cards were
+     wrapped in palette="violet", which is what put a purple rim on cards whose
+     own palette had already been made silver. ("The cards are still somewhat
+     purple...fix the border.") */
+  --halo-silver-1: 241 245 249;
+  --halo-silver-2: 203 213 225;
+  --halo-silver-3: 148 163 184;
 
   /* --- Status ----------------------------------------------------------- */
   --ok: 52 211 153; /* emerald-400 */
@@ -111,6 +127,9 @@ html:not(.dark) {
   --halo-1: 8 145 178;
   --halo-2: 79 70 229;
   --halo-3: 124 58 237;
+  --halo-silver-1: 100 116 139;
+  --halo-silver-2: 148 163 184;
+  --halo-silver-3: 71 85 105;
 
   --ok: 5 150 105;
   --bad: 225 29 72;

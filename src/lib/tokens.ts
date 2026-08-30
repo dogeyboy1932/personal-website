@@ -43,6 +43,9 @@ const NAMES = [
   "halo-1",
   "halo-2",
   "halo-3",
+  "halo-silver-1",
+  "halo-silver-2",
+  "halo-silver-3",
   "ok",
   "bad",
 ] as const;
@@ -58,7 +61,7 @@ const FALLBACK: Record<string, string> = {
   warm: "251, 191, 36",
   "warm-strong": "253, 230, 138",
   "warm-deep": "217, 119, 6",
-  particles: "251, 191, 36",
+  particles: "241, 245, 249",
   cursor: "226, 232, 240",
   rays: "34, 211, 238",
   rain: "34, 211, 238",
@@ -68,6 +71,9 @@ const FALLBACK: Record<string, string> = {
   "halo-1": "34, 211, 238",
   "halo-2": "99, 102, 241",
   "halo-3": "168, 85, 247",
+  "halo-silver-1": "241, 245, 249",
+  "halo-silver-2": "203, 213, 225",
+  "halo-silver-3": "148, 163, 184",
   ok: "52, 211, 153",
   bad: "251, 113, 133",
 };
