@@ -1,0 +1,38 @@
+updates.txt pass 18.
+
+TWO FAILURES OF THE SAME KIND, both mine, both worth remembering.
+
+1. I SHIPPED A CLASS THAT GENERATED NO CSS, AND SAID IT WAS FIXED.
+   Last pass set bg-slate-950/92 on the flip-card faces. Tailwind's default
+   opacity scale steps by 5, so /92 matches no utility and emitted nothing —
+   the faces ended up with NO background, strictly worse than the /50 and /80
+   they replaced. I then screenshotted the result and read it as 'much more
+   solid'. It was not; I saw what I expected to see.
+   This is the SECOND time on this site (bg-black/88 was the first), which means
+   knowing the rule was never the gap — checking was. Any non-multiple-of-5
+   Tailwind opacity now gets verified against a standalone tailwind build before
+   it is called done, and a computed-style read afterwards. Confirmed live this
+   time: rgba(2,6,23,0.984).
+
+2. FOUR PALETTES FOR ONE COMPLAINT.
+   'I don't like the colours in portfolio' drew three different palettes out of
+   me — unrelated hues, a wide neon arc, a narrow cyan->indigo ramp — before the
+   user spelled it out: 'Just make everything in experience white/silver.' The
+   note never moved because the variable was never WHICH hues; it was whether
+   that list should carry hue at all.
+   Recurring shape, now seen with club text colour, the portfolio ramp, and name
+   brightness: when N attempts at 'pick a better X' all fail, the answer is
+   usually 'no X', not 'the N+1th X'. Consider removing the property before
+   tuning it again.
+
+Also resolved: scroll-reveal rested at opacity 0, which is a pop-in with a blur
+transition attached — the blur was never visible because there was nothing to
+see it on. restOpacity now defaults to 1.
+
+Note for later: experienceThemes and cardThemes are deliberately SEPARATE tables
+now. 'Make the stack colourful' and 'make experience white/silver' are both
+standing requests and they contradict; one table would mean the next pass
+silently reverts one of them.
+
+Standing: /portfolio overflows 10px at 360px from an off-screen carousel slide.
+Pre-existing, flagged five passes, never in updates.txt.
