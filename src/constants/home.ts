@@ -24,6 +24,7 @@ export const homeHero = {
   // ("AI Engineer · MCS UIUC '26 · Chicago") but with the age dropped —
   // it dates a portfolio and recruiters don't need it.
   role: "AI Engineer",
+  age: "22",
   credential: "MCS @ UIUC '26",
   location: "Based in Chicago",
   // FX:quote-carousel — was a single `quote`/`voice` pair; the carousel cycles

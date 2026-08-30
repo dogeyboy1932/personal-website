@@ -12,8 +12,15 @@
   let primaryColor: string;
   let secondaryColor: string;
 
-  $: primaryColor = isDarkMode ? "#0066ff" : "#e69a0dd3";
-  $: secondaryColor = isDarkMode ? "#00ccff" : "#cb880dd3";
+  /* Colours from the --rain / --rain-tail tokens (src/styles/tokens.css) so a
+     site recolour picks the rain up too. */
+  function token(name: string, fallback: string) {
+    if (!browser) return fallback;
+    const raw = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return raw ? `rgb(${raw})` : fallback;
+  }
+  $: primaryColor = isDarkMode !== undefined ? token("--rain", "#22d3ee") : "#22d3ee";
+  $: secondaryColor = isDarkMode !== undefined ? token("--rain-tail", "#0e7490") : "#0e7490";
 
 
 

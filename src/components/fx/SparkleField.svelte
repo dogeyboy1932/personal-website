@@ -14,14 +14,14 @@
   Used by: src/routes/+page.svelte (hero title block)
 
   Tunables:
-    density     particles per 10,000 px^2 of container    default 0.9
+    density     particles per 10,000 px^2 of container    default 1.6
     minSize     smallest particle radius, px              default 0.6
     maxSize     largest particle radius, px               default 1.9
     gravity     downward acceleration, px/frame^2         default 0.0055
     drift       horizontal wander strength                default 0.16
     twinkle     seconds for a full opacity cycle          default 2.4
     pointerPull cursor attraction radius in px (0 = off)  default 130
-    color       "warm" (amber, matches logo/name) | "cool" (blue) | css color
+    color       null = use the --particles token; or an explicit "r, g, b"
 
   Particles that fall past the bottom respawn at the top, so the field is
   self-sustaining without unbounded allocation. Sized by ResizeObserver and
@@ -32,14 +32,14 @@
   import { browser } from "$app/environment";
   import { darkModeStore } from "../../lib/stores";
 
-  export let density = 0.9;
+  export let density = 1.6;
   export let minSize = 0.6;
   export let maxSize = 1.9;
   export let gravity = 0.0055;
   export let drift = 0.16;
   export let twinkle = 2.4;
   export let pointerPull = 130;
-  export let color: "warm" | "cool" | string = "warm";
+  export let color: string | null = null;
   let klass = "";
   export { klass as class };
 
@@ -105,17 +105,31 @@
   // Rebuild when the theme changes the particle color.
   $: if (browser && rgb) buildSprite();
 
+  /*
+    Colour comes from the --particles token (src/styles/tokens.css), read off
+    the document at runtime, so recolouring the site never means editing this
+    file. `color` overrides it per call site when a one-off is wanted.
+
+    Tokens are space-separated RGB channels; canvas needs comma-separated, hence
+    the split/join.
+  */
   $: isDark = $darkModeStore;
-  $: rgb =
-    color === "warm"
-      ? isDark
-        ? "255, 205, 120"
-        : "202, 138, 4"
-      : color === "cool"
-      ? isDark
-        ? "150, 200, 255"
-        : "37, 99, 235"
-      : color;
+  let tokenRgb = "34, 211, 238";
+  function readToken() {
+    if (!browser) return;
+    const raw = getComputedStyle(document.documentElement)
+      .getPropertyValue("--particles")
+      .trim();
+    if (raw) tokenRgb = raw.split(/\s+/).join(", ");
+  }
+  // Re-read on theme flip: the light palette redefines the token.
+  $: if (browser && isDark !== undefined) readToken();
+  /* Only a numeric triple is accepted as an override. A stale keyword from an
+     old call site would otherwise reach the canvas as rgba(warm, 1) and throw
+     during hydration, taking the rest of the page's onMount work with it. */
+  $: rgb = color && /^\s*\d+\s*[, ]\s*\d+\s*[, ]\s*\d+\s*$/.test(color)
+    ? color.trim().split(/[\s,]+/).join(", ")
+    : tokenRgb;
 
   const reducedMotion = () =>
     browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;

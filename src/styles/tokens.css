@@ -1,0 +1,97 @@
+/*
+  ============================================================================
+  COLOR TOKENS — the one place to change the site's colours.
+  ============================================================================
+
+  Requested directly: "we might end up changing colors a lot, which is why you
+  should encapsulate all color stuff in a css file rather than manually
+  changing colors yourself."
+
+  HOW TO RECOLOUR THE SITE
+  ------------------------
+  Change --brand-* below. Everything downstream follows: the AI Engineer line,
+  the hero sparkles, the side rays, the navbar pill, the card halos, the matrix
+  rain, the focus-card border glow, the "see full stack" button.
+
+  NAMING: `--brand-*`, not `--accent-*`. src/styles.css already defines an
+  `--accent` (an HSL triple, from the shadcn-style palette) inside @layer base,
+  which is emitted after this file and would silently win.
+
+  Values are SPACE-SEPARATED RGB CHANNELS, not `rgb(...)` strings — that is what
+  lets Tailwind's `<alpha-value>` work, so `text-accent`, `bg-accent/10` and
+  `border-accent/30` all resolve from one token.
+
+  Anything that needs a plain CSS colour (canvas fillStyle, SVG stops) reads the
+  same token via `rgb(var(--brand))`, so JS and CSS can never drift apart.
+
+  WHAT IS NOT HERE (yet)
+  ----------------------
+  src/lib/stores.ts still holds the large light/dark Tailwind-class tables for
+  structural surfaces, borders and per-card palettes. Those are literal utility
+  strings, not colour values, so they cannot be expressed as custom properties
+  without rewriting every consumer. The colours that actually get iterated on
+  live here; the rest stays there until it needs to move.
+  ============================================================================
+*/
+
+:root {
+  /* --- Accent: the site's signature colour ------------------------------ */
+  /* Cyan. Chosen over the previous blue because blue at this saturation sank
+     into the near-navy background; cyan sits far enough off it to read. */
+  --brand: 34 211 238; /* cyan-400  */
+  --brand-strong: 103 232 249; /* cyan-300  — hovers, highlights */
+  --brand-deep: 8 145 178; /* cyan-600  — light-theme text */
+  --brand-soft: 165 243 252; /* cyan-200  — gradient tails */
+
+  /* --- Warm: the logo / secondary voice --------------------------------- */
+  /* Kept amber so the logo and the accent never collapse into one colour. */
+  --warm: 251 191 36; /* amber-400 */
+  --warm-strong: 253 230 138; /* amber-200 */
+  --warm-deep: 217 119 6; /* amber-600 */
+
+  /* --- Effect-specific, so an effect can be retuned in isolation --------- */
+  --particles: var(--brand); /* FX:sparkles + gravity-stars */
+  --rays: var(--brand); /* FX:side-rays                */
+  --rain: 34 211 238; /* MatrixRain glyph head       */
+  --rain-tail: 14 116 144; /* MatrixRain glyph tail       */
+  --nav-pill: 255 255 255; /* FX:gooey-nav blob           */
+  --nav-pill-label: 11 11 15;
+
+  /* --- Card halo (FX:background-gradient) ------------------------------- */
+  --halo-1: 34 211 238;
+  --halo-2: 99 102 241;
+  --halo-3: 168 85 247;
+
+  /* --- Status ----------------------------------------------------------- */
+  --ok: 52 211 153; /* emerald-400 */
+  --bad: 251 113 133; /* rose-400    */
+}
+
+/*
+  Light theme. Only the tokens that must change are redefined — anything not
+  listed inherits from :root, so adding a token above never means remembering
+  to add it twice.
+*/
+html:not(.dark) {
+  --brand: 8 145 178; /* cyan-600 — needs to hold up on cream */
+  --brand-strong: 14 116 144; /* cyan-700 */
+  --brand-deep: 22 78 99; /* cyan-900 */
+  --brand-soft: 103 232 249;
+
+  --warm: 217 119 6;
+  --warm-strong: 180 83 9;
+  --warm-deep: 120 53 15;
+
+  --rain: 8 145 178;
+  --rain-tail: 165 243 252;
+
+  --nav-pill: 17 24 39;
+  --nav-pill-label: 248 250 252;
+
+  --halo-1: 8 145 178;
+  --halo-2: 79 70 229;
+  --halo-3: 124 58 237;
+
+  --ok: 5 150 105;
+  --bad: 225 29 72;
+}

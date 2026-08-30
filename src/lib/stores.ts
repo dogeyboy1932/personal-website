@@ -6,14 +6,20 @@ export const darkModeStore = writable(true);
 export const screenWidth = writable(0);
 
 // Derived breakpoint stores
+/*
+  Thresholds lowered: the hero switched to a single column below 1000px, which
+  collapsed the layout while there was still plenty of width. It now holds the
+  two-column form down to 820px. ("the page becomes mobile way too soon when I
+  shrink the window size...it should shrink a little more before converting")
+*/
 export const breakpoints = derived(screenWidth, ($width) => ({
-  isMobile: $width < 500,
-  isTablet: $width >= 500 && $width < 1000,
-  isDesktop: $width >= 1000,
-  isLarge: $width >= 1200,
-  
+  isMobile: $width < 460,
+  isTablet: $width >= 460 && $width < 820,
+  isDesktop: $width >= 820,
+  isLarge: $width >= 1100,
+
   // Responsive values
-  itemsPerSection: $width < 700 ? 1 : $width < 1000 ? 2 : 3,
+  itemsPerSection: $width < 640 ? 1 : $width < 980 ? 2 : 3,
 }));
 
 // Dark theme colors (the source of truth)

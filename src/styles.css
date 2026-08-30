@@ -1,3 +1,7 @@
+/* Colour tokens first — see src/styles/tokens.css. Single source of truth for
+   every colour the design iterates on. */
+@import "./styles/tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

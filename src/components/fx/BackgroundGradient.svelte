@@ -28,6 +28,7 @@
   so it forwards h-full/flex through `class` instead).
 -->
 <script lang="ts">
+  import { browser } from "$app/environment";
   import { darkModeStore } from "../../lib/stores";
 
   export let radius = "0.75rem";
@@ -42,20 +43,28 @@
 
   $: isDark = $darkModeStore;
 
-  // Each palette is a closed loop (first stop repeated last) so the 0%->100%
-  // background-position animation has no visible seam.
-  $: stops =
-    palette === "warm"
-      ? isDark
-        ? "#f59e0b, #fb7185, #fbbf24, #f97316, #f59e0b"
-        : "#d97706, #e11d48, #ca8a04, #ea580c, #d97706"
-      : palette === "violet"
-      ? isDark
-        ? "#a855f7, #6366f1, #d946ef, #7c3aed, #a855f7"
-        : "#7c3aed, #4f46e5, #c026d3, #6d28d9, #7c3aed"
-      : isDark
-      ? "#38bdf8, #a855f7, #22d3ee, #6366f1, #38bdf8"
-      : "#0284c7, #7c3aed, #0891b2, #4f46e5, #0284c7";
+  /*
+    Halo colours come from the --halo-* tokens (src/styles/tokens.css) rather
+    than being hardcoded per palette, so a site recolour reaches the cards.
+    `palette` still shifts the mix so project and experience cards read
+    differently without needing separate tokens.
+  */
+  const paletteOrder: Record<string, string[]> = {
+    aurora: ["--halo-1", "--halo-2", "--halo-3"],
+    violet: ["--halo-3", "--halo-2", "--halo-1"],
+    warm: ["--warm", "--halo-3", "--halo-1"],
+  };
+
+  let stops = "rgb(34 211 238), rgb(99 102 241), rgb(168 85 247)";
+  $: if (browser && isDark !== undefined && palette) {
+    const names = paletteOrder[palette] ?? paletteOrder.aurora;
+    const cs = getComputedStyle(document.documentElement);
+    const parts = names
+      .map((n) => cs.getPropertyValue(n).trim())
+      .filter(Boolean)
+      .map((v) => `rgb(${v})`);
+    if (parts.length) stops = parts.join(", ");
+  }
 </script>
 
 <div

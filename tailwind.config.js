@@ -14,6 +14,26 @@ export default {
     },
     extend: {
       colors: {
+        /*
+          Token-backed colours. Defined in src/styles/tokens.css as space-
+          separated RGB channels, which is what makes <alpha-value> work — so
+          `text-brand`, `bg-brand/10` and `border-brand/30` all come from one
+          custom property. Recolour the site by editing that file, not here.
+        */
+        brand: {
+          DEFAULT: "rgb(var(--brand) / <alpha-value>)",
+          strong: "rgb(var(--brand-strong) / <alpha-value>)",
+          deep: "rgb(var(--brand-deep) / <alpha-value>)",
+          soft: "rgb(var(--brand-soft) / <alpha-value>)",
+        },
+        warm: {
+          DEFAULT: "rgb(var(--warm) / <alpha-value>)",
+          strong: "rgb(var(--warm-strong) / <alpha-value>)",
+          deep: "rgb(var(--warm-deep) / <alpha-value>)",
+        },
+        ok: "rgb(var(--ok) / <alpha-value>)",
+        bad: "rgb(var(--bad) / <alpha-value>)",
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
