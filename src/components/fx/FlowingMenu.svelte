@@ -134,17 +134,22 @@
     border-radius: 0.6rem;
   }
 
+  /* Flag LEFT of the name, not stacked above it. ("The flag icon should be
+     left of the country name.") Row + centred as a pair, so short and long
+     names both sit balanced in the cell. */
   .is-grid .fx-fm-face {
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     justify-content: center;
-    gap: 0.15rem;
+    gap: 0.55rem;
     padding: 0 0.5rem;
-    text-align: center;
+    text-align: left;
   }
 
   /* Bigger on request: "Countries is too small. Make flag and text bigger." */
   .is-grid .fx-fm-badge {
-    font-size: 2rem;
+    font-size: 1.9rem;
+    flex-shrink: 0;
   }
 
   .is-grid .fx-fm-label {
