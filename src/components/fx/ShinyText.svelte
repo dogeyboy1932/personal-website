@@ -42,20 +42,25 @@
     the whole left side one colour.
   */
   /*
-    CONTRAST between stops is what makes a gradient legible, and this ramp had
-    almost none: #f8fafc, #cbd5e1, #ffffff, #e2e8f0 span roughly 92%-100%
-    lightness, so the sweep was a barely-visible shimmer on an already-white
-    word. ("make my name in the navbar more obvious gradient. It's a bit hard to
-    see the contrast in gradient.")
+    Two corrections in sequence, both from the navbar name.
 
-    Still silver — the earlier note "my name in the navbar should be more
-    white/silvery not yelow/ambery" stands — but the dark stops now drop to
-    slate-500/600, roughly 45% lightness. Same hue family, ~50 points of
-    lightness travel instead of ~8.
+    First: "hard to see the contrast in gradient." The ramp was #f8fafc,
+    #cbd5e1, #ffffff, #e2e8f0 — about 8 points of lightness travel on an
+    already-white word.
+
+    Then: "Don't use ash gray." My answer to the first had been slate-500/600
+    dark stops, which is exactly ash grey, and on a black navbar those stops
+    read as holes punched in the word rather than as shading.
+
+    The way out is not a third lightness: it is to stop asking the FILL to
+    carry the contrast. The fill is now a tight bright silver — nothing below
+    #cbd5e1, so no glyph is ever dim — and the visible movement comes entirely
+    from the specular highlight sweeping over it, which is a much stronger
+    signal than a 50-point ramp because it MOVES against a static base.
   */
   $: ramp = isDark
-    ? "#64748b, #f1f5f9, #ffffff, #94a3b8, #64748b"
-    : "#cbd5e1, #334155, #0f172a, #475569, #cbd5e1";
+    ? "#cbd5e1, #ffffff, #e2e8f0, #ffffff, #cbd5e1"
+    : "#475569, #0f172a, #334155, #0f172a, #475569";
 
   $: shineColor = isDark ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.9)";
   $: baseColor = isDark ? "#e2e8f0" : "#334155";
@@ -64,13 +69,17 @@
   $: useShine = variant === "shine" || variant === "both";
 
   // Layer 1 (top) = the moving highlight, or nothing when shine is off.
+  /* 90deg, not 110deg: at 110 the band is raked, so it crosses the top of the
+     word before the bottom and the highlight appears to travel diagonally.
+     ("The gradient movement in my name looks hideous...left to right is what I
+     wanna see.") A vertical band moving on X is a clean left-to-right wipe. */
   $: shineLayer = useShine
-    ? `linear-gradient(110deg, transparent 25%, ${shineColor} 45%, ${shineColor} 55%, transparent 75%)`
+    ? `linear-gradient(90deg, transparent 30%, ${shineColor} 47%, ${shineColor} 53%, transparent 70%)`
     : "linear-gradient(transparent, transparent)";
 
   // Layer 2 (bottom) = the color the glyphs actually read as.
   $: fillLayer = useGradient
-    ? `linear-gradient(110deg, ${ramp})`
+    ? `linear-gradient(90deg, ${ramp})`
     : `linear-gradient(${baseColor}, ${baseColor})`;
 </script>
 
@@ -89,7 +98,8 @@
   .is-animated {
     background-image: var(--fx-shine-layer), var(--fx-fill-layer);
     background-size: 220% 100%, 300% 100%;
-    background-position: 180% 50%, 0% 50%;
+    /* Highlight parked off the LEFT edge; see the keyframes note. */
+    background-position: -80% 50%, 0% 50%;
     background-repeat: no-repeat;
     -webkit-background-clip: text;
     background-clip: text;
@@ -98,6 +108,13 @@
   }
 
   /*
+    DIRECTION. Percentage background-position interpolates from the image's
+    left edge toward the box's right edge, so an INCREASING percentage moves
+    the layer rightward. The old keyframes ran 180% -> -80%, i.e. right to
+    left, which with a 110deg raked band read as a diagonal wipe travelling the
+    wrong way. Now -80% -> 180%: the highlight enters at the left edge, crosses,
+    and exits right. ("left to right is what I wanna see")
+
     Percentage background-position aligns image edge to box edge, so with
     no-repeat the usable travel is 0%..100% regardless of background-size.
     The fill layer must stay inside that range — push it negative and the
@@ -111,10 +128,10 @@
   */
   @keyframes fx-shiny {
     0% {
-      background-position: 180% 50%, 0% 50%;
+      background-position: -80% 50%, 0% 50%;
     }
     100% {
-      background-position: -80% 50%, 100% 50%;
+      background-position: 180% 50%, 100% 50%;
     }
   }
 
@@ -122,7 +139,7 @@
     .is-animated {
       animation: none;
       /* Park the highlight off-glyph and show the ramp at a fixed offset. */
-      background-position: 180% 50%, 50% 50%;
+      background-position: -80% 50%, 50% 50%;
     }
   }
 </style>
