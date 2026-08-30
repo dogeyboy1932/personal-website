@@ -1,0 +1,30 @@
+DEVLOG — updates.txt sixth pass (47eb65a, HEAD)
+
+/more compaction was decided by INTERVIEW, not by me guessing. Answers:
+  - interests: denser grid, smaller cards, nothing hidden
+  - travel: 'a bit of a problem, let's talk further later' + countries
+    shouldn't take a full row each + comment out the descriptions for now
+  - leadership + honors: fuse somewhat but they must NOT look the same;
+    leadership has more to articulate later, honors should be compact
+  - target: 2 screens 'for now, possible we may do a bit more'
+Result: 2798px -> 1895px at 1440x950.
+
+TRAVEL IS INTERIM, NOT FINAL. The countries grid is a holding pattern; the
+per-country notes are parked (data still in more.ts, rendering commented,
+note kept as a title attribute) and FlowingMenu is left in the tree unused so
+the row treatment can be restored. Do not treat this as a settled design.
+
+/more is expected to GROW again — 'later we'll add more stuff and content on
+the more page'. Leadership was deliberately left roomy for that reason.
+
+THEME TRAP worth remembering: accent.yellow.bg is 'bg-amber-50/50' — a LIGHT
+amber even in the DARK theme. Muted slate text on it is invisible. The Eagle
+Scout chip uses literal amber-400/amber-950 rather than the ramp. Check the
+actual value before assuming a dark-theme token is dark.
+
+SIDE BEAMS: presence is bought with blade WIDTH and OPACITY, not count.
+Width is nearly free; each extra blade composites over two live canvases in
+overlay mode. Current: 6 blades, 2.2-5.5vw, opacity 0.62, spread 86deg, 60fps.
+
+FIND ME: label is absolutely centred OVER the icon row so hover swaps one for
+the other in place and the pill never resizes.
