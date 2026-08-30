@@ -73,6 +73,12 @@
     below 0.34 was dimming to stop it washing the hero copy; since it moved
     behind the z-10 grid that constraint is gone, and "make the beam a bit
     brighter" can simply be answered.
+
+    THE BEAM STAYS WARM. I briefly made it silver, reading "It's still dim
+    yellow right now. Silvery white is what I want" as being about this layer,
+    since by then it was the only warm source left in the hero. It is not:
+    "keep beam yellow. revert". The amber wash is intended; the notes about
+    yellow were about the sparkles, which are pure white as of the last pass.
   -->
   <SideRays
     side="right"
@@ -120,7 +126,13 @@
       <div class="relative flex items-center justify-center p-4 rounded-xl">
         <!-- FX:sparkles FX:gravity-stars — covers the whole title block: name,
              university and the three social links -->
-        <SparkleField density={6} pointerPull={150} />
+        <!-- Reaches ~24px above the title block and ~110px below it, which
+             lands inside the blurb without passing it. ("make particles in hero
+             descend further into the blurb section but not further than that.
+             Particles can also go a little bit higher") The field is
+             pointer-events:none, so covering the blurb costs no selection or
+             link behaviour. -->
+        <SparkleField density={6} pointerPull={150} bleedTop={24} bleedBottom={110} />
         <!-- /FX:sparkles /FX:gravity-stars -->
 
         <div class="relative z-10 text-left">

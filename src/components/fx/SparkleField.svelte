@@ -47,6 +47,22 @@
   export let twinkle = 3.2;
   export let pointerPull = 130;
   export let color: string | null = null;
+  /**
+   * Px the field extends ABOVE and BELOW its container.
+   *
+   * ("make particles in hero descend further into the blurb section but not
+   * further than that. Particles can also go a little bit higher")
+   *
+   * Props rather than a class on the host, because the host's own scoped rule
+   * `.fx-sparkle-field { inset: 0 }` carries higher specificity than a Tailwind
+   * `-top-5` utility and would silently win. These feed custom properties the
+   * same rule reads, so there is nothing to lose a specificity race with.
+   *
+   * `density` is per 10,000px^2, so the particle count scales with the new area
+   * on its own — the field gets taller, not sparser.
+   */
+  export let bleedTop = 0;
+  export let bleedBottom = 0;
   let klass = "";
   export { klass as class };
 
@@ -282,7 +298,12 @@
   });
 </script>
 
-<div bind:this={host} class="fx-sparkle-field {klass}" aria-hidden="true">
+<div
+  bind:this={host}
+  class="fx-sparkle-field {klass}"
+  style="--sf-top: {-bleedTop}px; --sf-bottom: {-bleedBottom}px;"
+  aria-hidden="true"
+>
   <canvas bind:this={canvas} />
 </div>
 
@@ -290,6 +311,9 @@
   .fx-sparkle-field {
     position: absolute;
     inset: 0;
+    /* Overridden by the bleed props; 0 by default so this is inset:0. */
+    top: var(--sf-top, 0px);
+    bottom: var(--sf-bottom, 0px);
     pointer-events: none;
     overflow: hidden;
   }
