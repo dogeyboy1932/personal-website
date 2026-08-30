@@ -70,7 +70,11 @@
         <!-- /FX:gooey-nav -->
 
         <!-- Theme Toggle -->
-        <!-- <ThemeToggle /> -->
+        <!-- Restored. It had been commented out, which is why the light
+             theme rotted unnoticed: every pass for weeks rendered dark-only, so
+             hardcoded dark surfaces went in without anything surfacing them.
+             The toggle is the only way light mode gets exercised. -->
+        <ThemeToggle />
       </div>
     </div>
   </div>
