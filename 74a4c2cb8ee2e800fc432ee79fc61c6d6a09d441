@@ -1,0 +1,35 @@
+updates.txt pass 22.
+
+A REGRESSION I COULD NOT HAVE SEEN, AND WHY.
+
+'the bloody card won't flip' traced to setPointerCapture running on pointerdown
+in OptionWheel — while a pointer is captured the browser dispatches the CLICK at
+the capturing element, so every click landed on .fx-ow-track and the FlipCard
+button never got one. I added that capture two passes earlier for drag
+tracking.
+
+The reason it survived: after every wheel change I verified rotate-by-scroll,
+rotate-by-drag, and page-scroll-isolation, because those were what the notes had
+been about. Click-to-flip was the ONE interaction I never re-checked, and it was
+the only one capture could break. A component with four interactions needs all
+four tested after any change to input handling, not just the ones under
+discussion. That is now written into the commit as an explicit four-line check.
+
+SECOND, A PROPERTY THAT NO PER-ITEM FUNCTION CAN HOLD.
+'two of the SAME color can never be side by side' cannot be satisfied by
+getTechColor(tech, index), no matter how the hash is tuned, because 'differs
+from my neighbour' is a property of the SEQUENCE and the function only sees one
+item. The fix had to move up a level to getTechColors(row, palette).
+
+Worth generalising: when a requirement mentions a relationship between
+neighbouring items, the code that satisfies it must be able to SEE both. If the
+current function signature cannot, no amount of adjusting its internals will
+work — change the signature.
+
+Measured before changing anything: 7 adjacent clashes in 76 pairs across 19 real
+rows. Measuring the old behaviour first is what turned 'this might collide
+sometimes' into a number, and confirmed the fix was needed rather than
+hypothetical. After: 0 in 76.
+
+Standing: /portfolio overflows 10px at 360px from an off-screen carousel slide.
+Pre-existing, flagged nine passes, never in updates.txt.
