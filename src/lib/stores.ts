@@ -5,22 +5,48 @@ export const darkModeStore = writable(true);
 // Screen width store
 export const screenWidth = writable(0);
 
-// Derived breakpoint stores
-/*
-  Thresholds lowered: the hero switched to a single column below 1000px, which
-  collapsed the layout while there was still plenty of width. It now holds the
-  two-column form down to 820px. ("the page becomes mobile way too soon when I
-  shrink the window size...it should shrink a little more before converting")
-*/
-export const breakpoints = derived(screenWidth, ($width) => ({
-  isMobile: $width < 460,
-  isTablet: $width >= 460 && $width < 820,
-  isDesktop: $width >= 820,
-  isLarge: $width >= 1100,
+/**
+ * Physical screen width, used to derive the mobile threshold.
+ *
+ * Requested as a proportion rather than a pixel value: "when window size is
+ * less than 40% width, then shift to mobile mode." So the switch tracks how
+ * much of the DISPLAY the window occupies, not an absolute size — dragging a
+ * window to a third of a 27" monitor and to a third of a laptop both feel the
+ * same, which a fixed px breakpoint can't express.
+ *
+ * Clamped: 40% of a very small screen would put the threshold below phone
+ * width, and 40% of an ultrawide would collapse a perfectly usable window.
+ */
+export const displayWidth = writable(1920);
 
-  // Responsive values
-  itemsPerSection: $width < 640 ? 1 : $width < 980 ? 2 : 3,
-}));
+// Derived breakpoint stores
+/** 40% of the display, clamped to a sane pixel band. See displayWidth. */
+export const MOBILE_FRACTION = 0.4;
+const MOBILE_MIN = 520;
+const MOBILE_MAX = 900;
+
+export const breakpoints = derived(
+  [screenWidth, displayWidth],
+  ([$width, $display]) => {
+    const threshold = Math.min(
+      MOBILE_MAX,
+      Math.max(MOBILE_MIN, $display * MOBILE_FRACTION)
+    );
+
+    return {
+      isMobile: $width < threshold,
+      isTablet: $width >= threshold && $width < threshold * 1.35,
+      isDesktop: $width >= threshold,
+      isLarge: $width >= threshold * 1.6,
+
+      /** Exposed so a layout can explain itself while debugging. */
+      mobileThreshold: threshold,
+
+      // Responsive values
+      itemsPerSection: $width < threshold ? 1 : $width < threshold * 1.5 ? 2 : 3,
+    };
+  }
+);
 
 // Dark theme colors (the source of truth)
 export const darkTheme = {

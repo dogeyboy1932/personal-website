@@ -325,8 +325,11 @@
   }
 
   .fx-goo-item {
-    /* Display face, matching headings — see tailwind.config fontFamily. */
-    font-family: "Chivo", "Space Grotesk", Inter, sans-serif;
+    /* Fredoka — navbar only, on request. Rounded and friendlier than the
+       Chivo used for headings, which read as too robotic here. */
+    font-family: "Fredoka", "Chivo", Inter, sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.02em;
     display: flex;
     align-items: center;
     gap: 0.5rem;

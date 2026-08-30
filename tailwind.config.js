@@ -97,6 +97,10 @@ export default {
       fontFamily: {
         sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
         mono: ["JetBrains Mono", "Menlo", "Monaco", "monospace"],
+        // NAVBAR ONLY. "the font for the navbar options is a little more
+        // robotic...make it more 'comicy'. Just the navbar." Kept as its own
+        // family rather than folded into `display` so it cannot leak elsewhere.
+        nav: ["Fredoka", "Chivo", "Inter", "sans-serif"],
         // Chivo is the display face everywhere structural — headings, section
         // labels, nav, badges, stat numbers — via `font-display`. Body copy
         // stays Inter: Chivo is a display grotesque and long paragraphs get

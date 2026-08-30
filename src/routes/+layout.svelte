@@ -8,7 +8,16 @@ import { CursorParticles } from "../components/PORTFOLIO";
   import { fade, fly } from "svelte/transition";
 
   import { lastUpdated } from "../constants/";
-  import { screenWidth, theme } from "../lib/stores";
+  import { screenWidth, displayWidth, theme } from "../lib/stores";
+  import { onMount } from "svelte";
+
+  // Physical display width drives the mobile threshold (40% of it).
+  onMount(() => {
+    const sync = () => displayWidth.set(window.screen?.width || window.innerWidth);
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
+  });
 
   export const fonts = {
     primary: "font-sans", // Inter for body text
