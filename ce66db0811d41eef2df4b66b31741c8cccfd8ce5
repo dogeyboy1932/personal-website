@@ -1,0 +1,34 @@
+updates.txt pass 15.
+
+REGRESSION I SHIPPED, and why my test could not have caught it (line 14).
+Last pass I moved the option-wheel's scroll handlers from the track onto the
+individual cards, reasoning that a card's transformed box is exactly the
+pixels the cursor can see. That broke scrolling entirely: 'The ENTIRE page is
+scrolling down when I just try to scroll the wheel.'
+
+Wheel gestures are LATCHED. The browser picks a scroll target when the gesture
+begins and sends the rest of the gesture there. The cards are transform-animated
+and scale down as they leave centre, so the moment the wheel turns, the element
+under the cursor slides out from under it; one missed event hands the whole
+remaining gesture to the document.
+
+RULE: a scroll-capture region must not be the thing that moves.
+
+My verification was also structurally incapable of finding it — a single
+mouse.wheel() call is ONE event, and latching only exists across a multi-event
+gesture. Testing a gesture-based behaviour with a single event tests nothing.
+Generalised: match the granularity of the test to the granularity of the
+mechanism. Now checked with 4-5 successive events at three cursor positions.
+
+Line 6 finally resolved the club-colour thread by the user naming the colours
+outright (orange / yellow / warm-not-evil red). Worth noting the sequence: five
+passes guessing hues, one pass removing colour from text entirely (correct, and
+it stuck), then one pass applying named colours to the non-text surfaces. The
+neutral-text decision from pass 14 survived contact with 'make them orange,
+yellow, red' — which is the evidence it was the right structural call rather
+than a lucky guess.
+
+Line 12 ('move mainly focused on higher') took three passes because I kept
+shaving margins. It resolved when a whole BAND between the two sections moved
+into the hero column for an unrelated reason (line 19). Shaving px off a gap
+cannot compete with deleting the element occupying it.
