@@ -32,80 +32,63 @@
   /** Same shape Lichess accepts: 2-30 chars, alphanumeric plus _ and -. */
   const USERNAME_RE = /^[a-zA-Z0-9][\w-]{1,29}$/;
 
+  /** Render with its own card border/background. Off when nested. */
+  export let standalone = false;
+
   let username = "";
-  let checking = false;
   let sending = false;
 
-  type State = "idle" | "valid" | "invalid" | "sent" | "error";
+  type State = "idle" | "sent" | "error";
   let state: State = "idle";
   let message = "";
   let handoffUrl: string | null = null;
 
-  /** Render with its own card border/background. Off when nested. */
-  export let standalone = false;
+  /*
+    VALIDATION HAPPENS ON SUBMIT ONLY.
+    ("There shouldn't be an error as I type into the input...there should be a
+    trigger only when I hit the challenge button.")
 
-  let debounce: ReturnType<typeof setTimeout>;
-  /** Guards against an earlier, slower check overwriting a newer one. */
-  let checkId = 0;
+    This used to check as you typed: a 400ms debounce fired a request to the
+    public Lichess profile endpoint on every pause, so the field went red while
+    you were still halfway through your own name. Typing four characters of a
+    nine-character username is not an error, but it looked like one.
 
+    All of that is gone — no debounce, no in-flight request id, no `checking`
+    state. The only thing typing does now is clear a previous result, so a stale
+    error does not sit there contradicting the box you are editing.
+
+    The existence check did not need a client round trip either: the server
+    endpoint already validates format, resolves the user, and distinguishes
+    not_found / cannot_challenge / not_configured. One request on submit now
+    does what two used to.
+  */
   function onInput() {
-    clearTimeout(debounce);
-    handoffUrl = null;
-    const value = username.trim();
-
-    if (!value) {
+    if (state !== "idle") {
       state = "idle";
       message = "";
-      return;
-    }
-    if (!USERNAME_RE.test(value)) {
-      state = "invalid";
-      message = "That doesn't look like a Lichess username.";
-      return;
-    }
-    debounce = setTimeout(() => verify(value), 400);
-  }
-
-  async function verify(value: string) {
-    const id = ++checkId;
-    checking = true;
-    try {
-      const res = await fetch(`https://lichess.org/api/user/${encodeURIComponent(value)}`);
-      if (id !== checkId) return; // a newer keystroke already superseded this
-      if (res.status === 404) {
-        state = "invalid";
-        message = `No Lichess user "${value}".`;
-      } else if (!res.ok) {
-        state = "invalid";
-        message = "Couldn't reach Lichess.";
-      } else {
-        const data = await res.json().catch(() => ({}));
-        if (data?.disabled || data?.tosViolation) {
-          state = "invalid";
-          message = `"${value}" can't be challenged.`;
-        } else {
-          state = "valid";
-          message = `${value} found.`;
-        }
-      }
-    } catch {
-      if (id !== checkId) return;
-      state = "invalid";
-      message = "Couldn't reach Lichess.";
-    } finally {
-      if (id === checkId) checking = false;
+      handoffUrl = null;
     }
   }
 
   async function send() {
-    if (state !== "valid" || sending) return;
+    const value = username.trim();
+    if (!value || sending) return;
+
+    // Cheap local shape check first, so an obviously bad value never leaves the
+    // browser. Everything else is the server's call.
+    if (!USERNAME_RE.test(value)) {
+      state = "error";
+      message = "That doesn't look like a Lichess username.";
+      return;
+    }
+
     sending = true;
     handoffUrl = null;
     try {
       const res = await fetch("/api/chess-challenge", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: username.trim() }),
+        body: JSON.stringify({ username: value }),
       });
       const data = await res.json().catch(() => null);
 
@@ -130,9 +113,9 @@
   }
 
   $: ringClass =
-    state === "invalid" || state === "error"
+    state === "error"
       ? "border-rose-400/70 focus:border-rose-300"
-      : state === "valid" || state === "sent"
+      : state === "sent"
       ? "border-emerald-400/70 focus:border-emerald-300"
       : `${$theme.border.light} focus:border-slate-400`;
 </script>
@@ -155,7 +138,8 @@
   <!-- Stacked, not side by side: this column is much narrower now that the
        form sits beside the rating rather than under it. -->
   <form class="flex flex-col gap-2" on:submit|preventDefault={send}>
-    <div class="relative flex-1">
+    <!-- `group` + `relative` are the tooltip's anchor and trigger. -->
+    <div class="group relative flex-1">
       <input
         bind:value={username}
         on:input={onInput}
@@ -164,50 +148,85 @@
         spellcheck="false"
         placeholder="your lichess username"
         aria-label="Lichess username"
-        aria-invalid={state === "invalid" || state === "error"}
+        aria-invalid={state === "error"}
+        aria-describedby={state === "error" ? "chess-challenge-error" : undefined}
         class="w-full rounded-xl border-2 {$theme.bg.cardSolid} px-3 py-2.5 pr-9 text-sm outline-none transition-colors {$theme.text.primary} {ringClass}"
       />
 
       <!-- Status glyph, so the state reads without relying on colour alone -->
       <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
-        {#if checking}
+        {#if sending}
           <Loader2 class="h-4 w-4 animate-spin {$theme.text.dim}" />
-        {:else if state === "valid" || state === "sent"}
+        {:else if state === "sent"}
           <Check class="h-4 w-4 text-emerald-400" />
-        {:else if state === "invalid" || state === "error"}
+        {:else if state === "error"}
           <X class="h-4 w-4 text-rose-400" />
         {/if}
       </span>
+
+      <!--
+        THE ERROR IS A TOOLTIP. ("Also the error should be a hover text")
+
+        It sits above the field rather than below it, so it cannot push the
+        Challenge button down — the reason this whole block used to reserve
+        32px of permanent empty space underneath the form.
+
+        Shown on hover OR focus-within: a keyboard user never hovers, and an
+        error you can only reach with a mouse is not reachable at all for them.
+        pointer-events-none so the bubble can never sit between the cursor and
+        the input it is describing.
+      -->
+      {#if state === "error"}
+        <span
+          id="chess-challenge-error"
+          role="tooltip"
+          class="pointer-events-none absolute bottom-full left-0 z-20 mb-2 w-max max-w-[15rem] rounded-lg border border-rose-400/50 bg-slate-950 px-2.5 py-1.5 text-xs leading-snug text-rose-300 opacity-0 shadow-xl transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100"
+        >
+          {message}
+          {#if handoffUrl}
+            <a
+              href={handoffUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="pointer-events-auto mt-1 inline-flex items-center gap-1 underline underline-offset-4 hover:opacity-80"
+            >
+              Challenge me on Lichess <ExternalLink class="h-3 w-3" />
+            </a>
+          {/if}
+        </span>
+      {/if}
     </div>
 
+    <!--
+      Enabled whenever there is something to send. It used to be
+      `disabled={state !== "valid"}`, which only unlocked once the as-you-type
+      check had passed — with that check gone, the button IS the trigger, so
+      gating it on a validation that no longer runs would leave it permanently
+      dead.
+    -->
     <button
       type="submit"
-      disabled={state !== "valid" || sending}
+      disabled={!username.trim() || sending}
       class="w-full rounded-xl border-2 px-4 py-2.5 font-display text-xs font-bold uppercase tracking-[0.18em] transition-all disabled:cursor-not-allowed disabled:opacity-40 {$theme.accent.orange.border} {$theme.accent.orange.bg} {$theme.text.primary} hover:enabled:scale-[1.03]"
     >
       {sending ? "Sending" : "Challenge"}
     </button>
   </form>
 
-  <!-- aria-live so the result is announced, not just shown -->
+  <!--
+    Success only, and it collapses to zero height when there is none — so the
+    button sits flush with the bottom of the card at rest. The old version
+    reserved min-h-[1.25rem] plus mt-3 permanently, which is where the empty
+    space below the button came from.
+
+    Errors do NOT come through here any more; they are the tooltip above. This
+    element is still aria-live so a screen reader is told about a success, and
+    the error tooltip carries its own aria-describedby.
+  -->
   <p
-    class="mt-3 min-h-[1.25rem] text-xs {state === 'invalid' || state === 'error'
-      ? 'text-rose-400'
-      : state === 'valid' || state === 'sent'
-      ? 'text-emerald-400'
-      : $theme.text.dim}"
+    class="text-xs text-emerald-400 {state === 'sent' ? 'mt-3' : ''}"
     aria-live="polite"
   >
-    {message}
-    {#if handoffUrl}
-      <a
-        href={handoffUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="ml-1 inline-flex items-center gap-1 underline underline-offset-4 hover:opacity-80"
-      >
-        Challenge me on Lichess <ExternalLink class="h-3 w-3" />
-      </a>
-    {/if}
+    {state === "sent" ? message : ""}
   </p>
 </div>
