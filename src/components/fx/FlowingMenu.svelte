@@ -237,16 +237,43 @@
     align-items: center;
     overflow: hidden;
     background: linear-gradient(90deg, #f59e0b, #fb923c, #f59e0b);
-    /* --fm-dir is -1 when the pointer crossed the top edge and 1 when it
-       crossed the bottom, so the panel always arrives from where you came. */
-    transform: translateY(calc(var(--fm-dir) * -100%));
-    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    /*
+      --fm-dir is -1 when the pointer crossed the top edge and 1 when it
+      crossed the bottom, so the panel always arrives from where you came.
+
+      101%, not 100%, and visibility:hidden on top of it. ("when I mount 'more'
+      the countries card has an orange line that appears at the top of the card
+      occassionally...I don't want that to happen")
+
+      At exactly 100% the panel's edge lands exactly on the row's edge, and the
+      row is clipped by overflow:hidden on a rounded, fractionally-positioned
+      grid cell. Rounding at that boundary leaves a sub-pixel of orange showing
+      — intermittently, because whether it rounds in or out depends on the
+      cell's fractional y, which changes with viewport width and with the
+      transform scroll-reveal applies while the page is mounting. That is
+      exactly the "occasionally" in the report.
+
+      101% moves the edge off the boundary entirely. visibility is the
+      guarantee: at rest the panel is not painted at all, so no rounding rule
+      can expose it. Its transition is delayed by the slide duration so the
+      panel stays visible for the whole slide OUT, then stops being painted.
+    */
+    transform: translateY(calc(var(--fm-dir) * -101%));
+    visibility: hidden;
+    transition:
+      transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 420ms;
     pointer-events: none;
   }
 
   .fx-fm-row:hover .fx-fm-panel,
   .fx-fm-row:focus-within .fx-fm-panel {
     transform: translateY(0);
+    visibility: visible;
+    /* No delay on the way in — it must be painted before the slide starts. */
+    transition:
+      transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 0s;
   }
 
   .fx-fm-marquee {
@@ -290,6 +317,15 @@
     .fx-fm-panel,
     .fx-fm-face {
       transition: none;
+    }
+    /* With no transform transition the panel would jump; keep it unpainted at
+       rest so the reduced-motion path cannot show the sliver either. */
+    .fx-fm-panel {
+      visibility: hidden;
+    }
+    .fx-fm-row:hover .fx-fm-panel,
+    .fx-fm-row:focus-within .fx-fm-panel {
+      visibility: visible;
     }
     .fx-fm-marquee {
       animation: none;
