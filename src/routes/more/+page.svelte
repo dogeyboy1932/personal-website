@@ -9,7 +9,8 @@
     StatStrip,
     TravelSection,
     InterestGrid,
-    LeadershipSection,
+    LeadershipRoles,
+    CampusClubs,
     HonorShelf,
     ConnectFooter,
     ChessChallenge,
@@ -115,10 +116,11 @@
     <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[2].label}</h3>
 
     <div class="grid items-stretch gap-5 lg:grid-cols-[1.5fr_1fr]">
-      <LeadershipSection leadership={more.leadership ?? []} {clubs} show="roles" />
+      <LeadershipRoles leadership={more.leadership ?? []} />
 
       <div class="flex h-full flex-col gap-4">
-        <LeadershipSection leadership={more.leadership ?? []} {clubs} show="clubs" />
+        <!-- exclude: names already spotlighted above must not repeat here. -->
+        <CampusClubs {clubs} exclude={(more.leadership ?? []).map((l) => l.org)} />
 
         <HonorShelf honors={more.honors ?? []} class="flex-1" />
       </div>

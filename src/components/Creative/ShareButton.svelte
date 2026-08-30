@@ -21,8 +21,7 @@
   icons instead of the group collapsing the moment hover ends.
 -->
 <script lang="ts">
-  import { Instagram, MessageCircle, Mail, Github, Linkedin, Check, Copy } from "lucide-svelte";
-  import KnightIcon from "../icons/KnightIcon.svelte";
+  import { Instagram, MessageCircle, Mail, Github, Linkedin, Check, Copy, ChessKnightIcon } from "lucide-svelte";
   import { theme } from "../../lib/stores";
   import type { SocialHandle } from "../../types";
 
@@ -38,7 +37,7 @@
     instagram: Instagram,
     discord: MessageCircle,
     // A knight, not a crown — the crown reads as king/queen.
-    lichess: KnightIcon,
+    lichess: ChessKnightIcon,
     mail: Mail,
     github: Github,
     linkedin: Linkedin,

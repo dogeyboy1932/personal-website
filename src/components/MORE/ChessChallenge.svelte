@@ -25,8 +25,7 @@
   the token exists rather than being dead UI.
 -->
 <script lang="ts">
-  import { Check, X, Loader2, ExternalLink } from "lucide-svelte";
-  import KnightIcon from "../icons/KnightIcon.svelte";
+  import { Check, X, Loader2, ExternalLink, ChessKnightIcon } from "lucide-svelte";
   import { theme } from "../../lib/stores";
 
   /** Same shape Lichess accepts: 2-30 chars, alphanumeric plus _ and -. */
@@ -124,7 +123,7 @@
      Pass `standalone` to get the border/background back. -->
 <div class={standalone ? `rounded-2xl border ${$theme.border.default} ${$theme.bg.card} p-6` : ""}>
   <div class="mb-1 flex items-center gap-2">
-    <KnightIcon class="h-5 w-5 {$theme.text.white}" />
+    <ChessKnightIcon class="h-5 w-5 {$theme.text.white}" />
     <h4 class="meta-label text-sm {$theme.text.white}">Play me</h4>
   </div>
   <!-- Says plainly that the challenge is CREATED and WAITING, and that a reply

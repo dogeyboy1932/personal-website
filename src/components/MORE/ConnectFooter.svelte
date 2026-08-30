@@ -25,6 +25,6 @@
   <!-- FX:share-button — glow: the travelling border arc, moved here off the
        home page's three quick links so exactly one button on the site has it.
        ("Apply glow animation to the 'find me' button?") -->
-  <ShareButton actions={socials} label="Find me" glow />
+  <ShareButton actions={socials} label="Reach out" glow />
   <!-- /Creative:share-button -->
 </div>
