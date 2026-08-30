@@ -23,7 +23,7 @@ export {
   homeHero,
   homeQuickLinks,
   homeFocusAreas,
-  homeNavigationCards,
+  // homeNavigationCards,
   home,
   lastUpdated,
   links,

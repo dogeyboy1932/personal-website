@@ -15,8 +15,9 @@ export const homeHero = {
   */
   summary:
     "Heyyy, I'm Akhil! 👋\n\n" +
-    "I build AI systems that turn new technology into something people can actually use — RAG pipelines, agents, and the unglamorous data plumbing underneath them.\n\n" +
-    "I'm drawn to problems nobody has settled yet, where the right answer still has to be found rather than looked up. So far that's meant shipping at PwC, research at UIUC, and a stack of hackathon wins.",
+    "I'm building AI systems that turn new technology into something people can actually use, \n\n" +
+    "I see myself as highly driven, keeping myself informed of emerging trends and seeking opportunities to learn, grow, and deliver meaningful value.",
+    // "I'm drawn to problems nobody has settled yet, where the right answer still has to be found rather than looked up. So far that's meant shipping at PwC, research at UIUC, and a stack of hackathon wins.",
   // I see myself as highly driven, keeping myself informed of emerging trends and seeking opportunities to learn, grow, and deliver meaningful value. 
     image: {
     src: "/Linkedin_pfp.jpeg",
@@ -45,18 +46,18 @@ export const homeHero = {
         "\"It gets easier. Every day it gets a little easier. But you gotta do it every day. That's the hard part. But it does get easier\"",
       voice: "— A Jogging Baboon",
     },
-    {
-      quote: "\"The best way to predict the future is to invent it.\"",
-      voice: "— Alan Kay",
-    },
-    {
-      quote: "\"Talk is cheap. Show me the code.\"",
-      voice: "— Linus Torvalds",
-    },
-    {
-      quote: "\"Premature optimization is the root of all evil.\"",
-      voice: "— Donald Knuth",
-    },
+    // {
+    //   quote: "\"The best way to predict the future is to invent it.\"",
+    //   voice: "— Alan Kay",
+    // },
+    // {
+    //   quote: "\"Talk is cheap. Show me the code.\"",
+    //   voice: "— Linus Torvalds",
+    // },
+    // {
+    //   quote: "\"Premature optimization is the root of all evil.\"",
+    //   voice: "— Donald Knuth",
+    // },
   ],
 };
 
@@ -107,42 +108,43 @@ export const homeQuickLinks = [
   { label: "Full stack", href: "/portfolio#skills" },
 ] as const;
 
-export const homeNavigationCards = [
-  {
-    title: "Career Portfolio",
-    description:
-      "See projects, internships, and skills that shaped my journey.",
-    cta: "See portfolio",
-    href: "/portfolio",
-  },
-  // for  //   title: "Experience Timeline",
-  //   description:
-  //     "Dive deep into internships, leadership roles, and the lessons that shaped my journey.",
-  //   cta: "View experience",
-  //   href: "/experience",
-  // },
-  // {
-  //   title: "Project Gallery",
-  //   description:
-  //     "Explore end-to-end builds across AI, web, and data storytelling initiatives.",
-  //   cta: "Browse projects",
-  //   href: "/portfolio",
-  // },
-  // {
-  //   title: "Skill Stack",
-  //   description:
-  //     "See the languages, frameworks, and tools I rely on to ship ideas quickly.",
-  //   cta: "See skills",
-  //   href: "/skills",
-  // },
-  {
-    title: "More About Me",
-    description:
-      "Clubs, hobbies, and interests that keep me busy.",
-    cta: "Browse",
-    href: "/more",
-  },
-] as const;
+
+// export const homeNavigationCards = [
+//   {
+//     title: "Career Portfolio",
+//     description:
+//       "See projects, internships, and skills that shaped my journey.",
+//     cta: "See portfolio",
+//     href: "/portfolio",
+//   },
+//   // for  //   title: "Experience Timeline",
+//   //   description:
+//   //     "Dive deep into internships, leadership roles, and the lessons that shaped my journey.",
+//   //   cta: "View experience",
+//   //   href: "/experience",
+//   // },
+//   // {
+//   //   title: "Project Gallery",
+//   //   description:
+//   //     "Explore end-to-end builds across AI, web, and data storytelling initiatives.",
+//   //   cta: "Browse projects",
+//   //   href: "/portfolio",
+//   // },
+//   // {
+//   //   title: "Skill Stack",
+//   //   description:
+//   //     "See the languages, frameworks, and tools I rely on to ship ideas quickly.",
+//   //   cta: "See skills",
+//   //   href: "/skills",
+//   // },
+//   {
+//     title: "More About Me",
+//     description:
+//       "Clubs, hobbies, and interests that keep me busy.",
+//     cta: "Browse",
+//     href: "/more",
+//   },
+// ] as const;
 
 export const home = {
   experience: {

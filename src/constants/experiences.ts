@@ -10,7 +10,7 @@ export const experiences: Experience[] = [
     duration: "Jun 2026 - Aug 2026",
     summary:
       "Worked on RAG Pipeline using Databricks",
-    skills: ["AI/ML", "Software Development", "Consulting"],
+    skills: ["AI/ML", "RAG", "Databricks", "Python", "SQL", "CI/CD", "Automation", "LLM-as-a-Judge"],
   },
   {
     role: "Graduate Research Assistant",
@@ -18,7 +18,7 @@ export const experiences: Experience[] = [
     duration: "Mar 2026 - May 2026",
     summary:
       "Built AI-powered system deployed on AWS that allows academics to identify cross-disciplinary connections across collegiate courses",
-    skills: ["AI Evaluation", "Coding Principles", "Quality Assurance"],
+    skills: ["AI/ML", "FastAPI", "Supabase", "pgvector", "SciNCL", "AWS", "Neo4j",],
   },
   {
     role: "Coding Expert",
@@ -35,14 +35,6 @@ export const experiences: Experience[] = [
     summary:
       "Lead a team to build a real estate property search platform. Involved in API integration, database design, full-stack development with React.js, PHP, and MySQL.",
     skills: ["React.js", "PHP", "MySQL", "REST APIs", "Project Management"],
-  },
-  {
-    role: "Core Team",
-    company: "CollegeDAO",
-    duration: "Oct 2024 - Sep 2025",
-    summary:
-      "Built a MVP for Latent, an AI-powered hiring platform",
-    skills: ["AI/ML", "Web3", "Product Dev"],
   },
   {
     role: "Model Analyst",

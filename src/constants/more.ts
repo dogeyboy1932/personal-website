@@ -34,9 +34,9 @@ export const more: MorePageData = {
   // Count-up band. Deliberately four: any more and it stops reading as a hook.
   stats: [
     { value: 7, label: "Countries" },
-    { value: 10, suffix: "K+", label: "TV hours" },
-    { value: 4, label: "Racquets" },
+    { value: 10, suffix: "K+", label: "Movie/TV hours" },
     { value: 14, label: "Clubs" },
+    { value: 4, label: "Racquet Sports" },
   ],
 
   travel: {

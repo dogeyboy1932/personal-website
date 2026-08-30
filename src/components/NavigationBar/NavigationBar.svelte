@@ -60,7 +60,7 @@
         <!-- /FX:gooey-nav -->
 
         <!-- Theme Toggle -->
-        <ThemeToggle />
+        <!-- <ThemeToggle /> -->
       </div>
     </div>
   </div>

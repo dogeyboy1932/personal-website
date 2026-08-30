@@ -10,6 +10,8 @@
   export let experience: Experience;
   export let index: number = 0;
 
+  let skillMax = 8;
+
   // Use theme-aware card themes from the store
   /* experienceThemes, NOT cardThemes: the experience list is white/silver and
      the stack below it stays colourful. Two tables so the two asks can
@@ -18,7 +20,7 @@
 
   /* Coloured as a SEQUENCE, not per badge: adjacent badges must never match.
      ("In stack two of the SAME color can never be side by side") */
-  $: shownSkills = experience.skills.slice(0, 5);
+  $: shownSkills = experience.skills.slice(0, skillMax);
   $: skillColors = getTechColors(shownSkills, $theme.techColors);
 </script>
 
@@ -102,13 +104,13 @@
         {#each shownSkills as tech, techIndex}
           <TechBadge {tech} index={techIndex} color={skillColors[techIndex]} />
         {/each}
-        {#if experience.skills.length > 5}
+        {#if experience.skills.length > skillMax}
           <!-- Stays neutral: this chip is a count, not a technology, so it
                should not pick up a colour from the alternating table. -->
           <span
             class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border {$theme.border.light} bg-slate-400/10 {$theme.text.primary}"
           >
-            +{experience.skills.length - 5} more
+            +{experience.skills.length - skillMax} more
           </span>
         {/if}
       </div>

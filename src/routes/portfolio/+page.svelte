@@ -33,7 +33,7 @@
   <!-- FX:scroll-reveal -->
   <section use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}> 
     <SectionHeader id="experiences" title={sections.prof_experiences} />
-    <div class="grid gap-5 md:grid-cols-1 lg:grid-cols-2">
+    <div class="grid gap-5 md:grid-cols-1 lg:grid-cols-3">
       {#each experiences as experience, i}
         <ExperienceCard {experience} index={i} />
       {/each}
