@@ -22,7 +22,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
         },
         {
           name: "JavaScript",
@@ -71,7 +71,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/8/82/Gnu-bash-logo.svg",
+            "https://cdn.simpleicons.org/gnubash/E2E8F0",
         },
         {
           name: "Git",
@@ -92,7 +92,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/4/4f/Csharp_Logo.png",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
         },
         {
           name: "HTML/CSS",
@@ -125,14 +125,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
-        },
-        {
-          name: "Svelte.js",
-          proficiency: ProficiencyLevel.Learning,
-          status: SkillStatus.Learning,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/1/1b/Svelte_Logo.svg",
+            "https://cdn.simpleicons.org/nextdotjs/E2E8F0",
         },
         {
           name: "Vue.js",
@@ -140,6 +133,13 @@ export const skillsData: SkillsData = {
           status: SkillStatus.Learned,
           logoUrl:
             "https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg",
+        },
+        {
+          name: "Svelte.js",
+          proficiency: ProficiencyLevel.Learning,
+          status: SkillStatus.Learning,
+          logoUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/1/1b/Svelte_Logo.svg",
         },
         {
           name: "Tailwind CSS",
@@ -160,7 +160,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg",
+            "https://cdn.simpleicons.org/nodedotjs/5FA04E",
         },
         {
           name: "Express.js",
@@ -174,35 +174,35 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/3/3c/Flask_logo.svg",
+            "https://cdn.simpleicons.org/flask/E2E8F0",
         },
         {
           name: "FastAPI",
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
         },
         {
           name: "NumPy",
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/3/31/NumPy_logo_2020.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg",
         },
         {
           name: "Pandas",
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
         },
         {
           name: "Flutter",
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
         },
       ],
     },
@@ -222,7 +222,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://imgs.search.brave.com/CnslUfsK0qtHZGqRQpKO0tyHbXI8avmYXCiQydzynNU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/bG9nby53aW5lL2Ev/bG9nby9NeVNRTC9N/eVNRTC1Mb2dvLndp/bmUuc3Zn",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
         },
         {
           name: "Firebase",
@@ -257,7 +257,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://milvus.io/images/milvus_logo.svg",
+            "https://cdn.simpleicons.org/milvus/00A1EA",
         },
         {
           name: "Neo4j",
@@ -276,7 +276,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/6/63/Databricks_Logo.png",
+            "https://cdn.simpleicons.org/databricks/FF3621",
         },
         {
           name: "Docker",
@@ -297,14 +297,14 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/a/a8/Microsoft_Azure_Logo.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
         },
         {
           name: "GCP",
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
         },
         {
           name: "Railway",
@@ -318,7 +318,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/9/97/Netlify_logo_%282%29.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg",
         },
         {
           name: "Ubuntu/Linux",
@@ -337,7 +337,7 @@ export const skillsData: SkillsData = {
           proficiency: ProficiencyLevel.Proficient,
           status: SkillStatus.Learned,
           logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg",
+            "https://cdn.simpleicons.org/googlegemini/8E75B2",
         },
         {
           name: "Anthropic MCP",
