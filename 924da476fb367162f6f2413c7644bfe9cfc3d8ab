@@ -1,0 +1,33 @@
+updates.txt pass 17.
+
+THE PATTERN THAT KEEPS RECURRING, stated as plainly as I can:
+three of the six lines this pass were repeats, and every one repeated because I
+had been adjusting a PARAMETER when the answer was a different QUANTITY.
+
+  'make the name brighter'  -> I changed the colour, three times. The dots were
+    already #ffffff; there is nothing lighter. The grey was ink COVERAGE: 1px
+    dots on a 2px pitch is 25% fill, so white averages to mid grey. size
+    gap-1 -> gap-0.4 took it to 64%.
+  'gradient hard to spot'   -> would have been 'brighten the gradient'. The
+    sweep is background-clip:text, so it can only paint inside glyphs. Thin
+    strokes give it no area. font-extrabold is the fix.
+  'stop the rainbow'        -> I picked nicer colours, twice. The complaint was
+    DISPARITY, which is stop-to-stop distance, not stop quality. 180deg of hue
+    -> 60deg.
+
+In all three the user's own words named the right quantity and I substituted a
+nearby one I knew how to change. Coverage vs colour. Stroke area vs saturation.
+Hue distance vs hue choice. Before reaching for the obvious knob, ask what
+physical quantity the complaint is actually about.
+
+Also worth keeping: 'apply a glow BEHIND it' was not a restatement of the glow
+already present. shadowBlur glows each dot and drop-shadow traces the word's
+outline; neither puts light on the BACKGROUND the letters sit on. A preposition
+in a request can be the whole specification.
+
+Fonts: only @fontsource/plus-jakarta-sans is installed locally. Chivo, Inter,
+Fredoka, Space Grotesk and now Nunito all come from the Google Fonts link in
+src/app.html — adding a family means editing that URL, not package.json.
+
+Standing: /portfolio overflows 10px at 360px from an off-screen carousel slide.
+Pre-existing, flagged four passes running, never in updates.txt.
