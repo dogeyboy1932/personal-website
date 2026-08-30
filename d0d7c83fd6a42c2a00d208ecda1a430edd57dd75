@@ -1,0 +1,41 @@
+DEVLOG — updates.txt eighth pass (d0d7c83)
+
+THE BEAM/PHOTO BUG, which I got wrong twice and should not be repeated:
+
+  The photo column had z-40 and the rays z-30. That looks right in isolation
+  but the photo column is nested inside the hero grid, and that grid is z-10.
+  A child CANNOT escape its parent's stacking context — the whole grid,
+  z-40 child and all, painted beneath the z-30 rays.
+
+  I then "verified" it by taking an element screenshot of the figure and read
+  the beam crossing it as the photo's own dappled sunlight. Two mistakes
+  reinforcing each other, across two passes, while the user told me three
+  times it was still wrong.
+
+  Fixed STRUCTURALLY, not with more z-index: SideRays now lives inside the
+  text column, so it cannot reach the photo whatever the stacking does. There
+  is an assertion in the check script that the two bounding boxes never
+  intersect, run at five widths.
+
+  Lesson: when an overlay is crossing something it shouldn't, check the
+  ancestor chain for a stacking context before touching z-index, and verify
+  with a geometric assertion rather than by eye.
+
+SVELTE UPDATE LOOP: binding twelve children two-way into one object
+(bind:flipped={flipped[index]}) while a reactive statement reassigns that same
+object hangs SSR and wedges the dev server — every route times out, not just
+the offending one. If the whole server stops responding after a component
+edit, suspect a reactive loop rather than a crashed process. Children own
+their own state now; {#key active} resets them.
+
+INTERESTS have now been through three treatments: flip-card grid ->
+drift-wall (one row + shared caption) -> option-wheel (click-to-flip). The
+user wanted flip cards back and disliked hover-reveal. DriftWall is still in
+fx/, unused and marked, if it is ever wanted again.
+
+WHEEL SIZING: only a window of the circle is rendered. A literal wheel is as
+tall as its diameter, which defeats the compaction. Fanned neighbours are
+clipped by the wheel because they otherwise add ~113px of horizontal page
+scroll.
+
+STILL OPEN: "later we'll add more stuff and content on the more page".
