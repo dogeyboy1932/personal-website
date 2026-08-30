@@ -51,7 +51,19 @@
         </p>
       </div>
       
-      <span class="shrink-0 rounded-sm {cardTheme.badge} border px-3 py-1.5 text-xs font-bold tracking-wide">
+      <!--
+        DURATION: one colour on every card, and not white.
+        ("the duration can all be a different color than white")
+
+        cardTheme.badge is silver and steps per card, which is what made the
+        row of dates read as more of the same. This is a fixed brand-cyan chip
+        instead — fixed, so the six dates are one recognisable element rather
+        than six variations, and cyan because it is the site accent and matches
+        the stack section further down the same page.
+      -->
+      <span
+        class="shrink-0 rounded-sm border border-brand/40 bg-brand/10 px-3 py-1.5 text-xs font-bold tracking-wide text-brand-strong"
+      >
         {experience.duration}
       </span>
     </div>
@@ -71,14 +83,22 @@
 
     <div class="mt-auto min-h-[3rem]">
       <div class="flex flex-wrap gap-2">
-        <!-- neutral: the per-tech colour table is the last hue left inside an
-             experience card. Project cards keep it. -->
+        <!--
+          COLOUR IS BACK on the stack, deliberately. ("Make experience card less
+          stale. The inside design can stay as is. The stack can be alternate
+          colors")
+
+          Last pass these went neutral under "make everything in experience
+          white/silver". That read as stale, which is the correction: the
+          CHROME wanted to be silver — halo, border, accent bar, title — and the
+          badges are content, where variation is information rather than noise.
+        -->
         {#each experience.skills.slice(0, 5) as tech, techIndex}
-          <TechBadge {tech} index={techIndex} neutral />
+          <TechBadge {tech} index={techIndex} />
         {/each}
         {#if experience.skills.length > 5}
-          <!-- bg.overlay is bg-blue-400/10; bg-slate-400/10 here so the
-               overflow chip matches the neutral badges beside it. -->
+          <!-- Stays neutral: this chip is a count, not a technology, so it
+               should not pick up a colour from the alternating table. -->
           <span
             class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border {$theme.border.light} bg-slate-400/10 {$theme.text.primary}"
           >
