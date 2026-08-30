@@ -26,21 +26,28 @@
   export let show: "all" | "roles" | "clubs" = "all";
 
   /*
-    A PER-CARD accent, not one violet for all three.
+    NO COLOURED TEXT. That is the whole point of this version.
 
-    Four earlier attempts treated this as a contrast problem and kept adjusting
-    text on a purple card. Measured, the contrast was never the issue —
-    17:1 on the title, 12:1 on the body, all far above AA. "A better ASSORTMENT
-    of colors for these boxes" is about variety ACROSS the boxes, which no
-    amount of tuning one hue was ever going to deliver.
+    Five previous attempts all moved the same lever — muted violet, violet-200,
+    amber, then a per-card cyan/fuchsia/amber on the role line. The note was
+    "I still don't like the TEXT COLOR for the clubs stuff", five times, and
+    every one of those attempts answered it by picking a different colour to
+    tint the text with. Contrast was never the problem (measured: 17:1 title,
+    9.7:1 role, 12:1 body — all far above AA), and neither was the hue.
 
-    Each org now carries its own colour on the shared neutral surface, the way
-    the portfolio experience cards already do.
+    Colour on body text is the problem. Every other place on this site that got
+    this note resolved the same way: "AI Engineer" is white, the cursor trail is
+    silver, the hero role reads by WEIGHT not hue.
+
+    So: all text is neutral — white title, slate-100 role, slate-300 summary.
+    The per-card identity moves entirely to non-text surfaces (left bar, hover
+    border, link underline), which is where the "better assortment of colors"
+    still reads across the three boxes without tinting a single word.
   */
   const accents = [
-    { bar: "from-cyan-300 via-sky-400 to-blue-500", role: "text-cyan-300", edge: "hover:border-cyan-400/60", rule: "decoration-cyan-400/50 hover:decoration-cyan-300" },
-    { bar: "from-violet-300 via-fuchsia-400 to-purple-500", role: "text-fuchsia-300", edge: "hover:border-fuchsia-400/60", rule: "decoration-fuchsia-400/50 hover:decoration-fuchsia-300" },
-    { bar: "from-amber-300 via-orange-400 to-rose-400", role: "text-amber-300", edge: "hover:border-amber-400/60", rule: "decoration-amber-400/50 hover:decoration-amber-300" },
+    { bar: "from-cyan-300 via-sky-400 to-blue-500", edge: "hover:border-cyan-400/60", rule: "decoration-cyan-400/60 hover:decoration-cyan-300" },
+    { bar: "from-violet-300 via-fuchsia-400 to-purple-500", edge: "hover:border-fuchsia-400/60", rule: "decoration-fuchsia-400/60 hover:decoration-fuchsia-300" },
+    { bar: "from-amber-300 via-orange-400 to-rose-400", edge: "hover:border-amber-400/60", rule: "decoration-amber-400/60 hover:decoration-amber-300" },
   ];
 
   // Orgs already spotlighted above shouldn't repeat in the chip cloud.
@@ -58,18 +65,8 @@
       <div
         class="group relative flex flex-col overflow-hidden rounded-2xl border {$theme.border.default} bg-slate-900/70 p-4 pl-5 shadow-lg transition-colors {accents[i % accents.length].edge}"
       >
-        <!--
-          COLOUR REWORK. Previous versions put text directly on a violet
-          gradient and I kept adjusting the text instead of the surface: muted
-          violet, then violet-200, then amber. The surface was the problem —
-          any mid-tone text on a mid-tone purple wash is low contrast, and the
-          amber that finally read clashed with the violet it sat on.
-
-          Now: a near-neutral slate surface carries all the text, and the violet
-          identity moves to a left accent bar and the border. Everything on the
-          card is high contrast against slate, and the palette is one hue plus
-          neutrals rather than two competing hues.
-        -->
+        <!-- The card's entire colour identity: this bar, plus the hover border
+             and the link underline. Nothing tints text. -->
         <span
           class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b {accents[i % accents.length].bar}"
           aria-hidden="true"
@@ -92,7 +89,9 @@
           {/if}
         </div>
 
-        <p class="mt-0.5 text-sm font-semibold {accents[i % accents.length].role}">
+        <!-- Neutral. The role reads by weight against the summary beneath it,
+             the same way the hero's "AI ENGINEER" does. -->
+        <p class="mt-0.5 text-sm font-semibold text-slate-100">
           {role.role}{#if role.tenure}<span class="font-normal text-slate-400"> · {role.tenure}</span>{/if}
         </p>
 
@@ -118,7 +117,11 @@
         >
           {club.name}
           {#if club.tagline}
-            <span class="{accents[i % accents.length].role} opacity-80">({club.tagline})</span>
+            <!-- Was cycling through the card accents, which put a rainbow of
+                 tinted text through the chip cloud — the most literal reading
+                 of "the text color for the clubs stuff". Neutral now; the
+                 tagline is secondary, so it recedes by tone, not by hue. -->
+            <span class="text-slate-400">({club.tagline})</span>
           {/if}
         </span>
       {/each}
