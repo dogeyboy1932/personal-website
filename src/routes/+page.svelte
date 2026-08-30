@@ -138,9 +138,21 @@
                    put light on the background the letters sit on.
                 3. drop-shadow on the canvas — lifts the whole word as one shape.
             -->
+            <!--
+              WHY THIS LOOKED YELLOW. The halo was already pure white, but at
+              0.16 it was thinner than the amber SideRays wash sitting behind it
+              at 0.46, so the two composited to a warm cream.
+              ("make glow white bright silver...it's looking yellowy right now")
+
+              Fixed by making the halo actually dominate locally rather than by
+              dimming the beam, which line 6 last pass asked to brighten: 0.16 ->
+              0.34 at the centre, and the mid stop moves from white to
+              slate-200 (226 232 240) so it reads as SILVER rather than as a
+              second warm light source.
+            -->
             <span
               aria-hidden="true"
-              class="pointer-events-none absolute -inset-x-8 -inset-y-10 -z-10 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.16),rgba(255,255,255,0.05)_45%,transparent_72%)] blur-2xl"
+              class="pointer-events-none absolute -inset-x-10 -inset-y-12 -z-10 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.34),rgba(226,232,240,0.16)_42%,rgba(203,213,225,0.05)_62%,transparent_78%)] blur-2xl"
             />
             <h1 class="relative uppercase text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight {$theme.text.primary} leading-[0.95] [&_canvas]:drop-shadow-[0_0_22px_rgba(255,255,255,0.45)]">
               {#if homeHero.particleName}

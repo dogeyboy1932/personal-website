@@ -41,9 +41,21 @@
     yelow/ambery") The logo beside it is already amber; the name echoing it made
     the whole left side one colour.
   */
+  /*
+    CONTRAST between stops is what makes a gradient legible, and this ramp had
+    almost none: #f8fafc, #cbd5e1, #ffffff, #e2e8f0 span roughly 92%-100%
+    lightness, so the sweep was a barely-visible shimmer on an already-white
+    word. ("make my name in the navbar more obvious gradient. It's a bit hard to
+    see the contrast in gradient.")
+
+    Still silver — the earlier note "my name in the navbar should be more
+    white/silvery not yelow/ambery" stands — but the dark stops now drop to
+    slate-500/600, roughly 45% lightness. Same hue family, ~50 points of
+    lightness travel instead of ~8.
+  */
   $: ramp = isDark
-    ? "#f8fafc, #cbd5e1, #ffffff, #e2e8f0, #f8fafc"
-    : "#334155, #64748b, #1e293b, #475569, #334155";
+    ? "#64748b, #f1f5f9, #ffffff, #94a3b8, #64748b"
+    : "#cbd5e1, #334155, #0f172a, #475569, #cbd5e1";
 
   $: shineColor = isDark ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.9)";
   $: baseColor = isDark ? "#e2e8f0" : "#334155";
