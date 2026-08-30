@@ -58,11 +58,39 @@
     from the specular highlight sweeping over it, which is a much stronger
     signal than a 50-point ramp because it MOVES against a static base.
   */
+  /*
+    The LIGHT ramp used to be "#cbd5e1, #334155, #0f172a, #475569, #cbd5e1" —
+    its first and last stops are slate-300, effectively invisible on the cream
+    navbar, so the first half of "VENKAT" simply vanished.
+
+    Both ends now sit at stone-600. Measured on white: slate-300 was 1.5:1,
+    stone-500 is 4.8:1 (passes AA for large text but still reads like disabled
+    UI), stone-600 is 7.6:1. The peak stays stone-900 at 17:1, so there is still
+    ~10 points of contrast travel driving the sweep — the floor moved, the range
+    did not collapse.
+
+    Stone rather than slate, so the light theme's sweep is warm-neutral and sits
+    with the coffee palette instead of against it.
+  */
   $: ramp = isDark
     ? "#cbd5e1, #ffffff, #e2e8f0, #ffffff, #cbd5e1"
-    : "#475569, #0f172a, #334155, #0f172a, #475569";
+    : "#57534e, #1c1917, #44403c, #1c1917, #57534e";
 
-  $: shineColor = isDark ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.9)";
+  /*
+    THE HIGHLIGHT INVERTS WITH THE THEME, and this was the actual cause of the
+    vanishing "VENKAT" — not the ramp underneath it.
+
+    The sweep is a background layer clipped to the glyphs, so it paints its
+    colour INTO the letters. A white highlight over light text on a dark navbar
+    reads as a specular glint. The same white highlight over dark text on a
+    CREAM navbar paints the letters white, i.e. erases them — which is why the
+    first word was still ghosting even after the fill ramp was darkened to
+    stone-600 at 7.6:1.
+
+    A highlight has to move away from the background, not toward it. Dark theme
+    brightens; light theme deepens.
+  */
+  $: shineColor = isDark ? "rgba(255,255,255,0.95)" : "rgba(0,0,0,0.55)";
   $: baseColor = isDark ? "#e2e8f0" : "#334155";
 
   $: useGradient = variant === "gradient" || variant === "both";

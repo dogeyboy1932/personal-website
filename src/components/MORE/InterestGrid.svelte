@@ -123,7 +123,7 @@
       slot="front"
       class="flex h-full flex-row items-center justify-start gap-3 rounded-xl border {isActive
         ? $theme.accent.cyan.hover.border
-        : $theme.accent.cyan.border} bg-slate-950/[0.985] px-4 text-left shadow-lg"
+        : $theme.accent.cyan.border} {$theme.bg.flipCard} px-4 text-left shadow-lg"
     >
       <span class="text-5xl leading-none">{item.emoji}</span>
       <!-- No per-card "click to flip": it now lives once, beside the counter.
@@ -138,7 +138,7 @@
 
     <div
       slot="back"
-      class="flex h-full flex-col justify-center rounded-xl border {$theme.accent.cyan.hover.border} bg-slate-950/[0.985] px-4 text-left shadow-lg"
+      class="flex h-full flex-col justify-center rounded-xl border {$theme.accent.cyan.hover.border} {$theme.bg.flipCard} px-4 text-left shadow-lg"
     >
       <!-- Detail only, no repeated title. ("remove the title and leave just the
            description on the flip card once its flipped") The front face was

@@ -1,6 +1,6 @@
 import { writable, derived, get } from 'svelte/store';
 
-export const darkModeStore = writable(false);
+export const darkModeStore = writable(true);
 
 // Screen width store
 export const screenWidth = writable(0);
@@ -93,6 +93,17 @@ export const darkTheme = {
     cardSolid: 'bg-slate-950',
     cardHover: 'bg-slate-900/90',
     cardElevated: 'bg-slate-900/80',
+    /*
+      Added because these three were hardcoded in components during the
+      dark-only stretch (the theme toggle was commented out), which is exactly
+      what broke the light theme: black boxes on a cream page.
+        flipCard  near-opaque, keeps a trace of the backdrop (see InterestGrid)
+        cardMuted the leadership card / club chip surface
+        panel     the inset panel inside LichessCard, and the error tooltip
+    */
+    flipCard: 'bg-slate-950/[0.985]',
+    cardMuted: 'bg-slate-900/70',
+    panel: 'bg-slate-950/90',
     secondary: 'bg-indigo-950/50',
     navbar: 'bg-black/90',
     overlay: 'bg-blue-400/10',
@@ -108,6 +119,9 @@ export const darkTheme = {
     subtle: 'text-slate-400',
     dim: 'text-slate-500',
     white: 'text-white',
+    /* Brightest body text. text.white is literally 'text-white' in BOTH themes,
+       so it cannot be used for something that must inverse. */
+    strong: 'text-slate-50',
   },
   
   // Border colors
@@ -432,6 +446,9 @@ export const lightTheme = {
     cardSolid: 'bg-white',
     cardHover: 'bg-amber-900',                                   // Warm hover state
     cardElevated: 'bg-amber-100/80',
+    flipCard: 'bg-white/[0.985]',
+    cardMuted: 'bg-amber-50',
+    panel: 'bg-amber-50/95',
     secondary: 'bg-amber-100/50',                               // Secondary backgrounds
     navbar: 'bg-white/95 border-b border-amber-200 shadow-sm',  // Clean navbar
     overlay: 'bg-amber-100',                      // High contrast badge
@@ -447,6 +464,7 @@ export const lightTheme = {
     subtle: 'text-amber-700',                                   // Subtle brown
     dim: 'text-amber-600',                                      // Lighter brown
     white: 'text-white',                                        // White text for dark backgrounds
+    strong: 'text-amber-950',                                   // Darkest brown — inverse of dark's slate-50
   },
   
   // Border colors - warm amber tones

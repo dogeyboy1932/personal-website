@@ -138,7 +138,7 @@
       <!-- p-5 pl-6 and a wider gap below: "Everything looks kinda crammed right
            now...space it out wisely." -->
       <div
-        class="group relative flex flex-1 flex-col overflow-hidden rounded-2xl border {$theme.border.default} bg-slate-900/70 p-5 pl-6 shadow-lg transition-colors {accents[i % accents.length].edge}"
+        class="group relative flex flex-1 flex-col overflow-hidden rounded-2xl border {$theme.border.default} {$theme.bg.cardMuted} p-5 pl-6 shadow-lg transition-colors {accents[i % accents.length].edge}"
       >
         <!-- The card's entire colour identity: this bar, plus the hover border
              and the link underline. Nothing tints text. -->
@@ -164,7 +164,7 @@
           <!-- font-casual (Nunito) rather than font-display (Chivo). ("I want a
                better font...less robotic. More casual. Do this for all clubs
                too including leadership.") -->
-          <h4 class="inline-flex items-baseline gap-1.5 font-casual text-lg font-extrabold leading-tight text-slate-50">
+          <h4 class="inline-flex items-baseline gap-1.5 font-casual text-lg font-extrabold leading-tight {$theme.text.strong}">
             {#if role.link}
               <LinkPreview
                 href={role.link}
@@ -183,17 +183,17 @@
                it sits on the title's baseline rather than in its own band. -->
           <!-- Every part identical in face, size, weight and colour; only the
                separator differs. -->
-          <p class="flex flex-wrap items-baseline gap-x-1.5 font-casual text-sm font-bold text-slate-100">
+          <p class="flex flex-wrap items-baseline gap-x-1.5 font-casual text-sm font-bold {$theme.text.secondary}">
             {#each roleParts(role.role, role.tenure) as part}
               {#if part.sep}
-                <span aria-hidden="true" class="font-normal text-slate-500">{part.sep}</span>
+                <span aria-hidden="true" class="font-normal {$theme.text.dim}">{part.sep}</span>
               {/if}
               <span>{part.text}</span>
             {/each}
           </p>
         </div>
 
-        <p class="mt-2.5 font-casual text-[0.925rem] leading-relaxed text-slate-300">
+        <p class="mt-2.5 font-casual text-[0.925rem] leading-relaxed {$theme.text.muted}">
           {role.summary}
         </p>
       </div>
@@ -215,7 +215,7 @@
     <div class="flex flex-wrap gap-2">
       {#each rest as club, i}
         <span
-          class="inline-flex items-baseline gap-1.5 rounded-full border {$theme.border.light} bg-slate-900/70 px-3.5 py-1.5 font-casual text-sm font-semibold text-slate-200"
+          class="inline-flex items-baseline gap-1.5 rounded-full border {$theme.border.light} {$theme.bg.cardMuted} px-3.5 py-1.5 font-casual text-sm font-semibold {$theme.text.secondary}"
           in:fly={{ y: 8, delay: 200 + i * 25, duration: 280 }}
         >
           {club.name}
@@ -224,7 +224,7 @@
                  tinted text through the chip cloud — the most literal reading
                  of "the text color for the clubs stuff". Neutral now; the
                  tagline is secondary, so it recedes by tone, not by hue. -->
-            <span class="text-[0.8rem] font-medium text-slate-400">({club.tagline})</span>
+            <span class="text-[0.8rem] font-medium {$theme.text.subtle}">({club.tagline})</span>
           {/if}
         </span>
       {/each}

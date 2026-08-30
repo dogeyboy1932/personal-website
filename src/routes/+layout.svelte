@@ -1,6 +1,6 @@
 <script lang="ts">
   import MatrixRain from "../lib/MatrixRain.svelte";
-  import { NavigationBar } from "../components/NavigationBar";
+  import { NavigationBar } from "../components/NAVIGATIONBAR";
 import { CursorParticles } from "../components/PORTFOLIO";
 
   import "@fontsource/plus-jakarta-sans";

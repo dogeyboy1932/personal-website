@@ -106,30 +106,47 @@
   listed inherits from :root, so adding a token above never means remembering
   to add it twice.
 */
+/*
+  LIGHT THEME — a coffee palette, not a recoloured dark one.
+  ("fix light theme. Find better assortment of colors for the coffee like
+  theme")
+
+  The surfaces were already cream and espresso, but the ACCENTS were still the
+  dark theme's: cyan-600 brand and yellow-600 lede. Cyan sits almost opposite
+  brown on the wheel, so every accent read as a foreign object dropped onto the
+  page — the date badges on /portfolio were ice blue on warm white.
+
+  The accent is teal now. Teal is the classic complement to coffee browns: far
+  enough from the base to be legible as an accent, close enough in warmth not
+  to fight it. The lede moves from yellow to amber-700 so the /more figures read
+  as caramel rather than as highlighter.
+*/
 html:not(.dark) {
-  --brand: 8 145 178; /* cyan-600 — needs to hold up on cream */
-  --brand-strong: 14 116 144; /* cyan-700 */
-  --brand-deep: 22 78 99; /* cyan-900 */
-  --brand-soft: 103 232 249;
+  --brand: 15 118 110; /* teal-700 — the complement to coffee, not its opposite */
+  --brand-strong: 17 94 89; /* teal-800 */
+  --brand-deep: 19 78 74; /* teal-900 */
+  --brand-soft: 94 234 212; /* teal-300 */
 
   --warm: 217 119 6;
   --warm-strong: 180 83 9;
   --warm-deep: 120 53 15;
 
-  /* yellow-600: yellow-400 is invisible on cream. */
-  --lede: 202 138 4;
+  /* amber-700: caramel. yellow-600 read as a highlighter on cream. */
+  --lede: 180 83 9;
 
-  --rain: 8 145 178;
-  --rain-tail: 165 243 252;
+  /* The matrix rain was cyan on cream — a cold, high-contrast grid crawling
+     behind warm content. Amber at low contrast lets it read as texture. */
+  --rain: 180 83 9;
+  --rain-tail: 253 230 138;
 
   --cursor: 71 85 105;
 
   --nav-pill: 17 24 39;
   --nav-pill-label: 248 250 252;
 
-  --halo-1: 8 145 178;
-  --halo-2: 79 70 229;
-  --halo-3: 124 58 237;
+  --halo-1: 15 118 110;
+  --halo-2: 180 83 9;
+  --halo-3: 120 53 15;
   --halo-silver-1: 100 116 139;
   --halo-silver-2: 148 163 184;
   --halo-silver-3: 71 85 105;
