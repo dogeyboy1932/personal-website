@@ -1,0 +1,28 @@
+DEVLOG — updates.txt tenth pass (06ce171)
+
+THE CLUB TEXT COLOUR took three attempts and the first two failed identically:
+I kept picking a LIGHTER SHADE OF VIOLET on a violet card. Brighter is not
+more contrast when the hue matches the background. Amber fixed it instantly.
+Same lesson as the Play Me panel two passes earlier (cool panel on a warm
+card) and the Eagle Scout chip before that. When something "still doesn't
+read", change the hue, not the lightness.
+
+OPTION WHEEL now consumes vertical scroll on hover (arrows removed on
+request). Notes:
+  - deltas accumulate against a 42px threshold, or a trackpad's event stream
+    spins it several cards per flick
+  - preventDefault is required, otherwise the page scrolls underneath; this
+    does trap page scroll while the pointer is over the wheel, which is the
+    explicit request
+  - regression test: assert the counter advances AND window.scrollY does not
+  - trackHeight >= cardHeight + 2*visible*spreadX still holds. Bigger cards
+    were paid for by dropping `visible` 2 -> 1, not by growing the track.
+
+/more layout now: header / where-I've-been (full width) / [identity + stats +
+countries | wheel] / what-I-ran [roles | clubs+honors] / [lichess | find me].
+1497px.
+
+UNTOUCHED BY REQUEST, do not restyle without being asked: the where-I've-been
+stepper, Find Me, and the placeholder country descriptions.
+
+STILL OPEN: "later we'll add more stuff and content on the more page".
