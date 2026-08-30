@@ -74,6 +74,42 @@
     { bar: "from-sky-300 via-blue-500 to-indigo-600", edge: "hover:border-blue-400/60", rule: "decoration-blue-400/60 hover:decoration-blue-300", icon: "text-blue-400/70" },
   ];
 
+  /*
+    ROLE LINE. ("For leadeship roles, make the font colors and size the same. If
+    there are multiple roles, just have a semi colon, |, or some other divider
+    btwn them. If I'm now alumni advisor. have an arrow key to mark the
+    transition. [missed. seeing diff fonts.]")
+
+    Two separate fields render on this line: `role` and `tenure`. They had
+    different colour AND different weight (slate-100 bold vs slate-400 medium),
+    which is the "diff fonts" — same family, but enough apart in weight and
+    tone to read as two typefaces. They are one list of equal items now, so
+    they get identical classes and the SEPARATOR carries all the meaning.
+
+    Which separator depends on what `tenure` is, because the field is doing two
+    different jobs in the data:
+      - a concurrent second role ("Project Lead")      -> "|"
+      - a later position ("Now Alumni Advisor")        -> "→"
+    A leading "Now"/"Currently"/"Former"/"Previously" is what marks it as a
+    transition rather than a parallel title. `role` itself can also hold two
+    titles comma-separated ("VP, Founding Team"), so those split on the same
+    divider.
+  */
+  const TRANSITION = /^(now|currently|former|formerly|previously|later)\b/i;
+
+  /** [text, separator-before-it] pairs, separator empty for the first. */
+  function roleParts(role: string, tenure?: string) {
+    const parts = role
+      .split(",")
+      .map((t) => t.trim())
+      .filter(Boolean)
+      .map((text, i) => ({ text, sep: i === 0 ? "" : "|" }));
+
+    const t = tenure?.trim();
+    if (t) parts.push({ text: t, sep: TRANSITION.test(t) ? "\u2192" : "|" });
+    return parts;
+  }
+
   // Orgs already spotlighted above shouldn't repeat in the chip cloud.
   $: featured = new Set(leadership.map((l) => l.org));
   $: rest = clubs.filter((c) => !featured.has(c.name));
@@ -145,8 +181,15 @@
 
           <!-- Neutral text. The role reads by weight, and now by POSITION —
                it sits on the title's baseline rather than in its own band. -->
-          <p class="font-casual text-sm font-bold text-slate-100">
-            {role.role}{#if role.tenure}<span class="font-medium text-slate-400"> · {role.tenure}</span>{/if}
+          <!-- Every part identical in face, size, weight and colour; only the
+               separator differs. -->
+          <p class="flex flex-wrap items-baseline gap-x-1.5 font-casual text-sm font-bold text-slate-100">
+            {#each roleParts(role.role, role.tenure) as part}
+              {#if part.sep}
+                <span aria-hidden="true" class="font-normal text-slate-500">{part.sep}</span>
+              {/if}
+              <span>{part.text}</span>
+            {/each}
           </p>
         </div>
 
