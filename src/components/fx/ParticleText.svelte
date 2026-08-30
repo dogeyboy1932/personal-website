@@ -83,7 +83,10 @@
   let pointerY = -9999;
 
   $: isDark = $darkModeStore;
-  $: fill = color ?? (isDark ? "#e2e8f0" : "#1e293b");
+  /* Pure white in dark mode: the side beams wash warm light across the name and
+     were knocking the old slate-200 down to a muddy grey. ("make my particle
+     name a bit brighter. the beams are darkening it") */
+  $: fill = color ?? (isDark ? "#ffffff" : "#0f172a");
 
   const reducedMotion = () =>
     browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
@@ -187,7 +190,7 @@
 
       // One cheap shadow setup for the whole pass, not per particle — canvas
       // shadowBlur per item per frame is what tanked the site once already.
-      ctx.shadowBlur = 6;
+      ctx.shadowBlur = 8;
       ctx.shadowColor = fill;
     }
 

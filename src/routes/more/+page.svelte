@@ -37,7 +37,7 @@
   ] as const;
 </script>
 
-<section class="space-y-6 pb-4" in:fade>
+<section class="space-y-5 pb-4" in:fade>
   <!--
     LAYOUT NOTE
     -----------
@@ -59,10 +59,17 @@
        "Put the stats and off the clock line both to the left... Where I've been
        should be below the stats row but above countries." -->
   <!-- FX:scroll-reveal -->
-  <div class="grid items-start gap-6 lg:grid-cols-[1.1fr_1fr]" use:scrollReveal>
-    <div class="space-y-5">
+  <!-- lg:divide-x draws the rule between the two halves; the padding keeps
+       content off it. ("have a divider in teh top sections btwn left and right") -->
+  <div
+    class="grid items-start gap-6 lg:grid-cols-[1.15fr_1fr] lg:divide-x lg:divide-slate-500/25"
+    use:scrollReveal
+  >
+    <div class="space-y-5 lg:pr-7">
       <!-- FX:flip-words — rotating identity line -->
-      <p class="text-xl sm:text-2xl {$theme.text.muted}">
+      <!-- Display face and a size up. ("The one-liner should be bigger and maybe
+           different font.") -->
+      <p class="font-display text-2xl sm:text-3xl font-semibold {$theme.text.secondary}">
         Off the clock, I'm
         <FlipWords
           words={more.identityWords ?? []}
@@ -82,13 +89,14 @@
 
       <div>
         <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">Countries</h3>
-        <!-- 3-up, not 4: three rows brings the left column closer to the
-             wheel's height, which was leaving ~200px of dead space beneath. -->
-        <TravelSection countries={more.travel?.countries ?? []} show="countries" columns={3} />
+        <!-- 2-up: seven countries become four rows. ("The countries grid
+             should be more rows than columns.") This also grows the left column
+             toward the wheel's height, which was leaving dead space beneath. -->
+        <TravelSection countries={more.travel?.countries ?? []} show="countries" columns={2} />
       </div>
     </div>
 
-    <div>
+    <div class="lg:pl-7">
       <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[1].label}</h3>
       <InterestGrid interests={more.interests ?? []} />
     </div>
@@ -109,10 +117,8 @@
       <div class="flex flex-col gap-4">
         <LeadershipSection leadership={more.leadership ?? []} {clubs} show="clubs" />
 
-        <div>
-          <h4 class="meta-label mb-2 ml-1 text-[11px] {$theme.text.dim}">Honors</h4>
-          <HonorShelf honors={more.honors ?? []} />
-        </div>
+        <!-- HonorShelf is self-titled now that it is boxed. -->
+        <HonorShelf honors={more.honors ?? []} />
       </div>
     </div>
   </section>

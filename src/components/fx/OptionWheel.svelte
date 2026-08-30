@@ -37,6 +37,8 @@
   export let dip = 16;
   export let cardWidth = 150;
   export let label = "Options";
+  /** Shown beside the counter in the right-hand pocket. */
+  export let hint = "";
   /**
    * "horizontal" fans left-to-right; "vertical" stacks top-to-bottom with the
    * arc bulging sideways. Vertical suits a narrow column beside other content.
@@ -191,11 +193,18 @@
     {/each}
   </div>
 
-  <!-- Arrows removed on request; scroll, drag, arrow keys or clicking a
-       neighbour all rotate it. The counter stays so the set has a visible
-       length. -->
-  <div class="fx-ow-controls">
+  <!--
+    Counter and hint sit in the empty pocket to the RIGHT of the fan, not under
+    it. ("put the x/11 to the right of the wheel (it can be absolute mounted).
+    There is empty space to the right of the wheel and the text can fit into
+    that pocket.") Absolute, so they cost no height — which is also what stops
+    the section growing when the type gets bigger.
+  -->
+  <div class="fx-ow-aside">
     <span class="fx-ow-count">{count ? active + 1 : 0} / {count}</span>
+    {#if hint}
+      <span class="fx-ow-hint">{hint}</span>
+    {/if}
   </div>
 </div>
 
@@ -260,18 +269,36 @@
     border: 0;
   }
 
-  .fx-ow-controls {
+  /* Parked against the right edge, vertically centred on the fan. */
+  .fx-ow-aside {
+    position: absolute;
+    right: 0.25rem;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-top: 0.25rem;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.4rem;
+    text-align: right;
+    pointer-events: none;
   }
 
   .fx-ow-count {
-    font-size: 0.65rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: rgb(var(--brand));
+  }
+
+  /* Same colour as the counter, on request. */
+  .fx-ow-hint {
+    font-size: 0.7rem;
     letter-spacing: 0.18em;
-    color: rgb(148 163 184);
+    text-transform: uppercase;
+    color: rgb(var(--brand));
+    opacity: 0.75;
+    max-width: 5.5rem;
+    line-height: 1.3;
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -36,10 +36,14 @@
 
   $: isDark = $darkModeStore;
 
-  // Warm amber/orange ramp in both themes, echoing the logo's #FFD700 → #FF8C00.
+  /*
+    Silver, not amber. ("My name in the navbar should be more white/silvery not
+    yelow/ambery") The logo beside it is already amber; the name echoing it made
+    the whole left side one colour.
+  */
   $: ramp = isDark
-    ? "#fde68a, #fb923c, #f59e0b, #fcd34d, #fde68a"
-    : "#b45309, #ea580c, #d97706, #92400e, #b45309";
+    ? "#f8fafc, #cbd5e1, #ffffff, #e2e8f0, #f8fafc"
+    : "#334155, #64748b, #1e293b, #475569, #334155";
 
   $: shineColor = isDark ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.9)";
   $: baseColor = isDark ? "#e2e8f0" : "#334155";

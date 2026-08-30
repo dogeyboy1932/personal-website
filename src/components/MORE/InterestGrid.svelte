@@ -54,10 +54,11 @@
   visible={2}
   spreadX={92}
   dip={16}
-  cardWidth={340}
+  cardWidth={300}
   cardHeight={118}
   trackHeight={486}
   label="Interests"
+  hint="Click to flip"
   let:item
   let:index
   let:isActive
@@ -71,16 +72,14 @@
         ? $theme.accent.cyan.hover.border
         : $theme.accent.cyan.border} {$theme.bg.secondary} px-4 text-left shadow-lg"
     >
-      <span class="text-3xl leading-none">{item.emoji}</span>
+      <span class="text-4xl leading-none">{item.emoji}</span>
+      <!-- No per-card "click to flip": it now lives once, beside the counter.
+           ("Instead of click to flip on every card. Put click to flip on the
+           right too. smae color text.") -->
       <span class="min-w-0">
-        <span class="block text-base font-semibold leading-tight {$theme.text.secondary}">
+        <span class="block text-lg font-semibold leading-tight {$theme.text.secondary}">
           {item.name}
         </span>
-        {#if isActive}
-          <span class="meta-label mt-0.5 block text-[8px] {$theme.accent.cyan.text}">
-            Click to flip
-          </span>
-        {/if}
       </span>
     </div>
 
@@ -88,8 +87,8 @@
       slot="back"
       class="flex h-full flex-col justify-center rounded-xl border {$theme.accent.cyan.hover.border} {$theme.bg.cardElevated} px-4 text-left shadow-lg"
     >
-      <span class="meta-label text-[8px] {$theme.accent.cyan.text}">{item.name}</span>
-      <p class="mt-1 text-xs leading-snug {$theme.text.secondary}">{item.detail}</p>
+      <span class="meta-label text-[10px] {$theme.accent.cyan.text}">{item.name}</span>
+      <p class="mt-1.5 text-sm leading-snug {$theme.text.secondary}">{item.detail}</p>
     </div>
   </FlipCard>
   {/key}

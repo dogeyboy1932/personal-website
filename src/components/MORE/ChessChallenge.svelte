@@ -137,7 +137,9 @@
     Drop your Lichess username and I'll send a casual 10+0 challenge.
   </p>
 
-  <form class="flex gap-2" on:submit|preventDefault={send}>
+  <!-- Stacked, not side by side: this column is much narrower now that the
+       form sits beside the rating rather than under it. -->
+  <form class="flex flex-col gap-2" on:submit|preventDefault={send}>
     <div class="relative flex-1">
       <input
         bind:value={username}
@@ -166,7 +168,7 @@
     <button
       type="submit"
       disabled={state !== "valid" || sending}
-      class="rounded-xl border-2 px-4 py-2.5 font-display text-xs font-bold uppercase tracking-[0.18em] transition-all disabled:cursor-not-allowed disabled:opacity-40 {$theme.accent.orange.border} {$theme.accent.orange.bg} {$theme.text.primary} hover:enabled:scale-[1.03]"
+      class="w-full rounded-xl border-2 px-4 py-2.5 font-display text-xs font-bold uppercase tracking-[0.18em] transition-all disabled:cursor-not-allowed disabled:opacity-40 {$theme.accent.orange.border} {$theme.accent.orange.bg} {$theme.text.primary} hover:enabled:scale-[1.03]"
     >
       {sending ? "Sending" : "Challenge"}
     </button>

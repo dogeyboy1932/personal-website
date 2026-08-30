@@ -38,11 +38,27 @@
   <div class="flex flex-col gap-3">
     {#each leadership as role, i}
       <div
-        class="group relative flex flex-col rounded-2xl border {$theme.accent.violet.border} {$theme.gradient.violet} p-4 shadow-lg transition-colors {$theme.accent.violet.hover.border}"
-        in:fly={{ y: 16, delay: i * 90, duration: 380 }}
+        class="group relative flex flex-col overflow-hidden rounded-2xl border {$theme.border.default} bg-slate-900/70 p-4 pl-5 shadow-lg transition-colors hover:border-violet-400/50"
       >
+        <!--
+          COLOUR REWORK. Previous versions put text directly on a violet
+          gradient and I kept adjusting the text instead of the surface: muted
+          violet, then violet-200, then amber. The surface was the problem —
+          any mid-tone text on a mid-tone purple wash is low contrast, and the
+          amber that finally read clashed with the violet it sat on.
+
+          Now: a near-neutral slate surface carries all the text, and the violet
+          identity moves to a left accent bar and the border. Everything on the
+          card is high contrast against slate, and the palette is one hue plus
+          neutrals rather than two competing hues.
+        -->
+        <span
+          class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-violet-400 via-fuchsia-400 to-violet-500"
+          aria-hidden="true"
+        />
+
         <div class="flex items-start justify-between gap-3">
-          <h4 class="font-display text-lg font-bold leading-tight text-white">
+          <h4 class="font-display text-lg font-bold leading-tight text-slate-50">
             {#if role.link}
               <LinkPreview
                 href={role.link}
@@ -58,16 +74,14 @@
           {/if}
         </div>
 
-        <p class="mt-0.5 text-sm font-semibold text-amber-300">
-          {role.role}{#if role.tenure}<span class="font-normal text-slate-300/80"> · {role.tenure}</span>{/if}
+        <!-- violet-300 reads cleanly HERE because the surface is slate, not
+             violet. The same colour failed on the old purple card — the fix was
+             the background, not the text. -->
+        <p class="mt-0.5 text-sm font-semibold text-violet-300">
+          {role.role}{#if role.tenure}<span class="font-normal text-slate-400"> · {role.tenure}</span>{/if}
         </p>
 
-        <!-- The role line is AMBER, not violet. Violet text on a violet card is
-             purple-on-purple: it was technically "brighter" than the muted
-             token it replaced but still low contrast, which is why the colour
-             kept getting flagged. A different hue separates; a lighter shade of
-             the same hue does not. -->
-        <p class="mt-2 text-sm leading-relaxed text-slate-100/90">{role.summary}</p>
+        <p class="mt-2 text-sm leading-relaxed text-slate-300">{role.summary}</p>
       </div>
     {/each}
   </div>
@@ -84,12 +98,12 @@
     <div class="flex flex-wrap gap-2">
       {#each rest as club, i}
         <span
-          class="inline-flex items-baseline gap-1.5 rounded-full border {$theme.border.light} {$theme.bg.secondary} px-3 py-1.5 text-xs {$theme.text.secondary}"
+          class="inline-flex items-baseline gap-1.5 rounded-full border {$theme.border.light} bg-slate-900/70 px-3 py-1.5 text-xs text-slate-200"
           in:fly={{ y: 8, delay: 200 + i * 25, duration: 280 }}
         >
           {club.name}
           {#if club.tagline}
-            <span class="{$theme.accent.violet.textMuted}">({club.tagline})</span>
+            <span class="text-violet-300/80">({club.tagline})</span>
           {/if}
         </span>
       {/each}
