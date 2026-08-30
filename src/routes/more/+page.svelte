@@ -96,6 +96,17 @@
       </p>
       <!-- /FX:flip-words -->
 
+      <!-- Gives the one-liner its own footing rather than letting it float
+           above the scorecard. ("have a divider below the one-line on
+           more...just to give it its own platform") Fades at both ends so it
+           reads as a rule under the line rather than as a box edge — the
+           scorecard below already has hard vertical rules and a second hard
+           horizontal one would box the two together. -->
+      <div
+        class="mx-auto h-px w-4/5 bg-gradient-to-r from-transparent via-slate-400/35 to-transparent"
+        aria-hidden="true"
+      />
+
       <StatStrip stats={more.stats ?? []} />
 
       <!-- Left as-is on request: "All that's untouched on the more page is the
