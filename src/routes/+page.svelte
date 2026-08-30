@@ -85,7 +85,7 @@
                 <ParticleText
                   text={homeHero.fullName.toUpperCase()}
                   look="nanotech"
-                  gap={3}
+                  gap={2}
                   radius={110}
                   force={3}
                   linkDistance={13}
@@ -149,8 +149,13 @@
     </div>
 
 
-    <!-- Right Column: Photo and Quote -->
-    <div class="flex min-w-0 flex-col">
+    <!-- Right Column: Photo and Quote.
+         z-40 puts it ABOVE FX:side-rays (z-30, overlay mode) so the beams no
+         longer wash across the photo and the quote card. ("make the picture and
+         quote stuff not be glared by the side beams. Worst case move it 'in
+         front' of the side beams.") The rays still cross the text column, which
+         is where they read as light rather than glare. -->
+    <div class="relative z-40 flex min-w-0 flex-col">
       <HeroImage 
         src={homeHero.image.src} 
         alt={homeHero.image.alt} 

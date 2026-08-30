@@ -126,7 +126,7 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
     );
   }
 
-  // Create the challenge. Casual and rated:false so an anonymous visitor
+  // Create the challenge: casual 10+0, rated:false so an anonymous visitor
   // clicking a button on a portfolio can't affect anyone's rating.
   let challenge: Response;
   try {
@@ -142,7 +142,9 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
         body: new URLSearchParams({
           rated: "false",
           "clock.limit": "600",
-          "clock.increment": "5",
+          // 10+0 — ten minutes, no increment. ("It should also be a 10 + 0
+          // challenge.")
+          "clock.increment": "0",
           color: "random",
           variant: "standard",
         }),

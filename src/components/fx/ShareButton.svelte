@@ -66,6 +66,8 @@
       {#each actions as action, i}
         {@const Icon = icons[action.icon]}
         <div class="fx-sb-slot" style="--sb-index: {i};">
+          <span class="fx-sb-mask">
+            <span class="fx-sb-rise">
           <svelte:element
             this={action.href ? "a" : "button"}
             href={action.href}
@@ -83,6 +85,8 @@
               <svelte:component this={Icon} class="h-5 w-5" />
             {/if}
           </svelte:element>
+            </span>
+          </span>
 
           <span class="fx-sb-tip {$theme.bg.cardSolid} {$theme.text.muted}">
             {#if copied === action.handle}
@@ -123,28 +127,47 @@
     gap: 0.4rem;
   }
 
+  /*
+    The slot reserves its full width AT REST, so the pill is already its final
+    size and does not grow on hover. ("The button itself shouldn't increase in
+    size from how it currently is...it should already be that big size. Once I
+    hover over it, then the logos will appear coming in from the bottom")
+
+    overflow:hidden is what makes the icons read as arriving from BELOW the
+    button rather than just fading in place — the icon starts pushed down past
+    the slot's bottom edge and is clipped until it rises into view.
+  */
   .fx-sb-slot {
     position: relative;
-    /* Collapsed at rest: zero width so the pill hugs its label, then each slot
-       opens in turn. Animating width rather than only transform is what lets
-       the pill itself grow instead of the icons overflowing it. */
-    width: 0;
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  /* Only the MASK clips. Putting overflow:hidden on the slot itself also ate
+     the tooltip, which has to escape upward. */
+  .fx-sb-mask {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 9999px;
+  }
+
+  .fx-sb-rise {
+    display: block;
+    height: 100%;
     opacity: 0;
-    /* Rises from below on hover: "WHen I hover, the logos should appear from
-       the bottom." Was a sideways slide. */
-    transform: translateY(14px) scale(0.7);
+    transform: translateY(115%);
     transition:
-      width 320ms cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 260ms ease,
-      transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 240ms ease,
+      transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
     transition-delay: calc(var(--sb-index) * var(--sb-stagger));
   }
 
-  .fx-sb-pill:hover .fx-sb-slot,
-  .fx-sb-pill:focus-within .fx-sb-slot {
-    width: 2.6rem;
+  .fx-sb-pill:hover .fx-sb-rise,
+  .fx-sb-pill:focus-within .fx-sb-rise {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 
   .fx-sb-action {
@@ -167,6 +190,8 @@
   }
 
   /* Handle label above each icon; only shown for the one being hovered. */
+  /* Sibling of the mask, not a child, so the clip that lets icons rise from the
+     bottom edge doesn't swallow the tooltip too. */
   .fx-sb-tip {
     position: absolute;
     bottom: calc(100% + 0.5rem);

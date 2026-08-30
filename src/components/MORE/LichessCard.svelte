@@ -87,8 +87,13 @@
            and a bare divider left the challenge form sitting in the same wash
            as the rating above it. Its own darker ground gives it edges.
            ("the play me comopnent is hard to see...make it more visible") -->
+      <!-- Deliberately COOL against the card's warm gradient. Matching the
+           card's own amber made this block melt into it however bright the text
+           got; the contrast that makes it findable is hue, not luminance.
+           ("The play me component is still hard to see...make it contrast
+           better to make it more identifiable") -->
       <div
-        class="mt-5 rounded-xl border {$theme.accent.yellow.border} {$theme.bg.backdrop} p-4 shadow-inner"
+        class="mt-5 rounded-xl border-2 border-brand/50 bg-slate-950/90 p-4 shadow-lg shadow-black/40 ring-1 ring-inset ring-white/5"
       >
         <slot />
       </div>

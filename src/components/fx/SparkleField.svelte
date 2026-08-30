@@ -18,7 +18,7 @@
     minSize     smallest particle radius, px              default 0.6
     maxSize     largest particle radius, px               default 1.9
     gravity     downward acceleration, px/frame^2         default 0 (see note)
-    drift       omnidirectional wander strength           default 0.14
+    drift       px/frame each particle travels            default 0.22
     twinkle     seconds for a full opacity cycle          default 2.4
     pointerPull cursor attraction radius in px (0 = off)  default 130
     color       null = use the --particles token; or an explicit "r, g, b"
@@ -43,7 +43,7 @@
    * raining")
    */
   export let gravity = 0;
-  export let drift = 0.14;
+  export let drift = 0.22;
   export let twinkle = 3.2;
   export let pointerPull = 130;
   export let color: string | null = null;
@@ -55,6 +55,12 @@
     y: number;
     vx: number;
     vy: number;
+    /** Persistent heading, radians. Turns slowly; never damped to zero. */
+    angle: number;
+    /** Constant px/frame along `angle`. */
+    speed: number;
+    /** Radians/frame the heading wanders by. */
+    turn: number;
     r: number;
     /** Radians; advances each frame to drive the twinkle. */
     phase: number;
@@ -141,11 +147,17 @@
     return {
       x: Math.random() * w,
       y: Math.random() * h,
-      // Random direction on the unit circle, so the field has no shared axis.
+      // Persistent heading on the unit circle, so the field has no shared axis.
       ...(() => {
         const a = Math.random() * Math.PI * 2;
-        const speed = Math.random() * drift * 0.6;
-        return { vx: Math.cos(a) * speed, vy: Math.sin(a) * speed };
+        const sp = drift * (0.45 + Math.random() * 0.9);
+        return {
+          angle: a,
+          speed: sp,
+          turn: (Math.random() - 0.5) * 0.02,
+          vx: Math.cos(a) * sp,
+          vy: Math.sin(a) * sp,
+        };
       })(),
       r: minSize + Math.random() * (maxSize - minSize),
       phase: Math.random() * Math.PI * 2,
@@ -180,16 +192,19 @@
 
     for (const p of particles) {
       /*
-        Brownian wander on both axes, then damping. Equal treatment of x and y
-        is the whole point: as soon as y accumulates a constant (gravity), every
-        particle drifts the same way and the field reads as falling rain.
-        `gravity` is kept as an opt-in knob but defaults to 0.
+        Motion is a PERSISTENT heading that slowly turns, not a damped random
+        walk. The previous version added symmetric noise and then damped it by
+        0.97 — the noise averaged to zero and the damping ate what was left, so
+        the field was effectively frozen ("the particles are not moving at all").
+        A constant speed along a wandering angle keeps every particle in motion
+        indefinitely, in its own direction, with no shared axis to read as rain.
+
+        `gravity` stays an opt-in knob and defaults to 0; any shared downward
+        constant is what made this look like rain in the first place.
       */
-      p.vy += gravity;
-      p.vx += (Math.random() - 0.5) * drift * 0.09;
-      p.vy += (Math.random() - 0.5) * drift * 0.09;
-      p.vx *= 0.97;
-      p.vy *= 0.97;
+      p.angle += p.turn;
+      p.vx = Math.cos(p.angle) * p.speed;
+      p.vy = Math.sin(p.angle) * p.speed + gravity;
 
       // Cursor attraction — the "gravity" the brief asked for reads best as
       // something the pointer can bend, not just a constant downward pull.
@@ -198,7 +213,9 @@
         const dy = pointerY - p.y;
         const dist = Math.hypot(dx, dy);
         if (dist < pointerPull && dist > 1) {
-          const pull = (1 - dist / pointerPull) * 0.05;
+          // Bends this frame's velocity only; vx/vy are recomputed from the
+          // heading next frame, so the pull never accumulates into a drift.
+          const pull = (1 - dist / pointerPull) * 0.7;
           p.vx += (dx / dist) * pull;
           p.vy += (dy / dist) * pull;
         }

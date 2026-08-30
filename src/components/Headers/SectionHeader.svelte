@@ -7,7 +7,7 @@
 </script>
 
 <div class="py-2 mt-4 mb-2">
-  <h1 id={id} class={`uppercase tracking-[0.15em] text-2xl font-semibold ${customColor || $theme.sectionHeader} inline-flex items-center gap-3`}>
+  <h1 id={id} class={`meta-label text-2xl ${customColor || $theme.sectionHeader} inline-flex items-center gap-3`}>
     <span class="w-8 h-[2px] {$theme.gradient.sectionLine} rounded-full"></span>
     <span in:fly={{ y: -8, duration: 350 }}>{title}</span>
   </h1>
