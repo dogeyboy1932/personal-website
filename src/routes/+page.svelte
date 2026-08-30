@@ -68,7 +68,14 @@
                  src/constants/home.ts; off renders the plain heading -->
             <h1 class="uppercase text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight {$theme.text.primary} leading-[0.95]">
               {#if homeHero.particleName}
-                <ParticleText text={homeHero.fullName.toUpperCase()} gap={4} radius={95} />
+                <ParticleText
+                  text={homeHero.fullName.toUpperCase()}
+                  look="nanotech"
+                  gap={4}
+                  radius={110}
+                  force={3}
+                  linkDistance={13}
+                />
               {:else}
                 {homeHero.fullName}
               {/if}

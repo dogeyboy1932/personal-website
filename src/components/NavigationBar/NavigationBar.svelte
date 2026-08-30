@@ -4,8 +4,10 @@
   import { ThemeToggle } from "./ThemeToggle";
   import { navItems, site } from "../../constants";
   import { theme } from "../../lib/stores";
-  // FX:particle-text — the name renders as a cursor-reactive particle cloud
-  import { SpinLogo, GooeyNav, ParticleText } from "../fx";
+  // FX:shiny-text — animated gradient + specular sweep on the name.
+  // (The particle-text experiment moved to the hero title: at navbar size it
+  //  read as texture rather than letterforms.)
+  import { ShinyText, SpinLogo, GooeyNav } from "../fx";
 </script>
 
 <nav
@@ -31,20 +33,16 @@
         row on a phone, which pushed the nav and the theme toggle onto rows of
         their own.
       -->
-      <span class="hidden h-7 w-[21rem] sm:block">
-        <!-- FX:particle-text — the navbar name as a particle cloud.
-             Sized explicitly: ParticleText measures its host box to rasterise
-             the text, and an inline-auto-width host collapses to nothing.
-             Swap this block back to <ShinyText> to undo. -->
-        <ParticleText
-          text={site.author.toUpperCase()}
-          gap={2}
-          radius={60}
-          fontSize={17}
-          font={`700 {size}px 'Chivo', 'Space Grotesk', Inter, sans-serif`}
+      <span class="hidden sm:block">
+        <!-- FX:shiny-text -->
+        <ShinyText
+          variant="both"
+          speed={5}
           class="font-sans text-md tracking-[0.25em] uppercase"
-        />
-        <!-- /FX:particle-text -->
+        >
+          {site.author}
+        </ShinyText>
+        <!-- /FX:shiny-text -->
       </span>
     </a>
 

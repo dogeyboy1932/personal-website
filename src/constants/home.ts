@@ -23,11 +23,10 @@ export const homeHero = {
     alt: "Placeholder headshot",
   },
   fullName: "Akhil Gogineni",
-  // FX:particle-text — flip to true to render the hero name as a cursor-reactive
-  // particle cloud instead of plain type. Off by default: it competes with
-  // FX:sparkles over the same title block, and the brief flagged it as
-  // "we'll see if it's worth keeping".
-  particleName: false,
+  // FX:particle-text — hero name as a cursor-reactive particle cloud, in the
+  // "nanotech" look. Moved here from the navbar, where at 17px it read as
+  // texture rather than letterforms. Set false for plain type.
+  particleName: true,
   // Hero identity line, split into parts so the copy is editable without
   // touching markup. Modelled on the GitHub profile header
   // ("AI Engineer · MCS UIUC '26 · Chicago") but with the age dropped —

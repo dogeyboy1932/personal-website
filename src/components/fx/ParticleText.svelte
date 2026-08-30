@@ -21,6 +21,8 @@
     spring      pull back toward home, 0..1       default 0.09
     friction    velocity damping, 0..1            default 0.86
     color       particle color; defaults to theme
+    look        "nanotech" adds glow + neighbour links; "plain" is flat dots
+    linkDistance  px; how close two particles must be to be linked
 
   How it works: the text is rasterized once to an offscreen canvas, then
   getImageData is sampled on a `gap` grid; every opaque pixel becomes a
@@ -45,6 +47,14 @@
   export let spring = 0.09;
   export let friction = 0.86;
   export let color: string | undefined = undefined;
+  /**
+   * "nanotech" — particles snap to a lattice, glow, and link to nearby
+   * neighbours with hairlines, so the name reads as an assembling structure
+   * rather than a dot-matrix print. "plain" is the original flat dots.
+   */
+  export let look: "plain" | "nanotech" = "plain";
+  /** Max px between two particles for a connecting line to be drawn. */
+  export let linkDistance = 13;
   let klass = "";
   export { klass as class };
 
@@ -144,6 +154,43 @@
 
     const size = Math.max(1, gap - 1.6);
 
+    /*
+      Nanotech pass: hairlines between near neighbours, drawn BEFORE the dots
+      so the nodes sit on top of their own links.
+
+      Cost control matters here — naive all-pairs is O(n^2) over a few thousand
+      particles. Particles are generated in row-major order, so neighbours in
+      the array are neighbours in space; comparing each particle to a short
+      forward window gets the lattice look at O(n).
+    */
+    if (look === "nanotech" && particles.length) {
+      ctx.strokeStyle = fill;
+      ctx.lineWidth = 0.5;
+      ctx.globalAlpha = 0.28;
+      ctx.beginPath();
+      const WINDOW = 3;
+      const maxSq = linkDistance * linkDistance;
+      for (let i = 0; i < particles.length; i++) {
+        const a = particles[i];
+        for (let j = i + 1; j <= i + WINDOW && j < particles.length; j++) {
+          const b = particles[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          if (dx * dx + dy * dy < maxSq) {
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+          }
+        }
+      }
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+
+      // One cheap shadow setup for the whole pass, not per particle — canvas
+      // shadowBlur per item per frame is what tanked the site once already.
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = fill;
+    }
+
     for (const p of particles) {
       const dx = p.x - pointerX;
       const dy = p.y - pointerY;
@@ -168,6 +215,7 @@
       ctx.fillRect(p.x, p.y, size, size);
     }
 
+    ctx.shadowBlur = 0;
     frame = requestAnimationFrame(step);
   }
 
