@@ -1,0 +1,35 @@
+DEVLOG — updates.txt thirteenth pass (72e62d2)
+
+THE CLUB COLOUR SAGA, finally understood after FIVE attempts.
+
+  Attempts 1-4 all treated it as a CONTRAST problem: muted violet -> violet-200
+  -> amber -> neutral slate surface. Each time I asked "is this readable?"
+
+  This pass I MEASURED first: title 17:1, role 9.7:1, body 12:1, chips 14.5:1.
+  Everything was far above AA. Legibility was never the complaint, so no amount
+  of contrast tuning was ever going to satisfy it.
+
+  "Find a better ASSORTMENT of colors for these boxes" = variety ACROSS the
+  boxes, not a better single colour. Each org now has its own accent (cyan /
+  fuchsia / amber) on the shared neutral surface.
+
+  LESSON: when the same feedback repeats after a fix that objectively worked,
+  the problem is being mis-modelled. Measure the thing you think is wrong
+  before changing it again — if the measurement is fine, re-read the words.
+
+WHEEL SCROLL SCOPE: handlers belong on the TRACK (card-width), not the wrapper
+(column-width). On the wrapper, the empty space beside the cards swallowed page
+scroll. Regression test: assert the wheel turns AND the page holds when over
+the cards, and the inverse when beside them.
+
+PARTICLE TEXT brightness: raising the fill colour twice did nothing perceptible
+because the GAPS between dots were doing the darkening. Dot size gap-1.6 ->
+gap-1 so strokes read solid. When "brighter" doesn't work, check density.
+
+Wheel geometry rule still holds: trackHeight >= cardHeight + 2*visible*spreadX.
+Current: 98 + 2*2*76 = 402.
+
+UNTOUCHED BY REQUEST: where-I've-been content, Find Me, placeholder country
+descriptions.
+
+STILL OPEN: "later we'll add more stuff and content on the more page".
