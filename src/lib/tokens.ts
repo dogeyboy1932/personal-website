@@ -3,26 +3,12 @@ import { browser } from "$app/environment";
 import { darkModeStore } from "./stores";
 
 /**
- * Live view of the colour tokens defined in src/styles/tokens.css.
+ * Live view of src/styles/tokens.css, for canvas and inline SVG — they need a
+ * concrete colour string where CSS can just read the custom property.
  *
- * WHY THIS EXISTS
- * ---------------
- * CSS can read a custom property directly; canvas and inline SVG cannot. Those
- * effects need a concrete colour string, which means calling getComputedStyle.
- *
- * Doing that inline in each component was subtly broken. Components resolved
- * their tokens during init, but the `dark` class is applied by ThemeToggle in
- * onMount — so a component could read the LIGHT palette on a dark page and,
- * because its reactive dependency (`$darkModeStore`) never changed afterwards,
- * never correct itself. That is exactly how the navbar pill came out dark in
- * dark mode.
- *
- * This store re-reads every token on the frame AFTER a theme change, which is
- * past whatever order the class-toggling subscriber happens to run in.
- *
- * Values are returned as both:
- *   `channels` — "34, 211, 238", for canvas rgba() composition
- *   `css`      — "rgb(34 211 238)", for direct assignment
+ * CAVEAT: re-reads on the frame AFTER a theme change. Components resolve tokens
+ * during init but the `dark` class lands in ThemeToggle's onMount, so reading
+ * inline gave the wrong palette with no dependency to correct it later.
  */
 
 const NAMES = [
@@ -52,7 +38,7 @@ const NAMES = [
 
 export type TokenName = (typeof NAMES)[number];
 
-/** Dark-theme values, mirroring :root in tokens.css. Used during SSR. */
+/** Dark values mirroring :root, for SSR. */
 const FALLBACK: Record<string, string> = {
   brand: "34, 211, 238",
   "brand-strong": "103, 232, 249",
@@ -84,7 +70,7 @@ function snapshot(): Record<string, string> {
   const out: Record<string, string> = {};
   for (const name of NAMES) {
     const raw = cs.getPropertyValue(`--${name}`).trim();
-    // Tokens are space-separated channels; canvas wants commas.
+    // space-separated channels -> comma-separated for canvas
     out[name] = raw ? raw.split(/\s+/).join(", ") : FALLBACK[name];
   }
   return out;
@@ -95,9 +81,8 @@ export const tokens = writable<Record<string, string>>(
 );
 
 if (browser) {
-  // rAF, not a microtask: the `dark` class is applied by another subscriber to
-  // this same store, and subscription order is not guaranteed. A frame is
-  // comfortably after the class lands.
+  /* CAVEAT: rAF, not a microtask — the `dark` class is set by another subscriber
+     to this same store and subscription order is not guaranteed. */
   darkModeStore.subscribe(() => {
     requestAnimationFrame(() => tokens.set(snapshot()));
   });

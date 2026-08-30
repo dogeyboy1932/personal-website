@@ -229,7 +229,7 @@ export interface Honor {
   event: string;
   detail?: string;
   /** Eagle Scout is a rank, not a competition — rendered apart from the rest. */
-  kind: "competition" | "rank";
+  kind: "win" | "rank";
 }
 
 export interface SocialHandle {

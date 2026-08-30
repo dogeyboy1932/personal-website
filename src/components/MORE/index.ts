@@ -1,4 +1,4 @@
-export { default as BioCard } from "./BioCard.svelte";
+// export { default as BioCard } from "./BioCard.svelte";
 export { default as LichessCard } from "./LichessCard.svelte";
 
 // ---- /more rebuild sections ----
@@ -12,5 +12,6 @@ export { default as ChessChallenge } from "./ChessChallenge.svelte";
 
 /* Superseded by the sections above but kept so a revert has something to land
    on: FunFactItem (-> HonorShelf + TravelSection) and HobbyCard (-> InterestGrid). */
-export { default as FunFactItem } from "./FunFactItem.svelte";
-export { default as HobbyCard } from "./HobbyCard.svelte";
+// export { default as FunFactItem } from "./FunFactItem.svelte";
+
+// export { default as HobbyCard } from "./HobbyCard.svelte";

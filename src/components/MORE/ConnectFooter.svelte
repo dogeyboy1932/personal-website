@@ -10,7 +10,7 @@
 -->
 <script lang="ts">
   import { theme } from "../../lib/stores";
-  import { ShareButton } from "../fx";
+  import { ShareButton } from "../Creative";
   import type { SocialHandle } from "../../types";
 
   export let socials: SocialHandle[] = [];
@@ -26,5 +26,5 @@
        home page's three quick links so exactly one button on the site has it.
        ("Apply glow animation to the 'find me' button?") -->
   <ShareButton actions={socials} label="Find me" glow />
-  <!-- /FX:share-button -->
+  <!-- /Creative:share-button -->
 </div>

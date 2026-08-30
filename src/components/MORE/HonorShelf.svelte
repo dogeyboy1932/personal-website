@@ -18,7 +18,6 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
   import { theme } from "../../lib/stores";
-  import FleurDeLisIcon from "../icons/FleurDeLisIcon.svelte";
   import type { Honor } from "../../types";
 
   export let honors: Honor[] = [];
@@ -31,7 +30,7 @@
   <div class="mb-3 flex items-center gap-2">
     <span class="text-base leading-none" aria-hidden="true">🏆</span>
     <!-- .meta-label-strong: shared with "Also around campus" and the hero. -->
-    <h4 class="meta-label-strong text-xs sm:text-[0.8rem] {$theme.text.secondary}">Honors</h4>
+    <h4 class="meta-label-strong text-xs sm:text-[0.8rem] {$theme.text.secondary}">Other Wins</h4>
   </div>
 
   <div class="flex flex-wrap gap-2">
@@ -43,9 +42,9 @@
         in:fly={{ y: 10, delay: i * 50, duration: 300 }}
         title={honor.detail ?? ""}
       >
-        {#if honor.kind === "rank"}
+        <!-- {#if honor.kind === "rank"}
           <FleurDeLisIcon class="h-4 w-4 flex-shrink-0 text-amber-900" />
-        {/if}
+        {/if} -->
 
         <span class="leading-tight">
           <span
@@ -53,14 +52,14 @@
               ? 'text-amber-900/80'
               : $theme.text.dim}"
           >
-            {honor.placement}
+            {honor.event}
           </span>
           <span
-            class="text-xs font-semibold {honor.kind === 'rank'
+            class="meta-label text-[10px] font-semibold {honor.kind === 'rank'
               ? 'text-amber-950'
               : $theme.text.secondary}"
           >
-            {honor.event}
+            {honor.placement}
           </span>
         </span>
       </div>

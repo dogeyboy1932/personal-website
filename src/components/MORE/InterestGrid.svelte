@@ -16,25 +16,16 @@
 -->
 <script lang="ts">
   import { theme } from "../../lib/stores";
-  import { OptionWheel, FlipCard } from "../fx";
+  import { OptionWheel, FlipCard } from "../Creative";
   import type { Interest } from "../../types";
 
   export let interests: Interest[] = [];
 
   let active = 0;
 
-  /*
-    Each FlipCard owns its own flipped state — deliberately no two-way binding
-    from here.
-
-    The first attempt kept a `flipped` record in this component and did
-    bind:flipped={flipped[index]} with a reactive reset on `active`. Twelve
-    cards writing back into one object, while a reactive statement reassigned
-    that same object, put Svelte into an update loop that hung the page.
-
-    Cards are wrapped in {#key active} instead: rotating the wheel remounts
-    them, which resets any flip, with no shared mutable state to loop through.
-  */
+  /* CAVEAT: cards own their flip state and are wrapped in {#key active}.
+     Binding `flipped` into a shared object here put Svelte in an update loop
+     that hung the page. */
 </script>
 
 <!-- Vertical, because it sits in a narrow right-hand column beside the
@@ -89,34 +80,10 @@
   let:index
   let:isActive
 >
-  <!--
-    FX:flip-card — click, not hover.
-
-    SURFACE OPACITY. Fronts were theme.bg.secondary (bg-indigo-950/50) and backs
-    theme.bg.cardElevated (bg-slate-900/80). At 50% the matrix rain and the
-    cards stacked behind read straight through the front face, which is what
-    "Make card less hollow" is about.
-
-    THE LAST FIX SILENTLY DID NOTHING. It set bg-slate-950/92, and Tailwind's
-    default opacity scale steps by 5 — /92 matches no utility, so no CSS was
-    generated and both faces ended up with NO background at all. That is why the
-    note came back sharper: "The back of the selected card is still too visible.
-    Make it less visible."
-
-    Verified against a standalone tailwind 3.4.19: /90 and /95 emit, /92 does
-    not, /[0.985] does. The arbitrary value is required, not a preference.
-    (Second time this has bitten here — bg-black/88 was the first.)
-
-    Why nearly opaque rather than, say, /90: the focused card is not sitting on
-    the page background, it is sitting on four other cards of the same fan plus
-    an animating matrix canvas. Each contributes, so residual transmission reads
-    as clutter at a level that would be invisible over a flat backdrop.
-    /[0.985] keeps a trace of what is behind, per "Don't remove all
-    transparency".
-
-    Both faces share one value: a flip used to change the transparency along
-    with the content, which made the back look like a different component.
-  -->
+  <!-- FX:flip-card — click, not hover.
+       CAVEAT: bg is theme.bg.flipCard, near-opaque. The card sits on four other
+       cards plus an animating canvas, so residual transparency compounds. And
+       Tailwind's opacity scale steps by 5 — /92 and /98 emit NO CSS at all. -->
   {#key active}
   <FlipCard class="h-[148px]" trigger="click" duration={480}>
     <div
@@ -149,5 +116,5 @@
     </div>
   </FlipCard>
   {/key}
-  <!-- /FX:flip-card -->
+  <!-- /Creative:flip-card -->
 </OptionWheel>

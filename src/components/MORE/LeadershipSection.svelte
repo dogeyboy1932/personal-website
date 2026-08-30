@@ -25,36 +25,8 @@
    */
   export let show: "all" | "roles" | "clubs" = "all";
 
-  /*
-    NO COLOURED TEXT. That is the whole point of this version.
-
-    Five previous attempts all moved the same lever — muted violet, violet-200,
-    amber, then a per-card cyan/fuchsia/amber on the role line. The note was
-    "I still don't like the TEXT COLOR for the clubs stuff", five times, and
-    every one of those attempts answered it by picking a different colour to
-    tint the text with. Contrast was never the problem (measured: 17:1 title,
-    9.7:1 role, 12:1 body — all far above AA), and neither was the hue.
-
-    Colour on body text is the problem. Every other place on this site that got
-    this note resolved the same way: "AI Engineer" is white, the cursor trail is
-    silver, the hero role reads by WEIGHT not hue.
-
-    So: all text is neutral — white title, slate-100 role, slate-300 summary.
-    The per-card identity moves entirely to non-text surfaces (left bar, hover
-    border, link underline), which is where the "better assortment of colors"
-    still reads across the three boxes without tinting a single word.
-  */
-  /*
-    Named per club, in order. ("AI alignment should be orange. Illini Blockchian
-    should be yellow. Sigma phi delta should be somewhat red but not evil red.")
-
-    "not evil red" is why the third is rose-400 -> red-400 rather than a pure
-    red-600: rose keeps a little pink in it and reads warm instead of like an
-    error state.
-
-    Text stays neutral — that was the previous note and it still holds. These
-    colours live on the bar, the hover border and the link underline only.
-  */
+  /* Per-club accent. Colour lives on the bar, border and underline only —
+     text stays neutral. */
   const accents = [
     // AI Alignment @ Illinois — orange
     { bar: "from-orange-500 via-orange-400 to-orange-500", edge: "hover:border-orange-400/60", rule: "decoration-orange-400/60 hover:decoration-orange-300", icon: "text-orange-400/70" },
@@ -74,27 +46,9 @@
     { bar: "from-sky-300 via-blue-500 to-indigo-600", edge: "hover:border-blue-400/60", rule: "decoration-blue-400/60 hover:decoration-blue-300", icon: "text-blue-400/70" },
   ];
 
-  /*
-    ROLE LINE. ("For leadeship roles, make the font colors and size the same. If
-    there are multiple roles, just have a semi colon, |, or some other divider
-    btwn them. If I'm now alumni advisor. have an arrow key to mark the
-    transition. [missed. seeing diff fonts.]")
-
-    Two separate fields render on this line: `role` and `tenure`. They had
-    different colour AND different weight (slate-100 bold vs slate-400 medium),
-    which is the "diff fonts" — same family, but enough apart in weight and
-    tone to read as two typefaces. They are one list of equal items now, so
-    they get identical classes and the SEPARATOR carries all the meaning.
-
-    Which separator depends on what `tenure` is, because the field is doing two
-    different jobs in the data:
-      - a concurrent second role ("Project Lead")      -> "|"
-      - a later position ("Now Alumni Advisor")        -> "→"
-    A leading "Now"/"Currently"/"Former"/"Previously" is what marks it as a
-    transition rather than a parallel title. `role` itself can also hold two
-    titles comma-separated ("VP, Founding Team"), so those split on the same
-    divider.
-  */
+  /* `role` and `tenure` render as one list of equal items; the separator
+     carries the meaning. A leading Now/Former/etc marks a transition (arrow)
+     rather than a concurrent second role (pipe). */
   const TRANSITION = /^(now|currently|former|formerly|previously|later)\b/i;
 
   /** [text, separator-before-it] pairs, separator empty for the first. */

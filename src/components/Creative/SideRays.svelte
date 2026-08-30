@@ -1,28 +1,10 @@
 <!--
-  FX: side-rays
-  Source: https://reactbits.dev/backgrounds/side-rays (React) — reimplemented in Svelte
+  FX: side-rays — volumetric light blades fanning across a section.
 
-  Volumetric light rays fanning in from one edge, drifting and breathing. Pure
-  CSS: a stack of skewed, blurred gradient blades with staggered animations, so
-  there is no canvas and no rAF competing with MatrixRain's loop.
-
-  Used by: src/routes/+page.svelte (landing hero)
-
-  Per the brief, this pairs with a reduced MatrixRain opacity — the rays sit in
-  front, and the rain reads as "a faint glimmer" behind them rather than a
-  competing full-strength layer. That opacity lives on the canvas in
-  src/lib/MatrixRain.svelte, tagged FX:side-rays.
-
-  Tunables:
-    side       "left" | "right" | "both"    which edge the rays fan from  default "left"
-    count      number of blades              default 7
-    opacity    peak blade opacity            default 0.5
-    speed      seconds per drift cycle       default 12
-    spread     degrees of fan across blades  default 42
-    hue        "warm" (amber, matches logo) | "cool" (blue, matches rain)
-
-  Purely decorative: aria-hidden, pointer-events:none, sits behind content.
-  Fades out entirely under prefers-reduced-motion rather than sitting static.
+  CAVEAT: `overlay` puts this at z-index 30, ON TOP of content. Without it the
+  layer is z-index 0 and paints behind — but siblings then need `position:
+  relative`, since a non-positioned block child paints earlier than a
+  positioned z-0 one.
 -->
 <script lang="ts">
   import { browser } from "$app/environment";

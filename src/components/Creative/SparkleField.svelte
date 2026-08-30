@@ -1,31 +1,9 @@
 <!--
-  FX: sparkles + gravity-stars
-  Source: https://ui.aceternity.com/components/sparkles  (React)
-      and https://animate-ui.com/docs/components/backgrounds/gravity-stars  (React)
-  Both reimplemented in Svelte, fused into one canvas.
+  FX: sparkles + gravity-stars — drifting motes that scatter from the cursor.
 
-  The brief asked for both over the same region ("In the entire title section
-  with my name, my university and the 3 links, there should be sparkles of some
-  kind... Then those sparkles or stars should have a gravity movement"). Two
-  separate components would mean two canvases and two rAF loops stacked on the
-  same box, so they share one render loop here: every particle twinkles like a
-  sparkle AND is integrated under gravity like a star.
-
-  Used by: src/routes/+page.svelte (hero title block)
-
-  Tunables:
-    density     particles per 10,000 px^2 of container    default 1.6
-    minSize     smallest particle radius, px              default 0.6
-    maxSize     largest particle radius, px               default 1.9
-    gravity     downward acceleration, px/frame^2         default 0 (see note)
-    drift       px/frame each particle travels            default 0.22
-    twinkle     seconds for a full opacity cycle          default 2.4
-    pointerPull cursor attraction radius in px (0 = off)  default 130
-    color       null = use the --particles token; or an explicit "r, g, b"
-
-  Particles that fall past the bottom respawn at the top, so the field is
-  self-sustaining without unbounded allocation. Sized by ResizeObserver and
-  DPR-aware. Fully skipped under prefers-reduced-motion.
+  PERFORMANCE: particles are pre-rendered once to an offscreen sprite and
+  blitted with drawImage. Canvas shadowBlur per particle per frame is what
+  makes fields like this stutter.
 -->
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
@@ -134,23 +112,10 @@
   // Rebuild when the theme changes the particle color.
   $: if (browser && rgb) buildSprite();
 
-  /*
-    Colour comes from the --particles token (src/styles/tokens.css), read off
-    the document at runtime, so recolouring the site never means editing this
-    file. `color` overrides it per call site when a one-off is wanted.
-
-    Tokens are space-separated RGB channels; canvas needs comma-separated, hence
-    the split/join.
-  */
+  /* CAVEAT: `color` overrides the token only when it is a numeric triple — a
+     stale keyword reaching canvas as rgba(warm,1) throws and kills hydration. */
   $: isDark = $darkModeStore;
 
-  /*
-    Colour comes from the --particles token (src/styles/tokens.css) via the
-    shared token store, so recolouring the site never means editing this file.
-    `color` overrides it per call site, but only when it is a numeric triple —
-    a stale keyword reaching the canvas as rgba(warm, 1) throws and takes
-    hydration down with it.
-  */
   $: rgb =
     color && /^\s*\d+\s*[, ]\s*\d+\s*[, ]\s*\d+\s*$/.test(color)
       ? color.trim().split(/[\s,]+/).join(", ")

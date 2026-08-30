@@ -10,8 +10,10 @@
     SkillCategoryCard,
     CategoryFilter,
     ProjectCard,
-    Carousel
   } from "../../components/PORTFOLIO";
+
+  // Carousel moved to components/Creative and is exported from that barrel.
+  import { Carousel } from "../../components/Creative";
 
   import { sections, experiences, skillsData, projectsData } from "../../constants";
   import { type ProjectCategory } from "../../types";
@@ -26,6 +28,7 @@
     ? projectsData 
     : projectsData.filter(p => p.category.includes(selectedCategory as ProjectCategory));
   $: projectProps = filteredProjects.map((project, index) => ({ project, index }));
+  
 </script>
 
 <section class="space-y-10 pb-4">

@@ -5,7 +5,7 @@
   import { TechBadge } from ".";
   import { getTechColors } from "../../lib/utils";
   // FX:background-gradient — animated halo behind the card
-  import { BackgroundGradient } from "../fx";
+  import { BackgroundGradient } from "../Creative";
 
   export let experience: Experience;
   export let index: number = 0;
@@ -124,4 +124,4 @@
   <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t {cardTheme.glow} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 </div>
 </BackgroundGradient>
-<!-- /FX:background-gradient -->
+<!-- /Creative:background-gradient -->

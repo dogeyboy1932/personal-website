@@ -51,24 +51,8 @@ export const breakpoints = derived(
 // Dark theme colors (the source of truth)
 export const darkTheme = {
   // Tech stack colors - for dark theme (light, vibrant)
-  /*
-    STACK BADGES ONLY. ("The stack can be alternate colors. Find better colors
-    more vibrant and colorful. just for stack")
-
-    The old set was sky/blue/indigo/violet/purple plus two slates — about 60deg
-    of hue, all at the -300/-400 muted end, and two entries with no hue at all.
-    On a dark card that reads as one blue-grey smear, which is why "alternate
-    colors" did not look like alternating anything.
-
-    This set is deliberately WIDE and deliberately bright: eight distinct hues
-    at the -300/-400 saturated end, no neutrals. That is the opposite of the
-    rule for the experience CARDS, which stay silver, and of the portfolio card
-    ramp, which is intentionally narrow — hence "just for stack". Badges are
-    small, sparse and read as tags, so hue variety is legible information
-    rather than the "rainbow" disparity that was wrong at card scale.
-
-    No pink or fuchsia: "Don't use pinkish colors either" still stands.
-  */
+  /* Stack badges only: wide and saturated on purpose. Badges are small and
+     sparse, so hue variety is information; at card scale it read as a rainbow. */
   techColors: [
     "text-cyan-300",
     "text-emerald-300",
@@ -93,14 +77,8 @@ export const darkTheme = {
     cardSolid: 'bg-slate-950',
     cardHover: 'bg-slate-900/90',
     cardElevated: 'bg-slate-900/80',
-    /*
-      Added because these three were hardcoded in components during the
-      dark-only stretch (the theme toggle was commented out), which is exactly
-      what broke the light theme: black boxes on a cream page.
-        flipCard  near-opaque, keeps a trace of the backdrop (see InterestGrid)
-        cardMuted the leadership card / club chip surface
-        panel     the inset panel inside LichessCard, and the error tooltip
-    */
+    /* flipCard / cardMuted / panel exist because these were once hardcoded in
+       components, which is what broke the light theme. */
     flipCard: 'bg-slate-950/[0.985]',
     cardMuted: 'bg-slate-900/70',
     panel: 'bg-slate-950/90',
@@ -119,8 +97,7 @@ export const darkTheme = {
     subtle: 'text-slate-400',
     dim: 'text-slate-500',
     white: 'text-white',
-    /* Brightest body text. text.white is literally 'text-white' in BOTH themes,
-       so it cannot be used for something that must inverse. */
+    /* text.white is 'text-white' in BOTH themes, so it cannot inverse. */
     strong: 'text-slate-50',
   },
   
@@ -205,26 +182,8 @@ export const darkTheme = {
     Titles resolve to white at the last stop so the company name stays legible
     whatever the hue.
   */
-  /*
-    EXPERIENCE CARDS: white / silver only, no hue at all.
-
-    ("I don't like the selection of colors in portfolio still. Just make
-    everything in experience white/silver.")
-
-    Three coloured tables came before this one and each was a different answer
-    to the same note — unrelated hues, then a wide neon arc, then a narrow
-    cyan->indigo ramp. The complaint never moved, so the variable was never the
-    palette: it was that the experience list had colour on it AT ALL. Six cards
-    stacked two-up are a list, and a list wants one voice.
-
-    The cards still differ from one another, by LUMINANCE — the accent bars step
-    from near-white down through slate, which reads as depth rather than as six
-    categories. Same key shape as cardThemes, so nothing downstream changes.
-
-    NOTE: the STACK below still uses cardThemes (cyan -> indigo) — "Make the
-    stack colorful" was a separate, still-standing request. The two tables exist
-    precisely so those two asks can disagree.
-  */
+  /* Experience cards: no hue at all. They differ by LUMINANCE. The STACK below
+     stays colourful — two tables so the two rules can disagree. */
   experienceThemes: [
     { accent: 'from-white via-slate-200 to-slate-400', border: 'border-slate-300/30 hover:shadow-slate-300/20', badge: 'bg-slate-200/10 border-slate-300/30 text-slate-100', title: 'from-white via-slate-100 to-white', role: 'text-slate-200', divider: 'border-slate-400/25', glow: 'from-slate-200/10' },
     { accent: 'from-slate-100 via-slate-300 to-slate-500', border: 'border-slate-400/30 hover:shadow-slate-400/20', badge: 'bg-slate-300/10 border-slate-400/30 text-slate-100', title: 'from-slate-50 via-white to-slate-200', role: 'text-slate-300', divider: 'border-slate-400/25', glow: 'from-slate-300/10' },
@@ -233,25 +192,8 @@ export const darkTheme = {
     { accent: 'from-slate-200 via-slate-300 to-slate-500', border: 'border-slate-300/30 hover:shadow-slate-300/20', badge: 'bg-slate-200/10 border-slate-300/30 text-slate-100', title: 'from-white via-slate-100 to-slate-200', role: 'text-slate-300', divider: 'border-slate-400/25', glow: 'from-slate-200/10' },
   ],
 
-  /*
-    ONE NARROW RAMP: cyan -> indigo. No pink, no violet, no wide hue jumps.
-
-    "Rainbow means we are alternating and having so much disparity. I want
-    somethng a little more consistent. Don't use pinkish colors either"
-
-    History, because this is the third table here:
-      1. amber / rose / teal / violet / sky — five unrelated hues.
-      2. cyan / azure / indigo / violet / magenta — one arc of the neon
-         spectrum, which fixed the "unrelated" half but still spanned ~180deg of
-         hue and ended in fuchsia. Still read as alternating, and the pink was
-         called out by name.
-      3. HERE: cyan-300 through indigo-500, about 60deg of hue total. Adjacent
-         cards differ by roughly one step, so the column reads as a gradient
-         down the page rather than as five choices.
-
-    The stop-to-stop distance IS the disparity, so it is the thing to shrink —
-    picking prettier individual colours was never going to fix it.
-  */
+  /* Stack cards: one narrow cyan -> indigo ramp, ~60deg of hue total, so the
+     column reads as a gradient rather than as five separate choices. */
   cardThemes: [
     { accent: 'from-cyan-300 via-cyan-400 to-sky-400', border: 'border-cyan-400/30 hover:shadow-cyan-500/20', badge: 'bg-cyan-400/10 border-cyan-300/30 text-cyan-200', title: 'from-cyan-200 via-cyan-100 to-white', role: 'text-cyan-300', divider: 'border-cyan-400/20', glow: 'from-cyan-500/10' },
     { accent: 'from-cyan-400 via-sky-400 to-sky-500', border: 'border-sky-400/30 hover:shadow-sky-500/20', badge: 'bg-sky-400/10 border-sky-300/30 text-sky-200', title: 'from-sky-200 via-cyan-100 to-white', role: 'text-sky-300', divider: 'border-sky-400/20', glow: 'from-sky-500/10' },

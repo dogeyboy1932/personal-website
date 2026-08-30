@@ -7,7 +7,7 @@
   // FX:shiny-text — animated gradient + specular sweep on the name.
   // (The particle-text experiment moved to the hero title: at navbar size it
   //  read as texture rather than letterforms.)
-  import { ShinyText, SpinLogo, GooeyNav } from "../fx";
+  import { ShinyText, SpinLogo, GooeyNav } from "../Creative";
 </script>
 
 <nav
@@ -35,7 +35,7 @@
           class="w-9 h-9 transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]"
         />
       </SpinLogo>
-      <!-- /FX:spin-logo -->
+      <!-- /Creative:spin-logo -->
       <a href="/" aria-label="Go to home">
       <!--
         Hidden below sm: the full name is wide enough to claim the whole first
@@ -56,7 +56,7 @@
         >
           {site.author}
         </ShinyText>
-        <!-- /FX:shiny-text -->
+        <!-- /Creative:shiny-text -->
       </span>
       </a>
     </div>
@@ -67,7 +67,7 @@
         <!-- FX:gooey-nav — the links and their active state live in the fx
              component now; the blob replaces the old per-link active pill -->
         <GooeyNav items={navItems} current={$page.url.pathname} />
-        <!-- /FX:gooey-nav -->
+        <!-- /Creative:gooey-nav -->
 
         <!-- Theme Toggle -->
         <!-- Restored. It had been commented out, which is why the light

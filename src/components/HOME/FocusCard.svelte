@@ -2,7 +2,7 @@
   import { fly } from "svelte/transition";
   import { theme } from "../../lib/stores";
   // FX:border-glow — cursor-tracked light riding the card edge
-  import { BorderGlow } from "../fx";
+  import { BorderGlow } from "../Creative";
 
   export let title: string;
   export let description: string;
@@ -15,7 +15,7 @@
 >
   <!-- FX:border-glow -->
   <BorderGlow size={280} intensity={0.85} radius="1rem" />
-  <!-- /FX:border-glow -->
+  <!-- /Creative:border-glow -->
 
   <div class="relative">
     <!-- Title -->

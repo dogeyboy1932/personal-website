@@ -18,7 +18,7 @@
 -->
 <script lang="ts">
   import { theme } from "../../lib/stores";
-  import { FlowingMenu } from "../fx";
+  import { FlowingMenu } from "../Creative";
   import type { TravelStop, TravelCountry } from "../../types";
 
   export let path: TravelStop[] = [];
@@ -46,35 +46,9 @@
 <div class="space-y-4">
   {#if show !== "countries"}
   <!-- ===== Life path stepper ===== -->
-  <!-- justify-center so the stepper sits under the centred heading rather than
-       hugging the left edge. ("The left side should be centered.") -->
-  <!--
-    UNIFORM BOXES ON ONE LINE, ALWAYS.
-    ("make the 'where I've been' section a little wider and more elegant. All
-    boxes same size and text a little bigger and arrow a little bigger", then
-    "smaller window means the whole row shrinks proportionally")
-
-    Every stop is the same fixed width, so the row reads as equal steps rather
-    than the ragged strip it started as — "India" used to be half the width of
-    "Singapore".
-
-    It used to fight a width budget: five boxes plus four arrows need 804px and
-    the column only gives 681px at 1280, so it wrapped and left a connector
-    arrow dangling at a line end. That was patched twice, with a media-query
-    step-down and then a measured arrow-hiding action. Both are gone — use:fitRow
-    scales the single line to whatever width exists, so there is no budget to
-    exceed and no wrap to clean up after.
-
-    whitespace-nowrap on the note still matters: without it a long note could
-    wrap INSIDE its box and make that one box a line taller than the rest,
-    which breaks the uniformity all of this is for.
-  -->
-  <!--
-    The wrapper is the measuring box; the row inside is scaled to fit it.
-    flex-nowrap + w-max means the row keeps its natural single-line width and
-    use:fitRow shrinks the whole thing — boxes, type, gaps, arrows — by one
-    factor. ("smaller window means the whole row shrinks proportionally")
-  -->
+  <!-- Uniform fixed-width stops; use:fitRow scales the whole row to fit so it
+       never wraps. CAVEAT: whitespace-nowrap on the note is load-bearing — a
+       wrapped note would make one box a line taller and break the uniformity. -->
   <div class="travel-fit flex items-start justify-center" use:fitRow>
     <div class="travel-row flex w-max flex-nowrap items-stretch justify-center gap-2">
     {#each path as stop, i}
@@ -107,19 +81,9 @@
   <!-- ===== Countries ===== -->
   <!-- FX:flowing-menu (grid mode) -->
   <FlowingMenu items={rows} {columns} rowHeight="4.1rem" marquee={11} />
-  <!-- /FX:flowing-menu -->
+  <!-- /Creative:flowing-menu -->
   {/if}
 </div>
 
 <style>
-  /*
-    NO SIZE MEDIA QUERY HERE ANY MORE.
-
-    There used to be a step-down below 1439px that shrank the boxes, the note
-    type and the gaps so the row could stay on one line a bit longer, and it
-    still wrapped below ~1300px. use:fitRow replaces both behaviours with one
-    continuous scale, so a discrete jump would only fight it — and the whole
-    point of the note ("smaller window means the whole row shrinks
-    proportionally") is that there is no jump.
-  */
 </style>

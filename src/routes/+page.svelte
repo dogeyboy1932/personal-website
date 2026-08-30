@@ -8,7 +8,7 @@
   // FX:side-rays — volumetric light fanning across the hero
   // HoverBorderGradient dropped: the travelling arc moved to the "Find me"
   // button on /more so exactly one button on the site carries it.
-  import { SideRays, SparkleField, ParticleText } from "../components/fx";
+  import { SideRays, SparkleField, ParticleText } from "../components/Creative";
 
   import { homeFocusAreas } from "../constants";
   
@@ -29,13 +29,8 @@
     site,
   } from "../constants";
 
-  /*
-    NavigationCard, SkillBadge, homeNavigationCards, skillsData and
-    home.skills are all still in the codebase — they are just no longer
-    imported here. The "Also Check Out" card grid and the "Stack" badge band
-    were replaced by FX:quick-links below; putting either back is re-adding the
-    import, not rebuilding anything.
-  */
+  // NavigationCard / SkillBadge / homeNavigationCards / skillsData still exist,
+  // just unused here — restoring either band is an import away.
 </script>
 
 <MetaTags title={site.title} description={site.description} />
@@ -46,40 +41,9 @@
 <!-- mb-0: the hero had trailing space that pushed "Mainly focused on" down.
      ("MOve the mainly focused on a bit higher") -->
 <section class="relative mb-0 font-sans" use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
-  <!--
-    FX:side-rays — mounted on the SECTION, ahead of the grid in DOM order.
-
-    It has moved three times and each move was a different reading of the same
-    complaint, so the reasoning is worth keeping:
-
-      1. section level with `overlay` (z-index:30) — painted OVER the photo and
-         the quote card. Wrong.
-      2. inside the left text column, z-index:0 — physically could not reach the
-         photo, which fixed that, but also meant the light stopped dead at the
-         column boundary instead of crossing the hero.
-      3. HERE: section level, no `overlay`, so z-index:0. The hero grid below is
-         `relative z-10`, and a z-0 positioned sibling paints before a z-10 one,
-         so the blades are behind BOTH columns — photo, quote card and all copy.
-
-    That is what makes "coming in all the way from the right of the photo. Beam
-    should be behind everything but still visible. It must never overshadow the
-    text or photo" satisfiable: it cannot overshadow anything it paints beneath.
-    The origin is at right:3%, past the photo's right edge, so the fan enters
-    from beyond the photo and rakes left across the whole section.
-
-    widthScale 1.8 and spread 30 are the "a bit bigger" half.
-
-    Opacity has walked 0.5 -> 0.42 -> 0.28 -> 0.30 -> 0.34 -> 0.46. Everything
-    below 0.34 was dimming to stop it washing the hero copy; since it moved
-    behind the z-10 grid that constraint is gone, and "make the beam a bit
-    brighter" can simply be answered.
-
-    THE BEAM STAYS WARM. I briefly made it silver, reading "It's still dim
-    yellow right now. Silvery white is what I want" as being about this layer,
-    since by then it was the only warm source left in the hero. It is not:
-    "keep beam yellow. revert". The amber wash is intended; the notes about
-    yellow were about the sparkles, which are pure white as of the last pass.
-  -->
+  <!-- FX:side-rays — section level, no `overlay`, so z-index 0 paints behind
+       BOTH columns. CAVEAT: siblings that must sit above it need `relative`;
+       a non-positioned block child paints earlier than a positioned z-0 one. -->
   <SideRays
     side="right"
     count={2}
@@ -89,16 +53,11 @@
     widthScale={1.8}
     hue="warm"
   />
-  <!-- /FX:side-rays -->
+  <!-- /Creative:side-rays -->
 
-  <!--
-    minmax(0,1fr), not 1fr. A bare `1fr` is minmax(AUTO,1fr): the column refuses
-    to shrink below its content's min-content width, so below ~900px the photo
-    column pushed past the page panel by up to 103px and the document scrolled
-    sideways. minmax(0,...) lets it actually shrink. ("If my picture overflows
-    outside the entire page container, that's a problem. It should NEVER
-    overflow")
-  -->
+  <!-- CAVEAT: minmax(0,1fr), not 1fr. A bare 1fr is minmax(AUTO,1fr), so the
+       column will not shrink below its content and the photo overflowed the
+       page by ~103px below 900px. -->
   <div
     class="relative z-10 grid gap-3"
     class:grid-cols-1={!$breakpoints.isDesktop}
@@ -120,10 +79,7 @@
 
       
       <!-- Header Box -->
-      <!-- backdrop-blur-sm removed: this box has no background of its own, so
-           the blur only softened the matrix rain behind the text, and it sits
-           over an animating canvas so it could never be cached. -->
-      <div class="relative flex items-center justify-center p-4 rounded-xl">
+          <div class="relative flex items-center justify-center p-4 rounded-xl">
         <!-- FX:sparkles FX:gravity-stars — covers the whole title block: name,
              university and the three social links -->
         <!-- Reaches ~24px above the title block and ~110px below it, which
@@ -133,42 +89,17 @@
              pointer-events:none, so covering the blurb costs no selection or
              link behaviour. -->
         <SparkleField density={6} pointerPull={150} bleedTop={24} bleedBottom={110} />
-        <!-- /FX:sparkles /FX:gravity-stars -->
+        <!-- /Creative:sparkles /Creative:gravity-stars -->
 
         <div class="relative z-10 text-left">
           <!-- relative: the name's radial halo below is absolutely positioned
                against this box. -->
           <div class="relative flex flex-col">
-            <!-- FX:particle-text — gated by homeHero.particleName in
-                 src/constants/home.ts; off renders the plain heading.
-
-                 look="plain", not "nanotech". ("there are lines between each
-                 letter for the particles words...remove those.") The nanotech
-                 pass strokes hairlines between neighbouring particles, and
-                 since the particles sit on a lattice those links landed as
-                 visible threads spanning the gaps between glyphs. It was also
-                 the only thing "nanotech" still did — its other half, the
-                 per-dot glow, was removed when the container glow replaced it —
-                 so switching to plain drops the whole extra draw pass rather
-                 than just hiding it. linkDistance goes with it, unused now. -->
-            <!--
-              ONE CONTAINER GLOW, not a glow per letter.
-              ("Rather than having each letter emit a glow of its own...the
-              entire string should have a 'container' glow. like a rectangle
-              glow if that makes sense.")
-
-              What was here before was three glyph-shaped light sources stacked:
-              canvas shadowBlur haloing every dot, a drop-shadow tracing the
-              word's outline, and a radial ellipse. All three followed the
-              LETTERFORMS, which is exactly what the note rules out.
-
-              All three are gone. What remains is a single blurred rounded
-              rectangle sized to the title block, sitting behind it at -z-10 —
-              a lit panel the word sits on rather than a word that emits light.
-              A rectangle also cannot be "too bright" the way per-letter halos
-              were, because the light is spread over a constant area instead of
-              concentrating along every stroke.
-            -->
+            <!-- FX:particle-text — gated by homeHero.particleName.
+                 look="plain": nanotech strokes hairlines between neighbouring
+                 particles, which read as threads spanning the glyph gaps. -->
+            <!-- One container glow: a blurred rounded rectangle behind the
+                 block, not a halo per letter. -->
             <!--
               WHY THIS LOOKED YELLOW. The halo was already pure white, but at
               0.16 it was thinner than the amber SideRays wash sitting behind it
@@ -204,16 +135,8 @@
                 {homeHero.fullName}
               {/if}
             </h1>
-            <!-- /FX:particle-text -->
+            <!-- /Creative:particle-text -->
 
-            <!-- Two lines by design: the role carries more weight than the
-                 credentials, so it gets its own line rather than being buried
-                 in a single run-on row of separators. -->
-            <!-- Bright primary text, not amber and not cyan. Two notes pulled in
-                 opposite directions here — "AI Engineer should be a diff color
-                 than orange" and later "the cyan text is looking kinda ugly.
-                 revert the text color for all of it" — so the role reads by
-                 WEIGHT rather than by hue. -->
             <h2 class="mt-3 text-lg sm:text-xl md:text-2xl font-display font-extrabold {$theme.text.primary} tracking-[0.2em] uppercase">
               {homeHero.role}
             </h2>
@@ -253,10 +176,7 @@
       
       <!-- Summary Text -->
       <!-- backdrop-blur-sm removed; see the note on the header box above. -->
-      <!-- `relative` is load-bearing: FX:side-rays is a z-index:0 POSITIONED
-           sibling, and positioned z-0 descendants paint after non-positioned
-           block ones. Without this the beams would cross this paragraph even
-           though they sit earlier in the DOM. -->
+      <!-- `relative` is load-bearing — see the side-rays caveat above. -->
       <div class="relative flex flex-col items-center gap-5 py-3 px-8">
         <!-- Larger and brighter than before: this is the five-second answer to
              "who is this", and it was previously small, light-weight grey that
@@ -282,21 +202,8 @@
 
              No scroll-reveal: this sits inside the first viewport, so a
              scroll-triggered reveal would start blurred and never un-blur. -->
-        <!--
-          Larger and given some actual design. ("make the buttons under the blub
-          look better? Better design and style + larger.")
-
-          What each piece is doing, since "look better" is otherwise a guess:
-          - a sweep highlight that travels left-to-right on hover, clipped by
-            overflow-hidden. Transform only, so it stays on the compositor —
-            this hero already sits over an animating canvas and a blurred ray
-            layer, and a hover effect that triggers paint would show.
-          - a leading index (01/02/03) in the accent, which gives the row a
-            deliberate order instead of three interchangeable chips.
-          - the arrow tucks in at rest and slides out on hover.
-          Sizing: px-5 py-2 text-xs -> px-7 py-3.5 text-sm, and the row gets a
-          wider gap so the three do not read as one segmented control.
-        -->
+        <!-- Sheen is transform-only: this hero sits over an animating canvas
+             and a blurred ray layer, so a paint-triggering hover would show. -->
         <nav class="flex flex-wrap justify-center gap-3.5" aria-label="Quick links">
           {#each homeQuickLinks as link, i}
             <a
@@ -328,12 +235,7 @@
     </div>
 
 
-    <!-- Right Column: Photo and Quote.
-         z-40 puts it ABOVE FX:side-rays (z-30, overlay mode) so the beams no
-         longer wash across the photo and the quote card. ("make the picture and
-         quote stuff not be glared by the side beams. Worst case move it 'in
-         front' of the side beams.") The rays still cross the text column, which
-         is where they read as light rather than glare. -->
+    <!-- Right column: photo and quote. -->
     <div class="relative z-40 flex min-w-0 flex-col">
       <HeroImage 
         src={homeHero.image.src} 
@@ -351,10 +253,6 @@
 
 <!-- ===== FOCUS AREAS SECTION ===== -->
 <!-- FX:scroll-reveal -->
-<!-- mt-0: "MOve the mainly focused on a bit higher", third time. The hero's
-     own trailing space went first, then the quick-links band that used to sit
-     between the two — it now lives inside the hero column, so this section
-     moves up by the whole height of that band plus its margins. -->
 <section class="mt-0 mb-8" use:scrollReveal>
 
   <div>

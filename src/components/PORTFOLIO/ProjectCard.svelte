@@ -5,7 +5,7 @@
   import { getTechColors } from "../../lib/utils";
   import type { Project } from "../../types";
   // FX:background-gradient — animated halo behind the card
-  import { BackgroundGradient } from "../fx";
+  import { BackgroundGradient } from "../Creative";
 
   export let project: Project;
   export let index: number = 0;
@@ -113,4 +113,4 @@
   </div>
 </div>
 </BackgroundGradient>
-<!-- /FX:background-gradient -->
+<!-- /Creative:background-gradient -->

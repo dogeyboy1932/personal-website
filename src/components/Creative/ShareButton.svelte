@@ -28,22 +28,7 @@
 
   export let actions: SocialHandle[] = [];
   export let label = "Find me";
-  /**
-   * Travelling-arc border.
-   *
-   * The effect is the shared `.fx-arc` class from src/styles/effects.css, not
-   * an implementation of its own. It used to be a private copy of
-   * HoverBorderGradient's CSS, which is why the same conic-gradient + ring-mask
-   * + @property idiom existed twice in this folder.
-   *
-   * Still a class rather than wrapping this component in
-   * <HoverBorderGradient>: that renders a real <a>/<button> and the pill
-   * already contains interactive children, so nesting would be invalid markup
-   * and would break keyboard use. A class has no such problem — which is the
-   * point of extracting it.
-   *
-   * ("Apply glow animation to the 'find me' button?")
-   */
+  /** Travelling arc — the shared `.fx-arc` class from src/styles/effects.css. */
   export let glow = false;
   /** Seconds per revolution of the arc. */
   export let glowDuration = 4;

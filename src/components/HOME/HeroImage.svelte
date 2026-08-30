@@ -3,7 +3,7 @@
   import { theme } from "../../lib/stores";
 
   // FX:quote-carousel — was a single `quote`/`voice` pair
-  import { QuoteCarousel } from "../fx";
+  import { QuoteCarousel } from "../Creative";
 
   export let src: string;
   export let alt: string;
@@ -26,5 +26,5 @@
   <figcaption class="mt-2">
     <QuoteCarousel {quotes} interval={7000} shuffle />
   </figcaption>
-  <!-- /FX:quote-carousel -->
+  <!-- /Creative:quote-carousel -->
 </figure>

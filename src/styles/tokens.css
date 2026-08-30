@@ -1,64 +1,26 @@
 /*
-  ============================================================================
-  COLOR TOKENS — the one place to change the site's colours.
-  ============================================================================
+  Colour tokens — the one place to change the site's palette.
 
-  Requested directly: "we might end up changing colors a lot, which is why you
-  should encapsulate all color stuff in a css file rather than manually
-  changing colors yourself."
+  Values are SPACE-SEPARATED RGB CHANNELS so Tailwind's <alpha-value> works
+  (text-brand, bg-brand/10, border-brand/30 all resolve from one property).
 
-  HOW TO RECOLOUR THE SITE
-  ------------------------
-  Change --brand-* below. Everything downstream follows: the AI Engineer line,
-  the hero sparkles, the side rays, the navbar pill, the card halos, the matrix
-  rain, the focus-card border glow, the "see full stack" button.
-
-  NAMING: `--brand-*`, not `--accent-*`. src/styles.css already defines an
-  `--accent` (an HSL triple, from the shadcn-style palette) inside @layer base,
-  which is emitted after this file and would silently win.
-
-  Values are SPACE-SEPARATED RGB CHANNELS, not `rgb(...)` strings — that is what
-  lets Tailwind's `<alpha-value>` work, so `text-accent`, `bg-accent/10` and
-  `border-accent/30` all resolve from one token.
-
-  Anything that needs a plain CSS colour (canvas fillStyle, SVG stops) reads the
-  same token via `rgb(var(--brand))`, so JS and CSS can never drift apart.
-
-  WHAT IS NOT HERE (yet)
-  ----------------------
-  src/lib/stores.ts still holds the large light/dark Tailwind-class tables for
-  structural surfaces, borders and per-card palettes. Those are literal utility
-  strings, not colour values, so they cannot be expressed as custom properties
-  without rewriting every consumer. The colours that actually get iterated on
-  live here; the rest stays there until it needs to move.
-  ============================================================================
+  CAVEAT: named --brand-*, not --accent-*. src/styles.css already defines an
+  --accent HSL triple inside @layer base, which is emitted later and wins.
 */
 
 :root {
   /* --- Accent: the site's signature colour ------------------------------ */
-  /* Cyan. Chosen over the previous blue because blue at this saturation sank
-     into the near-navy background; cyan sits far enough off it to read. */
   --brand: 34 211 238; /* cyan-400  */
   --brand-strong: 103 232 249; /* cyan-300  — hovers, highlights */
   --brand-deep: 8 145 178; /* cyan-600  — light-theme text */
   --brand-soft: 165 243 252; /* cyan-200  — gradient tails */
 
   /* --- Warm: the logo / secondary voice --------------------------------- */
-  /* Kept amber so the logo and the accent never collapse into one colour. */
   --warm: 251 191 36; /* amber-400 */
   --warm-strong: 253 230 138; /* amber-200 */
   --warm-deep: 217 119 6; /* amber-600 */
 
-  /* --- Lede: the /more one-liner and the scorecard numerals -------------- */
-  /*
-    A SEPARATE token from --brand and --warm on purpose. This pair has been
-    recoloured three times on its own (amber -> cyan -> yellow) while the rest
-    of the site stayed put, so it gets its own switch: change this one line and
-    the flip-word and all four stat figures move together.
-
-    Yellow for now, per "Also a better color than blue for the one liner and
-    stats. Make it yellow for now."
-  */
+  /* --- Lede: the /more one-liner + scorecard numerals ------------------ */
   --lede: 250 204 21; /* yellow-400 */
 
   /* --- Effect-specific, so an effect can be retuned in isolation --------- */
@@ -88,10 +50,7 @@
   --halo-1: 34 211 238;
   --halo-2: 99 102 241;
   --halo-3: 168 85 247;
-  /* Neutral halo, for cards that must carry no hue. The experience cards were
-     wrapped in palette="violet", which is what put a purple rim on cards whose
-     own palette had already been made silver. ("The cards are still somewhat
-     purple...fix the border.") */
+  /* Neutral halo, for cards that must carry no hue. */
   --halo-silver-1: 241 245 249;
   --halo-silver-2: 203 213 225;
   --halo-silver-3: 148 163 184;
@@ -106,21 +65,8 @@
   listed inherits from :root, so adding a token above never means remembering
   to add it twice.
 */
-/*
-  LIGHT THEME — a coffee palette, not a recoloured dark one.
-  ("fix light theme. Find better assortment of colors for the coffee like
-  theme")
-
-  The surfaces were already cream and espresso, but the ACCENTS were still the
-  dark theme's: cyan-600 brand and yellow-600 lede. Cyan sits almost opposite
-  brown on the wheel, so every accent read as a foreign object dropped onto the
-  page — the date badges on /portfolio were ice blue on warm white.
-
-  The accent is teal now. Teal is the classic complement to coffee browns: far
-  enough from the base to be legible as an accent, close enough in warmth not
-  to fight it. The lede moves from yellow to amber-700 so the /more figures read
-  as caramel rather than as highlighter.
-*/
+/* Light theme: coffee. Accents are teal/amber rather than the dark theme's
+   cyan/yellow, which sat nearly opposite brown and read as foreign. */
 html:not(.dark) {
   --brand: 15 118 110; /* teal-700 — the complement to coffee, not its opposite */
   --brand-strong: 17 94 89; /* teal-800 */
@@ -134,8 +80,6 @@ html:not(.dark) {
   /* amber-700: caramel. yellow-600 read as a highlighter on cream. */
   --lede: 180 83 9;
 
-  /* The matrix rain was cyan on cream — a cold, high-contrast grid crawling
-     behind warm content. Amber at low contrast lets it read as texture. */
   --rain: 180 83 9;
   --rain-tail: 253 230 138;
 

@@ -4,38 +4,15 @@ import { more } from "../../../constants/more";
 import type { RequestHandler } from "./$types";
 
 /**
- * Lichess challenge endpoint.
+ * Lichess challenge endpoint. The challenge goes FROM the site owner TO the
+ * visitor: POST /api/challenge/{visitor} with the OWNER's token.
  *
- * DIRECTION: the challenge goes FROM the site owner TO the visitor.
- * `POST /api/challenge/{visitor}` authenticated with the OWNER's token means
- * Lichess records the owner as the challenger, so the challenge lands in the
- * visitor's Lichess inbox as "trashboatsr challenges you". The visitor never
- * has to go and find the owner's profile.
+ * SECURITY: creating a challenge needs an OAuth token with `challenge:write`.
+ * It stays server-side, read from LICHESS_TOKEN, and is never returned to the
+ * client. Set it in Netlify -> Environment variables; never commit it.
  *
- * The one place that used to be backwards was the no-token fallback, which
- * handed the visitor a link to their OWN profile — a dead end that also read
- * as "you go challenge me". It points at the owner now.
- *
- * updates.txt: "send chess challenges (have an input box...if the username is
- * valid then a challenge will be created (deterministic api call and check)).
- * If invalid, then red error otherwise green 'chellegne sent'"
- *
- * Why this is a server route rather than a fetch from the browser:
- * creating a challenge requires an OAuth token with the `challenge:write`
- * scope. A token shipped in the client bundle is readable by anyone, who could
- * then send challenges as the site owner. It stays server-side, read from the
- * environment, and is never returned to the client.
- *
- * SETUP (done by the site owner, not in this repo):
- *   1. lichess.org -> Preferences -> API access tokens -> New token
- *      Scope: `challenge:write` ONLY. Nothing else.
- *   2. Netlify -> Site settings -> Environment variables -> LICHESS_TOKEN
- * The token must never be committed, pasted into a file, or shared.
- *
- * Until that variable exists the endpoint still answers usefully: it validates
- * the username and reports `configured: false`, and the UI falls back to
- * handing the visitor off to Lichess. The feature is therefore shippable
- * before the token is set.
+ * Without the token the endpoint still validates and reports `not_configured`,
+ * so the feature is shippable before the token exists.
  */
 
 /** This route is dynamic; the rest of the site is prerendered. */
@@ -45,16 +22,9 @@ export const prerender = false;
 const OWNER = more.lichess.username;
 
 /**
- * Clock settings for the created challenge.
- *
- * "realtime" is 10+0, per the original ask ("It should also be a 10 + 0
- * challenge"). Flip to "correspondence" for a days-per-move game.
- *
- * WHY THE SWITCH EXISTS: a real-time challenge starts a live game the moment
- * the visitor accepts, whether or not the owner is at the board. "I may be
- * afk...I'll get to it" describes correspondence play exactly, so this is one
- * line rather than a rewrite. Left on realtime because 10+0 was asked for
- * explicitly; change the string to move the whole feature over.
+ * "realtime" is 10+0. CAVEAT: a real-time challenge starts a live game the
+ * moment it is accepted, whether or not the owner is at the board — flip to
+ * "correspondence" if that matters.
  */
 const CHALLENGE_MODE: "realtime" | "correspondence" = "realtime";
 
@@ -93,7 +63,7 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
     );
   }
 
-  // Cheap local check first, so an obviously bad value never hits Lichess.
+  // Cheap local check first.
   if (!USERNAME_RE.test(username)) {
     return reply(
       {
@@ -131,8 +101,7 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
 
   const data = await profile.json().catch(() => ({}));
 
-  // A closed or tos-violating account exists but cannot be challenged; saying
-  // "sent" here would be a lie the visitor only discovers on Lichess.
+  // Exists but unchallengeable — saying "sent" would be a lie.
   if (data?.disabled || data?.tosViolation) {
     return reply(
       {
@@ -151,8 +120,7 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
         ok: false,
         status: "not_configured",
         message: `"${username}" exists, but auto-challenges aren't switched on yet.`,
-        // The OWNER's profile, not the visitor's. Pointing at the visitor's own
-        // page was a dead end — there is nothing to do there.
+        // The OWNER's profile — the visitor's own page is a dead end.
         handoffUrl: `https://lichess.org/@/${encodeURIComponent(OWNER)}`,
       },
       200
@@ -193,7 +161,7 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
 
   if (!challenge.ok) {
     const detail = await challenge.text().catch(() => "");
-    // Never surface the raw upstream body — it can echo request details.
+    // CAVEAT: never surface the raw upstream body — it can echo request details.
     console.error("lichess challenge failed", challenge.status, detail.slice(0, 200));
     return reply(
       {
@@ -206,9 +174,7 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
     );
   }
 
-  // Deliberately says it is WAITING, not that a game has started. The owner may
-  // not be at the board. ("i may be afk. So make it clear that a challenge will
-  // be made and I'll get to it.")
+  // Says WAITING, not that a game has started — the owner may be away.
   return reply(
     {
       ok: true,

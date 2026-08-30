@@ -1,30 +1,11 @@
 <!--
-  FX: option-wheel
-  Source: https://reactbits.dev/components/option-wheel (React) — reimplemented in Svelte
+  FX: option-wheel — options fan along an arc, one in focus, neighbours dimming.
+  Rotate with the arrows, arrow keys, a drag, or by clicking a neighbour.
 
-  Options fan along an arc, one in focus at the front, neighbours falling away
-  to either side and dimming with distance. Rotate with the arrows, the arrow
-  keys, a drag, or by clicking any visible neighbour.
-
-  Used by: src/components/MORE/InterestGrid.svelte
-
-  Only a WINDOW of the wheel is rendered (`visible` either side of centre)
-  rather than the full circle. A literal wheel is as tall as its diameter,
-  which is the opposite of the goal here — this keeps the footprint to roughly
-  one card plus the arc's dip.
-
-  Tunables:
-    items      any[]; rendered through the default slot with let:item
-    active     bound; index in focus
-    visible    neighbours drawn each side of centre    default 3
-    spreadX    px between adjacent cards along the arc default 132
-    dip        px the arc drops per step from centre   default 16
-    cardWidth  px                                       default 150
+  Only a WINDOW of the wheel is rendered (`visible` either side of centre), so
+  the footprint is roughly one card plus the arc's dip rather than a diameter.
 
   Slot props: item, index, isActive.
-
-  Wrapping is deliberate on the SHORT way round, so stepping from the last item
-  to the first slides one place rather than unwinding the whole set.
 -->
 <script lang="ts">
 
@@ -55,20 +36,10 @@
 
   $: count = items.length;
 
-  /**
-   * Signed distance from `active` for every item, taking the short way around
-   * the wheel.
-   *
-   * This MUST be a reactive statement, not a function called from the template.
-   * It was `{@const offset = offsetOf(i)}` calling a plain function that closed
-   * over `active`; Svelte only tracks the identifiers it can see in the
-   * expression, so it never knew the const depended on `active` and never
-   * recomputed it. The counter and the active-card border updated (those read
-   * `active` directly) while every card transform stayed frozen — the wheel
-   * highlighted a new card without moving.
-   *
-   * Referencing `active` and `items` here is what makes the dependency visible.
-   */
+  /* CAVEAT: must be a reactive statement, not a function called from the
+     template. As `{@const offset = offsetOf(i)}` Svelte could not see the
+     dependency on `active`, so the counter updated while every card stayed
+     frozen — the wheel highlighted a new card without moving. */
   $: offsets = items.map((_, index) => {
     const n = items.length;
     if (!n) return 0;
@@ -83,12 +54,8 @@
     active = (active + dir + count) % count;
   };
 
-  /*
-   * No tabindex on the wrapper: a role="group" is not interactive, so giving it
-   * a tab stop is an a11y error. The prev/next buttons inside are already
-   * focusable and keydown bubbles from them, so arrow keys work whenever focus
-   * is anywhere in the wheel.
-   */
+  /* No tabindex: role="group" is not interactive. Keydown bubbles from the
+     buttons inside, so arrow keys work whenever focus is in the wheel. */
   function onKeydown(event: KeyboardEvent) {
     if (event.key === "ArrowLeft") {
       event.preventDefault();
@@ -99,21 +66,11 @@
     }
   }
 
-  /* ---- drag to spin ----------------------------------------------------
-     WHY CAPTURE IS LAZY. setPointerCapture used to run on pointerdown. While a
-     pointer is captured, the browser dispatches the resulting CLICK at the
-     capturing element rather than at whatever is under the cursor — so every
-     click landed on .fx-ow-track and the FlipCard <button> inside it never saw
-     one. ("in optionwheel now the bloody card won't flip")
-
-     Capture is still needed, but only once a real drag is under way, so it is
-     taken on the first pointermove that clears DRAG_THRESHOLD. A click never
-     moves that far, so a click is never captured and reaches the card; a drag
-     captures immediately on the first meaningful movement and keeps tracking
-     even if the cursor leaves the track.
-
-     The threshold does double duty: `dragging` no longer goes true on mousedown,
-     so a click can't nudge the wheel by a pixel of hand tremor either.  */
+  /* ---- drag to spin --------------------------------------------------
+     CAVEAT: capture is taken lazily, on the first move past DRAG_THRESHOLD.
+     While a pointer is captured the browser dispatches the CLICK at the
+     capturing element, so capturing on pointerdown ate every click and the
+     cards stopped flipping. */
   const DRAG_THRESHOLD = 6;
 
   let pointerDown = false;
@@ -164,29 +121,11 @@
     dragging = false;
   }
 
-  /* ---- scroll to rotate ------------------------------------------------
-     Bound to the TRACK — a stable, non-animating box exactly one card wide.
-
-     Binding to the individual cards instead looked more precise and broke
-     scrolling outright: "The ENTIRE page is scrolling down when I just try to
-     scroll the wheel."
-
-     Why it fails. A wheel gesture is LATCHED by the browser: the target is
-     chosen when the gesture starts and the rest of the gesture follows it. The
-     cards are transform-animated (420ms per rotation) and are scaled down as
-     they move off centre, so the moment the wheel turns, the element under the
-     cursor slides and shrinks away from it. One event missing the card hands
-     the entire remaining gesture to the document, and the page scrolls.
-
-     A capture region must not be the thing that moves. The track does not
-     move, and at one card wide it is still narrow enough to leave the
-     counter/hint pocket beside it free of scroll capture — which is what the
-     original complaint was about ("There's a lot of empty space in the left of
-     the wheel that should be void of scrolling"); that empty space was the
-     wrapper, and the wrapper is not bound.
-
-     Deltas accumulate against a threshold so a trackpad's many small events
-     don't spin it wildly; preventDefault stops the page moving underneath.  */
+  /* ---- scroll to rotate ----------------------------------------------
+     CAVEAT: bound to the TRACK, which does not move. Wheel gestures are
+     LATCHED — the browser picks a target when the gesture starts. Binding to
+     the cards let them animate out from under the cursor, handing the rest of
+     the gesture to the document and scrolling the page. */
   /* Px of accumulated scroll per step. 28 spun the wheel several cards for one
      flick of a trackpad; 85 is roughly one notch of a mouse wheel (deltaY 100)
      or a deliberate trackpad swipe. ("reduce sensitivity of scrolling of the
