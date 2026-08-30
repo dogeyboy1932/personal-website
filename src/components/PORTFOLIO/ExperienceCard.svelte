@@ -10,7 +10,10 @@
   export let index: number = 0;
 
   // Use theme-aware card themes from the store
-  $: cardTheme = $theme.cardThemes[index % $theme.cardThemes.length];
+  /* experienceThemes, NOT cardThemes: the experience list is white/silver and
+     the stack below it stays colourful. Two tables so the two asks can
+     disagree. ("Just make everything in experience white/silver.") */
+  $: cardTheme = $theme.experienceThemes[index % $theme.experienceThemes.length];
 </script>
 
 <!-- FX:background-gradient — see the note in ProjectCard.svelte for why this

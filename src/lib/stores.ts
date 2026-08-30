@@ -174,6 +174,34 @@ export const darkTheme = {
     whatever the hue.
   */
   /*
+    EXPERIENCE CARDS: white / silver only, no hue at all.
+
+    ("I don't like the selection of colors in portfolio still. Just make
+    everything in experience white/silver.")
+
+    Three coloured tables came before this one and each was a different answer
+    to the same note — unrelated hues, then a wide neon arc, then a narrow
+    cyan->indigo ramp. The complaint never moved, so the variable was never the
+    palette: it was that the experience list had colour on it AT ALL. Six cards
+    stacked two-up are a list, and a list wants one voice.
+
+    The cards still differ from one another, by LUMINANCE — the accent bars step
+    from near-white down through slate, which reads as depth rather than as six
+    categories. Same key shape as cardThemes, so nothing downstream changes.
+
+    NOTE: the STACK below still uses cardThemes (cyan -> indigo) — "Make the
+    stack colorful" was a separate, still-standing request. The two tables exist
+    precisely so those two asks can disagree.
+  */
+  experienceThemes: [
+    { accent: 'from-white via-slate-200 to-slate-400', border: 'border-slate-300/30 hover:shadow-slate-300/20', badge: 'bg-slate-200/10 border-slate-300/30 text-slate-100', title: 'from-white via-slate-100 to-white', role: 'text-slate-200', divider: 'border-slate-400/25', glow: 'from-slate-200/10' },
+    { accent: 'from-slate-100 via-slate-300 to-slate-500', border: 'border-slate-400/30 hover:shadow-slate-400/20', badge: 'bg-slate-300/10 border-slate-400/30 text-slate-100', title: 'from-slate-50 via-white to-slate-200', role: 'text-slate-300', divider: 'border-slate-400/25', glow: 'from-slate-300/10' },
+    { accent: 'from-slate-200 via-slate-400 to-slate-600', border: 'border-slate-400/30 hover:shadow-slate-400/20', badge: 'bg-slate-300/10 border-slate-400/30 text-slate-200', title: 'from-white via-slate-200 to-slate-100', role: 'text-slate-300', divider: 'border-slate-500/25', glow: 'from-slate-400/10' },
+    { accent: 'from-slate-300 via-slate-500 to-slate-700', border: 'border-slate-500/30 hover:shadow-slate-500/20', badge: 'bg-slate-400/10 border-slate-500/30 text-slate-200', title: 'from-slate-100 via-white to-slate-300', role: 'text-slate-400', divider: 'border-slate-500/25', glow: 'from-slate-500/10' },
+    { accent: 'from-slate-200 via-slate-300 to-slate-500', border: 'border-slate-300/30 hover:shadow-slate-300/20', badge: 'bg-slate-200/10 border-slate-300/30 text-slate-100', title: 'from-white via-slate-100 to-slate-200', role: 'text-slate-300', divider: 'border-slate-400/25', glow: 'from-slate-200/10' },
+  ],
+
+  /*
     ONE NARROW RAMP: cyan -> indigo. No pink, no violet, no wide hue jumps.
 
     "Rainbow means we are alternating and having so much disparity. I want
@@ -471,6 +499,15 @@ export const lightTheme = {
   },
   
   // Card color themes - warm, rich palette with high contrast
+  /* Experience cards: neutral only. Slate on cream, mirroring the dark table. */
+  experienceThemes: [
+    { accent: 'from-slate-500 via-slate-600 to-slate-800', border: 'border-slate-400 hover:shadow-xl hover:shadow-slate-300/40', badge: 'bg-slate-100 border-slate-400 text-slate-900', title: 'from-slate-900 via-slate-700 to-slate-900', role: 'text-slate-700', divider: 'border-slate-300', glow: 'from-slate-200' },
+    { accent: 'from-slate-600 via-slate-700 to-slate-900', border: 'border-slate-500 hover:shadow-xl hover:shadow-slate-400/40', badge: 'bg-slate-100 border-slate-500 text-slate-900', title: 'from-slate-900 via-slate-800 to-slate-900', role: 'text-slate-700', divider: 'border-slate-300', glow: 'from-slate-200' },
+    { accent: 'from-slate-400 via-slate-600 to-slate-800', border: 'border-slate-400 hover:shadow-xl hover:shadow-slate-300/40', badge: 'bg-slate-100 border-slate-400 text-slate-900', title: 'from-slate-800 via-slate-900 to-slate-800', role: 'text-slate-600', divider: 'border-slate-300', glow: 'from-slate-200' },
+    { accent: 'from-slate-500 via-slate-700 to-slate-900', border: 'border-slate-500 hover:shadow-xl hover:shadow-slate-400/40', badge: 'bg-slate-100 border-slate-500 text-slate-900', title: 'from-slate-900 via-slate-700 to-slate-900', role: 'text-slate-700', divider: 'border-slate-400', glow: 'from-slate-300' },
+    { accent: 'from-slate-400 via-slate-500 to-slate-700', border: 'border-slate-400 hover:shadow-xl hover:shadow-slate-300/40', badge: 'bg-slate-100 border-slate-400 text-slate-900', title: 'from-slate-800 via-slate-900 to-slate-700', role: 'text-slate-600', divider: 'border-slate-300', glow: 'from-slate-200' },
+  ],
+
   /* Same narrow cyan -> indigo ramp as the dark table, darkened for cream. */
   cardThemes: [
     { accent: 'from-cyan-500 via-cyan-600 to-sky-600', border: 'border-cyan-400 hover:shadow-xl hover:shadow-cyan-300/40', badge: 'bg-cyan-100 border-cyan-400 text-cyan-900', title: 'from-cyan-800 via-cyan-700 to-sky-700', role: 'text-cyan-800', divider: 'border-cyan-300', glow: 'from-cyan-200' },
