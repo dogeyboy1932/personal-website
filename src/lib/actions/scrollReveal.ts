@@ -3,6 +3,8 @@
  * Source: https://reactbits.dev/text-animations/scroll-reveal (React) — reimplemented as a Svelte action.
  *
  * Elements start blurred + nudged down, then resolve to crisp as they scroll into view.
+ * They stay VISIBLE the whole time — see `restOpacity`. An earlier version rested
+ * at opacity 0, which is a pop-in, not a reveal.
  * The original is text-only; per the design brief this is generalised so any block
  * ("the bottom should appear from blurred to unblurred") can use it.
  *
@@ -12,6 +14,7 @@
  *
  * Tunables (all optional):
  *   blur      px of blur at rest                    default 10
+ *   restOpacity opacity BEFORE the reveal            default 1
  *   y         px of downward offset at rest         default 24
  *   duration  ms of the reveal transition           default 700
  *   delay     ms before this element starts         default 0
@@ -24,6 +27,19 @@
 
 export interface ScrollRevealOptions {
   blur?: number;
+  /**
+   * Opacity at rest, BEFORE the element scrolls into view.
+   *
+   * Was hard-coded to 0, which meant every un-reached section was not blurred —
+   * it was absent, and popped into existence on scroll. ("When I scroll on
+   * portfolio, the bototm section is not blurry, it's just entirely gone and
+   * appears when I scroll. It should be blurry and be visible when I scroll
+   * down not be gone and then come to life when I scroll.")
+   *
+   * 1 makes the reveal purely a blur-and-settle: the content is there the whole
+   * time and simply resolves. Set below 1 for a fade as well.
+   */
+  restOpacity?: number;
   y?: number;
   duration?: number;
   delay?: number;
@@ -33,6 +49,7 @@ export interface ScrollRevealOptions {
 
 const DEFAULTS: Required<ScrollRevealOptions> = {
   blur: 10,
+  restOpacity: 1,
   y: 24,
   duration: 700,
   delay: 0,
@@ -77,7 +94,7 @@ export function scrollReveal(node: HTMLElement, options: ScrollRevealOptions = {
   }
 
   const hide = () => {
-    node.style.opacity = "0";
+    node.style.opacity = String(opts.restOpacity);
     node.style.filter = `blur(${opts.blur}px)`;
     node.style.transform = `translate3d(0, ${opts.y}px, 0)`;
   };
