@@ -60,6 +60,9 @@
 
 <div class="fx-share-button" style="--sb-stagger: {stagger}ms;">
   <div class="fx-sb-pill {$theme.bg.secondary} {$theme.border.default} {$theme.text.secondary}">
+    <!-- Absolutely centred, so the icons occupy the SAME space rather than
+         sitting next to it. ("just replace the find me with the logos when the
+         hover happens") -->
     <span class="fx-sb-label">{label}</span>
 
     <div class="fx-sb-fan">
@@ -106,10 +109,13 @@
     display: inline-block;
   }
 
-  /* Enlarged: "The find me button is too small." */
+  /* Enlarged: "The find me button is too small."
+     Position context for the label overlay below. */
   .fx-sb-pill {
+    position: relative;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.65rem;
     padding: 0.8rem 1.4rem;
     border-radius: 9999px;
@@ -125,6 +131,29 @@
     display: flex;
     align-items: center;
     gap: 0.4rem;
+  }
+
+  /*
+    The label sits ON TOP of the icon row, not beside it. Both occupy the pill's
+    full box, so the swap is a crossfade in place and the pill never changes
+    size — the icons land exactly where the words were.
+  */
+  .fx-sb-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      opacity 200ms ease,
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .fx-sb-pill:hover .fx-sb-label,
+  .fx-sb-pill:focus-within .fx-sb-label {
+    opacity: 0;
+    transform: translateY(-45%);
   }
 
   /*
