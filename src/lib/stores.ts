@@ -1,6 +1,6 @@
 import { writable, derived, get } from 'svelte/store';
 
-export const darkModeStore = writable(true);
+export const darkModeStore = writable(false);
 
 // Screen width store
 export const screenWidth = writable(0);
