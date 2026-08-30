@@ -104,6 +104,10 @@
   .fx-side-rays {
     position: absolute;
     inset: 0;
+    /* Match whatever rounding the host has. The layer already clips its blades,
+       but at radius 0 it clipped them to a SQUARE inside a rounded container,
+       so the corners showed past the host's curve. */
+    border-radius: inherit;
     overflow: hidden;
     pointer-events: none;
     z-index: 0;
