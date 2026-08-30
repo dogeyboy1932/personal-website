@@ -1,0 +1,41 @@
+DEVLOG — updates.txt twelfth pass (3bb7f25)
+
+PROCESS CORRECTION: I had been treating repeated lines in updates.txt as stale
+and skipping them. The user corrected this — "If its on there it means you go
+through it. Chances are you missed it." Work every line, every time. A line
+repeating usually means the previous fix missed, not that the user forgot to
+delete it.
+
+THE CLUB CARD COLOUR, resolved after FOUR attempts. The first three all changed
+the TEXT on a violet gradient: muted violet -> violet-200 -> amber. The actual
+problem was the SURFACE. Any mid-tone text on a mid-tone purple wash is low
+contrast, and the amber that finally read clashed with the violet beneath it.
+Fix: near-neutral slate card, violet identity moved to a left accent bar and
+border. violet-300 now reads cleanly — the exact colour that failed on purple.
+
+  Generalised rule, now hit four times this project (Play Me panel, Eagle Scout
+  chip, club role text, club cards): when text "won't read", change what is
+  BEHIND it before changing the text. Hue contrast beats lightness, and a
+  neutral surface makes every accent work.
+
+OPTION WHEEL: the counter and hint are absolutely mounted in the pocket right
+of the fan, so they cost zero height. That is what let the card text grow
+without the section growing.
+
+HONORS: boxed to match "Also around campus". Per-pill icons removed — five
+copies of one glyph is decoration, not information. Eagle Scout keeps a mark
+because it alone is not a competition result; FleurDeLisIcon is hand-drawn,
+like KnightIcon, since lucide has no scouting or chess marks.
+
+SELF-INFLICTED REGRESSION: a slice-based python edit (index from A to B, then
+replace) silently swallowed the leadership card titles and role lines. Slice
+edits over markup are dangerous when the endpoints move; prefer exact-string
+replacement of a complete block. Caught by screenshotting, not by svelte-check
+— the markup stayed valid.
+
+/more is 1442px. Columns balanced at 535 vs 518.
+
+UNTOUCHED BY REQUEST: where-I've-been content, Find Me, placeholder country
+descriptions.
+
+STILL OPEN: "later we'll add more stuff and content on the more page".
