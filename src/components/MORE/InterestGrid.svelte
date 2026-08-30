@@ -45,7 +45,7 @@
      more visible non-selected rows (5 maybe)")
 
      trackHeight MUST be >= cardHeight + 2*visible*spreadX, here
-     126 + 2*2*86 = 470. Get it wrong and the outer cards spill past the track
+     148 + 2*2*94 = 524. Get it wrong and the outer cards spill past the track
      onto whatever sits below.
 
      Scaled UP on request — "The cards are actually a bit too small. Enlarge the
@@ -54,21 +54,37 @@
      the counter/hint pocket is now a declared flex column rather than whatever
      slack was left beside a centred track.
 
-     spreadX (86) is deliberately LESS than cardHeight (126): the cards overlap
-     by 40px, which both reads as a stack and leaves no bare gap between them
-     for a scroll to fall through. -->
+     spreadX (94) is deliberately LESS than cardHeight (148): the cards overlap
+     by 54px, which both reads as a stack and leaves no bare gap between them
+     for a scroll to fall through.
+
+     CARD WIDTH IS COUPLED TO THE HINT TEXT. The fan and the counter/hint pocket
+     share one flex row inside a fixed-width column, and the pocket is
+     flex:0 0 auto — it sizes to its text and never shrinks. cardWidth 324 is
+     what is left after the current hint ("Click to flip", 96px) plus the 8px
+     gap. Lengthening that string takes the difference straight out of the
+     cards: the wheel would exceed the column and be silently clipped by
+     .fx-option-wheel's overflow:hidden rather than erroring. Change both
+     together.
+
+     ENLARGED AGAIN ("make the card bigger on option wheel"), 296x126 -> 324x148.
+     The width came from two places, both measured rather than guessed: 21px of
+     unused slack in the column, and 16px the counter/hint pocket was reserving
+     above the hint's actual 96px scrollWidth. Height is free — at 524 the track
+     is still shorter than the 555px left column, so the section does not grow
+     and the two halves stay level. -->
 <OptionWheel
   items={interests}
   bind:active
   orientation="vertical"
   visible={2}
-  spreadX={86}
+  spreadX={94}
   dip={14}
-  cardWidth={296}
-  cardHeight={126}
-  trackHeight={470}
+  cardWidth={324}
+  cardHeight={148}
+  trackHeight={524}
   label="Interests"
-  hint="Click to flip card"
+  hint="Click to flip"
   let:item
   let:index
   let:isActive
@@ -102,19 +118,19 @@
     with the content, which made the back look like a different component.
   -->
   {#key active}
-  <FlipCard class="h-[126px]" trigger="click" duration={480}>
+  <FlipCard class="h-[148px]" trigger="click" duration={480}>
     <div
       slot="front"
       class="flex h-full flex-row items-center justify-start gap-3 rounded-xl border {isActive
         ? $theme.accent.cyan.hover.border
         : $theme.accent.cyan.border} bg-slate-950/[0.985] px-4 text-left shadow-lg"
     >
-      <span class="text-4xl leading-none">{item.emoji}</span>
+      <span class="text-5xl leading-none">{item.emoji}</span>
       <!-- No per-card "click to flip": it now lives once, beside the counter.
            ("Instead of click to flip on every card. Put click to flip on the
            right too. smae color text.") -->
       <span class="min-w-0">
-        <span class="block text-lg font-semibold leading-tight {$theme.text.secondary}">
+        <span class="block text-xl font-semibold leading-tight {$theme.text.secondary}">
           {item.name}
         </span>
       </span>
@@ -125,7 +141,7 @@
       class="flex h-full flex-col justify-center rounded-xl border {$theme.accent.cyan.hover.border} bg-slate-950/[0.985] px-4 text-left shadow-lg"
     >
       <span class="meta-label text-[11px] {$theme.accent.cyan.text}">{item.name}</span>
-      <p class="mt-1.5 text-[0.95rem] leading-snug {$theme.text.secondary}">{item.detail}</p>
+      <p class="mt-2 text-base leading-snug {$theme.text.secondary}">{item.detail}</p>
     </div>
   </FlipCard>
   {/key}

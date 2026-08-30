@@ -366,7 +366,11 @@
        leftover goes to pushing the fan rightward, rather than the pocket
        absorbing it. */
     flex: 0 0 auto;
-    min-width: 7rem;
+    /* 6rem, down from 7rem. Measured, the hint's own scrollWidth is 96px, so
+       7rem (112px) was reserving 16px the text never used — and the pocket and
+       the cards share one row, so that slack was width the cards could not
+       have. */
+    min-width: 6rem;
     flex-direction: column;
     align-items: flex-end;
     gap: 0.45rem;
