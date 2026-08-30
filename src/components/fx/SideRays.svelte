@@ -61,11 +61,15 @@
   /*
     Overlay mode composites over live content, so each extra blade costs real
     frames — unlike the behind-content case, where the static backdrop is
-    cached. Capped at 6; the original 9 measured a ~30fps drop on the landing
-    page. Extra PRESENCE is bought with blade width and opacity instead of
-    count, because width is nearly free and count is not.
+    cached. Capped at 4; the original 9 measured a ~30fps drop on the landing
+    page.
+
+    Presence is bought with blade WIDTH, not count: width is nearly free and
+    count is not. Six narrow blades also read as a general sunny wash rather
+    than as distinct shafts ("Now it looks like a sun is shining"), so fewer
+    and wider is both cheaper and closer to the intent.
   */
-  $: effectiveCount = overlay ? Math.min(count, 6) : count;
+  $: effectiveCount = overlay ? Math.min(count, 4) : count;
 
   /**
    * Blades fan out across `spread` degrees, centred on the edge's diagonal.
@@ -77,7 +81,7 @@
       const t = n === 1 ? 0.5 : i / (n - 1);
       return {
         angle: -deg / 2 + t * deg,
-        width: 2.2 + ((i * 37) % 34) / 10,  // 2.2-5.5vw, deterministic so SSR matches
+        width: 5 + ((i * 37) % 55) / 10,    // 5-10.5vw, deterministic so SSR matches
         delay: -((i * 1.7) % speed),        // negative = already mid-cycle on load
         duration: speed + ((i * 3) % 7),
         strength: 0.45 + ((i * 13) % 55) / 100,

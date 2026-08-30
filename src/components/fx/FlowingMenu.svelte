@@ -35,6 +35,16 @@
   }[] = [];
   export let marquee = 12;
   export let rowHeight = "4.5rem";
+  /**
+   * 0 = the original full-width row list.
+   * >0 = a grid with this many columns, each CELL behaving as one flowing row.
+   *
+   * Added for the /more countries: seven full-width rows was a large part of
+   * why that page ran long, but the hover-marquee is the effect the user picked
+   * for travel. ("i think the current setup for the countries is good. Each
+   * cell can be a flow menu.")
+   */
+  export let columns = 0;
 
   /** Per-row entry/exit direction: -1 = from above, 1 = from below. */
   let dirs: Record<string, number> = {};
@@ -56,7 +66,11 @@
   }
 </script>
 
-<ul class="fx-flowing-menu" style="--fm-row-height: {rowHeight}; --fm-marquee: {marquee}s;">
+<ul
+  class="fx-flowing-menu"
+  class:is-grid={columns > 0}
+  style="--fm-row-height: {rowHeight}; --fm-marquee: {marquee}s; --fm-cols: {columns};"
+>
   {#each items as item (item.key)}
     <li
       class="fx-fm-row"
@@ -103,6 +117,60 @@
     margin: 0;
     padding: 0;
     border-top: 1px solid rgb(148 163 184 / 0.18);
+  }
+
+  /* Grid mode: cells instead of stacked rows. The hover panel, entry direction
+     and marquee all work unchanged — only the layout differs. */
+  .is-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--fm-cols), minmax(0, 1fr));
+    gap: 0.5rem;
+    border-top: 0;
+  }
+
+  .is-grid .fx-fm-row {
+    border-bottom: 0;
+    border: 1px solid rgb(148 163 184 / 0.18);
+    border-radius: 0.6rem;
+  }
+
+  .is-grid .fx-fm-face {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.15rem;
+    padding: 0 0.5rem;
+    text-align: center;
+  }
+
+  .is-grid .fx-fm-badge {
+    font-size: 1.35rem;
+  }
+
+  .is-grid .fx-fm-label {
+    font-size: 0.72rem;
+    line-height: 1.1;
+  }
+
+  /* The row layout shows the note inline; in a cell there is no room, so it
+     lives only in the marquee panel. */
+  .is-grid .fx-fm-note {
+    display: none;
+  }
+
+  .is-grid .fx-fm-marquee {
+    font-size: 0.7rem;
+  }
+
+  @media (max-width: 860px) {
+    .is-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 520px) {
+    .is-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 
   .fx-fm-row {

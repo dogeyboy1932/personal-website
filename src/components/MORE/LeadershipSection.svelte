@@ -19,15 +19,21 @@
 
   export let leadership: LeadershipRole[] = [];
   export let clubs: Club[] = [];
+  /**
+   * Which half to render. The page places the spotlight cards and the club
+   * chips in different grid cells so neither has to own a full-width row.
+   */
+  export let show: "all" | "roles" | "clubs" = "all";
 
   // Orgs already spotlighted above shouldn't repeat in the chip cloud.
   $: featured = new Set(leadership.map((l) => l.org));
   $: rest = clubs.filter((c) => !featured.has(c.name));
 </script>
 
-<div class="space-y-5">
+<div class="space-y-4">
+  {#if show !== "clubs"}
   <!-- ===== Spotlight roles ===== -->
-  <div class="grid gap-4 lg:grid-cols-3">
+  <div class="grid gap-3 lg:grid-cols-3">
     {#each leadership as role, i}
       <div
         class="group relative flex flex-col rounded-2xl border {$theme.accent.violet.border} {$theme.gradient.violet} p-5 shadow-lg transition-colors {$theme.accent.violet.hover.border}"
@@ -59,6 +65,9 @@
     {/each}
   </div>
 
+  {/if}
+
+  {#if show !== "roles"}
   <!-- ===== Everything else, as chips ===== -->
   <div class="rounded-2xl border {$theme.border.default} {$theme.bg.card} p-5">
     <div class="mb-3 flex items-center gap-2">
@@ -79,4 +88,5 @@
       {/each}
     </div>
   </div>
+  {/if}
 </div>

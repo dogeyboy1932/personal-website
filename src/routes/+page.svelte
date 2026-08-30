@@ -44,7 +44,7 @@
 <!-- FX:scroll-reveal (hero reveals immediately; no offset so it does not fight the fly-in) -->
 <section class="relative mb-3 font-sans" use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
   <!-- FX:side-rays -->
-  <SideRays side="right" count={6} opacity={0.62} speed={13} spread={86} hue="warm" overlay />
+  <SideRays side="right" count={3} opacity={0.5} speed={13} spread={54} hue="warm" overlay />
   <!-- /FX:side-rays -->
 
   <!--

@@ -56,20 +56,19 @@
   }
 </script>
 
-<div
-  class="grid grid-cols-2 gap-4 rounded-2xl border {$theme.border.default} {$theme.bg.card} p-6 sm:grid-cols-4"
-  use:countUp
->
+<!--
+  Inline and LEFT-ALIGNED, not a full-width band. As a bordered card with
+  centred 5xl numerals it claimed ~120px of a page being compacted, and read as
+  its own section rather than as a detail line. ("the stats row is too big...we
+  can align to the left")
+-->
+<div class="flex flex-wrap items-baseline gap-x-6 gap-y-2" use:countUp>
   {#each stats as stat, i}
-    <div class="text-center">
-      <div
-        class="font-display text-4xl font-extrabold tracking-tight sm:text-5xl {$theme.accent.orange.text}"
-      >
+    <div class="flex items-baseline gap-1.5">
+      <span class="font-display text-2xl font-extrabold tracking-tight {$theme.accent.orange.text}">
         {shown[i] ?? 0}{stat.suffix ?? ""}
-      </div>
-      <div class="meta-label mt-1 text-[11px] {$theme.text.muted}">
-        {stat.label}
-      </div>
+      </span>
+      <span class="meta-label text-[10px] {$theme.text.muted}">{stat.label}</span>
     </div>
   {/each}
 </div>

@@ -5,24 +5,31 @@
   cell: a life PATH (born India, raised NJ, college Illinois, semester
   Singapore, now Chicago) and a LIST of countries visited.
 
-  STATUS: interim. The countries were FX:flowing-menu rows — one full-width row
-  each, which was a large part of why this page ran long. They are a compact
-  grid for now, and the per-country notes are parked (the data is still in
-  more.ts, only the rendering is commented out). Flagged by the user as
-  "a bit of a problem ... let's talk further on this later", so this is
-  deliberately the small version, not the final design.
+  Countries are FX:flowing-menu in GRID mode: the compact cell layout that
+  fixed the page length, with the hover-marquee behaviour restored per cell.
+  ("i think the current setup for the countries is good. Each cell can be a
+  flow menu.")
 
-  FlowingMenu is left in src/components/fx/ and is currently unused; restoring
-  the row treatment is swapping the grid below back for it.
+  The descriptions in more.ts are placeholders the user intends to rewrite
+  ("For now have dummy descriptions. I have to fix that myself.") — they are
+  only surfaced in the hover panel, so replacing them touches no markup.
 
   Data: more.travel in src/constants/more.ts
 -->
 <script lang="ts">
   import { theme } from "../../lib/stores";
+  import { FlowingMenu } from "../fx";
   import type { TravelStop, TravelCountry } from "../../types";
 
   export let path: TravelStop[] = [];
   export let countries: TravelCountry[] = [];
+
+  $: rows = countries.map((c) => ({
+    key: c.name,
+    label: c.name,
+    note: c.note,
+    badge: c.flag,
+  }));
 </script>
 
 <div class="space-y-4">
@@ -46,17 +53,7 @@
   </div>
 
   <!-- ===== Countries ===== -->
-  <div class="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
-    {#each countries as country}
-      <div
-        class="flex flex-col items-center gap-1 rounded-lg border {$theme.border.light} {$theme.bg.secondary} px-2 py-2.5 text-center"
-        title={country.note}
-      >
-        <span class="text-xl leading-none">{country.flag}</span>
-        <span class="text-[11px] leading-tight {$theme.text.secondary}">{country.name}</span>
-        <!-- Note deliberately not rendered for now — see the header comment.
-             {country.note} -->
-      </div>
-    {/each}
-  </div>
+  <!-- FX:flowing-menu (grid mode) -->
+  <FlowingMenu items={rows} columns={7} rowHeight="4.1rem" marquee={11} />
+  <!-- /FX:flowing-menu -->
 </div>

@@ -50,3 +50,6 @@ export { default as GooeyNav } from "./GooeyNav.svelte";
 
 // FX:particle-text — reactbits particle-text (hero name; gated by homeHero.particleName)
 export { default as ParticleText } from "./ParticleText.svelte";
+
+// FX:drift-wall — reactbits drift-wall (/more interests)
+export { default as DriftWall } from "./DriftWall.svelte";
