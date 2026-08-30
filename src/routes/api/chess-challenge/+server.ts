@@ -1,9 +1,20 @@
 import { json } from "@sveltejs/kit";
 import { env } from "$env/dynamic/private";
+import { more } from "../../../constants/more";
 import type { RequestHandler } from "./$types";
 
 /**
  * Lichess challenge endpoint.
+ *
+ * DIRECTION: the challenge goes FROM the site owner TO the visitor.
+ * `POST /api/challenge/{visitor}` authenticated with the OWNER's token means
+ * Lichess records the owner as the challenger, so the challenge lands in the
+ * visitor's Lichess inbox as "trashboatsr challenges you". The visitor never
+ * has to go and find the owner's profile.
+ *
+ * The one place that used to be backwards was the no-token fallback, which
+ * handed the visitor a link to their OWN profile — a dead end that also read
+ * as "you go challenge me". It points at the owner now.
  *
  * updates.txt: "send chess challenges (have an input box...if the username is
  * valid then a challenge will be created (deterministic api call and check)).
@@ -29,6 +40,26 @@ import type { RequestHandler } from "./$types";
 
 /** This route is dynamic; the rest of the site is prerendered. */
 export const prerender = false;
+
+/** Who the challenge comes from. Single source of truth: src/constants/more.ts */
+const OWNER = more.lichess.username;
+
+/**
+ * Clock settings for the created challenge.
+ *
+ * "realtime" is 10+0, per the original ask ("It should also be a 10 + 0
+ * challenge"). Flip to "correspondence" for a days-per-move game.
+ *
+ * WHY THE SWITCH EXISTS: a real-time challenge starts a live game the moment
+ * the visitor accepts, whether or not the owner is at the board. "I may be
+ * afk...I'll get to it" describes correspondence play exactly, so this is one
+ * line rather than a rewrite. Left on realtime because 10+0 was asked for
+ * explicitly; change the string to move the whole feature over.
+ */
+const CHALLENGE_MODE: "realtime" | "correspondence" = "realtime";
+
+/** Days per move when CHALLENGE_MODE is "correspondence". */
+const CORRESPONDENCE_DAYS = "3";
 
 /** Lichess usernames: 2-30 chars, alphanumeric plus _ and -, must start alphanumeric. */
 const USERNAME_RE = /^[a-zA-Z0-9][\w-]{1,29}$/;
@@ -119,8 +150,10 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
       {
         ok: false,
         status: "not_configured",
-        message: `"${username}" exists, but challenges aren't wired up yet.`,
-        handoffUrl: `https://lichess.org/@/${encodeURIComponent(username)}`,
+        message: `"${username}" exists, but auto-challenges aren't switched on yet.`,
+        // The OWNER's profile, not the visitor's. Pointing at the visitor's own
+        // page was a dead end — there is nothing to do there.
+        handoffUrl: `https://lichess.org/@/${encodeURIComponent(OWNER)}`,
       },
       200
     );
@@ -141,12 +174,13 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
         },
         body: new URLSearchParams({
           rated: "false",
-          "clock.limit": "600",
-          // 10+0 — ten minutes, no increment. ("It should also be a 10 + 0
-          // challenge.")
-          "clock.increment": "0",
           color: "random",
           variant: "standard",
+          ...(CHALLENGE_MODE === "realtime"
+            ? // 10+0 — ten minutes, no increment. ("It should also be a 10 + 0
+              // challenge.")
+              { "clock.limit": "600", "clock.increment": "0" }
+            : { days: CORRESPONDENCE_DAYS }),
         }),
       }
     );
@@ -166,14 +200,21 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
         ok: false,
         status: "upstream_error",
         message: "Lichess wouldn't accept the challenge.",
-        handoffUrl: `https://lichess.org/@/${encodeURIComponent(username)}`,
+        handoffUrl: `https://lichess.org/@/${encodeURIComponent(OWNER)}`,
       },
       502
     );
   }
 
+  // Deliberately says it is WAITING, not that a game has started. The owner may
+  // not be at the board. ("i may be afk. So make it clear that a challenge will
+  // be made and I'll get to it.")
   return reply(
-    { ok: true, status: "sent", message: `Challenge sent to ${username}.` },
+    {
+      ok: true,
+      status: "sent",
+      message: `Challenge sent — it's waiting in ${username}'s Lichess inbox.`,
+    },
     200
   );
 };

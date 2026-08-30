@@ -1,5 +1,13 @@
 <!--
-  /more section: send me a chess challenge.
+  /more section: I challenge YOU.
+
+  DIRECTION, because the copy used to obscure it: the visitor types their own
+  Lichess username and the server creates a challenge FROM the site owner TO
+  them, using the owner's token. It arrives in their Lichess inbox as
+  "trashboatsr challenges you". The visitor is never asked to go and find the
+  owner's profile and send one the other way — that only happens as the
+  fallback when no token is configured, and even then the link now points at
+  the owner rather than at the visitor's own page.
 
   updates.txt: "send chess challenges (have an input box...if the username is
   valid then a challenge will be created (deterministic api call and check)).
@@ -103,7 +111,10 @@
 
       if (data?.ok) {
         state = "sent";
-        message = data.message;
+        // Server already phrases this as "waiting in <you>'s inbox"; the AFK
+        // half is added here so the reassurance sits where the visitor is
+        // actually looking after pressing the button.
+        message = `${data.message} I may not be at the board right now, but I'll take it.`;
       } else {
         // not_configured is not a failure — it means finish on Lichess.
         state = "error";
@@ -133,8 +144,12 @@
     <KnightIcon class="h-5 w-5 {$theme.text.white}" />
     <h4 class="meta-label text-sm {$theme.text.white}">Play me</h4>
   </div>
+  <!-- Says plainly that the challenge is CREATED and WAITING, and that a reply
+       may not be immediate. ("i may be afk. So make it clear that a challenge
+       will be made and I'll get to it.") -->
   <p class="mb-3 text-xs {$theme.text.secondary}">
-    Drop your Lichess username and I'll send a casual 10+0 challenge.
+    Drop your Lichess username and I'll fire a casual 10+0 your way. It'll sit
+    in your Lichess inbox — I might be AFK, but I'll get to it.
   </p>
 
   <!-- Stacked, not side by side: this column is much narrower now that the
@@ -191,7 +206,7 @@
         rel="noopener noreferrer"
         class="ml-1 inline-flex items-center gap-1 underline underline-offset-4 hover:opacity-80"
       >
-        Send it on Lichess <ExternalLink class="h-3 w-3" />
+        Challenge me on Lichess <ExternalLink class="h-3 w-3" />
       </a>
     {/if}
   </p>
