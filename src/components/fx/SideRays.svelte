@@ -35,6 +35,16 @@
   export let speed = 12;
   export let spread = 72;
   export let hue: "warm" | "cool" = "warm";
+  /**
+   * Paint the rays ABOVE the page content instead of behind it.
+   *
+   * Needed on the right-hand mount: that half of the hero is an opaque photo,
+   * so rays rendered behind it are simply invisible. Over the top they read as
+   * a light leak washing across the image, which is what "side light" is
+   * supposed to look like. Always pointer-events:none, so nothing under it
+   * stops being clickable.
+   */
+  export let overlay = false;
   let klass = "";
   export { klass as class };
 
@@ -47,6 +57,13 @@
   $: peak = isDark ? opacity : opacity * 0.45;
 
   const sides = (s: typeof side) => (s === "both" ? ["left", "right"] : [s]);
+
+  /*
+    Overlay mode composites over live content, so each extra blade costs real
+    frames — unlike the behind-content case, where the static backdrop is
+    cached. Capped at 4; going to 9 measured a ~30fps drop on the landing page.
+  */
+  $: effectiveCount = overlay ? Math.min(count, 4) : count;
 
   /**
    * Blades fan out across `spread` degrees, centred on the edge's diagonal.
@@ -67,10 +84,10 @@
   }
 </script>
 
-<div class="fx-side-rays {klass}" aria-hidden="true">
+<div class="fx-side-rays {klass}" class:is-overlay={overlay} aria-hidden="true">
   {#each sides(side) as edge}
     <div class="fx-rays-origin" class:from-right={edge === "right"}>
-      {#each blades(count, spread) as blade}
+      {#each blades(effectiveCount, spread) as blade}
         <span
           class="fx-ray"
           style="
@@ -96,22 +113,39 @@
     z-index: 0;
   }
 
+  /*
+    Above the content. Kept a separate mode rather than the default: over dark
+    text this would cost legibility, and only the photo side needs it.
+
+    Deliberately NO mix-blend-mode. Behind content these blurred, rotating
+    blades are effectively free — the backdrop under them is static, so the
+    compositor caches it. As an OVERLAY over two live canvases, a blend mode
+    forces the whole stack to be re-blended every frame: measured 19fps with
+    it, 57 without. Blade count is capped in the component for the same reason
+    (9 animated blurred layers over live content cost ~30fps on their own).
+  */
+  .is-overlay {
+    z-index: 30;
+  }
+
   /* Anchor point the blades rotate around: just off the top corner, so the fan
      sweeps down and across the hero the way a window light would. */
-  /* Origin pulled well inward. Hard against the edge the fan only lit the
-     first ~150px and read as a stain in the corner rather than as light
-     crossing the section. ("Make the side light appear more closer to middle.
-     It's like a stain on the left right now") */
+  /* Origin sits inboard of the edge so the fan reads as light crossing the
+     section rather than a stain in the corner — but not so far in that it
+     lands mid-page. Currently mounted on the RIGHT: "Make the side light
+     appear at the right. it looks weird in the middle." */
   .fx-rays-origin {
     position: absolute;
     top: -14%;
-    left: 34%;
+    left: 18%;
     width: 0;
     height: 0;
   }
+  /* Right-mounted fan sits close to the edge. At 18% inboard the origin fell
+     behind the hero photo, which is opaque, and the rays were invisible. */
   .fx-rays-origin.from-right {
     left: auto;
-    right: 34%;
+    right: 3%;
   }
 
   .fx-ray {
@@ -144,7 +178,7 @@
 
   /* Mirror the fan when it originates from the right edge. */
   .from-right .fx-ray {
-    --ray-base: -34deg;
+    --ray-base: 34deg;
   }
 
   /*

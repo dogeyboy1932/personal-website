@@ -131,7 +131,7 @@
 <div class={standalone ? `rounded-2xl border ${$theme.border.default} ${$theme.bg.card} p-6` : ""}>
   <div class="mb-1 flex items-center gap-2">
     <KnightIcon class="h-5 w-5 {$theme.accent.orange.text}" />
-    <h4 class="font-display text-sm font-bold uppercase tracking-[0.28em] {$theme.text.primary}">Play me</h4>
+    <h4 class="meta-label text-sm {$theme.text.primary}">Play me</h4>
   </div>
   <p class="mb-4 text-sm {$theme.text.secondary}">
     Drop your Lichess username and I'll send a casual 10+5 challenge.

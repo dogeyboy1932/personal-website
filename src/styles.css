@@ -87,6 +87,24 @@
   }
 }
 
+/*
+  META LABEL
+  ----------
+  The treatment from the hero's "22 · MCS @ UIUC '26 · Based in Chicago" line,
+  which the user called out as looking good: Inter (font-sans), uppercase, wide
+  tracking, light weight. Extracted so it can be reused rather than re-typed.
+
+  Deliberately NOT the display face. Chivo stays for things that read as
+  headings — the name, card titles, page headers. This is for small all-caps
+  labels, where Chivo's high contrast was reading as shouty.
+
+  Size and colour stay at the call site; this only fixes face/case/tracking.
+*/
+.meta-label {
+  @apply font-sans uppercase tracking-[0.18em];
+  font-weight: 500;
+}
+
 /* Add gradient and glow effects */
 .cyberpunk-gradient {
   @apply bg-gradient-to-r from-primary via-accent to-secondary;

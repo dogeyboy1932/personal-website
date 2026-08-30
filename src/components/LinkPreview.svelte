@@ -72,7 +72,7 @@
 </a>
 
 <div
-  class={`pointer-events-none fixed z-[100] w-60 overflow-hidden rounded-xl border border-yellow-300/40 bg-slate-950/95 p-2 shadow-xl shadow-black/40 transition-all duration-200 motion-reduce:transition-none ${
+  class={`pointer-events-none fixed z-[100] w-60 overflow-hidden rounded-xl border border-yellow-300/40 bg-slate-950/95 shadow-xl shadow-black/40 transition-all duration-200 motion-reduce:transition-none ${
     isOpen ? "visible translate-y-0 opacity-100" : "invisible translate-y-1 opacity-0"
   }`}
   style={previewStyle}
@@ -80,20 +80,26 @@
 >
   {#if isOpen}
     {#if imageFailed}
-      <div class="flex h-[140px] items-center justify-center rounded-lg border border-dashed border-yellow-300/30 bg-yellow-300/5 px-5 text-center text-xs font-semibold uppercase tracking-[0.2em] text-yellow-200/80">
+      <div class="flex h-[150px] items-center justify-center bg-yellow-300/5 px-5 text-center text-xs font-semibold uppercase tracking-[0.2em] text-yellow-200/80">
         Preview unavailable
       </div>
     {:else}
       <img
         src={previewImage}
         alt={`${label} website preview`}
-        class="h-[140px] w-full rounded-lg border border-slate-700/80 object-cover"
+        class="block h-[150px] w-full object-cover"
         on:error={() => (imageFailed = true)}
       />
     {/if}
-    <!-- The footer row (site name + an "Open" tag) is gone: the label already
-         sits in the link you are hovering, and a preview card is self-evidently
-         openable. ("remove the 'open' text + the website name...that's
-         redundant") -->
+    <!--
+      Full bleed: the card has no padding and the image carries no radius or
+      border of its own, so the screenshot reaches the card's edge on all four
+      sides. The card's overflow-hidden + rounded-xl does the clipping.
+      ("make the link preview encompass the entire window? No padding")
+
+      The old footer row (site name + an "Open" tag) is also gone — the label
+      is already the link you are hovering, and a preview card is
+      self-evidently openable.
+    -->
   {/if}
 </div>

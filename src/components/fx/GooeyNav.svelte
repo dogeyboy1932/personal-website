@@ -126,12 +126,22 @@
       rather than starting at the centre where the blob hides them.
       ("the bubbles should be outside the pill (if that makes sense)")
 
-      Angles are biased away from vertical: the pill is much wider than it is
-      tall, so an even spread put most droplets out the flat top and bottom
-      where they had almost no pill to clear.
+      DOWNWARD-BIASED FAN. The navbar is sticky at the top of the viewport, so
+      droplets thrown straight up left the page entirely and were clipped by the
+      browser's own chrome. ("the gooey bubbles is disappearing behnid the
+      browser header/ searchbar..is there a way the bubbles can appear on top?")
+
+      The honest answer to that question is no — a page cannot paint over
+      browser UI, and no z-index, portal or stacking context changes that. What
+      IS in our control is not throwing them there: angles now span roughly
+      -20deg to 200deg (screen coords, +y down), i.e. right, down and left, so
+      the burst stays inside the page where it can actually be seen.
     */
+    const ARC_START = -0.11 * Math.PI; // just above horizontal-right
+    const ARC_SWEEP = 1.22 * Math.PI; // through down, round to horizontal-left
     const made: Droplet[] = Array.from({ length: particles }, (_, i) => {
-      const angle = (Math.PI * 2 * i) / particles + (Math.random() - 0.5) * 0.4;
+      const t = particles === 1 ? 0.5 : i / (particles - 1);
+      const angle = ARC_START + t * ARC_SWEEP + (Math.random() - 0.5) * 0.25;
       const cos = Math.cos(angle);
       const sin = Math.sin(angle);
       const distance = 14 + Math.random() * 20;

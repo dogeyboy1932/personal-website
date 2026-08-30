@@ -44,13 +44,27 @@
 <!-- FX:scroll-reveal (hero reveals immediately; no offset so it does not fight the fly-in) -->
 <section class="relative mb-3 font-sans" use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
   <!-- FX:side-rays -->
-  <SideRays side="left" count={9} opacity={0.4} speed={13} hue="warm" />
+  <SideRays side="right" count={9} opacity={0.3} speed={13} hue="warm" overlay />
   <!-- /FX:side-rays -->
 
-  <div class="relative z-10 grid gap-3" class:grid-cols-1={!$breakpoints.isDesktop} class:grid-cols-[65%_1fr]={$breakpoints.isDesktop}>
+  <!--
+    minmax(0,1fr), not 1fr. A bare `1fr` is minmax(AUTO,1fr): the column refuses
+    to shrink below its content's min-content width, so below ~900px the photo
+    column pushed past the page panel by up to 103px and the document scrolled
+    sideways. minmax(0,...) lets it actually shrink. ("If my picture overflows
+    outside the entire page container, that's a problem. It should NEVER
+    overflow")
+  -->
+  <div
+    class="relative z-10 grid gap-3"
+    class:grid-cols-1={!$breakpoints.isDesktop}
+    class:grid-cols-[65%_minmax(0,1fr)]={$breakpoints.isDesktop}
+  >
     
     <!-- Left Column: Header and Summary -->
-    <div class="flex flex-col flex-1 md:flex-[1] justify-center gap-3">
+    <!-- min-w-0: without it a grid child's min-content width becomes the
+         column's floor, which is the same overflow bug by another route. -->
+    <div class="flex min-w-0 flex-col flex-1 md:flex-[1] justify-center gap-3">
       
       <!-- Header Box -->
       <!-- backdrop-blur-sm removed: this box has no background of its own, so
@@ -59,7 +73,7 @@
       <div class="relative flex items-center justify-center p-4 rounded-xl">
         <!-- FX:sparkles FX:gravity-stars — covers the whole title block: name,
              university and the three social links -->
-        <SparkleField density={3.6} pointerPull={150} />
+        <SparkleField density={6} pointerPull={150} />
         <!-- /FX:sparkles /FX:gravity-stars -->
 
         <div class="relative z-10 text-left">
@@ -71,7 +85,7 @@
                 <ParticleText
                   text={homeHero.fullName.toUpperCase()}
                   look="nanotech"
-                  gap={4}
+                  gap={3}
                   radius={110}
                   force={3}
                   linkDistance={13}
@@ -136,7 +150,7 @@
 
 
     <!-- Right Column: Photo and Quote -->
-    <div class="flex flex-col">
+    <div class="flex min-w-0 flex-col">
       <HeroImage 
         src={homeHero.image.src} 
         alt={homeHero.image.alt} 
@@ -156,7 +170,7 @@
 <section class="my-12" use:scrollReveal>
 
   <div>
-    <h3 class="font-display text-base text-xl uppercase tracking-[0.4em] {$theme.text.muted} font-bold mb-3 ml-2">{sections.focuses}</h3>
+    <h3 class="meta-label text-base text-xl {$theme.text.muted} font-bold mb-3 ml-2">{sections.focuses}</h3>
     
     <div class="grid gap-4" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-3={!$breakpoints.isMobile}>
       {#each homeFocusAreas as focus, index}
@@ -172,7 +186,7 @@
 <!-- ===== NAVIGATION CARDS SECTION ===== -->
 <!-- FX:scroll-reveal -->
 <section use:scrollReveal>
-  <h3 class="text-base sm:text-lg md:text-xl font-display uppercase tracking-[0.4em] {$theme.text.muted} font-bold mb-3 ml-2">
+  <h3 class="meta-label text-base sm:text-lg md:text-xl {$theme.text.muted} font-bold mb-3 ml-2">
     {sections.navigation}
   </h3>
   
@@ -194,7 +208,7 @@
 <!-- ===== TOOLKIT SECTION ===== -->
 <!-- FX:scroll-reveal -->
 <section class="my-6" use:scrollReveal>
-  <h3 class="text-base sm:text-lg md:text-xl font-display uppercase tracking-[0.4em] {$theme.text.muted} font-bold mb-3 ml-2">
+  <h3 class="meta-label text-base sm:text-lg md:text-xl {$theme.text.muted} font-bold mb-3 ml-2">
     {sections.toolkit}
   </h3>
 

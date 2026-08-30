@@ -83,7 +83,13 @@
       than two side by side.
     -->
     {#if $$slots.default}
-      <div class="mt-5 border-t {$theme.accent.yellow.border} pt-5">
+      <!-- Inset panel, not just a divider. The Lichess card is a warm gradient,
+           and a bare divider left the challenge form sitting in the same wash
+           as the rating above it. Its own darker ground gives it edges.
+           ("the play me comopnent is hard to see...make it more visible") -->
+      <div
+        class="mt-5 rounded-xl border {$theme.accent.yellow.border} {$theme.bg.backdrop} p-4 shadow-inner"
+      >
         <slot />
       </div>
     {/if}

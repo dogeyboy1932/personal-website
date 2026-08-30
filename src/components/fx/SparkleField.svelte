@@ -17,8 +17,8 @@
     density     particles per 10,000 px^2 of container    default 1.6
     minSize     smallest particle radius, px              default 0.6
     maxSize     largest particle radius, px               default 1.9
-    gravity     downward acceleration, px/frame^2         default 0.0022
-    drift       horizontal wander strength                default 0.09
+    gravity     downward acceleration, px/frame^2         default 0 (see note)
+    drift       omnidirectional wander strength           default 0.14
     twinkle     seconds for a full opacity cycle          default 2.4
     pointerPull cursor attraction radius in px (0 = off)  default 130
     color       null = use the --particles token; or an explicit "r, g, b"
@@ -33,11 +33,17 @@
   import { darkModeStore } from "../../lib/stores";
   import { tokens, channels } from "../../lib/tokens";
 
-  export let density = 3.2;
+  export let density = 5.5;
   export let minSize = 0.6;
   export let maxSize = 1.9;
-  export let gravity = 0.0022;
-  export let drift = 0.09;
+  /**
+   * Downward pull. DEFAULT 0 — any non-zero value makes the whole field fall in
+   * unison, which reads as rain rather than sparkle. ("it looks like it's
+   * raining right now ... notice how this moves in all directions and it's not
+   * raining")
+   */
+  export let gravity = 0;
+  export let drift = 0.14;
   export let twinkle = 3.2;
   export let pointerPull = 130;
   export let color: string | null = null;
@@ -131,13 +137,16 @@
   const reducedMotion = () =>
     browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
-  function spawn(w: number, h: number, atTop = false): Particle {
+  function spawn(w: number, h: number): Particle {
     return {
       x: Math.random() * w,
-      // atTop = respawning a particle that fell out; start it just above the box.
-      y: atTop ? -Math.random() * h * 0.25 : Math.random() * h,
-      vx: (Math.random() - 0.5) * drift,
-      vy: Math.random() * 0.05,
+      y: Math.random() * h,
+      // Random direction on the unit circle, so the field has no shared axis.
+      ...(() => {
+        const a = Math.random() * Math.PI * 2;
+        const speed = Math.random() * drift * 0.6;
+        return { vx: Math.cos(a) * speed, vy: Math.sin(a) * speed };
+      })(),
       r: minSize + Math.random() * (maxSize - minSize),
       phase: Math.random() * Math.PI * 2,
       // 60fps assumed; a full cycle takes `twinkle` seconds.
@@ -170,10 +179,17 @@
     ctx.clearRect(0, 0, width, height);
 
     for (const p of particles) {
-      // Gravity, plus a slow horizontal wander so the fall isn't a straight line.
+      /*
+        Brownian wander on both axes, then damping. Equal treatment of x and y
+        is the whole point: as soon as y accumulates a constant (gravity), every
+        particle drifts the same way and the field reads as falling rain.
+        `gravity` is kept as an opt-in knob but defaults to 0.
+      */
       p.vy += gravity;
-      p.vx += (Math.random() - 0.5) * drift * 0.04;
-      p.vx *= 0.995;
+      p.vx += (Math.random() - 0.5) * drift * 0.09;
+      p.vy += (Math.random() - 0.5) * drift * 0.09;
+      p.vx *= 0.97;
+      p.vy *= 0.97;
 
       // Cursor attraction — the "gravity" the brief asked for reads best as
       // something the pointer can bend, not just a constant downward pull.
@@ -192,10 +208,16 @@
       p.y += p.vy;
       p.phase += p.phaseStep;
 
-      // Recycle rather than allocate: keeps the particle count flat.
-      if (p.y > height + 8 || p.x < -20 || p.x > width + 20) {
-        Object.assign(p, spawn(width, height, true));
-      }
+      /*
+        Wrap on all four edges rather than respawning at the top. Respawning
+        upward reintroduced a top-to-bottom bias — the very thing that made this
+        look like rain — because every recycled particle re-entered from above.
+      */
+      const M = 6;
+      if (p.x < -M) p.x = width + M;
+      else if (p.x > width + M) p.x = -M;
+      if (p.y < -M) p.y = height + M;
+      else if (p.y > height + M) p.y = -M;
 
       // sin() maps to [0,1] for the twinkle; never fully off, so points don't
       // pop in and out.

@@ -10,13 +10,13 @@
   export let quotes: { quote: string; voice: string }[] = [];
 </script>
 
-<figure class="group relative flex flex-col mx-auto" in:fly={{ x: -24, duration: 400 }}>
+<figure class="group relative flex w-full min-w-0 max-w-full flex-col mx-auto" in:fly={{ x: -24, duration: 400 }}>
   <!-- Image container -->
   <div class="relative overflow-hidden rounded-xl border {$theme.border.accent} {$theme.bg.cardSolid} shadow-2xl">
     <img
       {src}
       {alt}
-      class="h-full w-full object-cover transition duration-1000 group-hover:scale-105 group-hover:rotate-1"
+      class="h-full w-full max-w-full object-cover transition duration-1000 group-hover:scale-105 group-hover:rotate-1"
       loading="lazy"
     />
   </div>

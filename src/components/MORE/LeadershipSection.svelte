@@ -63,7 +63,7 @@
   <div class="rounded-2xl border {$theme.border.default} {$theme.bg.card} p-5">
     <div class="mb-3 flex items-center gap-2">
       <Users class="h-4 w-4 {$theme.text.muted}" />
-      <h4 class="text-[11px] uppercase tracking-[0.3em] {$theme.text.muted}">Also around campus</h4>
+      <h4 class="meta-label text-[11px] {$theme.text.muted}">Also around campus</h4>
     </div>
     <div class="flex flex-wrap gap-2">
       {#each rest as club, i}

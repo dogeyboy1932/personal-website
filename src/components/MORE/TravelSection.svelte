@@ -49,7 +49,7 @@
 
   <!-- ===== Countries ===== -->
   <div>
-    <h4 class="mb-2 text-[11px] uppercase tracking-[0.3em] {$theme.text.muted}">
+    <h4 class="meta-label mb-2 text-[11px] {$theme.text.muted}">
       Seven countries so far
     </h4>
     <!-- FX:flowing-menu -->

@@ -67,7 +67,7 @@
       >
         {shown[i] ?? 0}{stat.suffix ?? ""}
       </div>
-      <div class="mt-1 font-display text-[11px] uppercase tracking-[0.28em] {$theme.text.muted}">
+      <div class="meta-label mt-1 text-[11px] {$theme.text.muted}">
         {stat.label}
       </div>
     </div>

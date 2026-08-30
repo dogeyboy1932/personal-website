@@ -25,7 +25,7 @@
   <div class="rounded-2xl border {$theme.accent.orange.border} {$theme.bg.card} p-5">
     <div class="mb-4 flex items-center gap-2">
       <Trophy class="h-4 w-4 {$theme.accent.orange.text}" />
-      <h4 class="text-[11px] uppercase tracking-[0.3em] {$theme.text.muted}">Hackathons</h4>
+      <h4 class="meta-label text-[11px] {$theme.text.muted}">Hackathons</h4>
     </div>
 
     <ul class="space-y-3">
