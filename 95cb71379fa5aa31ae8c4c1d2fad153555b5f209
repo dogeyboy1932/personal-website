@@ -1,0 +1,37 @@
+updates.txt pass 19.
+
+THREE COMPLAINTS, ONE SHAPE: the thing I was adjusting was downstream of the
+thing causing it. Worth writing down together because I have now made this
+mistake in three different subsystems in three consecutive passes.
+
+  'glow is yellowy'  -> I brightened the white halo (0.16 -> 0.34) to out-shout
+    the warm. The warm was FX:sparkles running on --particles = amber. Turning
+    the source silver let the halo drop to 0.14 and resolved BOTH 'yellowy' and
+    the 'way too bright' that my own fix had caused.
+  'cards are purple'  -> I had recoloured experienceThemes (bars, titles,
+    badges, dividers) to silver. Every card is wrapped in
+    <BackgroundGradient palette='violet'>, which paints a ring OUTSIDE the
+    border and is the widest-reaching colour on the card. A silver card in a
+    violet halo is a purple card.
+  'gradient hideous / no ash gray' -> I had answered an earlier 'low contrast'
+    note by darkening the fill to slate-500. The contrast never needed to come
+    from the fill; it comes from the highlight moving across it.
+
+The general form: before tuning a property, find every layer that contributes
+to the pixel being complained about. The one I own is rarely the only one, and
+it is often not the dominant one.
+
+ALSO — the 'once' tradeoff, resolved rather than accepted. scroll-reveal
+defaulted to once:true for a real reason: a lingering CSS filter pins a
+composited layer per section and a stack of those took this site to single-digit
+fps. 'It should be recurring' looked like a straight conflict with that. It was
+not: the cleanup only needed to key off VISIBILITY instead of finality. Strip
+styles whenever an element settles in view, re-arm on exit — an on-screen
+section carries no layer either way, and only the few scrolled out hold one.
+Measured after: / 28, /portfolio 48, /more 55 fps, against a 27/40/42 baseline
+A/B'd earlier this session. No regression.
+When a request appears to conflict with an existing constraint, check whether
+the constraint's ENFORCEMENT can move rather than assuming the tradeoff is real.
+
+Standing: /portfolio overflows 10px at 360px from an off-screen carousel slide.
+Pre-existing, flagged six passes, never in updates.txt.
