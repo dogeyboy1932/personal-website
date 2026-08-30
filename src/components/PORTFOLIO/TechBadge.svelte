@@ -11,10 +11,17 @@
    * project cards do not. ("Just make everything in experience white/silver.")
    */
   export let neutral = false;
+  /**
+   * Precomputed colour class. Rows pass this from getTechColors() so adjacent
+   * badges are guaranteed to differ — a property of the sequence, which a
+   * single badge cannot know on its own. Falls back to per-badge hashing when
+   * a call site renders a lone badge.
+   */
+  export let color: string | null = null;
 
   $: colorClass = neutral
     ? $theme.text.primary
-    : getTechColor(tech, index, $theme.techColors);
+    : (color ?? getTechColor(tech, index, $theme.techColors));
   // bg.overlay is bg-blue-400/10 — a blue wash, which is hue on a card that is
   // meant to have none.
   $: fill = neutral ? "bg-slate-400/10" : $theme.bg.overlay;

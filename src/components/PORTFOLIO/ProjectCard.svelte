@@ -2,12 +2,17 @@
   import { fly } from "svelte/transition";
   import { theme } from "../../lib/stores";
   import TechBadge from "./TechBadge.svelte";
+  import { getTechColors } from "../../lib/utils";
   import type { Project } from "../../types";
   // FX:background-gradient — animated halo behind the card
   import { BackgroundGradient } from "../fx";
 
   export let project: Project;
   export let index: number = 0;
+
+  /* Same rule as the experience cards: no two adjacent badges share a colour. */
+  $: shownTech = project.technologies.slice(0, 7);
+  $: techColorList = getTechColors(shownTech, $theme.techColors);
 
 </script>
 
@@ -93,8 +98,8 @@
     <!-- Block 3: Tech Badges - Fixed Height, pushed to bottom -->
     <div class="mt-auto min-h-[4rem]">
       <div class="flex flex-wrap gap-2">
-        {#each project.technologies.slice(0, 7) as tech, techIndex}
-          <TechBadge {tech} index={techIndex} />
+        {#each shownTech as tech, techIndex}
+          <TechBadge {tech} index={techIndex} color={techColorList[techIndex]} />
         {/each}
         {#if project.technologies.length > 7}
           <span

@@ -3,6 +3,7 @@
   import { theme } from "../../lib/stores";
   import type { Experience } from "../../types";
   import { TechBadge } from ".";
+  import { getTechColors } from "../../lib/utils";
   // FX:background-gradient — animated halo behind the card
   import { BackgroundGradient } from "../fx";
 
@@ -14,6 +15,11 @@
      the stack below it stays colourful. Two tables so the two asks can
      disagree. ("Just make everything in experience white/silver.") */
   $: cardTheme = $theme.experienceThemes[index % $theme.experienceThemes.length];
+
+  /* Coloured as a SEQUENCE, not per badge: adjacent badges must never match.
+     ("In stack two of the SAME color can never be side by side") */
+  $: shownSkills = experience.skills.slice(0, 5);
+  $: skillColors = getTechColors(shownSkills, $theme.techColors);
 </script>
 
 <!-- FX:background-gradient — see the note in ProjectCard.svelte for why this
@@ -93,8 +99,8 @@
           CHROME wanted to be silver — halo, border, accent bar, title — and the
           badges are content, where variation is information rather than noise.
         -->
-        {#each experience.skills.slice(0, 5) as tech, techIndex}
-          <TechBadge {tech} index={techIndex} />
+        {#each shownSkills as tech, techIndex}
+          <TechBadge {tech} index={techIndex} color={skillColors[techIndex]} />
         {/each}
         {#if experience.skills.length > 5}
           <!-- Stays neutral: this chip is a count, not a technology, so it
