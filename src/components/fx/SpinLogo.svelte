@@ -1,93 +1,116 @@
 <!--
   FX: spin-logo
   Source: no React original — brief line "Make the logo spinnable...I can drag it
-  in any direction." Built from scratch.
+  in any direction", later "the logo should be 3d spinnable". Built from scratch.
 
-  Wraps any slotted content in a drag-to-rotate surface: grab it, throw it, and
-  it keeps spinning and decays to a stop. Direction follows the drag, so a
-  counter-clockwise flick spins counter-clockwise.
+  Grab the logo and tumble it in 3D: horizontal drag spins it about Y, vertical
+  drag about X, and a flick keeps spinning and decays to a stop on both axes at
+  once. Direction follows the drag.
+
+  WHAT CHANGED FROM THE 2D VERSION. It used to measure the pointer's ANGLE about
+  the element's centre and apply a single rotate() — a flat spin in the page
+  plane, which can only ever turn like a steering wheel. "Drag in any direction"
+  was satisfied only in the sense that both directions of one axis worked.
+
+  3D needs the opposite input: not the angle to the centre but the pointer's
+  DELTA, because dx and dy map to two independent axes. So the whole input model
+  changed, not just the transform.
 
   Used by: src/components/NavigationBar/NavigationBar.svelte (wraps <Logo />)
 
   Tunables:
-    friction      per-frame velocity multiplier while coasting   default 0.94
+    sensitivity   degrees of rotation per px of drag            default 0.55
+    friction      per-frame velocity multiplier while coasting  default 0.94
                   (higher = longer spin; 1.0 would never stop)
-    maxVelocity   deg/frame ceiling, stops absurd flicks         default 28
-    snapBack      if true, eases back to 0deg after coasting     default false
-    clickSlop     deg of rotation still treated as a click       default 4
+    maxVelocity   deg/frame ceiling per axis, stops absurd flicks default 26
+    perspective   px; smaller = stronger foreshortening         default 520
+    snapBack      if true, eases back to flat after coasting     default false
+    clickSlop     px of pointer travel still treated as a click  default 4
 
   The logo lives inside the navbar's <a href="/">, so a drag must not navigate.
-  Rotating past `clickSlop` arms a one-shot capture-phase click swallower; a
-  plain click (no rotation) falls through to the link untouched.
+  Moving past `clickSlop` arms a one-shot capture-phase click swallower; a plain
+  click (no movement) falls through to the link untouched.
 
-  Respects prefers-reduced-motion by skipping the coast — drag still works,
-  it just stops when you let go.
+  A logo is a flat plane, so edge-on it goes to a sliver and then shows its back
+  — which is what a real card does when you tumble it, and is the whole reason
+  this reads as 3D rather than as a scaling trick.
+
+  Respects prefers-reduced-motion by skipping the coast — drag still works, it
+  just stops when you let go.
 -->
 <script lang="ts">
   import { onDestroy } from "svelte";
   import { browser } from "$app/environment";
 
+  export let sensitivity = 0.55;
   export let friction = 0.94;
-  export let maxVelocity = 28;
+  export let maxVelocity = 26;
+  export let perspective = 520;
   export let snapBack = false;
   export let clickSlop = 4;
   let klass = "";
   export { klass as class };
 
   let el: HTMLDivElement;
-  let rotation = 0;
-  let velocity = 0;
+
+  /** Rotation about each axis, in degrees. Unclamped — it is a free tumble. */
+  let rotX = 0;
+  let rotY = 0;
+  let velX = 0;
+  let velY = 0;
+
   let dragging = false;
   let frame = 0;
 
-  let lastAngle = 0;
+  let lastX = 0;
+  let lastY = 0;
   let lastTime = 0;
-  /** Total absolute rotation this gesture — decides drag vs. click. */
+  /** Total pointer travel this gesture, in px — decides drag vs. click. */
   let travel = 0;
 
   const reducedMotion =
     typeof window !== "undefined" &&
     window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
-  /** Pointer angle in degrees, measured from the element's center. */
-  function angleFromCenter(event: PointerEvent): number {
-    const box = el.getBoundingClientRect();
-    const cx = box.left + box.width / 2;
-    const cy = box.top + box.height / 2;
-    return (Math.atan2(event.clientY - cy, event.clientX - cx) * 180) / Math.PI;
-  }
-
-  /** Wrap into (-180, 180] so crossing the ±180 seam doesn't spike the delta. */
-  function normalize(deg: number): number {
-    return ((((deg + 180) % 360) + 360) % 360) - 180;
-  }
+  const clamp = (v: number) => Math.max(-maxVelocity, Math.min(maxVelocity, v));
 
   function onPointerDown(event: PointerEvent) {
     // Left button / touch / pen only.
     if (event.button !== 0) return;
     cancelAnimationFrame(frame);
     dragging = true;
-    velocity = 0;
+    velX = 0;
+    velY = 0;
     travel = 0;
-    lastAngle = angleFromCenter(event);
+    lastX = event.clientX;
+    lastY = event.clientY;
     lastTime = event.timeStamp;
     el.setPointerCapture(event.pointerId);
   }
 
   function onPointerMove(event: PointerEvent) {
     if (!dragging) return;
-    const angle = angleFromCenter(event);
-    const delta = normalize(angle - lastAngle);
+
+    const dx = event.clientX - lastX;
+    const dy = event.clientY - lastY;
     const dt = Math.max(event.timeStamp - lastTime, 1);
 
-    rotation += delta;
-    travel += Math.abs(delta);
+    /*
+      Horizontal drag spins about Y, vertical about X. dy is NEGATED because
+      screen Y grows downward while a positive rotateX tips the top away — so
+      without the sign flip, dragging down would tip the logo up and the object
+      would feel like it was fighting the hand.
+    */
+    rotY += dx * sensitivity;
+    rotX -= dy * sensitivity;
+    travel += Math.abs(dx) + Math.abs(dy);
 
-    // Velocity in deg/frame, assuming ~60fps, clamped both ways.
-    const perFrame = (delta / dt) * 16.67;
-    velocity = Math.max(-maxVelocity, Math.min(maxVelocity, perFrame));
+    // deg/frame at ~60fps, clamped per axis.
+    velY = clamp((dx * sensitivity) / dt * 16.67);
+    velX = clamp((-dy * sensitivity) / dt * 16.67);
 
-    lastAngle = angle;
+    lastX = event.clientX;
+    lastY = event.clientY;
     lastTime = event.timeStamp;
   }
 
@@ -108,17 +131,19 @@
       setTimeout(() => window.removeEventListener("click", swallow, { capture: true }), 300);
     }
 
-    if (!reducedMotion && Math.abs(velocity) > 0.15) coast();
+    if (!reducedMotion && Math.hypot(velX, velY) > 0.15) coast();
     else if (snapBack) settle();
   }
 
-  /** Free spin decaying by `friction` each frame. */
+  /** Free tumble on both axes, decaying by `friction` each frame. */
   function coast() {
     cancelAnimationFrame(frame);
     const step = () => {
-      rotation += velocity;
-      velocity *= friction;
-      if (Math.abs(velocity) > 0.05) {
+      rotX += velX;
+      rotY += velY;
+      velX *= friction;
+      velY *= friction;
+      if (Math.hypot(velX, velY) > 0.05) {
         frame = requestAnimationFrame(step);
       } else if (snapBack) {
         settle();
@@ -127,18 +152,22 @@
     frame = requestAnimationFrame(step);
   }
 
-  /** Optional ease back to upright once the spin dies out. */
+  /** Optional ease back to face-on once the spin dies out. */
   function settle() {
     cancelAnimationFrame(frame);
     const step = () => {
-      // Shortest path back to a multiple of 360.
-      const target = Math.round(rotation / 360) * 360;
-      const diff = target - rotation;
-      if (Math.abs(diff) < 0.1) {
-        rotation = target;
+      // Shortest path back to a multiple of 360 on each axis independently.
+      const tx = Math.round(rotX / 360) * 360;
+      const ty = Math.round(rotY / 360) * 360;
+      const dx = tx - rotX;
+      const dy = ty - rotY;
+      if (Math.abs(dx) < 0.1 && Math.abs(dy) < 0.1) {
+        rotX = tx;
+        rotY = ty;
         return;
       }
-      rotation += diff * 0.12;
+      rotX += dx * 0.12;
+      rotY += dy * 0.12;
       frame = requestAnimationFrame(step);
     };
     frame = requestAnimationFrame(step);
@@ -160,26 +189,45 @@
   bind:this={el}
   class="fx-spin-logo {klass}"
   class:is-dragging={dragging}
-  style="transform: rotate({rotation}deg);"
+  style="--sl-perspective: {perspective}px;"
   on:pointerdown={onPointerDown}
   on:pointermove={onPointerMove}
   on:pointerup={onPointerUp}
   on:pointercancel={onPointerUp}
   on:dragstart|preventDefault
 >
-  <slot />
+  <!--
+    Perspective on the wrapper, rotation on the child. Both on one element
+    flattens the 3D — the same rule FX:flip-card documents, and the reason this
+    needs an inner span it did not need in 2D.
+  -->
+  <span class="fx-sl-inner" style="transform: rotateX({rotX}deg) rotateY({rotY}deg);">
+    <slot />
+  </span>
 </div>
 
 <style>
   .fx-spin-logo {
     display: inline-flex;
+    perspective: var(--sl-perspective, 520px);
     /* Let the element own touch gestures so dragging doesn't scroll the page. */
     touch-action: none;
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
   }
+
   .is-dragging {
     cursor: grabbing;
+  }
+
+  .fx-sl-inner {
+    display: inline-flex;
+    transform-style: preserve-3d;
+    /*
+      Deliberately NO will-change. The site has been to single-digit fps once
+      over speculatively promoted layers; a transform on an element this small
+      is composited anyway, and this one is idle almost all the time.
+    */
   }
 </style>
