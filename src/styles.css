@@ -105,6 +105,26 @@
   font-weight: 500;
 }
 
+/*
+  A HEAVIER small-caps label, on the display face.
+
+  ("Fix the font for 'also around campus' to make it better. Use the same font
+  for the 'MCS UIUC' headline. Do the same with honors.")
+
+  .meta-label is Inter at weight 500 — deliberately, because Chivo's contrast
+  reads shouty in long all-caps runs. Short two-or-three-word labels are the
+  case where that does not apply: they are structural headings, and on Inter at
+  11px they were thin enough to disappear into the card.
+
+  This is the shared class for exactly those three, so "Also around campus",
+  "Honors" and the hero's "MCS @ UIUC '26" line cannot drift apart. Size and
+  colour still belong to the call site.
+*/
+.meta-label-strong {
+  @apply font-display uppercase tracking-[0.2em];
+  font-weight: 600;
+}
+
 /* Add gradient and glow effects */
 .cyberpunk-gradient {
   @apply bg-gradient-to-r from-primary via-accent to-secondary;

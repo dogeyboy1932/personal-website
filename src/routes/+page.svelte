@@ -47,6 +47,42 @@
      ("MOve the mainly focused on a bit higher") -->
 <section class="relative mb-0 font-sans" use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
   <!--
+    FX:side-rays — mounted on the SECTION, ahead of the grid in DOM order.
+
+    It has moved three times and each move was a different reading of the same
+    complaint, so the reasoning is worth keeping:
+
+      1. section level with `overlay` (z-index:30) — painted OVER the photo and
+         the quote card. Wrong.
+      2. inside the left text column, z-index:0 — physically could not reach the
+         photo, which fixed that, but also meant the light stopped dead at the
+         column boundary instead of crossing the hero.
+      3. HERE: section level, no `overlay`, so z-index:0. The hero grid below is
+         `relative z-10`, and a z-0 positioned sibling paints before a z-10 one,
+         so the blades are behind BOTH columns — photo, quote card and all copy.
+
+    That is what makes "coming in all the way from the right of the photo. Beam
+    should be behind everything but still visible. It must never overshadow the
+    text or photo" satisfiable: it cannot overshadow anything it paints beneath.
+    The origin is at right:3%, past the photo's right edge, so the fan enters
+    from beyond the photo and rakes left across the whole section.
+
+    widthScale 1.8 and spread 30 are the "a bit bigger" half. Opacity 0.34 —
+    higher than the 0.30 it was pushed to while it still sat in front of the
+    copy, because behind everything it no longer competes with the text.
+  -->
+  <SideRays
+    side="right"
+    count={2}
+    opacity={0.34}
+    speed={13}
+    spread={30}
+    widthScale={1.8}
+    hue="warm"
+  />
+  <!-- /FX:side-rays -->
+
+  <!--
     minmax(0,1fr), not 1fr. A bare `1fr` is minmax(AUTO,1fr): the column refuses
     to shrink below its content's min-content width, so below ~900px the photo
     column pushed past the page panel by up to 103px and the document scrolled
@@ -72,33 +108,6 @@
            context. Confining the rays to the text column means they physically
            cannot reach the photo or the quote, with no z-index reasoning to get
            wrong. ("AND THE BEAM STILL CROSSES THE PHOTO AND QUOTES") -->
-      <!--
-        BEHIND the copy, not over it. `overlay` put .fx-side-rays at z-index:30,
-        above the title block and the summary, so the blades were literally
-        painting a warm wash ON TOP of the particle name and the hero text.
-
-        That is what both of these notes were about, and dimming was the wrong
-        lever for either:
-          "make my particle name a bit brighter. the beams are darkening it and
-           making it look a bit worse. [missed]"
-          "don't make the beams too bright...it's becomming a bit an issue with
-           seeing the hero text."
-        Two passes of lowering opacity (0.5 -> 0.42 -> 0.28) faded the effect
-        without ever removing the layer that sat on the text. The particles were
-        already pure #ffffff; nothing about them was dim.
-
-        Without `overlay` the component is z-index:0, so it paints in DOM order
-        among the positioned siblings and lands under everything that follows.
-        Opacity settled at 0.30: behind the copy it can afford to be brighter
-        than the 0.28 it was pushed down to, but "don't make the beams too
-        bright" was repeated after 0.40, so it comes back down.
-
-        NOTE: siblings that must stay above this need `relative`. A
-        non-positioned block child paints EARLIER than a z-index:0 positioned
-        one, so the summary below carries `relative` deliberately.
-      -->
-      <SideRays side="right" count={2} opacity={0.3} speed={13} spread={16} hue="warm" />
-      <!-- /FX:side-rays -->
 
       
       <!-- Header Box -->
@@ -147,7 +156,9 @@
               {homeHero.role}
             </h2>
 
-            <p class="mt-1 text-xs sm:text-sm font-sans {$theme.text.muted} tracking-[0.18em] uppercase">
+            <!-- .meta-label-strong — the same class as "Also around campus"
+                 and "Honors" on /more, so the three move together. -->
+            <p class="meta-label-strong mt-1.5 text-xs sm:text-sm {$theme.text.muted}">
               {homeHero.age}
               <span aria-hidden="true" class="{$theme.text.dim} mx-1.5">·</span>
               {homeHero.credential}
@@ -206,18 +217,45 @@
 
              No scroll-reveal: this sits inside the first viewport, so a
              scroll-triggered reveal would start blurred and never un-blur. -->
-        <nav class="flex flex-wrap justify-center gap-2.5" aria-label="Quick links">
-          {#each homeQuickLinks as link}
+        <!--
+          Larger and given some actual design. ("make the buttons under the blub
+          look better? Better design and style + larger.")
+
+          What each piece is doing, since "look better" is otherwise a guess:
+          - a sweep highlight that travels left-to-right on hover, clipped by
+            overflow-hidden. Transform only, so it stays on the compositor —
+            this hero already sits over an animating canvas and a blurred ray
+            layer, and a hover effect that triggers paint would show.
+          - a leading index (01/02/03) in the accent, which gives the row a
+            deliberate order instead of three interchangeable chips.
+          - the arrow tucks in at rest and slides out on hover.
+          Sizing: px-5 py-2 text-xs -> px-7 py-3.5 text-sm, and the row gets a
+          wider gap so the three do not read as one segmented control.
+        -->
+        <nav class="flex flex-wrap justify-center gap-3.5" aria-label="Quick links">
+          {#each homeQuickLinks as link, i}
             <a
               href={link.href}
-              class="group rounded-full border {$theme.border.default} {$theme.bg.secondary} px-5 py-2 font-display text-xs font-bold uppercase tracking-[0.16em] {$theme.text.primary} transition-all duration-300 hover:border-warm/60 hover:bg-warm/10 {$theme.hover.scaleSmall}"
+              class="group relative overflow-hidden rounded-xl border {$theme.border.default} {$theme.bg.secondary} px-7 py-3.5 font-display text-sm font-bold uppercase tracking-[0.14em] {$theme.text.primary} shadow-lg transition-all duration-300 hover:border-warm/70 hover:shadow-warm/10 {$theme.hover.scaleSmall}"
             >
-              {link.label}
+              <!-- Travelling sheen. -translate-x-full at rest, so it is parked
+                   off the left edge and the clip hides it entirely. -->
               <span
                 aria-hidden="true"
-                class="ml-1.5 inline-block {$theme.text.muted} transition-transform duration-300 group-hover:translate-x-0.5"
-                >&rarr;</span
-              >
+                class="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-warm/15 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
+              />
+
+              <span class="relative flex items-center gap-2.5">
+                <span class="text-[0.65rem] font-extrabold tabular-nums text-warm/70"
+                  >0{i + 1}</span
+                >
+                {link.label}
+                <span
+                  aria-hidden="true"
+                  class="inline-block {$theme.text.muted} transition-all duration-300 group-hover:translate-x-1 group-hover:text-warm"
+                  >&rarr;</span
+                >
+              </span>
             </a>
           {/each}
         </nav>

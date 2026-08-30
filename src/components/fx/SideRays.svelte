@@ -34,6 +34,12 @@
   export let opacity = 0.42;
   export let speed = 12;
   export let spread = 72;
+  /**
+   * Multiplier on every blade's width. The widths are derived from the index
+   * (5-10.5vw) so they stay deterministic for SSR; this scales the whole set
+   * without breaking that. ("make the beam a bit bigger")
+   */
+  export let widthScale = 1;
   export let hue: "warm" | "cool" = "warm";
   /**
    * Paint the rays ABOVE the page content instead of behind it.
@@ -76,12 +82,14 @@
    * Each gets its own width, delay and duration so the group never pulses in
    * lockstep.
    */
+  /* NOTE: reads `widthScale` and `speed`, so any reactive statement calling it
+     re-runs when those change. */
   function blades(n: number, deg: number) {
     return Array.from({ length: n }, (_, i) => {
       const t = n === 1 ? 0.5 : i / (n - 1);
       return {
         angle: -deg / 2 + t * deg,
-        width: 5 + ((i * 37) % 55) / 10,    // 5-10.5vw, deterministic so SSR matches
+        width: (5 + ((i * 37) % 55) / 10) * widthScale, // 5-10.5vw * scale, deterministic so SSR matches
         delay: -((i * 1.7) % speed),        // negative = already mid-cycle on load
         duration: speed + ((i * 3) % 7),
         strength: 0.45 + ((i * 13) % 55) / 100,
