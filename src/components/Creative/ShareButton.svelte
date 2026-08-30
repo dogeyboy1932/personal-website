@@ -21,9 +21,11 @@
   icons instead of the group collapsing the moment hover ends.
 -->
 <script lang="ts">
-  import { Instagram, MessageCircle, Mail, Github, Linkedin, Check, Copy, ChessKnightIcon } from "lucide-svelte";
+  import { Instagram, Mail, Github, Linkedin, Check, Copy, ChessKnightIcon } from "lucide-svelte";
   import { theme } from "../../lib/stores";
   import type { SocialHandle } from "../../types";
+
+  import DiscordLogo from "../../lib/OtherLogos/DiscordLogo.svelte"
 
   export let actions: SocialHandle[] = [];
   export let label = "Find me";
@@ -35,7 +37,7 @@
 
   const icons = {
     instagram: Instagram,
-    discord: MessageCircle,
+    discord: DiscordLogo,
     // A knight, not a crown — the crown reads as king/queen.
     lichess: ChessKnightIcon,
     mail: Mail,
@@ -69,7 +71,7 @@
     <!-- Absolutely centred, so the icons occupy the SAME space rather than
          sitting next to it. ("just replace the find me with the logos when the
          hover happens") -->
-    <span class="fx-sb-label">{label}</span>
+    <!-- <span class="fx-sb-label">{label}</span> -->
 
     <div class="fx-sb-fan">
       {#each actions as action, i}
@@ -101,7 +103,7 @@
             {#if copied === action.handle}
               Copied
             {:else}
-              {action.handle}{#if !action.href}<Copy class="ml-1 inline h-3 w-3" />{/if}
+              {action.handle}{#if !action.href}{/if}
             {/if}
           </span>
         </div>
@@ -191,7 +193,7 @@
     border-radius: 9999px;
   }
 
-  .fx-sb-rise {
+  /* .fx-sb-rise {
     display: block;
     height: 100%;
     opacity: 0;
@@ -206,7 +208,7 @@
   .fx-sb-pill:focus-within .fx-sb-rise {
     opacity: 1;
     transform: translateY(0);
-  }
+  } */
 
   .fx-sb-action {
     display: inline-flex;

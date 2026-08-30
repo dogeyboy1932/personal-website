@@ -21,10 +21,25 @@
     />
   </div>
 
-  <!-- Quote caption -->
-  <!-- FX:quote-carousel — autoplaying, shuffled on load -->
+  <!-- FX:quote-carousel — autoplaying, shuffled on load. The carousel owns the
+       timing; the quote markup and the card chrome are ours. -->
   <figcaption class="mt-2">
-    <QuoteCarousel {quotes} interval={7000} shuffle />
+    <QuoteCarousel
+      items={quotes}
+      interval={7000}
+      shuffle
+      class="rounded-2xl border p-4 shadow-lg backdrop-blur-md {$theme.border.accent} {$theme.bg.backdrop}"
+      let:item
+    >
+      <blockquote class="flex h-full flex-col justify-between">
+        <p class="text-md italic leading-snug {$theme.text.primary}">{item.quote}</p>
+        <p
+          class="mt-3 text-right text-sm font-bold uppercase tracking-widest {$theme.accent.indigo.text}"
+        >
+          {item.voice}
+        </p>
+      </blockquote>
+    </QuoteCarousel>
   </figcaption>
-  <!-- /Creative:quote-carousel -->
+  <!-- /FX:quote-carousel -->
 </figure>

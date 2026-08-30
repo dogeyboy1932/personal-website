@@ -1,47 +1,32 @@
 <!--
-  FX: quote-carousel
-  Source: https://reactbits.dev/components/carousel (React) — reimplemented in Svelte
+  FX: quote-carousel — a single-slide carousel that advances on a timer and can
+  shuffle its order once per load. Content comes from the default slot, so this
+  owns the BEHAVIOUR and the caller owns the markup.
 
-  Brief: "Let's have more than one quote. Use this carousel to scroll. And then
-  periodically it should shuffle on its own without manual movement."
+    <QuoteCarousel items={quotes} let:item>
+      <blockquote>{item.quote}</blockquote>
+    </QuoteCarousel>
 
-  So there are two distinct behaviours, and they are not the same thing:
-    - autoplay: advances to the next quote on a timer (the "without manual
-      movement" part)
-    - shuffle: randomises the ORDER once per page load, so the sequence isn't
-      identical on every visit
+  Slot props: item, index, isActive.
 
-  Used by: src/components/HOME/HeroImage.svelte
+  CAVEAT: autoplay is a plain interval, not embla-carousel-autoplay. The
+  installed plugin (8.0.0-rc23) is a different release candidate from the core
+  (8.0.0-rc18) and the plugin API moved between them.
 
-  Tunables:
-    quotes      [{ quote, voice }]
-    interval    ms between automatic advances       default 7000
-    shuffle     randomise order on mount            default true
-    pauseOnHover                                    default true
-
-  Built on the embla-carousel-svelte already in the project rather than pulling
-  a new dependency. Autoplay is a plain interval instead of the
-  embla-carousel-autoplay plugin: the installed plugin (8.0.0-rc23) is a
-  different release candidate from the core (8.0.0-rc18) and the plugin API
-  moved between those RCs.
-
-  All slides render at the same height (the tallest quote) so the card doesn't
-  jump as it cycles.
+  Tunables: items, interval, shuffle, pauseOnHover, class
 -->
-<script lang="ts">
+<script lang="ts" generics="T">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import emblaCarouselSvelte from "embla-carousel-svelte";
   import type { EmblaCarouselType } from "embla-carousel";
   import { theme } from "../../lib/stores";
 
-  export let quotes: { quote: string; voice: string }[] = [];
+  export let items: T[] = [];
   export let interval = 7000;
   export let shuffle = true;
   export let pauseOnHover = true;
-  // Root is a plain <div>: <figcaption> is only valid as a direct child of
-  // <figure>, and Svelte cannot verify that across a component boundary, so
-  // the figcaption stays in HeroImage and this renders inside it.
+  /** Chrome is the caller's — pass border/background here. */
   let klass = "";
   export { klass as class };
 
@@ -50,16 +35,16 @@
   let timer: ReturnType<typeof setInterval> | undefined;
   let paused = false;
 
-  // Shuffled once, at mount — not reactively, or every store update would
-  // reorder the quotes mid-view.
-  let ordered: { quote: string; voice: string }[] = quotes;
+  /* Shuffled once at mount, not reactively — a reactive shuffle would reorder
+     mid-view on any store update. */
+  let ordered: T[] = items;
 
   const reducedMotion = () =>
     browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
   onMount(() => {
-    if (shuffle && quotes.length > 1) {
-      const copy = [...quotes];
+    if (shuffle && items.length > 1) {
+      const copy = [...items];
       // Fisher-Yates.
       for (let i = copy.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -101,7 +86,7 @@
 </script>
 
 <div
-  class="fx-quote-carousel {klass} relative p-4 rounded-2xl border {$theme.border.accent} {$theme.bg.backdrop} backdrop-blur-md shadow-lg"
+  class="fx-quote-carousel {klass} relative"
   on:pointerenter={() => pauseOnHover && (paused = true)}
   on:pointerleave={() => (paused = false)}
 >
@@ -113,16 +98,9 @@
     <!-- items-stretch keeps every slide the height of the tallest quote, so
          the card doesn't resize as it cycles. -->
     <div class="flex items-stretch">
-      {#each ordered as item}
+      {#each ordered as item, i}
         <div class="min-w-0 shrink-0 grow-0 basis-full">
-          <blockquote class="flex h-full flex-col justify-between">
-            <p class="text-md italic {$theme.text.primary} leading-snug">{item.quote}</p>
-            <p
-              class="mt-3 text-sm {$theme.accent.indigo.text} font-bold uppercase tracking-widest text-right"
-            >
-              {item.voice}
-            </p>
-          </blockquote>
+          <slot {item} index={i} isActive={selected === i} />
         </div>
       {/each}
     </div>
@@ -137,7 +115,7 @@
             ? `w-5 ${$theme.carousel.dot.active}`
             : `w-1.5 ${$theme.carousel.dot.inactive} ${$theme.carousel.dot.hover}`}"
           on:click={() => goTo(i)}
-          aria-label={`Show quote ${i + 1}`}
+          aria-label={`Show item ${i + 1}`}
           aria-current={selected === i}
         />
       {/each}
