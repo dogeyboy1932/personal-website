@@ -97,6 +97,10 @@ export default {
       fontFamily: {
         sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
         mono: ["JetBrains Mono", "Menlo", "Monaco", "monospace"],
+        // Chivo is the display face everywhere structural — headings, section
+        // labels, nav, badges, stat numbers — via `font-display`. Body copy
+        // stays Inter: Chivo is a display grotesque and long paragraphs get
+        // noticeably harder to read in it.
         // Chivo picked from the /fonts-lab sampler: highest contrast of the
         // candidates at hero size. Space Grotesk stays as the first fallback so
         // the layout doesn't shift if Chivo fails to load.

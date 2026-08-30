@@ -58,6 +58,7 @@
 
 <style>
   .fx-pill {
+    font-family: "Chivo", "Space Grotesk", Inter, sans-serif;
     position: relative;
     isolation: isolate;
     overflow: hidden;

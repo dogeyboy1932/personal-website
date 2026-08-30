@@ -6,8 +6,17 @@ export const lastUpdated = "8/26";
 
 export const homeHero = {
   tagline: "Portfolio 2026",
+  /*
+    The five-second answer to "who is this and what drives him".
+    Deliberately: one short hook line, then the driver, then the proof. Kept to
+    three beats — anything longer and the answer arrives too late.
+    Rendered larger and brighter than the old version, which was small grey
+    body copy that read as filler.
+  */
   summary:
-    "Heyyy, I'm Akhil!👋 \n\n I'm focused on product development, data management, and AI-powered solutions. \n\n In my experiences, I’ve explored how emerging technologies can create real value and practical solutions. I strive to stay ahead of the curve and adapt to where our future is headed.",
+    "Heyyy, I'm Akhil! 👋\n\n" +
+    "I build AI systems that turn new technology into something people can actually use — RAG pipelines, agents, and the unglamorous data plumbing underneath them.\n\n" +
+    "I'm drawn to problems nobody has settled yet, where the right answer still has to be found rather than looked up. So far that's meant shipping at PwC, research at UIUC, and a stack of hackathon wins.",
   // I see myself as highly driven, keeping myself informed of emerging trends and seeking opportunities to learn, grow, and deliver meaningful value. 
     image: {
     src: "/Linkedin_pfp.jpeg",

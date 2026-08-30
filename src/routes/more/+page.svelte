@@ -65,7 +65,7 @@
   <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
     <h3
-      class="mb-3 ml-1 text-sm font-bold uppercase tracking-[0.35em] {$theme.text.muted}"
+      class="mb-3 ml-1 font-display text-sm font-bold uppercase tracking-[0.35em] {$theme.text.muted}"
     >
       {sections[0].label}
     </h3>
@@ -79,7 +79,7 @@
   <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
     <h3
-      class="mb-3 ml-1 text-sm font-bold uppercase tracking-[0.35em] {$theme.text.muted}"
+      class="mb-3 ml-1 font-display text-sm font-bold uppercase tracking-[0.35em] {$theme.text.muted}"
     >
       {sections[1].label}
     </h3>
@@ -90,7 +90,7 @@
   <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
     <h3
-      class="mb-3 ml-1 text-sm font-bold uppercase tracking-[0.35em] {$theme.text.muted}"
+      class="mb-3 ml-1 font-display text-sm font-bold uppercase tracking-[0.35em] {$theme.text.muted}"
     >
       {sections[2].label}
     </h3>

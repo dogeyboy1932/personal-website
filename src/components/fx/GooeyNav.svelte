@@ -325,6 +325,8 @@
   }
 
   .fx-goo-item {
+    /* Display face, matching headings — see tailwind.config fontFamily. */
+    font-family: "Chivo", "Space Grotesk", Inter, sans-serif;
     display: flex;
     align-items: center;
     gap: 0.5rem;

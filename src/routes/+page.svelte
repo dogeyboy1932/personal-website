@@ -115,7 +115,10 @@
       <!-- Summary Text -->
       <!-- backdrop-blur-sm removed; see the note on the header box above. -->
       <div class="flex items-center py-3 px-8">
-        <p class="text-base text-lg leading-relaxed {$theme.text.secondary} font-sans font-light whitespace-pre-line">
+        <!-- Larger and brighter than before: this is the five-second answer to
+             "who is this", and it was previously small, light-weight grey that
+             read as filler next to the name. -->
+        <p class="text-lg sm:text-xl leading-relaxed {$theme.text.primary} font-sans font-normal whitespace-pre-line">
           {homeHero.summary}
         </p>
       </div>
@@ -143,7 +146,7 @@
 <section class="my-12" use:scrollReveal>
 
   <div>
-    <h3 class="text-base text-xl uppercase tracking-[0.4em] {$theme.text.muted} font-bold mb-3 ml-2">{sections.focuses}</h3>
+    <h3 class="font-display text-base text-xl uppercase tracking-[0.4em] {$theme.text.muted} font-bold mb-3 ml-2">{sections.focuses}</h3>
     
     <div class="grid gap-4" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-3={!$breakpoints.isMobile}>
       {#each homeFocusAreas as focus, index}
