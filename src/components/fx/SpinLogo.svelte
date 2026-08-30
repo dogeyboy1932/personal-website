@@ -25,11 +25,15 @@
     maxVelocity   deg/frame ceiling per axis, stops absurd flicks default 26
     perspective   px; smaller = stronger foreshortening         default 520
     snapBack      if true, eases back to flat after coasting     default false
-    clickSlop     px of pointer travel still treated as a click  default 4
+    drift         idle rotation, deg/frame at peak              default 0.055
 
-  The logo lives inside the navbar's <a href="/">, so a drag must not navigate.
-  Moving past `clickSlop` arms a one-shot capture-phase click swallower; a plain
-  click (no movement) falls through to the link untouched.
+  IT IS NOT A LINK. It used to sit inside the navbar's <a href="/">, which meant
+  a drag could navigate — so this component carried a capture-phase click
+  swallower and `travel`/`clickSlop` bookkeeping to suppress that. The navbar
+  wraps only the name now, so all of it is gone.
+
+  The idle drift is an affordance, not decoration: a static logo looks like a
+  logo, and nothing else says this one is draggable. Motion is the hint.
 
   A logo is a flat plane, so edge-on it goes to a sliver and then shows its back
   — which is what a real card does when you tumble it, and is the whole reason
@@ -39,7 +43,7 @@
   just stops when you let go.
 -->
 <script lang="ts">
-  import { onDestroy } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import { browser } from "$app/environment";
 
   /*
@@ -59,7 +63,18 @@
   export let maxVelocity = 26;
   export let perspective = 520;
   export let snapBack = false;
-  export let clickSlop = 4;
+  /**
+   * Idle drift, degrees per frame at peak.
+   *
+   * ("it should spin ever so slightly (like a balloon drifting aimlessly but
+   * slowly). This is to give users a hint that you can move it around.")
+   *
+   * An affordance, not decoration: a static logo looks like a logo, and nothing
+   * else on the page suggests this one is draggable. Motion is the hint.
+   * 0.055 deg/frame peaks around 3.3 deg/sec — visible if you watch it, easy to
+   * ignore if you don't.
+   */
+  export let drift = 0.055;
   let klass = "";
   export { klass as class };
 
@@ -73,12 +88,11 @@
 
   let dragging = false;
   let frame = 0;
+  let t0 = 0;
 
   let lastX = 0;
   let lastY = 0;
   let lastTime = 0;
-  /** Total pointer travel this gesture, in px — decides drag vs. click. */
-  let travel = 0;
 
   const reducedMotion =
     typeof window !== "undefined" &&
@@ -89,11 +103,11 @@
   function onPointerDown(event: PointerEvent) {
     // Left button / touch / pen only.
     if (event.button !== 0) return;
-    cancelAnimationFrame(frame);
+    // Deliberately does NOT cancel the loop — it keeps running and simply
+    // returns early while `dragging`, so releasing needs no restart.
     dragging = true;
     velX = 0;
     velY = 0;
-    travel = 0;
     lastX = event.clientX;
     lastY = event.clientY;
     lastTime = event.timeStamp;
@@ -115,7 +129,6 @@
     */
     rotY += dx * sensitivity;
     rotX -= dy * sensitivity;
-    travel += Math.abs(dx) + Math.abs(dy);
 
     // deg/frame at ~60fps, clamped per axis.
     velY = clamp((dx * sensitivity) / dt * 16.67);
@@ -126,42 +139,59 @@
     lastTime = event.timeStamp;
   }
 
+  /*
+    NO CLICK SWALLOWER ANY MORE. There used to be one here: a capture-phase
+    listener that ate the click the browser synthesizes after a drag, so a spin
+    could not navigate. It existed only because the logo sat inside
+    <a href="/">. The navbar no longer wraps it in a link, so there is no
+    navigation to suppress and the whole mechanism — plus the `travel` and
+    `clickSlop` bookkeeping that fed it — is gone.
+  */
   function onPointerUp(event: PointerEvent) {
     if (!dragging) return;
     dragging = false;
     if (el.hasPointerCapture(event.pointerId)) el.releasePointerCapture(event.pointerId);
-
-    if (travel > clickSlop) {
-      // This gesture was a spin, not a click — swallow the click the browser is
-      // about to synthesize, before it reaches the wrapping <a>.
-      const swallow = (e: MouseEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-      };
-      window.addEventListener("click", swallow, { capture: true, once: true });
-      // If no click follows (drag ended off-element), don't leave it armed.
-      setTimeout(() => window.removeEventListener("click", swallow, { capture: true }), 300);
-    }
-
-    if (!reducedMotion && Math.hypot(velX, velY) > 0.15) coast();
-    else if (snapBack) settle();
+    if (snapBack && Math.hypot(velX, velY) <= 0.15) settle();
   }
 
-  /** Free tumble on both axes, decaying by `friction` each frame. */
-  function coast() {
-    cancelAnimationFrame(frame);
-    const step = () => {
+  /*
+    ONE PERSISTENT LOOP for both the throw's decay and the idle drift.
+
+    They used to need two: coast() ran only after a release and stopped itself,
+    which is fine for a throw but cannot express "always moving a little". Two
+    loops would also fight — each would cancelAnimationFrame the other's handle.
+    Merged, the frame does the same work in either state and the only difference
+    is how much velocity is left.
+
+    Drift is applied on TOP of the decaying throw rather than after it, so there
+    is no moment where the logo stops dead and then twitches back into motion.
+
+    Cost is one rAF with two sin() calls and a transform write on a 45px
+    element. Deliberately not gated behind an intersection check: it is in the
+    sticky navbar, so it is always on screen anyway.
+  */
+  function tick(now: number) {
+    frame = requestAnimationFrame(tick);
+    if (dragging) return;
+
+    // Throw decay.
+    if (Math.hypot(velX, velY) > 0.05) {
       rotX += velX;
       rotY += velY;
       velX *= friction;
       velY *= friction;
-      if (Math.hypot(velX, velY) > 0.05) {
-        frame = requestAnimationFrame(step);
-      } else if (snapBack) {
-        settle();
-      }
-    };
-    frame = requestAnimationFrame(step);
+    } else if (velX || velY) {
+      velX = 0;
+      velY = 0;
+      if (snapBack) settle();
+    }
+
+    // Ambient drift. Two sines at deliberately unrelated frequencies, so the
+    // pattern does not visibly repeat — that is what reads as "aimless" rather
+    // than as an animation on a loop.
+    const t = now - t0;
+    rotY += Math.sin(t * 0.00041) * drift;
+    rotX += Math.sin(t * 0.00027 + 1.7) * drift * 0.62;
   }
 
   /** Optional ease back to face-on once the spin dies out. */
@@ -184,6 +214,14 @@
     };
     frame = requestAnimationFrame(step);
   }
+
+  onMount(() => {
+    // Reduced motion: no ambient drift and no idle loop at all. A throw still
+    // works — onPointerUp starts the loop on demand below.
+    if (reducedMotion) return;
+    t0 = performance.now();
+    frame = requestAnimationFrame(tick);
+  });
 
   // onDestroy also runs during SSR, where there is no rAF to cancel.
   onDestroy(() => {

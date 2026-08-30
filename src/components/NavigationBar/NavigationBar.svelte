@@ -16,18 +16,27 @@
   <div class="flex flex-wrap mx-auto flex h-25 w-full max-w-[1400px] items-center justify-between p-2">
     
     <!-- Logo Section -->
-    <a
-      href="/"
-      class="flex flex-shrink-0 items-center gap-4 group"
-      aria-label="Go to home"
-    >
-      <!-- FX:spin-logo — grab the mark and throw it; it coasts to a stop -->
+    <!--
+      THE LOGO IS NOT A LINK. ("the logo shouldn't be a link...that makes it
+      hard to move")
+
+      It used to sit inside <a href="/">, which fought the drag two ways: the
+      browser's native image/link drag competed with the pointer gesture, and
+      SpinLogo had to run a click-swallower to stop a spin from navigating home.
+      Both are gone. The wrapper is now a plain flex div and the <a> wraps only
+      the NAME beside it, so home is still one click away and the mark is purely
+      a toy.
+    -->
+    <div class="group flex flex-shrink-0 items-center gap-4">
+      <!-- FX:spin-logo — grab the mark and throw it; it coasts to a stop, and
+           drifts slowly on its own so it reads as grabbable -->
       <SpinLogo>
         <Logo
           class="w-9 h-9 transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]"
         />
       </SpinLogo>
       <!-- /FX:spin-logo -->
+      <a href="/" aria-label="Go to home">
       <!--
         Hidden below sm: the full name is wide enough to claim the whole first
         row on a phone, which pushed the nav and the theme toggle onto rows of
@@ -49,7 +58,8 @@
         </ShinyText>
         <!-- /FX:shiny-text -->
       </span>
-    </a>
+      </a>
+    </div>
 
     <!-- Navigation Pills + Theme Toggle -->
     <div class="flex items-center gap-4">
