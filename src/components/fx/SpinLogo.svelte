@@ -42,8 +42,20 @@
   import { onDestroy } from "svelte";
   import { browser } from "$app/environment";
 
-  export let sensitivity = 0.55;
-  export let friction = 0.94;
+  /*
+    TUNED FOR EFFORT, not for restraint. ("It's hard to spin the logo")
+
+    At the old 0.55 deg/px a full revolution took 655px of dragging — most of
+    the screen — on a 45px target. 1.6 brings that to 225px, a comfortable
+    flick of the wrist.
+  */
+  export let sensitivity = 1.6;
+  /*
+    0.94 decayed a 15 deg/frame flick to a stop in 1.5s, sweeping 235deg — it
+    stopped before completing a turn, so a throw never felt like a throw. 0.965
+    coasts 2.7s and sweeps 414deg, so a flick carries past a full rotation.
+  */
+  export let friction = 0.965;
   export let maxVelocity = 26;
   export let perspective = 520;
   export let snapBack = false;
@@ -215,6 +227,14 @@
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
+    /*
+      A BIGGER GRAB TARGET AT NO LAYOUT COST. The logo is 45x45, which is a
+      small thing to catch precisely before a drag even starts. The padding
+      grows the hit box to 61x61; the equal negative margin cancels it, so the
+      navbar lays out exactly as before. Purely a hit-area change.
+    */
+    padding: 8px;
+    margin: -8px;
   }
 
   .is-dragging {
