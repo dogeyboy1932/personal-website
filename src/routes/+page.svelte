@@ -43,10 +43,6 @@
 <!-- ===== HERO SECTION ===== -->
 <!-- FX:scroll-reveal (hero reveals immediately; no offset so it does not fight the fly-in) -->
 <section class="relative mb-3 font-sans" use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
-  <!-- FX:side-rays -->
-  <SideRays side="right" count={3} opacity={0.5} speed={13} spread={54} hue="warm" overlay />
-  <!-- /FX:side-rays -->
-
   <!--
     minmax(0,1fr), not 1fr. A bare `1fr` is minmax(AUTO,1fr): the column refuses
     to shrink below its content's min-content width, so below ~900px the photo
@@ -64,7 +60,18 @@
     <!-- Left Column: Header and Summary -->
     <!-- min-w-0: without it a grid child's min-content width becomes the
          column's floor, which is the same overflow bug by another route. -->
-    <div class="flex min-w-0 flex-col flex-1 md:flex-[1] justify-center gap-3">
+    <div class="relative flex min-w-0 flex-col flex-1 md:flex-[1] justify-center gap-3">
+      <!-- FX:side-rays — scoped to THIS column, not the whole section.
+           It used to sit on the section at z-30 with the photo column at z-40,
+           which does not work: the photo column is nested inside the hero grid,
+           and that grid is z-10, so the entire grid (z-40 child included)
+           paints beneath the rays. A child cannot escape its parent's stacking
+           context. Confining the rays to the text column means they physically
+           cannot reach the photo or the quote, with no z-index reasoning to get
+           wrong. ("AND THE BEAM STILL CROSSES THE PHOTO AND QUOTES") -->
+      <SideRays side="right" count={2} opacity={0.5} speed={13} spread={40} hue="warm" overlay />
+      <!-- /FX:side-rays -->
+
       
       <!-- Header Box -->
       <!-- backdrop-blur-sm removed: this box has no background of its own, so

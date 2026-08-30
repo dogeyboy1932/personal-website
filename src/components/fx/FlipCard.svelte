@@ -79,9 +79,12 @@
     transition: transform var(--fc-duration) cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  /* focus-visible is scoped to the hoverable variant too: with trigger="click"
+     the card must only turn on an actual click, or tabbing through a wheel of
+     them flips each one in passing. */
   .fx-flip-card.is-flipped .fx-fc-inner,
   .fx-flip-card.is-hoverable:hover .fx-fc-inner,
-  .fx-flip-card:focus-visible .fx-fc-inner {
+  .fx-flip-card.is-hoverable:focus-visible .fx-fc-inner {
     transform: rotateY(180deg);
   }
 

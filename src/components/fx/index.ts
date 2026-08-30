@@ -51,5 +51,9 @@ export { default as GooeyNav } from "./GooeyNav.svelte";
 // FX:particle-text — reactbits particle-text (hero name; gated by homeHero.particleName)
 export { default as ParticleText } from "./ParticleText.svelte";
 
-// FX:drift-wall — reactbits drift-wall (/more interests)
+// FX:drift-wall — reactbits drift-wall. Currently UNUSED: the /more
+// interests moved to FX:option-wheel. Kept so the wall can be restored.
 export { default as DriftWall } from "./DriftWall.svelte";
+
+// FX:option-wheel — reactbits option-wheel (/more interests)
+export { default as OptionWheel } from "./OptionWheel.svelte";

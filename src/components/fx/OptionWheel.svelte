@@ -1,0 +1,241 @@
+<!--
+  FX: option-wheel
+  Source: https://reactbits.dev/components/option-wheel (React) — reimplemented in Svelte
+
+  Options fan along an arc, one in focus at the front, neighbours falling away
+  to either side and dimming with distance. Rotate with the arrows, the arrow
+  keys, a drag, or by clicking any visible neighbour.
+
+  Used by: src/components/MORE/InterestGrid.svelte
+
+  Only a WINDOW of the wheel is rendered (`visible` either side of centre)
+  rather than the full circle. A literal wheel is as tall as its diameter,
+  which is the opposite of the goal here — this keeps the footprint to roughly
+  one card plus the arc's dip.
+
+  Tunables:
+    items      any[]; rendered through the default slot with let:item
+    active     bound; index in focus
+    visible    neighbours drawn each side of centre    default 3
+    spreadX    px between adjacent cards along the arc default 132
+    dip        px the arc drops per step from centre   default 16
+    cardWidth  px                                       default 150
+
+  Slot props: item, index, isActive.
+
+  Wrapping is deliberate on the SHORT way round, so stepping from the last item
+  to the first slides one place rather than unwinding the whole set.
+-->
+<script lang="ts">
+  import { ChevronLeft, ChevronRight } from "lucide-svelte";
+
+  type Item = $$Generic;
+
+  export let items: Item[] = [];
+  export let active = 0;
+  export let visible = 3;
+  export let spreadX = 132;
+  export let dip = 16;
+  export let cardWidth = 150;
+  export let label = "Options";
+
+  $: count = items.length;
+
+  /** Signed distance from `active`, taking the short way around the wheel. */
+  function offsetOf(index: number): number {
+    if (!count) return 0;
+    let d = index - active;
+    if (d > count / 2) d -= count;
+    if (d < -count / 2) d += count;
+    return d;
+  }
+
+  const step = (dir: number) => {
+    if (!count) return;
+    active = (active + dir + count) % count;
+  };
+
+  /*
+   * No tabindex on the wrapper: a role="group" is not interactive, so giving it
+   * a tab stop is an a11y error. The prev/next buttons inside are already
+   * focusable and keydown bubbles from them, so arrow keys work whenever focus
+   * is anywhere in the wheel.
+   */
+  function onKeydown(event: KeyboardEvent) {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      step(-1);
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      step(1);
+    }
+  }
+
+  /* ---- drag to spin ---------------------------------------------------- */
+  let dragging = false;
+  let startX = 0;
+  let startActive = 0;
+
+  function onPointerDown(event: PointerEvent) {
+    dragging = true;
+    startX = event.clientX;
+    startActive = active;
+  }
+
+  function onPointerMove(event: PointerEvent) {
+    if (!dragging || !count) return;
+    // One card per spreadX of travel, so the wheel tracks the pointer 1:1.
+    const moved = Math.round((startX - event.clientX) / spreadX);
+    active = ((startActive + moved) % count + count) % count;
+  }
+
+  const endDrag = () => (dragging = false);
+</script>
+
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<div
+  class="fx-option-wheel"
+  style="--ow-card: {cardWidth}px;"
+  role="group"
+  aria-label={label}
+  on:keydown={onKeydown}
+  on:pointerdown={onPointerDown}
+  on:pointermove={onPointerMove}
+  on:pointerup={endDrag}
+  on:pointerleave={endDrag}
+  on:pointercancel={endDrag}
+>
+  <div class="fx-ow-track" class:is-dragging={dragging}>
+    {#each items as item, i}
+      {@const offset = offsetOf(i)}
+      {@const shown = Math.abs(offset) <= visible}
+      <div
+        class="fx-ow-slot"
+        class:is-hidden={!shown}
+        class:is-active={offset === 0}
+        style="
+          --ow-x: {offset * spreadX}px;
+          --ow-y: {Math.abs(offset) * dip}px;
+          --ow-scale: {Math.max(0.62, 1 - Math.abs(offset) * 0.13)};
+          --ow-rot: {offset * 6}deg;
+          --ow-fade: {offset === 0 ? 1 : Math.max(0.25, 1 - Math.abs(offset) * 0.28)};
+          z-index: {100 - Math.abs(offset)};
+        "
+      >
+        <!-- Neighbours are a shortcut to that option; the centre card is left
+             alone so the slot's own click can't fight the card's flip. -->
+        {#if offset !== 0 && shown}
+          <button
+            type="button"
+            class="fx-ow-jump"
+            on:click={() => (active = i)}
+            aria-label="Show option {i + 1}"
+          />
+        {/if}
+        <slot {item} index={i} isActive={offset === 0} />
+      </div>
+    {/each}
+  </div>
+
+  <div class="fx-ow-controls">
+    <button type="button" on:click={() => step(-1)} aria-label="Previous">
+      <ChevronLeft class="h-4 w-4" />
+    </button>
+    <span class="fx-ow-count">{count ? active + 1 : 0} / {count}</span>
+    <button type="button" on:click={() => step(1)} aria-label="Next">
+      <ChevronRight class="h-4 w-4" />
+    </button>
+  </div>
+</div>
+
+<style>
+  .fx-option-wheel {
+    position: relative;
+    outline: none;
+    touch-action: pan-y;
+    /* The fanned neighbours sit up to ~3 card-widths either side of centre and
+       pushed 113px of horizontal scroll onto the page. They are already faded
+       at that distance, so clipping them is invisible — and cheaper than
+       narrowing the fan, which would flatten the arc. */
+    overflow: hidden;
+  }
+
+  .fx-ow-track {
+    position: relative;
+    height: 190px;
+    cursor: grab;
+  }
+
+  .is-dragging {
+    cursor: grabbing;
+  }
+
+  .fx-ow-slot {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: var(--ow-card);
+    margin-left: calc(var(--ow-card) / -2);
+    transform: translate3d(var(--ow-x), var(--ow-y), 0) scale(var(--ow-scale))
+      rotate(var(--ow-rot));
+    opacity: var(--ow-fade);
+    transition:
+      transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 300ms ease;
+  }
+
+  /* Kept in the DOM but inert, so the wheel's contents stay one stable list and
+     items don't remount as they rotate through the window. */
+  .is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Covers a neighbour card so clicking it rotates the wheel instead of
+     flipping a card the reader isn't looking at. */
+  .fx-ow-jump {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+  }
+
+  .fx-ow-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .fx-ow-controls button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 9999px;
+    border: 1px solid rgb(148 163 184 / 0.3);
+    color: rgb(203 213 225);
+    transition: background-color 200ms ease, transform 200ms ease;
+  }
+
+  .fx-ow-controls button:hover {
+    background: rgb(148 163 184 / 0.15);
+    transform: scale(1.08);
+  }
+
+  .fx-ow-count {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: rgb(148 163 184);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fx-ow-slot {
+      transition: none;
+    }
+  }
+</style>

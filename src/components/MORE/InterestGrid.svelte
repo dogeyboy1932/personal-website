@@ -1,64 +1,80 @@
 <!--
   /more section: interests.
 
-  A FX:drift-wall of 12 compact tiles in ONE row, with a shared caption beneath
-  it rather than a per-tile popover.
+  FX:option-wheel of FX:flip-card. Options fan along an arc with one in focus;
+  clicking the focused card flips it to the detail.
 
-  Why a shared caption: the tiles are ~100px wide, so the detail cannot live
-  inside one (it clipped and collided with the label). A popover above the tile
-  was readable but 224px wide, which pushed the first and last tiles' popovers
-  past the page container and produced 13-25px of horizontal page scroll
-  depending on width. Anchoring the text in a fixed strip under the wall solves
-  both: nothing overflows, nothing is clipped, and it reads at any breakpoint.
+  Replaces the drift wall on request ("I think drift wall takes up so much
+  space... Each option can be a card that we can click to flip. I don't like
+  the hover message idea...and wanna keep flip cards.") — so the shared hover
+  caption is gone and the flip is back, on CLICK rather than hover.
 
-  Costs ~34px of height, against 180px for the original two-row grid.
-
-  Chosen over option-wheel and infinite-spiral (the other two candidates)
-  because it is the only one that keeps all 12 visible at once — the brief was
-  to compact the page "without cutting out information altogether".
+  Only a window of the wheel is drawn, not the full circle: a literal wheel is
+  as tall as its diameter, which would undo the compaction this is for.
 
   Data: more.interests in src/constants/more.ts
 -->
 <script lang="ts">
   import { theme } from "../../lib/stores";
-  import { DriftWall } from "../fx";
+  import { OptionWheel, FlipCard } from "../fx";
   import type { Interest } from "../../types";
 
   export let interests: Interest[] = [];
 
-  /** Interest under the pointer; null shows the resting hint. */
-  let active: Interest | null = null;
+  let active = 0;
+
+  /*
+    Each FlipCard owns its own flipped state — deliberately no two-way binding
+    from here.
+
+    The first attempt kept a `flipped` record in this component and did
+    bind:flipped={flipped[index]} with a reactive reset on `active`. Twelve
+    cards writing back into one object, while a reactive statement reassigned
+    that same object, put Svelte into an update loop that hung the page.
+
+    Cards are wrapped in {#key active} instead: rotating the wheel remounts
+    them, which resets any flip, with no shared mutable state to loop through.
+  */
 </script>
 
-<div on:pointerleave={() => (active = null)}>
-  <!-- FX:drift-wall -->
-  <!-- travel/tilt kept small: at 18px the tiles sat visibly off each other and
-       the wall read as misaligned rather than parallaxed. -->
-  <DriftWall items={interests} columns={12} travel={7} tilt={3} let:item>
+<OptionWheel
+  items={interests}
+  bind:active
+  visible={3}
+  spreadX={128}
+  dip={14}
+  cardWidth={152}
+  label="Interests"
+  let:item
+  let:index
+  let:isActive
+>
+  <!-- FX:flip-card — click, not hover -->
+  {#key active}
+  <FlipCard class="h-[150px]" trigger="click" duration={480}>
     <div
-      class="group flex h-[74px] cursor-default flex-col items-center justify-center gap-0.5 overflow-hidden rounded-lg border {$theme.accent.cyan.border} {$theme.bg.secondary} px-1 text-center transition-colors"
-      on:pointerenter={() => (active = item)}
-      on:focusin={() => (active = item)}
-      role="listitem"
+      slot="front"
+      class="flex h-full flex-col items-center justify-center gap-2 rounded-xl border {isActive
+        ? $theme.accent.cyan.hover.border
+        : $theme.accent.cyan.border} {$theme.bg.secondary} px-3 text-center shadow-lg"
     >
-      <span class="text-lg leading-none">{item.emoji}</span>
-      <span class="text-[9px] font-semibold leading-[1.15] {$theme.text.secondary}">
+      <span class="text-3xl leading-none">{item.emoji}</span>
+      <span class="text-xs font-semibold leading-tight {$theme.text.secondary}">
         {item.name}
       </span>
+      {#if isActive}
+        <span class="meta-label text-[8px] {$theme.accent.cyan.text}">Click to flip</span>
+      {/if}
     </div>
-  </DriftWall>
-  <!-- /FX:drift-wall -->
 
-  <!-- Fixed height so the wall never shifts as the caption changes. -->
-  <p
-    class="mt-2 flex min-h-[2.1rem] items-start text-[11px] leading-snug {$theme.text.dim}"
-    aria-live="polite"
-  >
-    {#if active}
-      <span class="{$theme.accent.cyan.text} mr-2 font-semibold">{active.name}</span>
-      <span class="{$theme.text.secondary}">{active.detail}</span>
-    {:else}
-      <span>Hover any of them for the detail.</span>
-    {/if}
-  </p>
-</div>
+    <div
+      slot="back"
+      class="flex h-full flex-col justify-center rounded-xl border {$theme.accent.cyan.hover.border} {$theme.bg.cardElevated} px-3 text-left shadow-lg"
+    >
+      <span class="meta-label text-[8px] {$theme.accent.cyan.text}">{item.name}</span>
+      <p class="mt-1.5 text-[10px] leading-snug {$theme.text.secondary}">{item.detail}</p>
+    </div>
+  </FlipCard>
+  {/key}
+  <!-- /FX:flip-card -->
+</OptionWheel>

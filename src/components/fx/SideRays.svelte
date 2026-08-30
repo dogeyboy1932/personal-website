@@ -163,10 +163,11 @@
     height: 190vh;
     /* Base rotation is a variable so one keyframe set serves both edges —
        hardcoding it here would be overridden by the animation's transform.
-       A blade hangs straight down at 0deg (origin is its top edge), so a
-       small positive tilt rakes it down-and-right across the section. Large
-       angles like 150deg would swing it back off the top of the screen. */
-    --ray-base: 34deg;
+       A blade hangs straight down at 0deg (origin is its top edge), so the
+       tilt rakes it across the box. Larger = closer to horizontal; 90deg would
+       be flat. Large angles like 150deg swing it back off the top of the
+       screen entirely. ("slant the beams more horizantally if possible") */
+    --ray-base: 62deg;
     transform-origin: 50% 0;
     transform: rotate(calc(var(--ray-base) + var(--ray-angle)));
     background: linear-gradient(
@@ -184,7 +185,7 @@
 
   /* Mirror the fan when it originates from the right edge. */
   .from-right .fx-ray {
-    --ray-base: 34deg;
+    --ray-base: 62deg;
   }
 
   /*
