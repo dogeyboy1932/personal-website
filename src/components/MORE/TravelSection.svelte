@@ -23,6 +23,14 @@
 
   export let path: TravelStop[] = [];
   export let countries: TravelCountry[] = [];
+  /**
+   * The page places the life-path stepper and the country grid in different
+   * cells: the path stays full width, the countries take the left half beside
+   * the interests wheel. ("The countries should take up the left side")
+   */
+  export let show: "all" | "path" | "countries" = "all";
+  /** Columns for the country grid; fewer when it sits in a half-width cell. */
+  export let columns = 7;
 
   $: rows = countries.map((c) => ({
     key: c.name,
@@ -33,6 +41,7 @@
 </script>
 
 <div class="space-y-4">
+  {#if show !== "countries"}
   <!-- ===== Life path stepper ===== -->
   <div class="flex flex-wrap items-stretch gap-1.5">
     {#each path as stop, i}
@@ -52,8 +61,12 @@
     {/each}
   </div>
 
+  {/if}
+
+  {#if show !== "path"}
   <!-- ===== Countries ===== -->
   <!-- FX:flowing-menu (grid mode) -->
-  <FlowingMenu items={rows} columns={7} rowHeight="4.1rem" marquee={11} />
+  <FlowingMenu items={rows} {columns} rowHeight="4.1rem" marquee={11} />
   <!-- /FX:flowing-menu -->
+  {/if}
 </div>

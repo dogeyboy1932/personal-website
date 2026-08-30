@@ -83,18 +83,18 @@
       than two side by side.
     -->
     {#if $$slots.default}
-      <!-- Inset panel, not just a divider. The Lichess card is a warm gradient,
-           and a bare divider left the challenge form sitting in the same wash
-           as the rating above it. Its own darker ground gives it edges.
-           ("the play me comopnent is hard to see...make it more visible") -->
-      <!-- Deliberately COOL against the card's warm gradient. Matching the
-           card's own amber made this block melt into it however bright the text
-           got; the contrast that makes it findable is hue, not luminance.
-           ("The play me component is still hard to see...make it contrast
-           better to make it more identifiable") -->
-      <div
-        class="mt-5 rounded-xl border-2 border-brand/50 bg-slate-950/90 p-4 shadow-lg shadow-black/40 ring-1 ring-inset ring-white/5"
-      >
+      <!--
+        Full-bleed bottom half rather than an inset panel. ("don't have a
+        nested container for play me, while you can keep the color spec, have
+        it expand to the edge of the container at the bottom half.")
+
+        Negative margins cancel the card's p-6 so this reaches all four edges;
+        the card's rounded-2xl + overflow-hidden clips the bottom corners. The
+        cool ground is kept — it is what separates this block from the card's
+        warm gradient, and hue is what finally made it findable after
+        brightness alone repeatedly failed.
+      -->
+      <div class="-mx-6 -mb-6 mt-5 border-t-2 border-brand/50 bg-slate-950/90 px-6 py-5">
         <slot />
       </div>
     {/if}

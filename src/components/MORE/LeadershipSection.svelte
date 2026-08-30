@@ -33,14 +33,16 @@
 <div class="space-y-4">
   {#if show !== "clubs"}
   <!-- ===== Spotlight roles ===== -->
-  <div class="grid gap-3 lg:grid-cols-3">
+  <!-- Stacked rows, not columns. ("the clubs can be stacked like rows instead
+       of columns on the left") -->
+  <div class="flex flex-col gap-3">
     {#each leadership as role, i}
       <div
-        class="group relative flex flex-col rounded-2xl border {$theme.accent.violet.border} {$theme.gradient.violet} p-5 shadow-lg transition-colors {$theme.accent.violet.hover.border}"
+        class="group relative flex flex-col rounded-2xl border {$theme.accent.violet.border} {$theme.gradient.violet} p-4 shadow-lg transition-colors {$theme.accent.violet.hover.border}"
         in:fly={{ y: 16, delay: i * 90, duration: 380 }}
       >
         <div class="flex items-start justify-between gap-3">
-          <h4 class="font-display text-lg font-bold leading-tight {$theme.text.primary}">
+          <h4 class="font-display text-lg font-bold leading-tight text-white">
             {#if role.link}
               <LinkPreview
                 href={role.link}
@@ -56,11 +58,13 @@
           {/if}
         </div>
 
-        <p class="mt-1 text-sm font-semibold {$theme.accent.violet.text}">
-          {role.role}{#if role.tenure}<span class="{$theme.text.dim} font-normal"> · {role.tenure}</span>{/if}
+        <p class="mt-0.5 text-sm font-semibold text-violet-200">
+          {role.role}{#if role.tenure}<span class="font-normal text-violet-300/70"> · {role.tenure}</span>{/if}
         </p>
 
-        <p class="mt-3 text-sm leading-relaxed {$theme.text.secondary}">{role.summary}</p>
+        <!-- Brighter than theme.text.secondary: on the violet gradient the muted
+             slate read as low-contrast grey. -->
+        <p class="mt-2 text-sm leading-relaxed text-slate-100/90">{role.summary}</p>
       </div>
     {/each}
   </div>

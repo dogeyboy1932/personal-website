@@ -37,13 +37,19 @@
   */
 </script>
 
+<!-- Vertical, because it sits in a narrow right-hand column beside the
+     countries. ("Make the option wheel verticle and keep it to the right
+     side.") spreadX is the per-step distance along whichever axis is active. -->
 <OptionWheel
   items={interests}
   bind:active
-  visible={3}
-  spreadX={128}
-  dip={14}
-  cardWidth={152}
+  orientation="vertical"
+  visible={2}
+  spreadX={68}
+  dip={18}
+  cardWidth={250}
+  cardHeight={88}
+  trackHeight={368}
   label="Interests"
   let:item
   let:index
@@ -51,28 +57,32 @@
 >
   <!-- FX:flip-card — click, not hover -->
   {#key active}
-  <FlipCard class="h-[150px]" trigger="click" duration={480}>
+  <FlipCard class="h-[88px]" trigger="click" duration={480}>
     <div
       slot="front"
-      class="flex h-full flex-col items-center justify-center gap-2 rounded-xl border {isActive
+      class="flex h-full flex-row items-center justify-start gap-3 rounded-xl border {isActive
         ? $theme.accent.cyan.hover.border
-        : $theme.accent.cyan.border} {$theme.bg.secondary} px-3 text-center shadow-lg"
+        : $theme.accent.cyan.border} {$theme.bg.secondary} px-4 text-left shadow-lg"
     >
-      <span class="text-3xl leading-none">{item.emoji}</span>
-      <span class="text-xs font-semibold leading-tight {$theme.text.secondary}">
-        {item.name}
+      <span class="text-xl leading-none">{item.emoji}</span>
+      <span class="min-w-0">
+        <span class="block text-sm font-semibold leading-tight {$theme.text.secondary}">
+          {item.name}
+        </span>
+        {#if isActive}
+          <span class="meta-label mt-0.5 block text-[8px] {$theme.accent.cyan.text}">
+            Click to flip
+          </span>
+        {/if}
       </span>
-      {#if isActive}
-        <span class="meta-label text-[8px] {$theme.accent.cyan.text}">Click to flip</span>
-      {/if}
     </div>
 
     <div
       slot="back"
-      class="flex h-full flex-col justify-center rounded-xl border {$theme.accent.cyan.hover.border} {$theme.bg.cardElevated} px-3 text-left shadow-lg"
+      class="flex h-full flex-col justify-center rounded-xl border {$theme.accent.cyan.hover.border} {$theme.bg.cardElevated} px-4 text-left shadow-lg"
     >
       <span class="meta-label text-[8px] {$theme.accent.cyan.text}">{item.name}</span>
-      <p class="mt-1.5 text-[10px] leading-snug {$theme.text.secondary}">{item.detail}</p>
+      <p class="mt-1 text-[10px] leading-snug {$theme.text.secondary}">{item.detail}</p>
     </div>
   </FlipCard>
   {/key}

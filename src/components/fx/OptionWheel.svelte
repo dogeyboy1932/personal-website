@@ -38,6 +38,19 @@
   export let dip = 16;
   export let cardWidth = 150;
   export let label = "Options";
+  /**
+   * "horizontal" fans left-to-right; "vertical" stacks top-to-bottom with the
+   * arc bulging sideways. Vertical suits a narrow column beside other content.
+   */
+  export let orientation: "horizontal" | "vertical" = "horizontal";
+  /**
+   * Track height. In vertical mode this MUST cover the whole fan —
+   * cardHeight + 2 * visible * spreadX — or the outer cards spill out of the
+   * track and collide with the controls beneath it.
+   */
+  export let trackHeight = 190;
+  /** Card height; only needed to centre slots in vertical mode. */
+  export let cardHeight = 120;
 
   $: count = items.length;
 
@@ -74,18 +87,22 @@
   /* ---- drag to spin ---------------------------------------------------- */
   let dragging = false;
   let startX = 0;
+  let startY = 0;
   let startActive = 0;
 
   function onPointerDown(event: PointerEvent) {
     dragging = true;
     startX = event.clientX;
+    startY = event.clientY;
     startActive = active;
   }
 
   function onPointerMove(event: PointerEvent) {
     if (!dragging || !count) return;
-    // One card per spreadX of travel, so the wheel tracks the pointer 1:1.
-    const moved = Math.round((startX - event.clientX) / spreadX);
+    // One card per step of travel, so the wheel tracks the pointer 1:1.
+    const delta =
+      orientation === "vertical" ? startY - event.clientY : startX - event.clientX;
+    const moved = Math.round(delta / spreadX);
     active = ((startActive + moved) % count + count) % count;
   }
 
@@ -95,7 +112,7 @@
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <div
   class="fx-option-wheel"
-  style="--ow-card: {cardWidth}px;"
+  style="--ow-card: {cardWidth}px; --ow-card-h: {cardHeight}px;"
   role="group"
   aria-label={label}
   on:keydown={onKeydown}
@@ -105,7 +122,12 @@
   on:pointerleave={endDrag}
   on:pointercancel={endDrag}
 >
-  <div class="fx-ow-track" class:is-dragging={dragging}>
+  <div
+    class="fx-ow-track"
+    class:is-dragging={dragging}
+    class:is-vertical={orientation === "vertical"}
+    style="height: {trackHeight}px;"
+  >
     {#each items as item, i}
       {@const offset = offsetOf(i)}
       {@const shown = Math.abs(offset) <= visible}
@@ -114,10 +136,10 @@
         class:is-hidden={!shown}
         class:is-active={offset === 0}
         style="
-          --ow-x: {offset * spreadX}px;
-          --ow-y: {Math.abs(offset) * dip}px;
+          --ow-x: {orientation === 'vertical' ? Math.abs(offset) * dip : offset * spreadX}px;
+          --ow-y: {orientation === 'vertical' ? offset * spreadX : Math.abs(offset) * dip}px;
           --ow-scale: {Math.max(0.62, 1 - Math.abs(offset) * 0.13)};
-          --ow-rot: {offset * 6}deg;
+          --ow-rot: {orientation === 'vertical' ? 0 : offset * 6}deg;
           --ow-fade: {offset === 0 ? 1 : Math.max(0.25, 1 - Math.abs(offset) * 0.28)};
           z-index: {100 - Math.abs(offset)};
         "
@@ -153,6 +175,7 @@
     position: relative;
     outline: none;
     touch-action: pan-y;
+    user-select: none;
     /* The fanned neighbours sit up to ~3 card-widths either side of centre and
        pushed 113px of horizontal scroll onto the page. They are already faded
        at that distance, so clipping them is invisible — and cheaper than
@@ -162,8 +185,14 @@
 
   .fx-ow-track {
     position: relative;
-    height: 190px;
     cursor: grab;
+  }
+
+  /* Vertical: slots are centred on BOTH axes, since the step now runs down the
+     Y axis and the arc bulges on X. */
+  .is-vertical .fx-ow-slot {
+    top: 50%;
+    margin-top: calc(var(--ow-card-h, 120px) / -2);
   }
 
   .is-dragging {

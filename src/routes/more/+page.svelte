@@ -56,7 +56,9 @@
 
     <div class="mt-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
       <!-- FX:flip-words — rotating identity line -->
-      <p class="text-lg {$theme.text.muted}">
+      <!-- Both scaled up on request: "The \"off the clock\" line is too small
+           and the stats row can be a bit bigger." -->
+      <p class="text-xl sm:text-2xl {$theme.text.muted}">
         Off the clock, I'm
         <FlipWords
           words={more.identityWords ?? []}
@@ -69,42 +71,53 @@
     </div>
   </div>
 
-  <!-- ===== TRAVEL ===== -->
+  <!-- ===== WHERE I'VE BEEN (path only) =====
+       Left as-is on request: "All that's untouched on the more page is the
+       where I've been and the find me. Leave those as is for now". -->
   <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
     <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[0].label}</h3>
-    <TravelSection
-      path={more.travel?.path ?? []}
-      countries={more.travel?.countries ?? []}
-    />
+    <TravelSection path={more.travel?.path ?? []} show="path" />
   </section>
 
-  <!-- ===== INTERESTS ===== -->
+  <!-- ===== COUNTRIES (left) + INTERESTS WHEEL (right) =====
+       "Make the option wheel verticle and keep it to the right side. The
+       countries should take up the left side." -->
   <!-- FX:scroll-reveal -->
-  <section use:scrollReveal>
-    <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[1].label}</h3>
-    <InterestGrid interests={more.interests ?? []} />
-  </section>
+  <div class="grid items-start gap-5 lg:grid-cols-[1.15fr_1fr]" use:scrollReveal>
+    <div>
+      <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">Countries</h3>
+      <TravelSection countries={more.travel?.countries ?? []} show="countries" columns={3} />
+    </div>
 
-  <!-- ===== LEADERSHIP ROLES ===== -->
+    <div>
+      <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[1].label}</h3>
+      <InterestGrid interests={more.interests ?? []} />
+    </div>
+  </div>
+
+  <!-- ===== WHAT I RAN =====
+       Roles stack as rows down the left; the club chips and honors stack in
+       the right column. ("the clubs can be stacked like rows instead of
+       columns on the left... On the right you can stack my other clubs and
+       honors below it.") -->
   <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
     <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[2].label}</h3>
-    <LeadershipSection leadership={more.leadership ?? []} {clubs} show="roles" />
-  </section>
 
-  <!-- ===== CLUBS + HONORS side by side =====
-       Both are chip strips, so they pair naturally instead of stacking into
-       two more full-width bands. -->
-  <!-- FX:scroll-reveal -->
-  <div class="grid gap-4 lg:grid-cols-[1.6fr_1fr]" use:scrollReveal>
-    <LeadershipSection leadership={more.leadership ?? []} {clubs} show="clubs" />
+    <div class="grid gap-4 lg:grid-cols-[1.35fr_1fr]">
+      <LeadershipSection leadership={more.leadership ?? []} {clubs} show="roles" />
 
-    <div>
-      <h4 class="meta-label mb-2 ml-1 text-[11px] {$theme.text.dim}">Honors</h4>
-      <HonorShelf honors={more.honors ?? []} />
+      <div class="flex flex-col gap-4">
+        <LeadershipSection leadership={more.leadership ?? []} {clubs} show="clubs" />
+
+        <div>
+          <h4 class="meta-label mb-2 ml-1 text-[11px] {$theme.text.dim}">Honors</h4>
+          <HonorShelf honors={more.honors ?? []} />
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
   <!-- ===== LICHESS (WITH CHALLENGE) + CONNECT ===== -->
   <!-- FX:scroll-reveal -->

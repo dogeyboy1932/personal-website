@@ -65,10 +65,10 @@
 <div class="flex flex-wrap items-baseline gap-x-6 gap-y-2" use:countUp>
   {#each stats as stat, i}
     <div class="flex items-baseline gap-1.5">
-      <span class="font-display text-2xl font-extrabold tracking-tight {$theme.accent.orange.text}">
+      <span class="font-display text-3xl font-extrabold tracking-tight {$theme.accent.orange.text}">
         {shown[i] ?? 0}{stat.suffix ?? ""}
       </span>
-      <span class="meta-label text-[10px] {$theme.text.muted}">{stat.label}</span>
+      <span class="meta-label text-[11px] {$theme.text.muted}">{stat.label}</span>
     </div>
   {/each}
 </div>
