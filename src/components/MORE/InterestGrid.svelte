@@ -140,8 +140,12 @@
       slot="back"
       class="flex h-full flex-col justify-center rounded-xl border {$theme.accent.cyan.hover.border} bg-slate-950/[0.985] px-4 text-left shadow-lg"
     >
-      <span class="meta-label text-[11px] {$theme.accent.cyan.text}">{item.name}</span>
-      <p class="mt-2 text-base leading-snug {$theme.text.secondary}">{item.detail}</p>
+      <!-- Detail only, no repeated title. ("remove the title and leave just the
+           description on the flip card once its flipped") The front face was
+           still showing the name a moment earlier and the wheel counter has not
+           moved, so the reader already knows which card this is — the label was
+           costing a line and a half of the card's height to say nothing new. -->
+      <p class="text-base leading-snug {$theme.text.secondary}">{item.detail}</p>
     </div>
   </FlipCard>
   {/key}
