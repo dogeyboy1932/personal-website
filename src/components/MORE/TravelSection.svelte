@@ -29,6 +29,9 @@
    * the interests wheel. ("The countries should take up the left side")
    */
   export let show: "all" | "path" | "countries" = "all";
+
+  // Hides a connector arrow that ends a wrapped row — see the action's note.
+  import { rowEndArrows } from "../../lib/actions/rowEndArrows";
   /** Columns for the country grid; fewer when it sits in a half-width cell. */
   export let columns = 7;
 
@@ -81,28 +84,42 @@
     line at 1280. Below ~1150 it wraps, which is fine: uniform boxes wrap into
     an orderly 3+2 rather than the ragged strip this replaced.
   -->
-  <div class="travel-row flex flex-wrap items-stretch justify-center gap-2">
+  <!--
+    ONE FLAT ROW, not [box+arrow] groups.
+
+    Grouping each box with its trailing arrow meant a wrap could only ever break
+    AFTER an arrow, leaving it dangling at the end of the line pointing at
+    nothing. Flat, the arrow is a sibling of the stop that follows it, which is
+    what lets use:rowEndArrows measure whether the two are on the same line and
+    hide the arrow when they are not.
+  -->
+  <div
+    class="travel-row flex flex-wrap items-stretch justify-center gap-2"
+    use:rowEndArrows
+  >
     {#each path as stop, i}
-      <div class="travel-group flex items-stretch gap-2">
-        <div
-          class="travel-stop flex h-full w-[8.25rem] flex-col items-center justify-center rounded-xl border {$theme.border.default} {$theme.bg.secondary} px-2.5 py-2.5 text-center transition-colors duration-300 hover:border-warm/50"
+      {#if i > 0}
+        <!-- Arrow BEFORE the stop it points at, so `nextElementSibling` is that
+             stop and the same-line test is a single comparison. -->
+        <span
+          data-arrow
+          aria-hidden="true"
+          class="travel-arrow self-center text-xl {$theme.text.dim}">&rarr;</span
         >
-          <div class="text-base font-semibold leading-tight {$theme.text.secondary}">
-            {stop.place}
-          </div>
-          <!-- tracking-[0.1em] overrides meta-label's 0.18em: utilities are
-               emitted after the components layer, so the tighter value wins. -->
-          <div
-            class="travel-note meta-label mt-0.5 whitespace-nowrap text-[10px] tracking-[0.1em] {$theme.accent.orange.text}"
-          >
-            {stop.note}
-          </div>
+      {/if}
+      <div
+        class="travel-stop flex h-full w-[8.25rem] flex-col items-center justify-center rounded-xl border {$theme.border.default} {$theme.bg.secondary} px-2.5 py-2.5 text-center transition-colors duration-300 hover:border-warm/50"
+      >
+        <div class="text-base font-semibold leading-tight {$theme.text.secondary}">
+          {stop.place}
         </div>
-        {#if i < path.length - 1}
-          <!-- self-center rather than sitting on the flex baseline, so the
-               arrow tracks the box's middle now that boxes are taller. -->
-          <span aria-hidden="true" class="self-center text-xl {$theme.text.dim}">&rarr;</span>
-        {/if}
+        <!-- tracking-[0.1em] overrides meta-label's 0.18em: utilities are
+             emitted after the components layer, so the tighter value wins. -->
+        <div
+          class="travel-note meta-label mt-0.5 whitespace-nowrap text-[10px] tracking-[0.1em] {$theme.accent.orange.text}"
+        >
+          {stop.note}
+        </div>
       </div>
     {/each}
   </div>
@@ -158,8 +175,7 @@
       letter-spacing: 0.06em;
     }
 
-    .travel-row,
-    .travel-group {
+    .travel-row {
       gap: 0.375rem;
     }
   }

@@ -306,13 +306,28 @@
     overflow: hidden;
   }
 
+  /*
+    FLUID, capped at the nominal card width.
+
+    This used to be `width: var(--ow-card); flex: 0 0 auto` — a hard 324px that
+    could not shrink. Once the /more grid cell was allowed to shrink (min-w-0,
+    needed to stop the wheel forcing horizontal page scroll) the column became
+    narrower than the wheel at some widths, and the fan was clipped by
+    .fx-option-wheel's overflow:hidden — cards visibly cut off at the divider.
+
+    flex: 1 1 auto with max-width means the track takes whatever the counter
+    pocket leaves, never more than a full card and never more than the column
+    has. min-width: 0 is required or the flex item's automatic minimum size puts
+    the fixed floor straight back.
+  */
   .fx-ow-track {
     position: relative;
     cursor: grab;
-    /* One card wide: this box is the scroll-capture region, and it is
-       deliberately NOT the cards themselves, which move. */
-    width: var(--ow-card);
-    flex: 0 0 auto;
+    /* Still the scroll-capture region, and deliberately NOT the cards, which
+       move — see the note on onWheel. */
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: var(--ow-card);
   }
 
   .is-dragging {
@@ -326,12 +341,13 @@
     margin-top: calc(var(--ow-card-h, 120px) / -2);
   }
 
+  /* Sized by the track's own edges rather than by --ow-card, so the cards
+     follow the track when it is narrower than a nominal card. */
   .fx-ow-slot {
     position: absolute;
     top: 0;
-    left: 50%;
-    width: var(--ow-card);
-    margin-left: calc(var(--ow-card) / -2);
+    left: 0;
+    right: 0;
     transform: translate3d(var(--ow-x), var(--ow-y), 0) scale(var(--ow-scale))
       rotate(var(--ow-rot));
     opacity: var(--ow-fade);
@@ -407,17 +423,13 @@
     the page at 420px wide. The desktop enlargement is what introduced it.
 
     --ow-card is written inline by the component, so a media query cannot
-    override the custom property (inline wins). The two consumers are overridden
-    with literals instead; same specificity, later in the sheet, so these win.
+    override the custom property (inline wins). max-width is overridden with a
+    literal instead; same specificity, later in the sheet, so this wins. The
+    slots need no override now that they size from the track's edges.
   */
   @media (max-width: 520px) {
     .fx-ow-track {
-      width: 200px;
-    }
-
-    .fx-ow-slot {
-      width: 200px;
-      margin-left: -100px;
+      max-width: 200px;
     }
 
     .fx-ow-aside {

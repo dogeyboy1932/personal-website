@@ -90,7 +90,7 @@
       ("bring what's below the divider a bit further down...put it in the middle
       btwn the divider and the bottom of the left section")
     -->
-    <div class="flex h-full flex-col space-y-3 text-center lg:pr-7">
+    <div class="flex h-full min-w-0 flex-col space-y-3 text-center lg:pr-7">
       <!-- FX:flip-words — rotating identity line -->
       <!-- Full row and centred, matching the scorecard beneath it. Display
            face. Colour is text-lede, the same token the scorecard figures use,
@@ -155,7 +155,21 @@
       </div>
     </div>
 
-    <div class="lg:pl-7">
+    <!--
+      min-w-0 is required, not cosmetic. A grid track declared `1fr` is
+      minmax(AUTO, 1fr), so its floor is the cell's min-content width — and this
+      cell contains the option wheel, whose track and counter pocket are fixed
+      px (324 + 8 + 96 = 428). At 1024 with the 125% page zoom the column is
+      300px, so the cell refused to shrink and pushed exactly 128px of
+      horizontal scroll onto the page.
+
+      .fx-option-wheel already has overflow:hidden, but that only zeroes the
+      automatic minimum size of a FLEX or GRID item, and it is a plain block
+      child of this cell — so the constraint travelled straight through it.
+      min-w-0 here is what actually lets the column shrink and the wheel clip.
+      Same failure mode as the hero photo's minmax(0,1fr).
+    -->
+    <div class="min-w-0 lg:pl-7">
       <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[1].label}</h3>
       <InterestGrid interests={more.interests ?? []} />
     </div>
