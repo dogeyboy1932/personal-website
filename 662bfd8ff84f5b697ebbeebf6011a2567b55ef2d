@@ -1,0 +1,34 @@
+DEVLOG — updates.txt third pass (93e14a6..HEAD)
+
+Colour direction reversed course, which is worth recording so it doesn't get
+re-litigated:
+  pass 2: accent moved to cyan, applied to BOTH components and text
+  pass 3: 'I meant the components not the text' — all cyan TEXT reverted to
+          amber; components (navbar pill, halos, side rays) stay cyan.
+The AI Engineer line had two contradicting instructions across passes ('not
+orange' then 'revert all cyan text'), resolved by dropping hue entirely: it
+reads by weight, in primary text colour. Both notes are recorded inline
+above it in +page.svelte.
+
+Also corrected in pass 3: I had recoloured the TITLE sparkles when the ask
+was the CURSOR trail. Title sparkles are back to yellow via --particles;
+the cursor trail has its own --cursor token (silver) so the two effects can
+never be confused again.
+
+Particle text moved navbar -> hero title with a new 'nanotech' look
+(neighbour hairlines + glow). The links are batched into one path and found
+via a short forward window over the row-major particle array, which keeps an
+O(n^2) join at O(n); shadowBlur is set once per frame, not per particle.
+Both were deliberate given the earlier perf work.
+
+Mobile breakpoint is now 40% of window.screen.width, clamped 520-900px, per
+an explicit request for a proportional rather than absolute threshold.
+CAUTION when testing: headless Chromium reports window.screen.width as the
+viewport, so the threshold appears not to fire. Stub screen.width to verify.
+
+KnightIcon is hand-drawn (lucide has no chess pieces). First attempt was a
+single path and was unreadable at 20px; it is three explicit parts now.
+Render it at 20/32/64/120 before changing it.
+
+Fonts: Chivo for display/headings, Inter for body, Fredoka for the navbar
+ONLY (registered as its own Tailwind family so it cannot leak).
