@@ -1,0 +1,103 @@
+updates.txt pass 21.
+
+I MADE A WRONG INFERENCE AND THE USER CAUGHT IT MID-EDIT.
+
+Lines 17/18 repeated verbatim. Particles were already pure white (verified
+token AND rendered pixels), the per-letter glows were already gone, so I
+reasoned: the only warm source left in the hero is the SideRays beam, therefore
+'still dim yellow / silvery white is what I want' must be about the beam. I
+switched its hue to silver. 'keep beam yellow. revert and continue.'
+
+The reasoning was sound and the conclusion was wrong, which is the interesting
+part. What I actually did was treat a repeated line as necessarily UNSATISFIED
+and go hunting for a new referent. The standing instruction is 'if it's on
+there, go through it' — that means re-check it, not re-interpret it until it
+points somewhere new. A line can repeat because the file was pasted forward.
+
+Rule going forward: when a repeated note has already been verifiably addressed,
+say so and ask, rather than widening the referent to whatever is left nearby.
+Widening scope silently is how a satisfied request becomes an unwanted change.
+
+Cheap recovery mattered here: the beam change was one call site plus one prop on
+SideRays, so M	.svelte-kit/ambient.d.ts
+M	.svelte-kit/generated/client-optimized/app.js
+M	.svelte-kit/generated/client-optimized/nodes/1.js
+M	.svelte-kit/generated/client-optimized/nodes/4.js
+M	.svelte-kit/generated/client-optimized/nodes/5.js
+M	.svelte-kit/generated/server/internal.js
+M	.svelte-kit/output/client/.vite/manifest.json
+D	.svelte-kit/output/client/_app/immutable/assets/0.ac92a03d.css
+D	.svelte-kit/output/client/_app/immutable/assets/_layout.2d83c18b.css
+D	.svelte-kit/output/client/_app/immutable/chunks/Icon.35858d27.js
+D	.svelte-kit/output/client/_app/immutable/chunks/PageHeader.5ed1dee8.js
+D	.svelte-kit/output/client/_app/immutable/chunks/SectionHeader.3e9d0018.js
+D	.svelte-kit/output/client/_app/immutable/chunks/environment.60829b93.js
+D	.svelte-kit/output/client/_app/immutable/chunks/home.2164a196.js
+D	.svelte-kit/output/client/_app/immutable/chunks/index.631bbcda.js
+D	.svelte-kit/output/client/_app/immutable/chunks/index.8e49917d.js
+D	.svelte-kit/output/client/_app/immutable/chunks/index.cb5194ce.js
+D	.svelte-kit/output/client/_app/immutable/chunks/scheduler.cd15ae3c.js
+D	.svelte-kit/output/client/_app/immutable/chunks/singletons.63405c95.js
+D	.svelte-kit/output/client/_app/immutable/chunks/sparkles.98fe69ea.js
+D	.svelte-kit/output/client/_app/immutable/chunks/spread.8a54911c.js
+D	.svelte-kit/output/client/_app/immutable/chunks/stores.7222852e.js
+D	.svelte-kit/output/client/_app/immutable/entry/app.daf3f653.js
+D	.svelte-kit/output/client/_app/immutable/entry/start.3b278c72.js
+D	.svelte-kit/output/client/_app/immutable/nodes/0.7feafae7.js
+D	.svelte-kit/output/client/_app/immutable/nodes/1.9d1b68be.js
+D	.svelte-kit/output/client/_app/immutable/nodes/2.44a6a906.js
+D	.svelte-kit/output/client/_app/immutable/nodes/3.bf61e7f5.js
+D	.svelte-kit/output/client/_app/immutable/nodes/4.9e827c28.js
+D	.svelte-kit/output/client/_app/immutable/nodes/5.cc4009a0.js
+M	.svelte-kit/output/client/_app/version.json
+M	.svelte-kit/output/server/.vite/manifest.json
+D	.svelte-kit/output/server/_app/immutable/assets/_layout.2d83c18b.css
+M	.svelte-kit/output/server/chunks/Icon.js
+M	.svelte-kit/output/server/chunks/PageHeader.js
+M	.svelte-kit/output/server/chunks/home.js
+M	.svelte-kit/output/server/chunks/index.js
+M	.svelte-kit/output/server/chunks/internal.js
+M	.svelte-kit/output/server/chunks/skills.js
+D	.svelte-kit/output/server/chunks/sparkles.js
+M	.svelte-kit/output/server/chunks/ssr.js
+M	.svelte-kit/output/server/chunks/stores.js
+M	.svelte-kit/output/server/entries/fallbacks/error.svelte.js
+M	.svelte-kit/output/server/entries/pages/_layout.svelte.js
+M	.svelte-kit/output/server/entries/pages/_page.svelte.js
+M	.svelte-kit/output/server/entries/pages/more/_page.svelte.js
+M	.svelte-kit/output/server/entries/pages/portfolio/_page.svelte.js
+M	.svelte-kit/output/server/entries/pages/resume/_page.svelte.js
+M	.svelte-kit/output/server/index.js
+M	.svelte-kit/output/server/internal.js
+M	.svelte-kit/output/server/manifest-full.js
+M	.svelte-kit/output/server/manifest.js
+M	.svelte-kit/output/server/nodes/0.js
+M	.svelte-kit/output/server/nodes/1.js
+M	.svelte-kit/output/server/nodes/2.js
+M	.svelte-kit/output/server/nodes/3.js
+M	.svelte-kit/output/server/nodes/4.js
+M	.svelte-kit/output/server/nodes/5.js
+D	CustomDesign.txt
+M	src/components/MORE/InterestGrid.svelte
+M	src/constants/experiences.ts
+M	src/constants/home.ts
+M	src/constants/index.ts
+M	src/routes/portfolio/+page.svelte
+Your branch is ahead of 'origin/ai_main_aa360ec220bd49ae97b6' by 35 commits.
+  (use "git push" to publish your local commits) on the component and a string revert on the page
+undid it completely, with SideRays.svelte byte-identical to HEAD. Keeping
+effect changes to a call site plus a documented prop is what made a bad
+inference cost nothing.
+
+The revert reason is now recorded AT the call site, not just in this note, so
+the same inference cannot be made again next pass from the code alone.
+
+ALSO: 'just for stack' was load-bearing and worth reading carefully. The stack
+badges now use ten wide saturated hues — the exact opposite of the rules for the
+experience cards (silver) and the portfolio card ramp (narrow cyan->indigo). Not
+a contradiction: badges are small, sparse, and read as tags, where hue variety
+is information; at card scale the same variety was the 'rainbow' that was
+rejected three times. Scale changes what a colour rule means.
+
+Standing: /portfolio overflows 10px at 360px from an off-screen carousel slide.
+Pre-existing, flagged eight passes, never in updates.txt.
