@@ -44,18 +44,31 @@
     {category.category}
   </h2>
 
-  <div class="mt-4 grid gap-2 sm:grid-cols-1 md:grid-cols-2">
+  <!--
+    CONTENT-SIZED CHIPS, not a 2-column grid. ("improve stack section")
+
+    The grid forced every chip to exactly half the card width, and the names
+    that did not fit were truncated: JavaSc..., TypeS..., Tailwin..., Expres...,
+    Postgr..., Supaba..., Mongo.... A stack section whose whole job is naming
+    technologies cannot be abbreviating the names, and it got worse the moment
+    the page was zoomed to 125% because every card became effectively narrower.
+
+    flex-wrap with whitespace-nowrap chips inverts the relationship: each chip
+    takes the width its name needs and the row wraps around it, so "JavaScript"
+    and "C" both render correctly and nothing is ever cut. Logos come down
+    8 -> 6 so a chip is not mostly icon.
+  -->
+  <div class="mt-4 flex flex-wrap gap-2">
     {#each category.items as skill}
       <div
-        class="flex min-w-0 items-center gap-3 rounded-sm border {$theme.border.light} {$theme.bg.cardElevated} p-3 transition-colors {accent.border}"
+        class="flex items-center gap-2 rounded-sm border {$theme.border.light} {$theme.bg.cardElevated} px-2.5 py-2 transition-colors {accent.border}"
       >
         {#if skill.logoUrl}
-          <img src={skill.logoUrl} alt={skill.name} class="h-8 w-8 flex-shrink-0 rounded" />
+          <img src={skill.logoUrl} alt={skill.name} class="h-6 w-6 flex-shrink-0 rounded" />
         {/if}
-
-        <div class="min-w-0 flex-1">
-          <div class="truncate font-semibold {$theme.text.primary}">{skill.name}</div>
-        </div>
+        <span class="whitespace-nowrap text-sm font-semibold {$theme.text.primary}">
+          {skill.name}
+        </span>
       </div>
     {/each}
   </div>
