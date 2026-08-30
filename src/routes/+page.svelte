@@ -42,7 +42,9 @@
 
 <!-- ===== HERO SECTION ===== -->
 <!-- FX:scroll-reveal (hero reveals immediately; no offset so it does not fight the fly-in) -->
-<section class="relative mb-3 font-sans" use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
+<!-- mb-0: the hero had trailing space that pushed "Mainly focused on" down.
+     ("MOve the mainly focused on a bit higher") -->
+<section class="relative mb-0 font-sans" use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
   <!--
     minmax(0,1fr), not 1fr. A bare `1fr` is minmax(AUTO,1fr): the column refuses
     to shrink below its content's min-content width, so below ~900px the photo
@@ -69,7 +71,10 @@
            context. Confining the rays to the text column means they physically
            cannot reach the photo or the quote, with no z-index reasoning to get
            wrong. ("AND THE BEAM STILL CROSSES THE PHOTO AND QUOTES") -->
-      <SideRays side="right" count={2} opacity={0.5} speed={13} spread={16} hue="warm" overlay />
+      <!-- Dimmer: at 0.5 the wash was competing with the hero copy.
+           ("don't make the beams too bright...it's becomming a bit an issue
+           with seeing the hero text.") -->
+      <SideRays side="right" count={2} opacity={0.28} speed={13} spread={16} hue="warm" overlay />
       <!-- /FX:side-rays -->
 
       
@@ -179,7 +184,7 @@
 
 <!-- ===== FOCUS AREAS SECTION ===== -->
 <!-- FX:scroll-reveal -->
-<section class="my-12" use:scrollReveal>
+<section class="mt-2 mb-8" use:scrollReveal>
 
   <div>
     <h3 class="meta-label text-base text-xl {$theme.text.muted} font-bold mb-3 ml-2">{sections.focuses}</h3>

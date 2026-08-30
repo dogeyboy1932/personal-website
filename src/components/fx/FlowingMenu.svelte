@@ -142,13 +142,14 @@
     text-align: center;
   }
 
+  /* Bigger on request: "Countries is too small. Make flag and text bigger." */
   .is-grid .fx-fm-badge {
-    font-size: 1.35rem;
+    font-size: 2rem;
   }
 
   .is-grid .fx-fm-label {
-    font-size: 0.72rem;
-    line-height: 1.1;
+    font-size: 0.95rem;
+    line-height: 1.15;
   }
 
   /* The row layout shows the note inline; in a cell there is no room, so it

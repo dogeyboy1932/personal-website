@@ -45,20 +45,22 @@
      more visible non-selected rows (5 maybe)")
 
      trackHeight MUST be >= cardHeight + 2*visible*spreadX, here
-     118 + 2*2*92 = 486. Get it wrong and the outer cards spill past the track
-     onto whatever sits below. -->
+     98 + 2*2*76 = 402. Get it wrong and the outer cards spill past the track
+     onto whatever sits below.
+
+     Sized down on request: "Option wheel is the whole section. Too big." -->
 <OptionWheel
   items={interests}
   bind:active
   orientation="vertical"
   visible={2}
-  spreadX={92}
-  dip={16}
-  cardWidth={300}
-  cardHeight={118}
-  trackHeight={486}
+  spreadX={76}
+  dip={14}
+  cardWidth={272}
+  cardHeight={98}
+  trackHeight={402}
   label="Interests"
-  hint="Click to flip"
+  hint="Click to flip card"
   let:item
   let:index
   let:isActive
@@ -72,12 +74,12 @@
         ? $theme.accent.cyan.hover.border
         : $theme.accent.cyan.border} {$theme.bg.secondary} px-4 text-left shadow-lg"
     >
-      <span class="text-4xl leading-none">{item.emoji}</span>
+      <span class="text-3xl leading-none">{item.emoji}</span>
       <!-- No per-card "click to flip": it now lives once, beside the counter.
            ("Instead of click to flip on every card. Put click to flip on the
            right too. smae color text.") -->
       <span class="min-w-0">
-        <span class="block text-lg font-semibold leading-tight {$theme.text.secondary}">
+        <span class="block text-base font-semibold leading-tight {$theme.text.secondary}">
           {item.name}
         </span>
       </span>

@@ -33,7 +33,7 @@
   const sections = [
     { id: "travel", label: "Where I've been" },
     { id: "interests", label: "What I'm into" },
-    { id: "leadership", label: "What I ran" },
+    { id: "leadership", label: "Was part of" },
   ] as const;
 </script>
 
@@ -67,14 +67,14 @@
   >
     <div class="space-y-5 lg:pr-7">
       <!-- FX:flip-words — rotating identity line -->
-      <!-- Display face and a size up. ("The one-liner should be bigger and maybe
-           different font.") -->
-      <p class="font-display text-2xl sm:text-3xl font-semibold {$theme.text.secondary}">
+      <!-- Full row and centred, matching the scorecard beneath it. Display
+           face, and cyan rather than amber. ("Same with one liner. Use a diff
+           color than orange for this text.") -->
+      <p
+        class="w-full text-center font-display text-2xl font-semibold {$theme.text.secondary} sm:text-3xl"
+      >
         Off the clock, I'm
-        <FlipWords
-          words={more.identityWords ?? []}
-          class="font-semibold {$theme.accent.orange.text}"
-        />
+        <FlipWords words={more.identityWords ?? []} class="font-semibold text-brand" />
       </p>
       <!-- /FX:flip-words -->
 
@@ -87,13 +87,9 @@
         <TravelSection path={more.travel?.path ?? []} show="path" />
       </div>
 
-      <div>
-        <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">Countries</h3>
-        <!-- 2-up: seven countries become four rows. ("The countries grid
-             should be more rows than columns.") This also grows the left column
-             toward the wheel's height, which was leaving dead space beneath. -->
-        <TravelSection countries={more.travel?.countries ?? []} show="countries" columns={2} />
-      </div>
+      <!-- No "Countries" heading: removed on request, and the flags say what
+           this is without one. 2-up so seven countries make four rows. -->
+      <TravelSection countries={more.travel?.countries ?? []} show="countries" columns={2} />
     </div>
 
     <div class="lg:pl-7">

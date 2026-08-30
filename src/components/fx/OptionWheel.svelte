@@ -149,18 +149,28 @@
   role="group"
   aria-label={label}
   on:keydown={onKeydown}
-  on:wheel|nonpassive={onWheel}
-  on:pointerdown={onPointerDown}
-  on:pointermove={onPointerMove}
-  on:pointerup={endDrag}
-  on:pointerleave={endDrag}
-  on:pointercancel={endDrag}
 >
+  <!--
+    Scroll and drag are bound HERE, not on the wrapper. The wrapper spans the
+    whole column, so listening there meant the large empty area beside the cards
+    also swallowed page scroll. ("If my cursor leaves the wheel hover directly,
+    then I shouldn't scroll. There's a lot of empty space in the left of the
+    wheel that should be void of scrolling.")
+
+    The track is only as wide as a card, so the capture region is the cards
+    themselves.
+  -->
   <div
     class="fx-ow-track"
     class:is-dragging={dragging}
     class:is-vertical={orientation === "vertical"}
     style="height: {trackHeight}px;"
+    on:wheel|nonpassive={onWheel}
+    on:pointerdown={onPointerDown}
+    on:pointermove={onPointerMove}
+    on:pointerup={endDrag}
+    on:pointerleave={endDrag}
+    on:pointercancel={endDrag}
   >
     {#each items as item, i}
       {@const offset = offsets[i] ?? 0}
@@ -224,6 +234,9 @@
   .fx-ow-track {
     position: relative;
     cursor: grab;
+    /* Only as wide as a card: this box is the scroll-capture region. */
+    width: var(--ow-card);
+    margin-inline: auto;
   }
 
   /* Vertical: slots are centred on BOTH axes, since the step now runs down the
@@ -272,7 +285,7 @@
   /* Parked against the right edge, vertically centred on the fan. */
   .fx-ow-aside {
     position: absolute;
-    right: 0.25rem;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -291,13 +304,15 @@
   }
 
   /* Same colour as the counter, on request. */
+  /* One line, never wrapped. ("Click to flip should be in one row...no wraps
+     should occur.") */
   .fx-ow-hint {
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: rgb(var(--brand));
-    opacity: 0.75;
-    max-width: 5.5rem;
+    opacity: 0.8;
+    white-space: nowrap;
     line-height: 1.3;
   }
 

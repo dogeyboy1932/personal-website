@@ -57,18 +57,25 @@
 </script>
 
 <!--
-  Inline and LEFT-ALIGNED, not a full-width band. As a bordered card with
-  centred 5xl numerals it claimed ~120px of a page being compacted, and read as
-  its own section rather than as a detail line. ("the stats row is too big...we
-  can align to the left")
+  A SCORECARD: full row, centred, with a rule between each figure. ("Make the
+  stats like a scorecard almost...each with dividers and taking up the whole
+  row while centered.")
+
+  divide-x draws the rules; each cell is flex-1 so the four split the row
+  evenly whatever the label lengths.
+
+  Colour is cyan, not amber — "Use a diff color than orange for this text."
 -->
-<div class="flex flex-wrap items-baseline gap-x-7 gap-y-3" use:countUp>
+<div
+  class="flex w-full divide-x {$theme.border.light} rounded-2xl border {$theme.border.default} {$theme.bg.card} py-4"
+  use:countUp
+>
   {#each stats as stat, i}
-    <div class="flex items-baseline gap-1.5">
-      <span class="font-display text-4xl font-extrabold tracking-tight {$theme.accent.orange.text}">
+    <div class="flex flex-1 flex-col items-center justify-center px-2">
+      <span class="font-display text-3xl font-extrabold tracking-tight text-brand sm:text-4xl">
         {shown[i] ?? 0}{stat.suffix ?? ""}
       </span>
-      <span class="meta-label text-xs {$theme.text.muted}">{stat.label}</span>
+      <span class="meta-label mt-1 text-[10px] {$theme.text.muted} sm:text-xs">{stat.label}</span>
     </div>
   {/each}
 </div>

@@ -155,7 +155,11 @@
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = fill;
 
-    const size = Math.max(1, gap - 1.6);
+    /* Dots overlap slightly (gap - 1.0, not gap - 1.6) so the letterforms read
+       as solid strokes rather than a sparse screen. Flagged twice as still too
+       dim; brightening the fill alone was not enough because the gaps between
+       dots were doing the darkening. */
+    const size = Math.max(1, gap - 1);
 
     /*
       Nanotech pass: hairlines between near neighbours, drawn BEFORE the dots
@@ -190,7 +194,7 @@
 
       // One cheap shadow setup for the whole pass, not per particle — canvas
       // shadowBlur per item per frame is what tanked the site once already.
-      ctx.shadowBlur = 8;
+      ctx.shadowBlur = 10;
       ctx.shadowColor = fill;
     }
 
