@@ -1,0 +1,27 @@
+Session wrap: chess form, logos, zoom, stepper, lockfile, .svelte-kit.
+
+RECURRING LESSON, three more instances this stretch:
+
+1. A RULE THAT EXISTS BUT DOES NOT APPLY. .svelte-kit was in .gitignore the
+   whole session while 104 of its files stayed tracked, because gitignore only
+   governs UNTRACKED paths. I read the rule and assumed the behaviour followed
+   from it for weeks of passes. Check the effect, not the declaration.
+
+2. A CLASS THAT GENERATES NO CSS. bg-slate-950/92 emitted nothing (Tailwind's
+   opacity scale steps by 5), so a 'fix' shipped that made the flip cards fully
+   transparent — worse than before. Same shape as #1: the source said one thing,
+   the output said another.
+
+3. A LOCKFILE THAT CI RESOLVED AND I DID NOT. bun add updated bun.lock while
+   package.json pinned pnpm, so the adapter never reached the deploy and local
+   builds passed throughout. Now one lockfile.
+
+The general form: whenever configuration and behaviour can disagree, verify the
+behaviour. Every one of these was invisible from reading the code.
+
+ALSO, on scope discipline: 'the logo should be an image without words' was given
+as a general rule alongside a list of 15. I fixed the 15, audited all 53, fixed
+2 more that clearly violated it, and explicitly did NOT touch Go, Express, PHP,
+AWS and scikit-learn — their official marks ARE lettering, so 'fixing' them
+would mean inventing logos. Stating what was deliberately left alone turned out
+to matter as much as the changes.
