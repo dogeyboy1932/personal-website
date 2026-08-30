@@ -1,0 +1,136 @@
+/*
+  ============================================================================
+  SHARED VISUAL EFFECTS — global, reusable, tunable per call site.
+  ============================================================================
+
+  ("This should be a property but it seems it's unique to this component. Scan
+  all components and ensure that properties like this are put into /lib and
+  they are called on. The properties must be templated such that any button for
+  example could use this")
+
+  WHY THIS FILE AND NOT src/lib.
+  src/lib is TypeScript. These effects are pure CSS — no state, no lifecycle,
+  nothing to import — so an action or a wrapper component would be ceremony
+  around a class name.
+
+  The harder constraint is Svelte itself: <style> in a .svelte file is SCOPED.
+  Svelte rewrites every selector with a per-component hash and strips any rule
+  it cannot match against that component's own markup. So a class defined
+  inside ShareButton.svelte can never be applied to a button in
+  ConnectFooter.svelte — not by importing it, not with :global(), not from a
+  lib/ module. The only way one class works on ANY element anywhere is a plain
+  stylesheet loaded once outside the component system. That is this file,
+  imported by src/styles.css alongside tokens.css.
+
+  HOW TO USE
+  Add the class, then override any custom property inline or in a Tailwind
+  arbitrary variant. Everything has a default, so the bare class works alone.
+
+    <button class="fx-arc">Find me</button>
+
+    <a class="fx-arc" style="--fx-arc-rgb: 34 211 238; --fx-arc-duration: 6s;">
+      Portfolio
+    </a>
+
+  The host must establish a stacking/positioning context — every effect here
+  paints in ::before or ::after and positions against the host, so the host
+  needs `position: relative` and a border-radius the ring can inherit.
+  ============================================================================
+*/
+
+/*
+  ----------------------------------------------------------------------------
+  fx-arc — a bright arc travelling around an element's border.
+  ----------------------------------------------------------------------------
+  Was implemented twice, independently, with the same four moving parts:
+  HoverBorderGradient (--hbg-angle / fx-hbg-spin) and ShareButton
+  (--sb-angle / fx-sb-spin). Same conic gradient, same ring mask, same
+  keyframes, different variable names.
+
+  Tunables (all optional):
+    --fx-arc-rgb        space-separated RGB channels     default: --brand
+    --fx-arc-thickness  ring width                       default: 1.5px
+    --fx-arc-duration   seconds per revolution           default: 4s
+    --fx-arc-inset      how far outside the host to sit  default: 0px
+    --fx-arc-head       size of the bright head, degrees default: 90deg
+
+  Registering the angle as a TYPED custom property is what makes it
+  animatable — a plain --var cannot be interpolated, so the gradient would
+  jump rather than rotate. @property is a global at-rule, and re-registering
+  the same name is idempotent, so this is safe no matter how many components
+  use it.
+*/
+@property --fx-arc-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.fx-arc {
+  position: relative;
+  isolation: isolate;
+}
+
+.fx-arc::before {
+  content: "";
+  position: absolute;
+  inset: calc(var(--fx-arc-inset, 0px) * -1);
+  border-radius: inherit;
+  padding: var(--fx-arc-thickness, 1.5px);
+  pointer-events: none;
+
+  /* A bright head with a dim tail, so the border is always visible and the
+     arc reads as a highlight travelling around it rather than as a gap. */
+  background: conic-gradient(
+    from var(--fx-arc-angle),
+    rgb(var(--fx-arc-rgb, var(--brand)) / 0) 0deg,
+    rgb(var(--fx-arc-rgb, var(--brand)) / 0.15) calc(var(--fx-arc-head, 90deg) * 0.45),
+    rgb(var(--fx-arc-rgb, var(--brand)) / 1) var(--fx-arc-head, 90deg),
+    rgb(var(--fx-arc-rgb, var(--brand)) / 0.15) calc(var(--fx-arc-head, 90deg) * 1.55),
+    rgb(var(--fx-arc-rgb, var(--brand)) / 0) calc(var(--fx-arc-head, 90deg) * 2.2),
+    rgb(var(--fx-arc-rgb, var(--brand)) / 0) 360deg
+  );
+
+  /*
+    THE RING MASK. Two identical masks, one clipped to the content box and one
+    to the padding box, composited with `exclude` — the difference between them
+    is exactly the padding ring. That is what turns a filled gradient into a
+    border. This idiom appeared in three components; it lives here now.
+    -webkit- prefixes first for older Safari.
+  */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+
+  animation: fx-arc-spin var(--fx-arc-duration, 4s) linear infinite;
+  transition: filter 250ms ease;
+}
+
+/*
+  Optional modifier: accelerate and brighten while hovered or keyboard-focused.
+  Separate from .fx-arc because an ambient arc (ShareButton) and a reactive one
+  (a link) want different behaviour from the same visual.
+*/
+.fx-arc-reactive:hover::before,
+.fx-arc-reactive:focus-visible::before {
+  animation-duration: var(--fx-arc-hover-duration, 1.6s);
+  filter: brightness(1.5) drop-shadow(0 0 6px rgb(var(--fx-arc-rgb, var(--brand)) / 0.55));
+}
+
+@keyframes fx-arc-spin {
+  to {
+    --fx-arc-angle: 360deg;
+  }
+}
+
+/*
+  Browsers without @property render a static ring instead of a broken one — the
+  rotation is the enhancement, the border is the baseline. Reduced motion gets
+  the same treatment deliberately.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .fx-arc::before {
+    animation: none;
+  }
+}

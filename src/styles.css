@@ -1,6 +1,9 @@
 /* Colour tokens first — see src/styles/tokens.css. Single source of truth for
    every colour the design iterates on. */
 @import "./styles/tokens.css";
+/* Shared, reusable visual effects. Global on purpose — Svelte scopes component
+   <style>, so a class defined in a component can never be used by another. */
+@import "./styles/effects.css";
 
 /*
   ============================================================================
