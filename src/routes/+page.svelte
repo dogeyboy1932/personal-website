@@ -67,14 +67,17 @@
     The origin is at right:3%, past the photo's right edge, so the fan enters
     from beyond the photo and rakes left across the whole section.
 
-    widthScale 1.8 and spread 30 are the "a bit bigger" half. Opacity 0.34 —
-    higher than the 0.30 it was pushed to while it still sat in front of the
-    copy, because behind everything it no longer competes with the text.
+    widthScale 1.8 and spread 30 are the "a bit bigger" half.
+
+    Opacity has walked 0.5 -> 0.42 -> 0.28 -> 0.30 -> 0.34 -> 0.46. Everything
+    below 0.34 was dimming to stop it washing the hero copy; since it moved
+    behind the z-10 grid that constraint is gone, and "make the beam a bit
+    brighter" can simply be answered.
   -->
   <SideRays
     side="right"
     count={2}
-    opacity={0.34}
+    opacity={0.46}
     speed={13}
     spread={30}
     widthScale={1.8}
@@ -121,14 +124,25 @@
         <!-- /FX:sparkles /FX:gravity-stars -->
 
         <div class="relative z-10 text-left">
-          <div class="flex flex-col">
+          <!-- relative: the name's radial halo below is absolutely positioned
+               against this box. -->
+          <div class="relative flex flex-col">
             <!-- FX:particle-text — gated by homeHero.particleName in
                  src/constants/home.ts; off renders the plain heading -->
-            <!-- drop-shadow halo on the canvas itself. The canvas shadowBlur
-                 glows each dot; this lifts the WORD off the background as one
-                 shape, which is what actually separates it from the beam.
-                 ("Add a glow to the name since it is still looking dim") -->
-            <h1 class="uppercase text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight {$theme.text.primary} leading-[0.95] [&_canvas]:drop-shadow-[0_0_18px_rgba(255,255,255,0.35)]">
+            <!--
+              THREE layers of glow, each doing a different job:
+                1. canvas shadowBlur (in ParticleText) — glows each dot.
+                2. the radial halo below — light BEHIND the word, which is what
+                   "Apply a glow behind it so it looks brighter" asks for. A
+                   drop-shadow can only trace the shape it is given; it cannot
+                   put light on the background the letters sit on.
+                3. drop-shadow on the canvas — lifts the whole word as one shape.
+            -->
+            <span
+              aria-hidden="true"
+              class="pointer-events-none absolute -inset-x-8 -inset-y-10 -z-10 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.16),rgba(255,255,255,0.05)_45%,transparent_72%)] blur-2xl"
+            />
+            <h1 class="relative uppercase text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight {$theme.text.primary} leading-[0.95] [&_canvas]:drop-shadow-[0_0_22px_rgba(255,255,255,0.45)]">
               {#if homeHero.particleName}
                 <ParticleText
                   text={homeHero.fullName.toUpperCase()}

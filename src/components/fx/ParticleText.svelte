@@ -155,11 +155,20 @@
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = fill;
 
-    /* Dots overlap slightly (gap - 1.0, not gap - 1.6) so the letterforms read
-       as solid strokes rather than a sparse screen. Flagged twice as still too
-       dim; brightening the fill alone was not enough because the gaps between
-       dots were doing the darkening. */
-    const size = Math.max(1, gap - 1);
+    /*
+      Dot size vs. pitch is what actually sets how light the word reads.
+
+      At gap 2 with size = gap - 1, each dot is 1px on a 2px pitch: 25% ink
+      coverage, so even pure #ffffff dots average out to a mid grey. That is why
+      three separate "make it brighter" notes could not be answered by changing
+      the colour — there is nothing lighter than white to change it to.
+      ("make my particle name a bit brighter. I just need a lighter color.")
+
+      size = gap - 0.4 puts a 1.6px dot on the same 2px pitch: 64% coverage,
+      which more than doubles the apparent lightness while still leaving the
+      lattice visible between strokes.
+    */
+    const size = Math.max(1, gap - 0.4);
 
     /*
       Nanotech pass: hairlines between near neighbours, drawn BEFORE the dots

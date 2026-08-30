@@ -35,10 +35,15 @@
       -->
       <span class="hidden sm:block">
         <!-- FX:shiny-text -->
+        <!-- font-extrabold and slightly tighter tracking: the sweep is clipped
+             to the glyphs, so thin strokes give the gradient almost no area to
+             show in. Thicker letterforms are what make it visible, not a
+             brighter gradient. ("make my name in the navbar a bit 'bolder' so
+             the gradient is easier to spot. Increase thickness") -->
         <ShinyText
           variant="both"
           speed={5}
-          class="font-sans text-md tracking-[0.25em] uppercase"
+          class="font-sans text-md font-extrabold tracking-[0.22em] uppercase"
         >
           {site.author}
         </ShinyText>
