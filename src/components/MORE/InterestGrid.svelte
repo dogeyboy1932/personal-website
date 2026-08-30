@@ -45,18 +45,18 @@
      more visible non-selected rows (5 maybe)")
 
      trackHeight MUST be >= cardHeight + 2*visible*spreadX, here
-     118 + 2*2*104 = 534. Get it wrong and the outer cards spill past the track
+     118 + 2*2*92 = 486. Get it wrong and the outer cards spill past the track
      onto whatever sits below. -->
 <OptionWheel
   items={interests}
   bind:active
   orientation="vertical"
   visible={2}
-  spreadX={104}
+  spreadX={92}
   dip={16}
   cardWidth={340}
   cardHeight={118}
-  trackHeight={534}
+  trackHeight={486}
   label="Interests"
   let:item
   let:index

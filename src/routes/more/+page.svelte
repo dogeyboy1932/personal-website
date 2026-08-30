@@ -82,7 +82,9 @@
 
       <div>
         <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">Countries</h3>
-        <TravelSection countries={more.travel?.countries ?? []} show="countries" columns={4} />
+        <!-- 3-up, not 4: three rows brings the left column closer to the
+             wheel's height, which was leaving ~200px of dead space beneath. -->
+        <TravelSection countries={more.travel?.countries ?? []} show="countries" columns={3} />
       </div>
     </div>
 
