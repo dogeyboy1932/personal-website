@@ -192,9 +192,17 @@
       ctx.stroke();
       ctx.globalAlpha = 1;
 
-      // One cheap shadow setup for the whole pass, not per particle — canvas
-      // shadowBlur per item per frame is what tanked the site once already.
-      ctx.shadowBlur = 10;
+      /*
+        One cheap shadow setup for the whole pass, not per particle — canvas
+        shadowBlur per item per frame is what tanked the site once already.
+
+        Raised 10 -> 18 on request: "Add a glow to the name since it is still
+        looking dim from the beam." The beams already moved behind the copy,
+        so this is the name emitting light rather than compensating for
+        something painted over it. Still one setup per frame, so the cost does
+        not scale with particle count.
+      */
+      ctx.shadowBlur = 18;
       ctx.shadowColor = fill;
     }
 

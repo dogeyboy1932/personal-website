@@ -28,6 +28,21 @@
 
   export let actions: SocialHandle[] = [];
   export let label = "Find me";
+  /**
+   * Travelling-arc border, the FX:hover-border-gradient effect inlined.
+   *
+   * Inlined rather than wrapping this component in <HoverBorderGradient>,
+   * because that renders a real <a>/<button> and the pill already contains
+   * interactive children — nesting them would be invalid and would break
+   * keyboard use.
+   *
+   * ("Apply glow animation to the 'find me' button?" — it came off the three
+   * home-page quick links in the same pass, so exactly one button on the site
+   * carries the arc.)
+   */
+  export let glow = false;
+  /** Seconds per revolution of the arc. */
+  export let glowDuration = 4;
   export let stagger = 55;
 
   const icons = {
@@ -58,8 +73,11 @@
   }
 </script>
 
-<div class="fx-share-button" style="--sb-stagger: {stagger}ms;">
-  <div class="fx-sb-pill {$theme.bg.secondary} {$theme.border.default} {$theme.text.secondary}">
+<div class="fx-share-button" style="--sb-stagger: {stagger}ms; --sb-glow-duration: {glowDuration}s;">
+  <div
+    class="fx-sb-pill {$theme.bg.secondary} {$theme.border.default} {$theme.text.secondary}"
+    class:is-glowing={glow}
+  >
     <!-- Absolutely centred, so the icons occupy the SAME space rather than
          sitting next to it. ("just replace the find me with the logos when the
          hover happens") -->
@@ -125,6 +143,62 @@
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+  }
+
+  /*
+    Travelling arc, same technique as FX:hover-border-gradient: a conic gradient
+    rotated by an animated @property angle, masked down to the border ring with
+    an exclude composite so only the 1.5px rim paints.
+
+    @property is a global at-rule even inside a scoped <style>, and registering
+    the same name twice is idempotent, so this is safe alongside
+    HoverBorderGradient's own registration.
+
+    Rotation only — no blur, no scale, nothing that re-rasterises. The site has
+    been to 8fps once over exactly that kind of layer.
+  */
+  @property --sb-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  .is-glowing::before {
+    content: "";
+    position: absolute;
+    inset: -1.5px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: conic-gradient(
+      from var(--sb-angle),
+      transparent 0%,
+      rgb(var(--warm)) 12%,
+      rgb(var(--brand-strong)) 22%,
+      transparent 34%,
+      transparent 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: fx-sb-spin var(--sb-glow-duration, 4s) linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes fx-sb-spin {
+    to {
+      --sb-angle: 360deg;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .is-glowing::before {
+      animation: none;
+    }
   }
 
   .fx-sb-fan {

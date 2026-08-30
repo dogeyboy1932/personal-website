@@ -6,7 +6,9 @@
   // FX:scroll-reveal — blurred-to-crisp entrance as each section scrolls in
   import { scrollReveal } from "../lib/actions/scrollReveal";
   // FX:side-rays — volumetric light fanning across the hero
-  import { SideRays, SparkleField, HoverBorderGradient, ParticleText } from "../components/fx";
+  // HoverBorderGradient dropped: the travelling arc moved to the "Find me"
+  // button on /more so exactly one button on the site carries it.
+  import { SideRays, SparkleField, ParticleText } from "../components/fx";
 
   import { homeFocusAreas } from "../constants";
   
@@ -87,14 +89,15 @@
 
         Without `overlay` the component is z-index:0, so it paints in DOM order
         among the positioned siblings and lands under everything that follows.
-        Opacity goes back UP to 0.40 — behind the copy there is nothing left for
-        it to wash out.
+        Opacity settled at 0.30: behind the copy it can afford to be brighter
+        than the 0.28 it was pushed down to, but "don't make the beams too
+        bright" was repeated after 0.40, so it comes back down.
 
         NOTE: siblings that must stay above this need `relative`. A
         non-positioned block child paints EARLIER than a z-index:0 positioned
         one, so the summary below carries `relative` deliberately.
       -->
-      <SideRays side="right" count={2} opacity={0.4} speed={13} spread={16} hue="warm" />
+      <SideRays side="right" count={2} opacity={0.3} speed={13} spread={16} hue="warm" />
       <!-- /FX:side-rays -->
 
       
@@ -112,7 +115,11 @@
           <div class="flex flex-col">
             <!-- FX:particle-text — gated by homeHero.particleName in
                  src/constants/home.ts; off renders the plain heading -->
-            <h1 class="uppercase text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight {$theme.text.primary} leading-[0.95]">
+            <!-- drop-shadow halo on the canvas itself. The canvas shadowBlur
+                 glows each dot; this lifts the WORD off the background as one
+                 shape, which is what actually separates it from the beam.
+                 ("Add a glow to the name since it is still looking dim") -->
+            <h1 class="uppercase text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight {$theme.text.primary} leading-[0.95] [&_canvas]:drop-shadow-[0_0_18px_rgba(255,255,255,0.35)]">
               {#if homeHero.particleName}
                 <ParticleText
                   text={homeHero.fullName.toUpperCase()}
@@ -174,13 +181,46 @@
            sibling, and positioned z-0 descendants paint after non-positioned
            block ones. Without this the beams would cross this paragraph even
            though they sit earlier in the DOM. -->
-      <div class="relative flex items-center py-3 px-8">
+      <div class="relative flex flex-col items-center gap-5 py-3 px-8">
         <!-- Larger and brighter than before: this is the five-second answer to
              "who is this", and it was previously small, light-weight grey that
              read as filler next to the name. -->
         <p class="text-lg sm:text-xl leading-relaxed {$theme.text.primary} font-sans font-normal whitespace-pre-line">
           {homeHero.summary}
         </p>
+
+        <!-- ===== QUICK LINKS =====
+             Inside the hero column, directly beneath the blurb, centred.
+             ("Move them a little more upward and center it. It can honestly go
+             under the blurb.")
+
+             Replaces the "Also Check Out" card grid and the "Stack" badge band;
+             the third link is /portfolio#skills, an anchor straight to the
+             stack rather than the top of that page.
+
+             PLAIN BORDER, not the travelling arc. ("Remove the border glow.
+             That should only apply to one button." / "Have a border for those
+             buttons instead of the glow animation.") The arc moved to the
+             "Find me" button on /more, so exactly one button on the site has
+             it and it reads as emphasis again rather than as a default style.
+
+             No scroll-reveal: this sits inside the first viewport, so a
+             scroll-triggered reveal would start blurred and never un-blur. -->
+        <nav class="flex flex-wrap justify-center gap-2.5" aria-label="Quick links">
+          {#each homeQuickLinks as link}
+            <a
+              href={link.href}
+              class="group rounded-full border {$theme.border.default} {$theme.bg.secondary} px-5 py-2 font-display text-xs font-bold uppercase tracking-[0.16em] {$theme.text.primary} transition-all duration-300 hover:border-warm/60 hover:bg-warm/10 {$theme.hover.scaleSmall}"
+            >
+              {link.label}
+              <span
+                aria-hidden="true"
+                class="ml-1.5 inline-block {$theme.text.muted} transition-transform duration-300 group-hover:translate-x-0.5"
+                >&rarr;</span
+              >
+            </a>
+          {/each}
+        </nav>
       </div>
     </div>
 
@@ -206,42 +246,13 @@
 <!-- <div class="mx-auto w-[95%] border-t border-slate-500/50" /> -->
 
 
-<!-- ===== QUICK LINKS =====
-     Directly under the hero, no heading, no card bodies.
-
-     Replaces BOTH the "Also Check Out" card grid and the "Stack" badge band.
-     ("Also checkout looks great but I think it's redundant. We can prob make it
-     smaller and push it toward the top. We can remove 'also check out'. Just
-     have two links pointing to portfolio and more about me." and "You can
-     honestly get rid of the stack on the main page." -> "It should directly
-     take the person the stack. Put it next to 'also check out' buttons.")
-
-     Two labelled full-width bands became one row. The third link is
-     /portfolio#skills, an anchor straight to the stack rather than the top of
-     the portfolio page.
-
-     No scroll-reveal: it sits inside the first viewport, so revealing it on
-     scroll would mean it starts blurred and never un-blurs. -->
-<!-- FX:hover-border-gradient — the travelling arc IS the border here -->
-<nav class="mt-1 mb-7 flex flex-wrap gap-2.5" aria-label="Quick links">
-  {#each homeQuickLinks as link}
-    <HoverBorderGradient
-      href={link.href}
-      radius="9999px"
-      duration={4}
-      class="px-5 py-2 {$theme.text.primary} text-xs sm:text-sm font-display font-bold uppercase tracking-[0.16em] transition-all duration-300 {$theme.hover.scaleSmall}"
-    >
-      {link.label}
-      <span aria-hidden="true" class="ml-1.5 {$theme.text.muted}">&rarr;</span>
-    </HoverBorderGradient>
-  {/each}
-</nav>
-<!-- /FX:hover-border-gradient -->
-
-
 <!-- ===== FOCUS AREAS SECTION ===== -->
 <!-- FX:scroll-reveal -->
-<section class="mt-2 mb-8" use:scrollReveal>
+<!-- mt-0: "MOve the mainly focused on a bit higher", third time. The hero's
+     own trailing space went first, then the quick-links band that used to sit
+     between the two — it now lives inside the hero column, so this section
+     moves up by the whole height of that band plus its margins. -->
+<section class="mt-0 mb-8" use:scrollReveal>
 
   <div>
     <h3 class="meta-label text-base text-xl {$theme.text.muted} font-bold mb-3 ml-2">{sections.focuses}</h3>

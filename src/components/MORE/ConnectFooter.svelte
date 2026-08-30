@@ -22,7 +22,9 @@
   <p class="text-[11px] uppercase tracking-[0.3em] {$theme.text.muted}">
     That's the whole picture
   </p>
-  <!-- FX:share-button -->
-  <ShareButton actions={socials} label="Find me" />
+  <!-- FX:share-button — glow: the travelling border arc, moved here off the
+       home page's three quick links so exactly one button on the site has it.
+       ("Apply glow animation to the 'find me' button?") -->
+  <ShareButton actions={socials} label="Find me" glow />
   <!-- /FX:share-button -->
 </div>
