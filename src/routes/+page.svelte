@@ -26,9 +26,7 @@
   />
   <!-- /FX:side-rays -->
 
-  <!-- CAVEAT: minmax(0,1fr), not 1fr. A bare 1fr is minmax(AUTO,1fr), so the
-       column will not shrink below its content and the photo overflowed the
-       page by ~103px below 900px. -->
+    <!-- CAVEAT: minmax(0,1fr), not 1fr. -->
   <div
     class="relative z-10 grid gap-3 rounded-lg"
     class:grid-cols-1={!$breakpoints.isDesktop}
@@ -111,10 +109,8 @@
           {homeHero.summary}
         </p>
 
-        <!-- Quick links. No scroll-reveal: this sits inside the first viewport,
-             so a scroll-triggered reveal would start blurred and never un-blur.
-             The sheen is transform-only — this hero sits over an animating
-             canvas and a blurred ray layer, so a paint-triggering hover shows. -->
+                <!-- No scroll-reveal: this sits inside the first viewport, so a scroll-triggered reveal
+             would start blurred and never un-blur. -->
         <nav class="flex flex-wrap justify-center gap-3.5" aria-label="Quick links">
           {#each homeQuickLinks as link, i}
             <a

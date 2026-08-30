@@ -1,11 +1,5 @@
-<!--
-  FX: side-rays — volumetric light blades fanning across a section.
-
-  CAVEAT: `overlay` puts this at z-index 30, ON TOP of content. Without it the
-  layer is z-index 0 and paints behind — but siblings then need `position:
-  relative`, since a non-positioned block child paints earlier than a
-  positioned z-0 one.
--->
+<!-- FX: side-rays — volumetric light blades fanning across a section. — CAVEAT: `overlay` puts this
+     at z-index 30, ON TOP of content. -->
 <script lang="ts">
   import { browser } from "$app/environment";
   import { darkModeStore } from "../../lib/stores";
@@ -16,22 +10,10 @@
   export let opacity = 0.42;
   export let speed = 12;
   export let spread = 72;
-  /**
-   * Multiplier on every blade's width. The widths are derived from the index
-   * (5-10.5vw) so they stay deterministic for SSR; this scales the whole set
-   * without breaking that. ("make the beam a bit bigger")
-   */
+    /** Multiplier on every blade's width. */
   export let widthScale = 1;
   export let hue: "warm" | "cool" = "warm";
-  /**
-   * Paint the rays ABOVE the page content instead of behind it.
-   *
-   * Needed on the right-hand mount: that half of the hero is an opaque photo,
-   * so rays rendered behind it are simply invisible. Over the top they read as
-   * a light leak washing across the image, which is what "side light" is
-   * supposed to look like. Always pointer-events:none, so nothing under it
-   * stops being clickable.
-   */
+    /** Paint the rays ABOVE the page content instead of behind it. */
   export let overlay = false;
   let klass = "";
   export { klass as class };
@@ -46,24 +28,12 @@
 
   const sides = (s: typeof side) => (s === "both" ? ["left", "right"] : [s]);
 
-  /*
-    Overlay mode composites over live content, so each extra blade costs real
-    frames — unlike the behind-content case, where the static backdrop is
-    cached. Capped at 4; the original 9 measured a ~30fps drop on the landing
-    page.
-
-    Presence is bought with blade WIDTH, not count: width is nearly free and
-    count is not. Six narrow blades also read as a general sunny wash rather
-    than as distinct shafts ("Now it looks like a sun is shining"), so fewer
-    and wider is both cheaper and closer to the intent.
-  */
+    /* Overlay mode composites over live content, so each extra blade costs real frames — unlike the
+     behind-content case, where the static backdrop is cached.
+     Capped at 4; the original 9 measured a ~30fps drop on the landing page. */
   $: effectiveCount = overlay ? Math.min(count, 4) : count;
 
-  /**
-   * Blades fan out across `spread` degrees, centred on the edge's diagonal.
-   * Each gets its own width, delay and duration so the group never pulses in
-   * lockstep.
-   */
+    /** Blades fan out across `spread` degrees, centred on the edge's diagonal. */
   /* NOTE: reads `widthScale` and `speed`, so any reactive statement calling it
      re-runs when those change. */
   function blades(n: number, deg: number) {
@@ -104,36 +74,24 @@
   .fx-side-rays {
     position: absolute;
     inset: 0;
-    /* Match whatever rounding the host has. The layer already clips its blades,
-       but at radius 0 it clipped them to a SQUARE inside a rounded container,
-       so the corners showed past the host's curve. */
+        /* Match whatever rounding the host has. */
     border-radius: inherit;
     overflow: hidden;
     pointer-events: none;
     z-index: 0;
   }
 
-  /*
-    Above the content. Kept a separate mode rather than the default: over dark
-    text this would cost legibility, and only the photo side needs it.
-
-    Deliberately NO mix-blend-mode. Behind content these blurred, rotating
-    blades are effectively free — the backdrop under them is static, so the
-    compositor caches it. As an OVERLAY over two live canvases, a blend mode
-    forces the whole stack to be re-blended every frame: measured 19fps with
-    it, 57 without. Blade count is capped in the component for the same reason
-    (9 animated blurred layers over live content cost ~30fps on their own).
-  */
+    /* Above the content.
+     As an OVERLAY over two live canvases, a blend mode forces the whole stack to be re-blended
+     every frame: measured 19fps with it, 57 without. */
   .is-overlay {
     z-index: 30;
   }
 
   /* Anchor point the blades rotate around: just off the top corner, so the fan
      sweeps down and across the hero the way a window light would. */
-  /* Origin sits inboard of the edge so the fan reads as light crossing the
-     section rather than a stain in the corner — but not so far in that it
-     lands mid-page. Currently mounted on the RIGHT: "Make the side light
-     appear at the right. it looks weird in the middle." */
+    /* Origin sits inboard of the edge so the fan reads as light crossing the section rather than a
+     stain in the corner — but not so far in that it lands mid-page. */
   .fx-rays-origin {
     position: absolute;
     top: 18%;
@@ -155,14 +113,8 @@
     width: var(--ray-width);
     /* Long enough to cross the section at any angle. */
     height: 190vh;
-    /* Base rotation is a variable so one keyframe set serves both edges —
-       hardcoding it here would be overridden by the animation's transform.
-       A blade hangs straight down at 0deg (origin is its top edge), so the
-       tilt rakes it across the box. Larger = closer to horizontal; 90deg is
-       flat. At 82deg the blade enters one side and exits the other rather than
-       running corner to corner. ("instead of hitting corner to corner, the
-       ends should touch side to side") Angles past ~150deg swing it back off
-       the top of the screen entirely. */
+        /* Base rotation is a variable so one keyframe set serves both edges — hardcoding it here would
+       be overridden by the animation's transform. */
     --ray-base: 82deg;
     transform-origin: 50% 0;
     transform: rotate(calc(var(--ray-base) + var(--ray-angle)));
@@ -184,13 +136,7 @@
     --ray-base: 82deg;
   }
 
-  /*
-    Deliberately animates ONLY opacity and rotation. Both ride the element's
-    existing composited layer. scaleX changes the layer's size, which forces
-    the 13px blur across ~1.5M px to be re-rasterised every single frame —
-    nine blades doing that was a large part of an 8fps landing page.
-    The breathing that scaleX gave is approximated by the rotation sweep.
-  */
+    /* Deliberately animates ONLY opacity and rotation. */
   @keyframes fx-ray-drift {
     0%,
     100% {

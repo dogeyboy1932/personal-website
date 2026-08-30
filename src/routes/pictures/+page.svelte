@@ -2,7 +2,7 @@
   import { fade } from "svelte/transition";
   import { MetaTags } from "svelte-meta-tags";
   import PageHeader from "../../components/Headers/PageHeader.svelte";
-  import ComingSoon from "../../components/ComingSoon.svelte";
+  import ComingSoon from "../../lib/ComingSoon.svelte";
   // FX:scroll-reveal
   import { scrollReveal } from "../../lib/actions/scrollReveal";
 </script>

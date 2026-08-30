@@ -91,15 +91,7 @@
         on:error={() => (imageFailed = true)}
       />
     {/if}
-    <!--
-      Full bleed: the card has no padding and the image carries no radius or
-      border of its own, so the screenshot reaches the card's edge on all four
-      sides. The card's overflow-hidden + rounded-xl does the clipping.
-      ("make the link preview encompass the entire window? No padding")
-
-      The old footer row (site name + an "Open" tag) is also gone — the label
-      is already the link you are hovering, and a preview card is
-      self-evidently openable.
-    -->
+        <!-- Full bleed: the card has no padding and the image carries no radius or border of its own,
+         so the screenshot reaches the card's edge on all four sides. -->
   {/if}
 </div>

@@ -1,38 +1,5 @@
-<!--
-  FX: particle-text
-  Source: https://reactbits.dev/text-animations/particle-text (React) — reimplemented in Svelte
-
-  The name rendered as a cloud of particles that scatter away from the cursor
-  and spring back into the letterforms.
-
-  Used by: src/routes/+page.svelte — but ONLY when homeHero.particleName is
-  true. The brief flagged this one as "we'll see if it's worth keeping", and it
-  competes with FX:sparkles over the same title block, so it ships behind a
-  flag rather than as a revert-or-nothing change. Flip the constant to compare.
-
-  Tunables:
-    text        the string to render
-    gap         px between sampled points — LOWER IS DENSER AND MUCH SLOWER
-                (cost is O(1/gap^2)); default 4
-    fontSize    px; falls back to fitting the container width
-    font        canvas font stack; defaults to the site's display face
-    radius      cursor repulsion radius, px       default 90
-    force       repulsion strength                default 2.4
-    spring      pull back toward home, 0..1       default 0.09
-    friction    velocity damping, 0..1            default 0.86
-    color       particle color; defaults to theme
-    look        "nanotech" adds glow + neighbour links; "plain" is flat dots
-    linkDistance  px; how close two particles must be to be linked
-
-  How it works: the text is rasterized once to an offscreen canvas, then
-  getImageData is sampled on a `gap` grid; every opaque pixel becomes a
-  particle whose home is that coordinate. Per frame each particle is pushed
-  away from the cursor and pulled back home under a spring.
-
-  Falls back to plain rendered text when the canvas is unavailable or motion
-  is reduced — the name must always be readable and selectable, so a real <h1>
-  is present either way and only visually hidden when the canvas takes over.
--->
+<!-- FX: particle-text — The name rendered as a cloud of particles that scatter away from the cursor
+     and spring back into the letterforms. -->
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
@@ -47,11 +14,8 @@
   export let spring = 0.09;
   export let friction = 0.86;
   export let color: string | undefined = undefined;
-  /**
-   * "nanotech" — particles snap to a lattice, glow, and link to nearby
-   * neighbours with hairlines, so the name reads as an assembling structure
-   * rather than a dot-matrix print. "plain" is the original flat dots.
-   */
+    /** "nanotech" — particles snap to a lattice, glow, and link to nearby neighbours with hairlines,
+     so the name reads as an assembling structure rather than a dot-matrix print. */
   export let look: "plain" | "nanotech" = "plain";
   /** Max px between two particles for a connecting line to be drawn. */
   export let linkDistance = 13;
@@ -83,9 +47,8 @@
   let pointerY = -9999;
 
   $: isDark = $darkModeStore;
-  /* Pure white in dark mode: the side beams wash warm light across the name and
-     were knocking the old slate-200 down to a muddy grey. ("make my particle
-     name a bit brighter. the beams are darkening it") */
+    /* Pure white in dark mode: the side beams wash warm light across the name and were knocking the
+     old slate-200 down to a muddy grey. */
   $: fill = color ?? (isDark ? "#ffffff" : "#0f172a");
 
   const reducedMotion = () =>
@@ -155,30 +118,11 @@
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = fill;
 
-    /*
-      Dot size vs. pitch is what actually sets how light the word reads.
-
-      At gap 2 with size = gap - 1, each dot is 1px on a 2px pitch: 25% ink
-      coverage, so even pure #ffffff dots average out to a mid grey. That is why
-      three separate "make it brighter" notes could not be answered by changing
-      the colour — there is nothing lighter than white to change it to.
-      ("make my particle name a bit brighter. I just need a lighter color.")
-
-      size = gap - 0.4 puts a 1.6px dot on the same 2px pitch: 64% coverage,
-      which more than doubles the apparent lightness while still leaving the
-      lattice visible between strokes.
-    */
+        /* Dot size vs. pitch is what actually sets how light the word reads. */
     const size = Math.max(1, gap - 0.4);
 
-    /*
-      Nanotech pass: hairlines between near neighbours, drawn BEFORE the dots
-      so the nodes sit on top of their own links.
-
-      Cost control matters here — naive all-pairs is O(n^2) over a few thousand
-      particles. Particles are generated in row-major order, so neighbours in
-      the array are neighbours in space; comparing each particle to a short
-      forward window gets the lattice look at O(n).
-    */
+        /* Nanotech pass: hairlines between near neighbours, drawn BEFORE the dots so the nodes sit on
+       top of their own links. */
     if (look === "nanotech" && particles.length) {
       ctx.strokeStyle = fill;
       ctx.lineWidth = 0.5;
@@ -201,19 +145,8 @@
       ctx.stroke();
       ctx.globalAlpha = 1;
 
-      /*
-        NO PER-PARTICLE GLOW. ("Rather than having each letter emit a glow of
-        its own...the entire string should have a 'container' glow. like a
-        rectangle glow if that makes sense.")
-
-        shadowBlur here gave every dot its own halo, so the word glowed
-        letter-by-letter and the light followed the glyph shapes. The glow is
-        now a single rectangle behind the whole string, rendered in
-        src/routes/+page.svelte — see the note there.
-
-        Dropping it is also free performance: shadowBlur forces canvas to
-        rasterise a blurred copy of the whole draw pass every frame.
-      */
+            /* NO PER-PARTICLE GLOW. shadowBlur here gave every dot its own halo, so the word glowed
+         letter-by-letter and the light followed the glyph shapes. */
       ctx.shadowBlur = 0;
     }
 
@@ -280,9 +213,7 @@
 </script>
 
 <div bind:this={host} class="fx-particle-text {klass}">
-  <!-- The real text is always in the DOM: selectable, searchable, and read by
-       screen readers. It is only visually hidden once the canvas has actually
-       produced particles, so a canvas failure degrades to plain text. -->
+    <!-- The real text is always in the DOM: selectable, searchable, and read by screen readers. -->
   <span class="fx-pt-text" class:is-hidden={active}>{text}</span>
   <canvas bind:this={canvas} class="fx-pt-canvas" class:is-shown={active} aria-hidden="true" />
 </div>

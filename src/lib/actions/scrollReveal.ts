@@ -1,11 +1,6 @@
-/**
- * FX: scroll-reveal — elements sit blurred and resolve to crisp as they enter view.
- *
- * Honours prefers-reduced-motion; degrades to "always visible" without
- * IntersectionObserver, so content is never trapped invisible.
- *
- *   blur / restOpacity / y / duration / delay / threshold / once
- */
+/** FX: scroll-reveal — elements sit blurred and resolve to crisp as they enter view. — Honours
+   prefers-reduced-motion; degrades to "always visible" without IntersectionObserver, so content is
+   never trapped invisible. blur / restOpacity / y / duration / delay / threshold / once */
 export interface ScrollRevealOptions {
   blur?: number;
   /** Opacity before reveal. 1 = pure blur-and-settle; below 1 adds a fade. */
@@ -24,9 +19,8 @@ const DEFAULTS: Required<ScrollRevealOptions> = {
   duration: 700,
   delay: 0,
   threshold: 0.15,
-  /* CAVEAT: `once: true` would let a lingering `filter` pin a composited layer
-     per section — a stack of those took this site to single-digit fps. Cleanup
-     below is keyed off VISIBILITY so an on-screen section carries no layer. */
+    /* CAVEAT: `once: true` would let a lingering `filter` pin a composited layer per section — a
+     stack of those took this site to single-digit fps. */
   once: false,
 };
 

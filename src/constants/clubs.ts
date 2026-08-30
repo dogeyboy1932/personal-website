@@ -1,7 +1,4 @@
-/**
- * College clubs and organizations — a quick glance, not a deep dive.
- * Just the name, with an optional tagline for the few where I held a role.
- */
+/** College clubs and organizations — a quick glance, not a deep dive. */
 import type { Club } from "../types";
 
 export const clubs: Club[] = [

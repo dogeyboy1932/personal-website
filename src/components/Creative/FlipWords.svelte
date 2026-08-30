@@ -1,25 +1,4 @@
-<!--
-  FX: flip-words
-  Source: https://ui.aceternity.com/components/flip-words (React) — reimplemented in Svelte
-
-  Cycles a list of words in place. The outgoing word lifts and blurs away
-  letter by letter; the incoming one drops in the same way, staggered per
-  character so it reads as a roll rather than a crossfade.
-
-  Used by: src/routes/more/+page.svelte (identity line under the page title)
-
-  Tunables:
-    words     string[] to cycle
-    interval  ms each word is held           default 2600
-    stagger   ms between adjacent letters    default 28
-
-  The container is sized to the LONGEST word up front, so the surrounding
-  sentence never reflows mid-animation — the usual failure of this effect is
-  the text after it jittering left and right on every change.
-
-  Under prefers-reduced-motion the words still cycle, but they swap instantly
-  instead of animating.
--->
+<!-- FX: flip-words — Cycles a list of words in place. -->
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
@@ -81,9 +60,7 @@
     vertical-align: bottom;
   }
 
-  /* Reserves BOTH the width of the longest word and a line's height. It must
-     keep its height: the word itself is absolutely positioned, so a
-     zero-height sizer collapses the box and the word never shows. */
+    /* Reserves BOTH the width of the longest word and a line's height. */
   .fx-fw-sizer {
     display: block;
     visibility: hidden;

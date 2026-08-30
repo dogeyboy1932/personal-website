@@ -3,17 +3,8 @@ import { env } from "$env/dynamic/private";
 import { more } from "../../../constants/more";
 import type { RequestHandler } from "./$types";
 
-/**
- * Lichess challenge endpoint. The challenge goes FROM the site owner TO the
- * visitor: POST /api/challenge/{visitor} with the OWNER's token.
- *
- * SECURITY: creating a challenge needs an OAuth token with `challenge:write`.
- * It stays server-side, read from LICHESS_TOKEN, and is never returned to the
- * client. Set it in Netlify -> Environment variables; never commit it.
- *
- * Without the token the endpoint still validates and reports `not_configured`,
- * so the feature is shippable before the token exists.
- */
+/** Lichess challenge endpoint.
+   SECURITY: creating a challenge needs an OAuth token with `challenge:write`. */
 
 /** This route is dynamic; the rest of the site is prerendered. */
 export const prerender = false;
@@ -21,11 +12,9 @@ export const prerender = false;
 /** Who the challenge comes from. Single source of truth: src/constants/more.ts */
 const OWNER = more.lichess.username;
 
-/**
- * "realtime" is 10+0. CAVEAT: a real-time challenge starts a live game the
- * moment it is accepted, whether or not the owner is at the board — flip to
- * "correspondence" if that matters.
- */
+/** "realtime" is 10+0.
+   CAVEAT: a real-time challenge starts a live game the moment it is accepted, whether or not the
+   owner is at the board — flip to "correspondence" if that matters. */
 const CHALLENGE_MODE: "realtime" | "correspondence" = "realtime";
 
 /** Days per move when CHALLENGE_MODE is "correspondence". */

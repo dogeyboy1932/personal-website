@@ -2,7 +2,7 @@
   import { fly, scale } from "svelte/transition";
   import { onMount } from "svelte";
   import { theme } from "../../lib/stores";
-  import LinkPreview from "../LinkPreview.svelte";
+  import LinkPreview from "../../lib/LinkPreview.svelte";
 
   export let label: string;
   export let username: string;
@@ -11,10 +11,7 @@
   let perfType: string | null = null;
   let error: string | null = null;
 
-  /**
-   * Fetches Lichess rating data from the API
-   * Prioritizes: blitz > rapid > classical > bullet
-   */
+    /** Fetches Lichess rating data from the API Prioritizes: blitz > rapid > classical > bullet */
   async function fetchLichess() {
     if (!username) return;
     
@@ -52,15 +49,7 @@
   <!-- Glow effect -->
   <div class="absolute -left-10 -bottom-10 h-40 w-40 rounded-full {$theme.accent.yellow.glow} blur-3xl {$theme.accent.yellow.hover.bg} transition" />
   
-  <!--
-    Two columns: rating on the left, challenge form on the right. It used to be
-    a full-bleed strip across the bottom, which stacked two blocks of height on
-    a card being made shorter. ("Put the play me to the right of the rating
-    instead of bottom... we are taking up too much height.")
-
-    The cool ground and cyan rule are kept — that hue contrast is what made the
-    block findable against the warm card after brightness alone kept failing.
-  -->
+    <!-- Two columns: rating on the left, challenge form on the right. -->
   <div class="relative grid gap-4 sm:grid-cols-[auto_1fr] sm:items-stretch">
     <div class="min-w-0">
       <h3 class="text-base font-semibold {$theme.accent.yellow.text}">{label}</h3>

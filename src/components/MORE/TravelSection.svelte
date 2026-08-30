@@ -1,21 +1,4 @@
-<!--
-  /more section: travel.
-
-  Two halves, because the README conflates two different things in one table
-  cell: a life PATH (born India, raised NJ, college Illinois, semester
-  Singapore, now Chicago) and a LIST of countries visited.
-
-  Countries are FX:flowing-menu in GRID mode: the compact cell layout that
-  fixed the page length, with the hover-marquee behaviour restored per cell.
-  ("i think the current setup for the countries is good. Each cell can be a
-  flow menu.")
-
-  The descriptions in more.ts are placeholders the user intends to rewrite
-  ("For now have dummy descriptions. I have to fix that myself.") — they are
-  only surfaced in the hover panel, so replacing them touches no markup.
-
-  Data: more.travel in src/constants/more.ts
--->
+<!-- /more section: travel. -->
 <script lang="ts">
   import { theme } from "../../lib/stores";
   import { FlowingMenu } from "../Creative";
@@ -23,11 +6,8 @@
 
   export let path: TravelStop[] = [];
   export let countries: TravelCountry[] = [];
-  /**
-   * The page places the life-path stepper and the country grid in different
-   * cells: the path stays full width, the countries take the left half beside
-   * the interests wheel. ("The countries should take up the left side")
-   */
+    /** The page places the life-path stepper and the country grid in different cells: the path stays
+     full width, the countries take the left half beside the interests wheel. */
   export let show: "all" | "path" | "countries" = "all";
 
   // Scales the whole row down so it never wraps — see the action's note.

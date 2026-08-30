@@ -1,33 +1,5 @@
-<!--
-  FX: gooey-nav
-  Source: https://reactbits.dev/components/gooey-nav (React) — reimplemented in Svelte
-
-  The active nav item sits inside a liquid blob that stretches and snaps to
-  whichever item you select, and clicking flings a few droplets that get pulled
-  back in. The "gooey" part is an SVG filter — a heavy blur followed by a
-  contrast crank on the alpha channel, which turns overlapping soft edges into
-  one merged hard edge. That is the whole trick; without it this is just a
-  sliding rectangle.
-
-  Used by: src/components/NavigationBar/NavigationBar.svelte
-
-  Tunables:
-    items       [{ href, label, icon }]
-    current     active pathname
-    particles   droplets flung per click     default 16
-    blur        goo filter blur radius       default 6
-    duration    ms for the blob to travel    default 520
-
-  The blob is measured from the live DOM (offsetLeft/offsetWidth of the active
-  link) rather than computed from index, so it stays correct with variable
-  label widths, font swaps and wrapping. A ResizeObserver re-measures on
-  layout change.
-
-  Accessibility: the blob layer is inert decoration (aria-hidden,
-  pointer-events:none) sitting UNDER real anchors — the links keep their own
-  focus, hover and middle-click behaviour. Under prefers-reduced-motion the
-  blob jumps instead of gliding and no droplets spawn.
--->
+<!-- FX: gooey-nav — The active nav item sits inside a liquid blob that stretches and snaps to
+     whichever item you select, and clicking flings a few droplets that get pulled back in. -->
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
@@ -62,12 +34,7 @@
   let droplets: Droplet[] = [];
   let dropletId = 0;
 
-  /**
-   * SvelteKit serves these routes with a trailing slash ("/portfolio/"), while
-   * navItems declares them without ("/portfolio"). Comparing raw strings makes
-   * activeIndex -1 on every page but "/", which left the blob stranded on
-   * whichever item it last measured. Normalise both sides.
-   */
+    /** SvelteKit serves these routes with a trailing slash , while navItems declares them without . */
   const normalize = (path: string) =>
     path.length > 1 ? path.replace(/\/+$/, "") : path;
 
@@ -79,11 +46,7 @@
   const reduced = () =>
     browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
-  /*
-    The pill inverts with the theme. "White tabs" is right on the dark navbar
-    (bg-black/90), but the light navbar is bg-white/95 — a white pill there
-    would be invisible, so it goes near-black and the label flips with it.
-  */
+    /* The pill inverts with the theme. */
   /* Colours via the shared token store, which re-reads a frame after any theme
      change — see src/lib/tokens.ts for why that timing matters. */
   $: pillFill = css($tokens, "nav-pill");
@@ -121,22 +84,8 @@
     const rx = el.offsetWidth / 2;
     const ry = el.offsetHeight / 2;
 
-    /*
-      Droplets spawn on the pill's PERIMETER and travel outward from there,
-      rather than starting at the centre where the blob hides them.
-      ("the bubbles should be outside the pill (if that makes sense)")
-
-      DOWNWARD-BIASED FAN. The navbar is sticky at the top of the viewport, so
-      droplets thrown straight up left the page entirely and were clipped by the
-      browser's own chrome. ("the gooey bubbles is disappearing behnid the
-      browser header/ searchbar..is there a way the bubbles can appear on top?")
-
-      The honest answer to that question is no — a page cannot paint over
-      browser UI, and no z-index, portal or stacking context changes that. What
-      IS in our control is not throwing them there: angles now span roughly
-      -20deg to 200deg (screen coords, +y down), i.e. right, down and left, so
-      the burst stays inside the page where it can actually be seen.
-    */
+        /* Droplets spawn on the pill's PERIMETER and travel outward from there, rather than starting at
+       the centre where the blob hides them. */
     const ARC_START = -0.11 * Math.PI; // just above horizontal-right
     const ARC_SWEEP = 1.22 * Math.PI; // through down, round to horizontal-left
     const made: Droplet[] = Array.from({ length: particles }, (_, i) => {
@@ -248,14 +197,8 @@
 </div>
 
 <style>
-  /*
-    Blob and droplets are white (updates.txt: "Make the navbar tabs white
-    instead of yellow pilled"). They share one class so the burst can never
-    drift out of sync with the pill it comes from.
-
-    The active label has to flip with it: it was theme.text.white, which would
-    have rendered white-on-white and made the current tab unreadable.
-  */
+    /* Blob and droplets are white (updates.txt: "Make the navbar tabs white instead of yellow
+     pilled"). */
   .fx-goo-fill {
     background-color: var(--goo-fill);
   }

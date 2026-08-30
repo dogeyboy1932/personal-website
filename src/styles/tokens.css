@@ -1,12 +1,6 @@
-/*
-  Colour tokens — the one place to change the site's palette.
-
-  Values are SPACE-SEPARATED RGB CHANNELS so Tailwind's <alpha-value> works
-  (text-brand, bg-brand/10, border-brand/30 all resolve from one property).
-
-  CAVEAT: named --brand-*, not --accent-*. src/styles.css already defines an
-  --accent HSL triple inside @layer base, which is emitted later and wins.
-*/
+/* Colour tokens — the one place to change the site's palette.
+   CAVEAT: named --brand-*, not --accent-*. src/styles.css already defines an --accent HSL triple
+   inside @layer base, which is emitted later and wins. */
 
 :root {
   /* --- Accent: the site's signature colour ------------------------------ */
@@ -24,20 +18,7 @@
   --lede: 250 204 21; /* yellow-400 */
 
   /* --- Effect-specific, so an effect can be retuned in isolation --------- */
-  /*
-    SILVER, not amber. It was var(--warm) on the strength of "The yellow
-    particles behind the title were really good", but with the beam behind the
-    hero brightened the two warm sources compounded and the whole title block
-    read yellow: "Make the particles color more white. It's still dim yellow
-    right now. Silvery white is what I want."
-
-    slate-100 was still not it ("Brightest silver It's still dim yellow right
-    now"), and the reason is that these are drawn as a radial sprite that fades
-    to alpha 0 at the rim — so the AVERAGE pixel is well below the nominal
-    colour, and any tint at all in the base compounds with the warm SideRays
-    behind them. Pure white is the only value with no tint left to compound.
-    --cursor stays separate so the trail and the sparkles never collide.
-  */
+    /* SILVER, not amber. */
   --particles: 255 255 255; /* FX:sparkles + gravity-stars */
   --cursor: 226 232 240; /* CursorParticles — silver, neutral on both themes */
   --rays: var(--brand); /* FX:side-rays                */
@@ -60,11 +41,8 @@
   --bad: 251 113 133; /* rose-400    */
 }
 
-/*
-  Light theme. Only the tokens that must change are redefined — anything not
-  listed inherits from :root, so adding a token above never means remembering
-  to add it twice.
-*/
+/* Only the tokens that must change are redefined — anything not listed inherits from :root, so
+   adding a token above never means remembering to add it twice. */
 /* Light theme: coffee. Accents are teal/amber rather than the dark theme's
    cyan/yellow, which sat nearly opposite brown and read as foreign. */
 html:not(.dark) {

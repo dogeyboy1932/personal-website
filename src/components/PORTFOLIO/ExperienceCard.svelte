@@ -13,9 +13,8 @@
   let skillMax = 8;
 
   // Use theme-aware card themes from the store
-  /* experienceThemes, NOT cardThemes: the experience list is white/silver and
-     the stack below it stays colourful. Two tables so the two asks can
-     disagree. ("Just make everything in experience white/silver.") */
+    /* experienceThemes, NOT cardThemes: the experience list is white/silver and the stack below it
+     stays colourful. */
   $: cardTheme = $theme.experienceThemes[index % $theme.experienceThemes.length];
 
   /* Coloured as a SEQUENCE, not per badge: adjacent badges must never match.
@@ -29,16 +28,7 @@
 <!-- backdrop-blur-sm was removed from the card below: bg.card is already 80%
      opaque so it contributed almost nothing visually, but seven of these sat
      over the animating MatrixRain and re-blurred ~180K px each every frame. -->
-<!--
-  palette="silver", not "violet". THIS was the purple. ("The cards are still
-  somewhat purple...fix the border.")
-
-  Last pass made experienceThemes silver — bars, titles, badges, dividers — but
-  every card is wrapped in this halo, which paints a blurred ring just outside
-  the border and is therefore the widest-reaching colour on the card. A silver
-  card inside a violet halo still reads as a purple-edged card, so recolouring
-  the card alone could never finish the job.
--->
+<!-- palette="silver", not "violet". -->
 <BackgroundGradient class="h-full" radius="1rem" palette="silver" spread={3} idle={0.28}>
 <div 
   class="group relative overflow-hidden rounded-2xl border {cardTheme.border} {$theme.bg.card} shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col h-full"
@@ -49,9 +39,8 @@
   
   <div class="p-5 pl-6 space-y-5 flex-1 flex flex-col">
     <!-- Duration badge - top right corner style -->
-    <!-- min-w-0 on the text side: without it the title block's min-content
-         width is its longest word, which pushed the shrink-0 date badge past
-         the card's right edge on narrow cards. -->
+        <!-- min-w-0 on the text side: without it the title block's min-content width is its longest
+         word, which pushed the shrink-0 date badge past the card's right edge on narrow cards. -->
     <div class="flex items-start justify-between gap-4 ">
       <div class="min-w-0 space-y-1">
         <h3 class="text-2xl font-bold bg-gradient-to-r {cardTheme.title} bg-clip-text text-transparent">
@@ -62,16 +51,8 @@
         </p>
       </div>
       
-      <!--
-        DURATION: one colour on every card, and not white.
-        ("the duration can all be a different color than white")
-
-        cardTheme.badge is silver and steps per card, which is what made the
-        row of dates read as more of the same. This is a fixed brand-cyan chip
-        instead — fixed, so the six dates are one recognisable element rather
-        than six variations, and cyan because it is the site accent and matches
-        the stack section further down the same page.
-      -->
+            <!-- DURATION: one colour on every card, and not white. cardTheme.badge is silver and steps
+           per card, which is what made the row of dates read as more of the same. -->
       <span
         class="shrink-0 rounded-sm border border-brand/40 bg-brand/10 px-3 py-1.5 text-xs font-bold tracking-wide text-brand-strong"
       >
@@ -79,12 +60,7 @@
       </span>
     </div>
 
-    <!-- Summary with subtle separator.
-         FIXED height, not min-height: summaries run 1-3 lines, and with only a
-         minimum the block grew and pushed the tech row down, so the stacks
-         started at different heights across cards (measured 193px vs 208px
-         from the card top). A fixed three-line box lands every card's stack on
-         the same line. updates.txt: "the stacks must start from same height". -->
+        <!-- Summary with subtle separator. -->
     <div class="h-[5.5rem] pt-2 border-t {cardTheme.divider}">
       <p class="{$theme.text.secondary} text-md leading-relaxed line-clamp-3">
         {experience.summary}
@@ -94,16 +70,7 @@
 
     <div class="mt-auto min-h-[3rem]">
       <div class="flex flex-wrap gap-2">
-        <!--
-          COLOUR IS BACK on the stack, deliberately. ("Make experience card less
-          stale. The inside design can stay as is. The stack can be alternate
-          colors")
-
-          Last pass these went neutral under "make everything in experience
-          white/silver". That read as stale, which is the correction: the
-          CHROME wanted to be silver — halo, border, accent bar, title — and the
-          badges are content, where variation is information rather than noise.
-        -->
+                <!-- COLOUR IS BACK on the stack, deliberately. -->
         {#each shownSkills as tech, techIndex}
           <TechBadge {tech} index={techIndex} color={skillColors[techIndex]} />
         {/each}

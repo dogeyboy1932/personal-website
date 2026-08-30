@@ -1,13 +1,4 @@
-<!--
-  /more section: connect footer.
-
-  The README ends on three social badges. Here they collapse into a single
-  pill that fans open — the brief called out that interaction specifically
-  ("I like the hover and being able to click around icons").
-
-  Data: more.socials in src/constants/more.ts
-  Uses: FX:share-button
--->
+<!-- /more section: connect footer. -->
 <script lang="ts">
   import { theme } from "../../lib/stores";
   import { ShareButton } from "../Creative";
@@ -22,9 +13,8 @@
   <p class="text-[11px] uppercase tracking-[0.3em] {$theme.text.muted}">
     That's the whole picture
   </p>
-  <!-- FX:share-button — glow: the travelling border arc, moved here off the
-       home page's three quick links so exactly one button on the site has it.
-       ("Apply glow animation to the 'find me' button?") -->
+    <!-- FX:share-button — glow: the travelling border arc, moved here off the — home page's three
+       quick links so exactly one button on the site has it. -->
   <ShareButton actions={socials} label="Reach out" glow />
   <!-- /Creative:share-button -->
 </div>

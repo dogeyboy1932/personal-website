@@ -5,18 +5,7 @@ export const darkModeStore = writable(true);
 // Screen width store
 export const screenWidth = writable(0);
 
-/**
- * Physical screen width, used to derive the mobile threshold.
- *
- * Requested as a proportion rather than a pixel value: "when window size is
- * less than 40% width, then shift to mobile mode." So the switch tracks how
- * much of the DISPLAY the window occupies, not an absolute size — dragging a
- * window to a third of a 27" monitor and to a third of a laptop both feel the
- * same, which a fixed px breakpoint can't express.
- *
- * Clamped: 40% of a very small screen would put the threshold below phone
- * width, and 40% of an ultrawide would collapse a perfectly usable window.
- */
+/** Physical screen width, used to derive the mobile threshold. */
 export const displayWidth = writable(1920);
 
 // Derived breakpoint stores
@@ -169,19 +158,8 @@ export const darkTheme = {
   },
   
   // Card color themes (for experience cards, etc.)
-  /*
-    Five genuinely separate hues, in the SAME order as the light-theme table
-    below (orange, rose, teal, violet, sky) so a given card keeps its identity
-    when the theme is toggled.
-
-    Previously all five dark variants were sky/blue/violet/purple/slate, which
-    made them near-indistinguishable — updates.txt: "Find more contrasting
-    colors for the card spec." The light table was already well spread; only
-    this one needed the work.
-
-    Titles resolve to white at the last stop so the company name stays legible
-    whatever the hue.
-  */
+    /* Five genuinely separate hues, in the SAME order as the light-theme table below (orange, rose,
+     teal, violet, sky) so a given card keeps its identity when the theme is toggled. */
   /* Experience cards: no hue at all. They differ by LUMINANCE. The STACK below
      stays colourful — two tables so the two rules can disagree. */
   experienceThemes: [

@@ -1,29 +1,5 @@
-<!--
-  FX: pill-nav
-  Source: https://reactbits.dev/components/pill-nav (React) — reimplemented in Svelte
-
-  Pill buttons where a circular fill swells up from the bottom edge on hover
-  while the label rolls over to its inverted twin. The active pill sits in the
-  filled state permanently.
-
-  Used by: src/components/PORTFOLIO/CategoryFilter.svelte (project categories)
-
-  Tunables:
-    items       string[] of labels
-    selected    bound; the active label
-    ariaLabel   accessible name for the group
-
-  Keeps CategoryFilter's existing `bind:selectedCategory` contract, so the
-  portfolio page is unchanged.
-
-  The label is rendered twice — once in the resting color, once in the
-  on-fill color — and the pair is translated as a unit so the swap lands
-  exactly as the fill arrives. A single label doing a color transition reads
-  as a fade; the roll is what makes it feel like the fill is carrying it.
-
-  Colors come from the theme's filter/accent ramps, so light and dark both
-  work without a second palette here.
--->
+<!-- FX: pill-nav — Pill buttons where a circular fill swells up from the bottom edge on hover while
+     the label rolls over to its inverted twin. -->
 <script lang="ts">
   import { theme } from "../../lib/stores";
 
@@ -96,11 +72,7 @@
     opacity: 1;
   }
 
-  /*
-    Two stacked copies of the label. The viewport is one line tall and the pair
-    slides up by exactly one line, so the resting face exits as the inverted
-    face arrives.
-  */
+    /* Two stacked copies of the label. */
   .fx-pill-roll {
     display: block;
     position: relative;

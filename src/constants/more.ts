@@ -1,17 +1,6 @@
 import type { HobbiesData, MorePageData } from "../types";
 
-/**
- * /more page content.
- *
- * Sourced from the back half of GitHub_README_config/README.md — the
- * "On My Break", "Leadership" and "Honors" sections — but deliberately
- * EXPANDED rather than copied: the GitHub profile is the compacted version of
- * this, so anything that reads like a table row there gets a real sentence
- * here. Keep that rule when editing.
- *
- * Voice: direct, concrete, faintly wry. Numbers where there are numbers.
- * No résumé-speak.
- */
+/** /more page content. */
 export const more: MorePageData = {
   title: "More About Me",
   subtitle: "Beyond the code",
@@ -140,10 +129,7 @@ export const more: MorePageData = {
         "Helped build UIUC's first AI safety community while it was still getting off the ground. Now 400+ members, 20 core, and 7+ research projects running. Co-ran an 8-week fellowship on RLHF, interpretability, and scalable oversight.",
       link: "https://aialignmentillinois.org/",
     },
-  /* CAVEAT: order is load-bearing. LeadershipRoles indexes its accent table by
-     POSITION, so the colour running down the column is fixed at orange -> red
-     -> blue and the entries move through it. Recolouring a specific org means
-     editing `accents` in src/components/MORE/LeadershipRoles.svelte. */    {
+    /* CAVEAT: order is load-bearing. */    {
       org: "Sigma Phi Delta (ΣΦΔ)",
       role: "Brother",
       summary: "International social-professional fraternity for engineers.",
@@ -164,11 +150,11 @@ export const more: MorePageData = {
       placement: "2nd Place",
       event: "OnionDAO Solana Hackathon",
       detail: "$1,500 — built StakeShack solo in 48 hours",
-      kind: "competition",
+      kind: "win",
     },
-    { placement: "2nd Place", event: "Raise Your Hack", kind: "competition" },
-    { placement: "Track Win", event: "Keywords AI", kind: "competition" },
-    { placement: "Track Win", event: "ETH Denver '25", kind: "competition" },
+    { placement: "2nd Place", event: "Raise Your Hack", kind: "win" },
+    { placement: "Track Win", event: "Keywords AI", kind: "win" },
+    { placement: "Track Win", event: "ETH Denver '25", kind: "win" },
     {
       placement: "Eagle Scout",
       event: "Boy Scouts of America",

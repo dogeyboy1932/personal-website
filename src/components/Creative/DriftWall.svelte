@@ -1,30 +1,6 @@
-<!--
-  FX: drift-wall
-  Source: https://reactbits.dev/components/drift-wall (React) — reimplemented in Svelte
-
-  A dense wall of tiles that drifts with the pointer. Each tile has its own
-  depth, so they slide at different rates and the wall reads as layered rather
-  than flat. Hovering a tile lifts it out and reveals its detail.
-
-  Chosen over option-wheel and infinite-spiral for the /more interests because
-  it was the only one of the three that keeps every item visible at once — the
-  page is being compacted, not pruned.
-
-  Used by: src/components/MORE/InterestGrid.svelte
-
-  Tunables:
-    items      any[]; rendered through the default slot with let:item
-    columns    tiles per row at the widest breakpoint   default 6
-    travel     px the deepest tile moves across the wall default 16
-    tilt       degrees of rotation at full deflection    default 4
-
-  PERFORMANCE
-  Pointer movement writes exactly two CSS custom properties on the wall, inside
-  a rAF, and every tile derives its transform from those. No per-tile JS, no
-  layout reads in the move handler, and one style write per frame regardless of
-  tile count — the naive version (setting a transform per tile per move event)
-  is what makes walls like this stutter.
--->
+<!-- FX: drift-wall — A dense wall of tiles that drifts with the pointer.
+     PERFORMANCE Pointer movement writes exactly two CSS custom properties on the wall, inside a
+     rAF, and every tile derives its transform from those. -->
 <script lang="ts">
   import { onDestroy } from "svelte";
   import { browser } from "$app/environment";
@@ -76,10 +52,7 @@
     if (browser && frame) cancelAnimationFrame(frame);
   });
 
-  /**
-   * Per-tile depth, derived from the index rather than randomly so the server
-   * and client agree. Spread across 0.35..1 so no tile is completely static.
-   */
+    /** Per-tile depth, derived from the index rather than randomly so the server and client agree. */
   const depthOf = (i: number) => 0.35 + ((i * 37) % 66) / 100;
 </script>
 
@@ -117,13 +90,7 @@
       rotateY(calc(var(--dw-x, 0) * var(--dw-tilt) * var(--dw-depth)))
       rotateX(calc(var(--dw-y, 0) * var(--dw-tilt) * var(--dw-depth) * -1));
     transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
-    /*
-      Deliberately NOT transform-style: preserve-3d. The tile itself rotates,
-      but it has no 3D children that need it — and with preserve-3d its
-      descendants join a 3D rendering context where they interleave with
-      unrelated elements instead of painting flat. That made the interest
-      popover render see-through, with the section behind bleeding into it.
-    */
+        /* Deliberately NOT transform-style: preserve-3d. */
   }
 
   /* The hovered tile comes forward and stops drifting, so it is easy to read. */

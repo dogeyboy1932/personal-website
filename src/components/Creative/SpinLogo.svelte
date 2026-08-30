@@ -1,9 +1,5 @@
-<!--
-  FX: spin-logo — grab the logo and tumble it in 3D; a flick coasts to a stop
-  on both axes, and it drifts slowly on its own as a hint that it is draggable.
-
-  Tunables: sensitivity, friction, maxVelocity, perspective, snapBack, drift.
--->
+<!-- FX: spin-logo — grab the logo and tumble it in 3D; a flick coasts to a stop — on both axes, and
+     it drifts slowly on its own as a hint that it is draggable. -->
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import { browser } from "$app/environment";
@@ -83,9 +79,8 @@
     if (snapBack && Math.hypot(velX, velY) <= 0.15) settle();
   }
 
-  /* One loop for both the throw decay and the idle drift: two would fight over
-     the same rAF handle, and drift rides on top of the decay so the logo never
-     stops dead then twitches back to life. */
+    /* One loop for both the throw decay and the idle drift: two would fight over the same rAF handle,
+     and drift rides on top of the decay so the logo never stops dead then twitches back to life. */
   function tick(now: number) {
     frame = requestAnimationFrame(tick);
     if (dragging) return;
@@ -143,11 +138,8 @@
   });
 </script>
 
-<!--
-  Not interactive in the a11y sense — it's a decorative spin on a logo that is
-  already inside a real link. Keyboard users get the link; there is no
-  keyboard-reachable state here to miss.
--->
+<!-- Not interactive in the a11y sense — it's a decorative spin on a logo that is already inside a
+     real link. -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   bind:this={el}

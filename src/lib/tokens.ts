@@ -2,14 +2,9 @@ import { writable } from "svelte/store";
 import { browser } from "$app/environment";
 import { darkModeStore } from "./stores";
 
-/**
- * Live view of src/styles/tokens.css, for canvas and inline SVG — they need a
- * concrete colour string where CSS can just read the custom property.
- *
- * CAVEAT: re-reads on the frame AFTER a theme change. Components resolve tokens
- * during init but the `dark` class lands in ThemeToggle's onMount, so reading
- * inline gave the wrong palette with no dependency to correct it later.
- */
+/** Live view of src/styles/tokens.css, for canvas and inline SVG — they need a concrete colour
+   string where CSS can just read the custom property.
+   CAVEAT: re-reads on the frame AFTER a theme change. */
 
 const NAMES = [
   "brand",

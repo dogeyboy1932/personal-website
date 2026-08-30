@@ -1,29 +1,4 @@
-<!--
-  /more section: I challenge YOU.
-
-  DIRECTION, because the copy used to obscure it: the visitor types their own
-  Lichess username and the server creates a challenge FROM the site owner TO
-  them, using the owner's token. It arrives in their Lichess inbox as
-  "trashboatsr challenges you". The visitor is never asked to go and find the
-  owner's profile and send one the other way — that only happens as the
-  fallback when no token is configured, and even then the link now points at
-  the owner rather than at the visitor's own page.
-
-  updates.txt: "send chess challenges (have an input box...if the username is
-  valid then a challenge will be created (deterministic api call and check)).
-  If invalid, then red error otherwise green 'chellegne sent'"
-
-  Two layers, both real:
-   - As you type (debounced), the public Lichess profile endpoint is checked
-     straight from the browser — the same call LichessCard.svelte already
-     makes. That drives the red/green state deterministically.
-   - Submitting posts to /api/chess-challenge, which holds the OAuth token
-     server-side and actually creates the challenge.
-
-  If LICHESS_TOKEN isn't set yet the endpoint says so and returns a handoff
-  URL, and this falls back to opening Lichess — so the box is useful before
-  the token exists rather than being dead UI.
--->
+<!-- /more section: I challenge YOU. -->
 <script lang="ts">
   import { Check, X, Loader2, ExternalLink, ChessKnightIcon } from "lucide-svelte";
   import { theme } from "../../lib/stores";
@@ -42,25 +17,7 @@
   let message = "";
   let handoffUrl: string | null = null;
 
-  /*
-    VALIDATION HAPPENS ON SUBMIT ONLY.
-    ("There shouldn't be an error as I type into the input...there should be a
-    trigger only when I hit the challenge button.")
-
-    This used to check as you typed: a 400ms debounce fired a request to the
-    public Lichess profile endpoint on every pause, so the field went red while
-    you were still halfway through your own name. Typing four characters of a
-    nine-character username is not an error, but it looked like one.
-
-    All of that is gone — no debounce, no in-flight request id, no `checking`
-    state. The only thing typing does now is clear a previous result, so a stale
-    error does not sit there contradicting the box you are editing.
-
-    The existence check did not need a client round trip either: the server
-    endpoint already validates format, resolves the user, and distinguishes
-    not_found / cannot_challenge / not_configured. One request on submit now
-    does what two used to.
-  */
+    /* VALIDATION HAPPENS ON SUBMIT ONLY. */
   function onInput() {
     if (state !== "idle") {
       state = "idle";
@@ -126,9 +83,8 @@
     <ChessKnightIcon class="h-5 w-5 {$theme.text.white}" />
     <h4 class="meta-label text-sm {$theme.text.white}">Play me</h4>
   </div>
-  <!-- Says plainly that the challenge is CREATED and WAITING, and that a reply
-       may not be immediate. ("i may be afk. So make it clear that a challenge
-       will be made and I'll get to it.") -->
+    <!-- Says plainly that the challenge is CREATED and WAITING, and that a reply may not be
+       immediate. -->
   <p class="mb-3 text-xs {$theme.text.secondary}">
     Drop your Lichess username and I'll fire a casual 10+0 your way. It'll sit
     in your Lichess inbox — I might be AFK, but I'll get to it.
@@ -163,18 +119,7 @@
         {/if}
       </span>
 
-      <!--
-        THE ERROR IS A TOOLTIP. ("Also the error should be a hover text")
-
-        It sits above the field rather than below it, so it cannot push the
-        Challenge button down — the reason this whole block used to reserve
-        32px of permanent empty space underneath the form.
-
-        Shown on hover OR focus-within: a keyboard user never hovers, and an
-        error you can only reach with a mouse is not reachable at all for them.
-        pointer-events-none so the bubble can never sit between the cursor and
-        the input it is describing.
-      -->
+            <!-- THE ERROR IS A TOOLTIP. -->
       {#if state === "error"}
         <span
           id="chess-challenge-error"
@@ -196,13 +141,7 @@
       {/if}
     </div>
 
-    <!--
-      Enabled whenever there is something to send. It used to be
-      `disabled={state !== "valid"}`, which only unlocked once the as-you-type
-      check had passed — with that check gone, the button IS the trigger, so
-      gating it on a validation that no longer runs would leave it permanently
-      dead.
-    -->
+        <!-- Enabled whenever there is something to send. -->
     <button
       type="submit"
       disabled={!username.trim() || sending}
@@ -212,16 +151,8 @@
     </button>
   </form>
 
-  <!--
-    Success only, and it collapses to zero height when there is none — so the
-    button sits flush with the bottom of the card at rest. The old version
-    reserved min-h-[1.25rem] plus mt-3 permanently, which is where the empty
-    space below the button came from.
-
-    Errors do NOT come through here any more; they are the tooltip above. This
-    element is still aria-live so a screen reader is told about a success, and
-    the error tooltip carries its own aria-describedby.
-  -->
+    <!-- Success only, and it collapses to zero height when there is none — so the button sits flush
+       with the bottom of the card at rest. -->
   <p
     class="text-xs text-emerald-400 {state === 'sent' ? 'mt-3' : ''}"
     aria-live="polite"

@@ -1,6 +1,4 @@
-/**
- * Professional experiences and education timeline
- */
+/** Professional experiences and education timeline */
 import type { Experience } from "../types";
 
 export const experiences: Experience[] = [

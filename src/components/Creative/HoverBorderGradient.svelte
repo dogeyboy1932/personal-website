@@ -1,10 +1,5 @@
-<!--
-  FX: hover-border-gradient — a bright arc sweeping the border, faster on hover.
-  Renders as <a> when `href` is set, otherwise <button>.
-
-  The arc is the shared `.fx-arc` / `.fx-arc-reactive` classes from
-  src/styles/effects.css, tuned via --fx-arc-* properties.
--->
+<!-- FX: hover-border-gradient — a bright arc sweeping the border, faster on hover. — Renders as <a>
+     when `href` is set, otherwise <button>. -->
 <script lang="ts">
   import { darkModeStore } from "../../lib/stores";
 

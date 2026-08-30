@@ -72,9 +72,7 @@
         aria-hidden="true"
       />
 
-      <!-- CAVEAT: !mt-0 is load-bearing. The parent space-y-3 puts a 12px top
-           margin OUTSIDE the box being centred, and space-y-3 compiles to a
-           three-class selector that a plain mt-0 loses to. -->
+            <!-- CAVEAT: !mt-0 is load-bearing. -->
       <div class="!mt-0 flex flex-1 flex-col justify-center gap-3">
         <!-- Left as-is on request: "All that's untouched on the more page is the
              where I've been and the find me." Only its POSITION moved. -->
@@ -87,20 +85,7 @@
       </div>
     </div>
 
-    <!--
-      min-w-0 is required, not cosmetic. A grid track declared `1fr` is
-      minmax(AUTO, 1fr), so its floor is the cell's min-content width — and this
-      cell contains the option wheel, whose track and counter pocket are fixed
-      px (324 + 8 + 96 = 428). At 1024 with the 125% page zoom the column is
-      300px, so the cell refused to shrink and pushed exactly 128px of
-      horizontal scroll onto the page.
-
-      .fx-option-wheel already has overflow:hidden, but that only zeroes the
-      automatic minimum size of a FLEX or GRID item, and it is a plain block
-      child of this cell — so the constraint travelled straight through it.
-      min-w-0 here is what actually lets the column shrink and the wheel clip.
-      Same failure mode as the hero photo's minmax(0,1fr).
-    -->
+        <!-- min-w-0 is required, not cosmetic. -->
     <div class="min-w-0 lg:pl-7">
       <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[1].label}</h3>
       <InterestGrid interests={more.interests ?? []} />

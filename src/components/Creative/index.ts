@@ -6,7 +6,7 @@ export { default as SideRays } from "./SideRays.svelte";
 export { default as SparkleField } from "./SparkleField.svelte";
 export { default as BorderGlow } from "./BorderGlow.svelte";
 export { default as HoverBorderGradient } from "./HoverBorderGradient.svelte";
-export { default as QuoteCarousel } from "./QuoteCarousel.svelte";
+export { default as SmallCarousel } from "./SmallCarousel.svelte";
 export { default as PillNav } from "./PillNav.svelte";
 export { default as BackgroundGradient } from "./BackgroundGradient.svelte";
 export { default as FlipWords } from "./FlipWords.svelte";

@@ -1,10 +1,5 @@
-<!--
-  FX: sparkles + gravity-stars — drifting motes that scatter from the cursor.
-
-  PERFORMANCE: particles are pre-rendered once to an offscreen sprite and
-  blitted with drawImage. Canvas shadowBlur per particle per frame is what
-  makes fields like this stutter.
--->
+<!-- FX: sparkles + gravity-stars — drifting motes that scatter from the cursor. — PERFORMANCE:
+     particles are pre-rendered once to an offscreen sprite and blitted with drawImage. -->
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
@@ -14,31 +9,14 @@
   export let density = 5.5;
   export let minSize = 0.6;
   export let maxSize = 1.9;
-  /**
-   * Downward pull. DEFAULT 0 — any non-zero value makes the whole field fall in
-   * unison, which reads as rain rather than sparkle. ("it looks like it's
-   * raining right now ... notice how this moves in all directions and it's not
-   * raining")
-   */
+    /** DEFAULT 0 — any non-zero value makes the whole field fall in unison, which reads as rain rather
+     than sparkle. */
   export let gravity = 0;
   export let drift = 0.22;
   export let twinkle = 3.2;
   export let pointerPull = 130;
   export let color: string | null = null;
-  /**
-   * Px the field extends ABOVE and BELOW its container.
-   *
-   * ("make particles in hero descend further into the blurb section but not
-   * further than that. Particles can also go a little bit higher")
-   *
-   * Props rather than a class on the host, because the host's own scoped rule
-   * `.fx-sparkle-field { inset: 0 }` carries higher specificity than a Tailwind
-   * `-top-5` utility and would silently win. These feed custom properties the
-   * same rule reads, so there is nothing to lose a specificity race with.
-   *
-   * `density` is per 10,000px^2, so the particle count scales with the new area
-   * on its own — the field gets taller, not sparser.
-   */
+    /** Px the field extends ABOVE and BELOW its container. */
   export let bleedTop = 0;
   export let bleedBottom = 0;
   let klass = "";
@@ -75,15 +53,7 @@
   let pointerX = -9999;
   let pointerY = -9999;
 
-  /**
-   * Pre-rendered glow sprite.
-   *
-   * The draw loop used to set ctx.shadowBlur per particle per frame — with ~130
-   * particles that is ~8000 shadowed fills a second, and canvas shadowBlur is
-   * among the slowest 2D operations available. Every particle is the same dot
-   * at a different size and alpha, so it is rasterised once and blitted with
-   * drawImage instead. Same look, a fraction of the cost.
-   */
+    /** Pre-rendered glow sprite. */
   const SPRITE_R = 8;
   const SPRITE_SIZE = SPRITE_R * 6;
   let sprite: HTMLCanvasElement | null = null;
@@ -172,17 +142,7 @@
     ctx.clearRect(0, 0, width, height);
 
     for (const p of particles) {
-      /*
-        Motion is a PERSISTENT heading that slowly turns, not a damped random
-        walk. The previous version added symmetric noise and then damped it by
-        0.97 — the noise averaged to zero and the damping ate what was left, so
-        the field was effectively frozen ("the particles are not moving at all").
-        A constant speed along a wandering angle keeps every particle in motion
-        indefinitely, in its own direction, with no shared axis to read as rain.
-
-        `gravity` stays an opt-in knob and defaults to 0; any shared downward
-        constant is what made this look like rain in the first place.
-      */
+            /* Motion is a PERSISTENT heading that slowly turns, not a damped random walk. */
       p.angle += p.turn;
       p.vx = Math.cos(p.angle) * p.speed;
       p.vy = Math.sin(p.angle) * p.speed + gravity;
@@ -206,11 +166,7 @@
       p.y += p.vy;
       p.phase += p.phaseStep;
 
-      /*
-        Wrap on all four edges rather than respawning at the top. Respawning
-        upward reintroduced a top-to-bottom bias — the very thing that made this
-        look like rain — because every recycled particle re-entered from above.
-      */
+            /* Wrap on all four edges rather than respawning at the top. */
       const M = 6;
       if (p.x < -M) p.x = width + M;
       else if (p.x > width + M) p.x = -M;

@@ -1,20 +1,4 @@
-<!--
-  /more section: honors.
-
-  Boxed to match the "Also around campus" panel it sits beneath, so the two
-  read as a pair rather than one framed and one loose. ("The honors section
-  should be boxed like Also Around campus. Have an emoji for honors.")
-
-  Per-pill trophy icons are gone — with five pills in a row they were five
-  repetitions of the same glyph carrying no information. The placement label
-  above each event already says what kind of result it was.
-
-  Eagle Scout keeps a mark, because it is the one entry that is NOT a
-  competition result: a fleur-de-lis, the Boy Scouts emblem, rather than a
-  generic medal.
-
-  Data: more.honors in src/constants/more.ts (see the `kind` discriminator)
--->
+<!-- /more section: honors. -->
 <script lang="ts">
   import { fly } from "svelte/transition";
   import { theme } from "../../lib/stores";
@@ -42,9 +26,8 @@
         in:fly={{ y: 10, delay: i * 50, duration: 300 }}
         title={honor.detail ?? ""}
       >
-        <!-- {#if honor.kind === "rank"}
-          <FleurDeLisIcon class="h-4 w-4 flex-shrink-0 text-amber-900" />
-        {/if} -->
+                <!-- {#if honor.kind === "rank"} <FleurDeLisIcon class="h-4 w-4 flex-shrink-0
+             text-amber-900" /> {/if} -->
 
         <span class="leading-tight">
           <span

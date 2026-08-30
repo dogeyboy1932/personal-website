@@ -12,24 +12,9 @@ export function getTechColor(tech: string, index: number, techColors: string[]) 
   return techColors[hash];
 }
 
-/**
- * Colours for a whole badge row, guaranteeing no two ADJACENT badges match.
- *
- * ("In stack two of the SAME color can never be side by side")
- *
- * getTechColor hashes each name independently, so nothing stopped two
- * neighbours landing on the same entry — and with ten colours and rows of five,
- * a collision somewhere on the page is close to certain rather than unlucky.
- * Per-badge hashing cannot fix this: avoiding a neighbour is a property of the
- * SEQUENCE, so the sequence has to be what gets coloured.
- *
- * Each badge keeps its hashed colour when that colour differs from the one
- * before it, so most badges are unchanged and a given tech stays visually
- * stable. On a clash it steps forward through the palette to the next entry
- * that clears the previous badge — the smallest move that satisfies the rule.
- *
- * Returns [] for an empty palette rather than looping forever.
- */
+/** Colours for a whole badge row, guaranteeing no two ADJACENT badges match. getTechColor hashes
+   each name independently, so nothing stopped two neighbours landing on the same entry — and with
+   ten colours and rows of five, a collision somewhere on the page is close to certain rather than */
 export function getTechColors(techs: string[], techColors: string[]): string[] {
   if (!techColors.length) return techs.map(() => '');
 

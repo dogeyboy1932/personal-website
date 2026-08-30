@@ -1,29 +1,4 @@
-<!--
-  FX: flowing-menu
-  Source: https://reactbits.dev/components/flowing-menu (React) — reimplemented in Svelte
-
-  Full-width rows. Hovering one slides a marquee panel in from the direction
-  the cursor entered, scrolling the row's note across it on repeat.
-
-  Routed to TRAVEL per the brief ("maybe the flowing menu could be for like the
-  travel stuff where I indicate what countries I've been to") — one row per
-  country, the marquee carrying the flag and the note.
-
-  Used by: src/components/MORE/TravelSection.svelte
-
-  Tunables:
-    items      [{ key, label, note, badge }]
-    marquee    seconds per marquee loop     default 12
-    rowHeight  CSS height of each row       default "4.5rem"
-
-  Entry direction: the original React version measures where the pointer
-  crossed the row's edge and animates in from that side. That is preserved
-  here — the panel slides down if you enter from the top and up if from the
-  bottom, which is what makes the effect feel physical rather than canned.
-
-  Rows render as <a> when `href` is set, otherwise as plain divs; the marquee
-  panel is aria-hidden since it only repeats content already in the row.
--->
+<!-- FX: flowing-menu — Full-width rows. -->
 <script lang="ts">
   export let items: {
     key: string;
@@ -35,15 +10,8 @@
   }[] = [];
   export let marquee = 12;
   export let rowHeight = "4.5rem";
-  /**
-   * 0 = the original full-width row list.
-   * >0 = a grid with this many columns, each CELL behaving as one flowing row.
-   *
-   * Added for the /more countries: seven full-width rows was a large part of
-   * why that page ran long, but the hover-marquee is the effect the user picked
-   * for travel. ("i think the current setup for the countries is good. Each
-   * cell can be a flow menu.")
-   */
+    /** 0 = the original full-width row list. >0 = a grid with this many columns, each CELL behaving as
+     one flowing row. */
   export let columns = 0;
 
   /** Per-row entry/exit direction: -1 = from above, 1 = from below. */
@@ -128,20 +96,8 @@
     border-top: 0;
   }
 
-  /*
-    A LIGHT WARM BORDER, so the country cells read as their own thing rather
-    than as seven more neutral boxes on a page full of neutral boxes.
-    ("add a little border color to country card so it's more identifiable...keep
-    it light")
-
-    --warm rather than a literal, and at 0.22 alpha: the same hue as the orange
-    marquee panel that slides in on hover, so the resting border reads as a
-    preview of the interaction instead of an unrelated accent. Alpha does the
-    "keep it light" — it is a tint on the border only, nothing filled.
-
-    Hover lifts it to 0.5 so the cell acknowledges the pointer before the panel
-    finishes sliding in.
-  */
+    /* A LIGHT WARM BORDER, so the country cells read as their own thing rather than as seven more
+     neutral boxes on a page full of neutral boxes. */
   .is-grid .fx-fm-row {
     border-bottom: 0;
     border: 1px solid rgb(var(--warm) / 0.22);
@@ -154,9 +110,7 @@
     border-color: rgb(var(--warm) / 0.5);
   }
 
-  /* Flag LEFT of the name, not stacked above it. ("The flag icon should be
-     left of the country name.") Row + centred as a pair, so short and long
-     names both sit balanced in the cell. */
+    /* Flag LEFT of the name, not stacked above it. */
   .is-grid .fx-fm-face {
     flex-direction: row;
     align-items: center;
@@ -257,27 +211,8 @@
     align-items: center;
     overflow: hidden;
     background: linear-gradient(90deg, #f59e0b, #fb923c, #f59e0b);
-    /*
-      --fm-dir is -1 when the pointer crossed the top edge and 1 when it
-      crossed the bottom, so the panel always arrives from where you came.
-
-      101%, not 100%, and visibility:hidden on top of it. ("when I mount 'more'
-      the countries card has an orange line that appears at the top of the card
-      occassionally...I don't want that to happen")
-
-      At exactly 100% the panel's edge lands exactly on the row's edge, and the
-      row is clipped by overflow:hidden on a rounded, fractionally-positioned
-      grid cell. Rounding at that boundary leaves a sub-pixel of orange showing
-      — intermittently, because whether it rounds in or out depends on the
-      cell's fractional y, which changes with viewport width and with the
-      transform scroll-reveal applies while the page is mounting. That is
-      exactly the "occasionally" in the report.
-
-      101% moves the edge off the boundary entirely. visibility is the
-      guarantee: at rest the panel is not painted at all, so no rounding rule
-      can expose it. Its transition is delayed by the slide duration so the
-      panel stays visible for the whole slide OUT, then stops being painted.
-    */
+        /* --fm-dir is -1 when the pointer crossed the top edge and 1 when it crossed the bottom, so the
+       panel always arrives from where you came. 101%, not 100%, and visibility:hidden on top of it. */
     transform: translateY(calc(var(--fm-dir) * -101%));
     visibility: hidden;
     transition:

@@ -1,6 +1,4 @@
-/**
- * Projects and portfolio showcase
- */
+/** Projects and portfolio showcase */
 
 import type { Project } from "../types";
 

@@ -6,17 +6,9 @@
 
   export let tech: string;
   export let index: number = 0;
-  /**
-   * Drop the per-tech colour and the blue fill. Experience cards use this;
-   * project cards do not. ("Just make everything in experience white/silver.")
-   */
+    /** Drop the per-tech colour and the blue fill. */
   export let neutral = false;
-  /**
-   * Precomputed colour class. Rows pass this from getTechColors() so adjacent
-   * badges are guaranteed to differ — a property of the sequence, which a
-   * single badge cannot know on its own. Falls back to per-badge hashing when
-   * a call site renders a lone badge.
-   */
+    /** Precomputed colour class. */
   export let color: string | null = null;
 
   $: colorClass = neutral

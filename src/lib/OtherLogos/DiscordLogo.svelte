@@ -1,11 +1,5 @@
-<!--
-  Discord mark, sized like the lucide icons beside it: pass `class="h-5 w-5"`.
-
-  CAVEAT: the artwork is drawn on a 256x256 canvas (the glyph spans x28-228,
-  y51-206). The viewBox must match it. This previously computed `0 0 2 2`, which
-  magnified a 2px corner of the canvas to fill the box — that is why the logo
-  looked enormous and cropped.
--->
+<!-- Discord mark, sized like the lucide icons beside it: pass `class="h-5 w-5"`.
+     CAVEAT: the artwork is drawn on a 256x256 canvas (the glyph spans x28-228, y51-206). -->
 <script lang="ts">
   /** Explicit px size. Omit and size with `class` instead, like lucide. */
   export let size: number | string | undefined = undefined;

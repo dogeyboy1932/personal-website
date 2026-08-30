@@ -1,12 +1,5 @@
-<!--
-  FX: option-wheel — options fan along an arc, one in focus, neighbours dimming.
-  Rotate with the arrows, arrow keys, a drag, or by clicking a neighbour.
-
-  Only a WINDOW of the wheel is rendered (`visible` either side of centre), so
-  the footprint is roughly one card plus the arc's dip rather than a diameter.
-
-  Slot props: item, index, isActive.
--->
+<!-- FX: option-wheel — options fan along an arc, one in focus, neighbours dimming. — Rotate with
+     the arrows, arrow keys, a drag, or by clicking a neighbour. -->
 <script lang="ts">
 
   type Item = $$Generic;
@@ -20,26 +13,17 @@
   export let label = "Options";
   /** Shown beside the counter in the right-hand pocket. */
   export let hint = "";
-  /**
-   * "horizontal" fans left-to-right; "vertical" stacks top-to-bottom with the
-   * arc bulging sideways. Vertical suits a narrow column beside other content.
-   */
+    /** "horizontal" fans left-to-right; "vertical" stacks top-to-bottom with the arc bulging sideways. */
   export let orientation: "horizontal" | "vertical" = "horizontal";
-  /**
-   * Track height. In vertical mode this MUST cover the whole fan —
-   * cardHeight + 2 * visible * spreadX — or the outer cards spill out of the
-   * track and collide with the controls beneath it.
-   */
+    /** In vertical mode this MUST cover the whole fan — cardHeight + 2 * visible * spreadX — or the
+     outer cards spill out of the track and collide with the controls beneath it. */
   export let trackHeight = 190;
   /** Card height; only needed to centre slots in vertical mode. */
   export let cardHeight = 120;
 
   $: count = items.length;
 
-  /* CAVEAT: must be a reactive statement, not a function called from the
-     template. As `{@const offset = offsetOf(i)}` Svelte could not see the
-     dependency on `active`, so the counter updated while every card stayed
-     frozen — the wheel highlighted a new card without moving. */
+    /* CAVEAT: must be a reactive statement, not a function called from the template. */
   $: offsets = items.map((_, index) => {
     const n = items.length;
     if (!n) return 0;
@@ -126,10 +110,8 @@
      LATCHED — the browser picks a target when the gesture starts. Binding to
      the cards let them animate out from under the cursor, handing the rest of
      the gesture to the document and scrolling the page. */
-  /* Px of accumulated scroll per step. 28 spun the wheel several cards for one
-     flick of a trackpad; 85 is roughly one notch of a mouse wheel (deltaY 100)
-     or a deliberate trackpad swipe. ("reduce sensitivity of scrolling of the
-     option wheel") */
+    /* Px of accumulated scroll per step. 28 spun the wheel several cards for one flick of a trackpad;
+     85 is roughly one notch of a mouse wheel (deltaY 100) or a deliberate trackpad swipe. */
   const WHEEL_THRESHOLD = 85;
   let wheelAcc = 0;
 
@@ -152,12 +134,7 @@
   aria-label={label}
   on:keydown={onKeydown}
 >
-  <!--
-    Scroll and drag are bound HERE. Not on the wrapper (that would include the
-    counter pocket beside the fan) and NOT on the cards (they animate out from
-    under the cursor mid-gesture and the browser latches the rest of the scroll
-    to the page). See the note on onWheel.
-  -->
+    <!-- Scroll and drag are bound HERE. -->
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
     class="fx-ow-track"
@@ -202,13 +179,7 @@
     {/each}
   </div>
 
-  <!--
-    Counter and hint sit in the empty pocket to the RIGHT of the fan, not under
-    it. ("put the x/11 to the right of the wheel (it can be absolute mounted).
-    There is empty space to the right of the wheel and the text can fit into
-    that pocket.") Absolute, so they cost no height — which is also what stops
-    the section growing when the type gets bigger.
-  -->
+    <!-- Counter and hint sit in the empty pocket to the RIGHT of the fan, not under it. -->
   <div class="fx-ow-aside">
     <span class="fx-ow-count">{count ? active + 1 : 0} / {count}</span>
     {#if hint}
@@ -218,15 +189,7 @@
 </div>
 
 <style>
-  /*
-    A flex ROW: the fan on the left, the counter/hint pocket on the right.
-
-    The aside used to be position:absolute against a centred track, which left
-    it whatever slack happened to remain beside the cards — so making the
-    counter legible and making the cards bigger were in direct competition, and
-    the hint clipped. As a real flex item it gets a declared minimum and the
-    cards take the rest.
-  */
+    /* A flex ROW: the fan on the left, the counter/hint pocket on the right. */
   .fx-option-wheel {
     position: relative;
     display: flex;
@@ -238,27 +201,12 @@
     outline: none;
     touch-action: pan-y;
     user-select: none;
-    /* The fanned neighbours sit up to ~3 card-widths either side of centre and
-       pushed 113px of horizontal scroll onto the page. They are already faded
-       at that distance, so clipping them is invisible — and cheaper than
-       narrowing the fan, which would flatten the arc. */
+        /* The fanned neighbours sit up to ~3 card-widths either side of centre and pushed 113px of
+       horizontal scroll onto the page. */
     overflow: hidden;
   }
 
-  /*
-    FLUID, capped at the nominal card width.
-
-    This used to be `width: var(--ow-card); flex: 0 0 auto` — a hard 324px that
-    could not shrink. Once the /more grid cell was allowed to shrink (min-w-0,
-    needed to stop the wheel forcing horizontal page scroll) the column became
-    narrower than the wheel at some widths, and the fan was clipped by
-    .fx-option-wheel's overflow:hidden — cards visibly cut off at the divider.
-
-    flex: 1 1 auto with max-width means the track takes whatever the counter
-    pocket leaves, never more than a full card and never more than the column
-    has. min-width: 0 is required or the flex item's automatic minimum size puts
-    the fixed floor straight back.
-  */
+    /* FLUID, capped at the nominal card width. */
   .fx-ow-track {
     position: relative;
     cursor: grab;
@@ -317,14 +265,10 @@
      or clips no matter how wide the cards get. */
   .fx-ow-aside {
     display: flex;
-    /* 0 0 auto, not 1 1 auto: the pocket takes only what the text needs so the
-       leftover goes to pushing the fan rightward, rather than the pocket
-       absorbing it. */
+        /* 0 0 auto, not 1 1 auto: the pocket takes only what the text needs so the leftover goes to
+       pushing the fan rightward, rather than the pocket absorbing it. */
     flex: 0 0 auto;
-    /* 6rem, down from 7rem. Measured, the hint's own scrollWidth is 96px, so
-       7rem (112px) was reserving 16px the text never used — and the pocket and
-       the cards share one row, so that slack was width the cards could not
-       have. */
+        /* 6rem, down from 7rem. */
     min-width: 6rem;
     flex-direction: column;
     align-items: flex-end;
@@ -355,17 +299,7 @@
     line-height: 1.3;
   }
 
-  /*
-    Mobile step-down. The fan is a FIXED px width and the pocket sizes to its
-    text, so together they set the flex row's min-content width — at 296px card
-    + 138px pocket that is 442px, which pushed 51px of horizontal scroll onto
-    the page at 420px wide. The desktop enlargement is what introduced it.
-
-    --ow-card is written inline by the component, so a media query cannot
-    override the custom property (inline wins). max-width is overridden with a
-    literal instead; same specificity, later in the sheet, so this wins. The
-    slots need no override now that they size from the track's edges.
-  */
+    /* Mobile step-down. */
   @media (max-width: 520px) {
     .fx-ow-track {
       max-width: 200px;
@@ -375,9 +309,7 @@
       min-width: 0;
     }
 
-    /* The hint is nowrap by requirement, so its own width is part of the row's
-       min-content. At 0.74rem it is 138px, which still overflowed a 360px
-       screen; 0.6rem brings it to ~112px. */
+        /* The hint is nowrap by requirement, so its own width is part of the row's min-content. */
     .fx-ow-hint {
       font-size: 0.6rem;
       letter-spacing: 0.06em;

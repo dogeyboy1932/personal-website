@@ -1,25 +1,5 @@
-<!--
-  FX: share-button
-  Source: https://animate-ui.com/docs/components/community/share-button (React) — reimplemented in Svelte
-
-  A pill that fans its icons out on hover, staggered, so you can hover across
-  them and click any one. The brief singled out that interaction specifically:
-  "I like the hover and being able to click around icons."
-
-  Used by: src/components/MORE/ConnectFooter.svelte
-
-  Tunables:
-    actions   [{ label, handle, href?, icon }]
-    label     resting pill text                default "Find me"
-    stagger   ms between adjacent icons        default 55
-
-  An action without `href` (Discord — a handle, not a linkable profile) renders
-  as a button that copies the handle to the clipboard and reports back, rather
-  than as a dead link.
-
-  The fan stays open on focus-within, so keyboard users can tab through the
-  icons instead of the group collapsing the moment hover ends.
--->
+<!-- FX: share-button — A pill that fans its icons out on hover, staggered, so you can hover across
+     them and click any one. -->
 <script lang="ts">
   import { Instagram, Mail, Github, Linkedin, Check, Copy, ChessKnightIcon } from "lucide-svelte";
   import { theme } from "../../lib/stores";
@@ -28,6 +8,7 @@
   import DiscordLogo from "../../lib/OtherLogos/DiscordLogo.svelte"
 
   export let actions: SocialHandle[] = [];
+  /** Resting pill text. Reads as unused only because the label span below is commented out. */
   export let label = "Find me";
   /** Travelling arc — the shared `.fx-arc` class from src/styles/effects.css. */
   export let glow = false;
@@ -68,9 +49,7 @@
     class="fx-sb-pill {$theme.bg.secondary} {$theme.border.default} {$theme.text.secondary}"
     class:fx-arc={glow}
   >
-    <!-- Absolutely centred, so the icons occupy the SAME space rather than
-         sitting next to it. ("just replace the find me with the logos when the
-         hover happens") -->
+        <!-- Absolutely centred, so the icons occupy the SAME space rather than sitting next to it. -->
     <!-- <span class="fx-sb-label">{label}</span> -->
 
     <div class="fx-sb-fan">
@@ -103,7 +82,7 @@
             {#if copied === action.handle}
               Copied
             {:else}
-              {action.handle}{#if !action.href}{/if}
+              {action.handle}
             {/if}
           </span>
         </div>
@@ -144,11 +123,7 @@
     gap: 0.4rem;
   }
 
-  /*
-    The label sits ON TOP of the icon row, not beside it. Both occupy the pill's
-    full box, so the swap is a crossfade in place and the pill never changes
-    size — the icons land exactly where the words were.
-  */
+    /* The label sits ON TOP of the icon row, not beside it. */
   .fx-sb-label {
     position: absolute;
     inset: 0;
@@ -167,16 +142,9 @@
     transform: translateY(-45%);
   }
 
-  /*
-    The slot reserves its full width AT REST, so the pill is already its final
-    size and does not grow on hover. ("The button itself shouldn't increase in
-    size from how it currently is...it should already be that big size. Once I
-    hover over it, then the logos will appear coming in from the bottom")
-
-    overflow:hidden is what makes the icons read as arriving from BELOW the
-    button rather than just fading in place — the icon starts pushed down past
-    the slot's bottom edge and is clipped until it rises into view.
-  */
+    /* The slot reserves its full width AT REST, so the pill is already its final size and does not
+     grow on hover. overflow:hidden is what makes the icons read as arriving from BELOW the button
+     rather than just fading in place — the icon starts pushed down past the slot's bottom edge and */
   .fx-sb-slot {
     position: relative;
     width: 2.6rem;
@@ -193,22 +161,9 @@
     border-radius: 9999px;
   }
 
-  /* .fx-sb-rise {
-    display: block;
-    height: 100%;
-    opacity: 0;
-    transform: translateY(115%);
-    transition:
-      opacity 240ms ease,
-      transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
-    transition-delay: calc(var(--sb-index) * var(--sb-stagger));
-  }
-
-  .fx-sb-pill:hover .fx-sb-rise,
-  .fx-sb-pill:focus-within .fx-sb-rise {
-    opacity: 1;
-    transform: translateY(0);
-  } */
+    /* .fx-sb-rise { display: block; height: 100%; opacity: 0; transform: translateY(115%);
+     transition: opacity 240ms ease, transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+     transition-delay: calc(var(--sb-index) * var(--sb-stagger)); } .fx-sb-pill:hover .fx-sb-rise, */
 
   .fx-sb-action {
     display: inline-flex;

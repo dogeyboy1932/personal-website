@@ -36,16 +36,7 @@
   <!-- FX:scroll-reveal -->
   <section use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}> 
     <SectionHeader id="experiences" title={sections.prof_experiences} />
-    <!--
-      2-up by default, 3-up only when there is genuinely room. ("make experience
-      cards look better")
-
-      At 3-up with the 125% page zoom the effective card width was ~370px, and
-      the cards came apart: "Graduate Research Assistant" broke over three
-      lines, summaries clipped mid-word, and the date badge pushed past the
-      card's right edge. 2xl is 1536 CSS px, which with the zoom means a genuine
-      ~1920px monitor — the only place three of these actually fit.
-    -->
+        <!-- 2-up by default, 3-up only when there is genuinely room. -->
     <div class="grid gap-5 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
       {#each experiences as experience, i}
         <ExperienceCard {experience} index={i} />

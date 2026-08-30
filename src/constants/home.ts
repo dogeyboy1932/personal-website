@@ -6,13 +6,7 @@ export const lastUpdated = "8/26";
 
 export const homeHero = {
   tagline: "Portfolio 2026",
-  /*
-    The five-second answer to "who is this and what drives him".
-    Deliberately: one short hook line, then the driver, then the proof. Kept to
-    three beats — anything longer and the answer arrives too late.
-    Rendered larger and brighter than the old version, which was small grey
-    body copy that read as filler.
-  */
+    /* The five-second answer to "who is this and what drives him". */
   summary:
     "Heyyy, I'm Akhil! 👋\n\n" +
     "I'm building AI systems that turn new technology into something people can actually use \n\n" +
@@ -88,8 +82,8 @@ export const homeFocusAreas = [
  *  section, not the top of /portfolio. */
 export const homeQuickLinks = [
   { label: "Portfolio", href: "/portfolio" },
-  { label: "More about me", href: "/more" },
   { label: "Full stack", href: "/portfolio#skills" },
+  { label: "More about me", href: "/more" },
 ] as const;
 
 

@@ -1,27 +1,4 @@
-<!--
-  FX: flip-card
-  Source: https://animate-ui.com/docs/components/community/flip-card (React) — reimplemented in Svelte
-
-  A card that rotates on its Y axis to reveal a back face. Routed here per the
-  brief's instruction that flip-cards suit "information stuff" — the front stays
-  scannable, the detail is on demand, which is exactly the "minimal amount of
-  context" the /more page was asked for.
-
-  Used by: src/components/MORE/InterestGrid.svelte
-
-  Tunables:
-    duration  ms of the flip                          default 550
-    trigger   "hover" | "click" | "both"              default "both"
-    flipped   bound; force the state from outside
-
-  Accessibility: the card is a real <button> so it is tabbable and flips on
-  Enter/Space, and the back face is aria-hidden while it faces away so screen
-  readers don't read both sides at once. Touch devices get no hover, hence
-  "both" as the default trigger.
-
-  `transform-style: preserve-3d` with `backface-visibility: hidden` on each
-  face is what makes this one element rather than a crossfade of two.
--->
+<!-- FX: flip-card — A card that rotates on its Y axis to reveal a back face. -->
 <script lang="ts">
   export let duration = 550;
   export let trigger: "hover" | "click" | "both" = "both";
@@ -79,9 +56,8 @@
     transition: transform var(--fc-duration) cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* focus-visible is scoped to the hoverable variant too: with trigger="click"
-     the card must only turn on an actual click, or tabbing through a wheel of
-     them flips each one in passing. */
+    /* focus-visible is scoped to the hoverable variant too: with trigger="click" the card must only
+     turn on an actual click, or tabbing through a wheel of them flips each one in passing. */
   .fx-flip-card.is-flipped .fx-fc-inner,
   .fx-flip-card.is-hoverable:hover .fx-fc-inner,
   .fx-flip-card.is-hoverable:focus-visible .fx-fc-inner {

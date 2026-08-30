@@ -1,8 +1,8 @@
 <script lang="ts">
   import MatrixRain from "../lib/MatrixRain.svelte";
+  import  CursorParticles  from "../lib/CursorParticles.svelte";
   import { NavigationBar } from "../components/NAVIGATIONBAR";
-import { CursorParticles } from "../components/PORTFOLIO";
-
+  
   import "@fontsource/plus-jakarta-sans";
   import "../styles.css";
   import { fade, fly } from "svelte/transition";
@@ -45,11 +45,9 @@ import { CursorParticles } from "../components/PORTFOLIO";
     <main
       class={`relative z-10 w-full px-4 md:px-8 ${fonts.primary}`}
     >
-      <!-- No backdrop-blur on this panel, on purpose: it is viewport-sized and
-           MatrixRain animates behind it, so the blur could never be cached and
-           was re-computed across the whole page every frame. It was the single
-           largest rendering cost on the site. The panel's own translucent
-           background (theme bg.page) already separates it from the rain. -->
+            <!-- No backdrop-blur on this panel, on purpose: it is viewport-sized and MatrixRain animates
+           behind it, so the blur could never be cached and was re-computed across the whole page
+           every frame. -->
       <div in:fly={{ y: 6, duration: 350 }}
         class="max-w-[1600px] mx-auto rounded-b-xl border {$theme.border.default} {$theme.bg.page} p-3 shadow-2xl {$theme.border.light}"
       >

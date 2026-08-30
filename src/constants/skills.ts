@@ -1,6 +1,4 @@
-/**
- * Skills, hobbies, and proficiency levels
- */
+/** Skills, hobbies, and proficiency levels */
 
 import type { SkillsData } from "../types";
 import { ProficiencyLevel, SkillStatus } from "../types";

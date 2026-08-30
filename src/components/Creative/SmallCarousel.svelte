@@ -1,20 +1,5 @@
-<!--
-  FX: quote-carousel — a single-slide carousel that advances on a timer and can
-  shuffle its order once per load. Content comes from the default slot, so this
-  owns the BEHAVIOUR and the caller owns the markup.
-
-    <QuoteCarousel items={quotes} let:item>
-      <blockquote>{item.quote}</blockquote>
-    </QuoteCarousel>
-
-  Slot props: item, index, isActive.
-
-  CAVEAT: autoplay is a plain interval, not embla-carousel-autoplay. The
-  installed plugin (8.0.0-rc23) is a different release candidate from the core
-  (8.0.0-rc18) and the plugin API moved between them.
-
-  Tunables: items, interval, shuffle, pauseOnHover, class
--->
+<!-- FX: quote-carousel — a single-slide carousel that advances on a timer and can — shuffle its
+     order once per load. -->
 <script lang="ts" generics="T">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";

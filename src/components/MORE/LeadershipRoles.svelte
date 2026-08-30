@@ -1,31 +1,20 @@
-<!--
-  /more: orgs where a real role was held, as spotlight cards.
-
-  The companion to CampusClubs — membership alone is a fact, not a story, so it
-  lives there as chips rather than drowning these three.
-
-  Data: more.leadership
--->
+<!-- /more: orgs where a real role was held, as spotlight cards. -->
 <script lang="ts">
   import { ExternalLink } from "lucide-svelte";
   import { theme } from "../../lib/stores";
-  import LinkPreview from "../LinkPreview.svelte";
+  import LinkPreview from "../../lib/LinkPreview.svelte";
   import type { LeadershipRole } from "../../types";
 
   export let leadership: LeadershipRole[] = [];
 
-  /* Per-org accent, by POSITION not by name. Colour lives on the bar, border,
-     underline and icon only — text stays neutral. Reordering `leadership`
-     therefore reorders the colours; edit here to pin one to an org. */
+    /* Per-org accent, by POSITION not by name. */
   const accents = [
     { bar: "from-orange-500 via-orange-400 to-orange-500", edge: "hover:border-orange-400/60", rule: "decoration-orange-400/60 hover:decoration-orange-300", icon: "text-orange-400/70" },
     { bar: "from-red-800 via-red-700 to-red-800", edge: "hover:border-red-400/60", rule: "decoration-red-400/60 hover:decoration-red-300", icon: "text-red-400/70" },
     { bar: "from-sky-300 via-blue-500 to-indigo-600", edge: "hover:border-blue-400/60", rule: "decoration-blue-400/60 hover:decoration-blue-300", icon: "text-blue-400/70" },
   ];
 
-  /* `role` and `tenure` render as one list of equal items; the separator carries
-     the meaning. A leading Now/Former/etc marks a transition (arrow) rather than
-     a concurrent second role (pipe). */
+    /* `role` and `tenure` render as one list of equal items; the separator carries the meaning. */
   const TRANSITION = /^(now|currently|former|formerly|previously|later)\b/i;
 
   function roleParts(role: string, tenure?: string) {

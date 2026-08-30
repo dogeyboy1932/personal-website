@@ -1,7 +1,5 @@
-/**
- * Central export index for all constants
- * Import from here for cleaner imports: import { experiences, skillsData } from '../constants'
- */
+/** Central export index for all constants Import from here for cleaner imports: import {
+   experiences, skillsData } from '../constants' */
 
 // Experiences
 export { experiences } from "./experiences";

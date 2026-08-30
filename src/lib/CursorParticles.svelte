@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { tokens } from "../../lib/tokens";
+  import { tokens } from "./tokens";
   import { browser } from "$app/environment";
   import { onDestroy, onMount } from "svelte";
 

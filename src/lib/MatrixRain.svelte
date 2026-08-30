@@ -52,19 +52,7 @@
     }
   }
 
-  /**
-   * Pre-rendered glyphs, one per character.
-   *
-   * The previous draw loop called createLinearGradient AND set shadowBlur once
-   * per character per frame — roughly 100 of each at 60fps, so ~6000 gradient
-   * allocations and 6000 shadowed fills a second. Canvas shadowBlur is one of
-   * the slowest 2D operations there is, and it was the single largest remaining
-   * cost on the landing page.
-   *
-   * Every glyph is identical apart from its position, so each is rasterised
-   * once here — gradient and glow baked in — and the loop becomes a plain
-   * drawImage blit. Visually identical, a fraction of the cost.
-   */
+    /** Pre-rendered glyphs, one per character. */
   const GLOW = 5;
   const PAD = GLOW + 3;
   let glyphs: HTMLCanvasElement[] = [];
@@ -108,15 +96,8 @@
   // Rebuild the atlas when the theme flips the colors.
   $: if (browser && primaryColor && secondaryColor) buildGlyphs();
 
-  /*
-    Frame throttle. The rain advanced one row per animation frame, i.e. at the
-    display's refresh rate — too fast, and it repainted a full-viewport canvas
-    60 times a second for no visual gain. Stepping at ~20fps both slows the
-    fall and cuts the canvas work to a third. ("THe matrix rain is too fast. To
-    lower processing, make it go a little slower.")
-
-    Raise STEP_MS to slow it further; lower it to speed it up.
-  */
+    /* Frame throttle.
+     Stepping at ~20fps both slows the fall and cuts the canvas work to a third. */
   const STEP_MS = 50;
   let lastStep = 0;
 
@@ -171,9 +152,6 @@
   });
 </script>
 
-<!-- FX:side-rays — the trail fade (rgba(0,0,0,0.05) per frame) accumulates, so
-     this canvas is an opaque black sheet carrying dim glyphs. Dimming the
-     canvas itself therefore just darkens the page without making the rain any
-     more visible; the glimmer is dialled in via the translucent page panel
-     (theme bg.page) instead, so the canvas stays at full strength. -->
+<!-- FX:side-rays — the trail fade (rgba(0,0,0,0.05) per frame) accumulates, so — this canvas is an
+     opaque black sheet carrying dim glyphs. -->
 <canvas bind:this={canvas} class="fixed top-0 left-0 w-full h-full -z-10" />

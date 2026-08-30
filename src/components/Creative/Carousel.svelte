@@ -15,14 +15,7 @@
   };
   export let carouselItemClass = "";
   export let carouselItemsClass = "";
-  /**
-   * Slides visible at once. Null follows the global breakpoint store, which is
-   * the right default — but a caller whose cards need more room can pin it.
-   *
-   * Added for the experiences carousel: at the store's desktop value of 3 each
-   * ExperienceCard is ~370px, which is the exact width that made roles wrap to
-   * three lines and summaries clip mid-word when the grid was 3-up.
-   */
+    /** Slides visible at once. */
   export let itemsPerView: number | null = null;
 
   // Responsive items per section, unless the caller pinned it.

@@ -1,8 +1,4 @@
-<!--
-  /more: everything else, as chips. The companion to LeadershipRoles.
-
-  Data: clubs in src/constants/
--->
+<!-- /more: everything else, as chips. -->
 <script lang="ts">
   import { fly } from "svelte/transition";
   import { Users } from "lucide-svelte";

@@ -16,9 +16,8 @@
 
 </script>
 
-<!-- FX:background-gradient — wraps rather than overlays: the card sets
-     overflow-hidden, so a glow rendered inside would be clipped at exactly the
-     edge it needs to bleed past. Delete the wrapper tags to remove. -->
+<!-- FX:background-gradient — wraps rather than overlays: the card sets — overflow-hidden, so a glow
+     rendered inside would be clipped at exactly the edge it needs to bleed past. -->
 <BackgroundGradient class="h-full" radius="0.75rem" palette="aurora" spread={3} idle={0.3}>
 <div
   class="group relative overflow-hidden rounded-xl border {$theme.border.default} {$theme.bg.card} shadow-lg transition hover:-translate-y-1 hover:shadow-2xl flex flex-col h-full"

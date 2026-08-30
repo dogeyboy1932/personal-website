@@ -1,28 +1,8 @@
-/*
-  Shared visual effects. Global on purpose.
+/* Shared visual effects.
+   CAVEAT: Svelte SCOPES component <style> — it hashes selectors and strips rules it cannot match
+   against that component's own markup. */
 
-  CAVEAT: Svelte SCOPES component <style> — it hashes selectors and strips rules
-  it cannot match against that component's own markup. So a class defined in a
-  .svelte file can never style another component's element, not via import, not
-  via :global(), not from lib/. A plain stylesheet loaded once is the only thing
-  that works on any element anywhere.
-
-  Usage — every knob has a default, so the bare class works alone:
-    <button class="fx-arc">Find me</button>
-    <a class="fx-arc fx-arc-reactive" style="--fx-arc-rgb: 34 211 238;">Portfolio</a>
-
-  The host needs position:relative and a border-radius the ring can inherit.
-*/
-
-/*
-  fx-arc — a bright arc travelling around an element's border.
-    --fx-arc-rgb | -thickness | -duration | -inset | -head
-    .fx-arc-reactive adds a hover speed-up and brighten.
-
-  CAVEAT: the angle must be a TYPED @property or it cannot be interpolated and
-  the gradient jumps instead of rotating. @property is a global at-rule and
-  re-registering the same name is idempotent, so this is safe to share.
-*/
+/* fx-arc — a bright arc travelling around an element's border. */
 @property --fx-arc-angle {
   syntax: "<angle>";
   initial-value: 0deg;
