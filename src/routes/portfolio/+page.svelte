@@ -81,7 +81,7 @@
   <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
     <SectionHeader id="skills" title={sections.skills} />
-    <div class="grid gap-5" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-2={$breakpoints.isTablet} class:grid-cols-3={$breakpoints.isDesktop}>
+    <div class="grid gap-3" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-2={$breakpoints.isTablet} class:grid-cols-3={$breakpoints.isDesktop}>
       <!-- `index` drives the per-category accent off the shared neon ramp. -->
       {#each skillsData.skills as category, index}
         <SkillCategoryCard {category} {index} />

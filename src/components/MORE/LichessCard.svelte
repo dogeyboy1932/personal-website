@@ -91,7 +91,7 @@
       <!-- Full-bleed to the card's right and vertical edges via negative
            margins that cancel its p-5. -->
       <div
-        class="-my-5 -mr-5 border-l-2 border-brand/50 bg-slate-950/90 px-5 py-5 sm:pl-5"
+        class="-my-5 -mr-5 border-l-2 border-brand/50 bg-slate-950/90 px-5 py-3 sm:pl-5"
       >
         <slot />
       </div>

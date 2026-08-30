@@ -15,7 +15,7 @@ export const homeHero = {
   */
   summary:
     "Heyyy, I'm Akhil! 👋\n\n" +
-    "I'm building AI systems that turn new technology into something people can actually use, \n\n" +
+    "I'm building AI systems that turn new technology into something people can actually use \n\n" +
     "I see myself as highly driven, keeping myself informed of emerging trends and seeking opportunities to learn, grow, and deliver meaningful value.",
     // "I'm drawn to problems nobody has settled yet, where the right answer still has to be found rather than looked up. So far that's meant shipping at PwC, research at UIUC, and a stack of hackathon wins.",
   // I see myself as highly driven, keeping myself informed of emerging trends and seeking opportunities to learn, grow, and deliver meaningful value. 

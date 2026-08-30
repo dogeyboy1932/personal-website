@@ -31,7 +31,7 @@
 </script>
 
 <div
-  class="group relative overflow-hidden rounded-sm border {$theme.border.default} {accent.border} {$theme.bg.card} p-6 shadow-lg transition-shadow"
+  class="group relative overflow-hidden rounded-sm border {$theme.border.default} {accent.border} {$theme.bg.card} p-4 shadow-lg transition-shadow"
   in:fly={{ y: 16, delay: index * 60 }}
 >
   <!-- The card's accent: a hairline across the top edge. -->
