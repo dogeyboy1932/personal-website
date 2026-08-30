@@ -27,7 +27,8 @@
 <div class="rounded-2xl border {$theme.border.default} {$theme.bg.card} p-5">
   <div class="mb-3 flex items-center gap-2">
     <span class="text-base leading-none" aria-hidden="true">🏆</span>
-    <h4 class="meta-label text-[11px] {$theme.text.muted}">Honors</h4>
+    <!-- .meta-label-strong: shared with "Also around campus" and the hero. -->
+    <h4 class="meta-label-strong text-xs sm:text-[0.8rem] {$theme.text.secondary}">Honors</h4>
   </div>
 
   <div class="flex flex-wrap gap-2">

@@ -69,10 +69,15 @@
   stats. Make it yellow for now.") — a pair that keeps moving belongs behind
   one switch rather than being edited in two files each time.
 -->
-<div
-  class="flex w-full divide-x {$theme.border.light} rounded-2xl border {$theme.border.default} {$theme.bg.card} py-4"
-  use:countUp
->
+<!--
+  NO CONTAINER. ("remove the container for the stats...it should be embedded to
+  the background if you understand.") The rounded border and card fill are gone;
+  the figures now sit directly on the page and the only structure left is the
+  divide-x rules between them, which is what made it read as a scorecard in the
+  first place. Nothing boxes it in, so it reads as part of the page rather than
+  a widget dropped onto it.
+-->
+<div class="flex w-full divide-x {$theme.border.light} py-2" use:countUp>
   {#each stats as stat, i}
     <div class="flex flex-1 flex-col items-center justify-center px-2">
       <span class="font-display text-3xl font-extrabold tracking-tight text-lede sm:text-4xl">

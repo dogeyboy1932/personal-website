@@ -149,7 +149,11 @@
 
      Deltas accumulate against a threshold so a trackpad's many small events
      don't spin it wildly; preventDefault stops the page moving underneath.  */
-  const WHEEL_THRESHOLD = 28;
+  /* Px of accumulated scroll per step. 28 spun the wheel several cards for one
+     flick of a trackpad; 85 is roughly one notch of a mouse wheel (deltaY 100)
+     or a deliberate trackpad swipe. ("reduce sensitivity of scrolling of the
+     option wheel") */
+  const WHEEL_THRESHOLD = 85;
   let wheelAcc = 0;
 
   function onWheel(event: WheelEvent) {

@@ -58,10 +58,20 @@
   const accents = [
     // AI Alignment @ Illinois — orange
     { bar: "from-amber-400 via-orange-500 to-orange-600", edge: "hover:border-orange-400/60", rule: "decoration-orange-400/60 hover:decoration-orange-300", icon: "text-orange-400/70" },
-    // Illini Blockchain — yellow
-    { bar: "from-yellow-200 via-yellow-400 to-amber-500", edge: "hover:border-yellow-400/60", rule: "decoration-yellow-400/60 hover:decoration-yellow-300", icon: "text-yellow-400/70" },
-    // Sigma Phi Delta — warm red, not alarm red
-    { bar: "from-rose-300 via-red-400 to-rose-500", edge: "hover:border-rose-400/60", rule: "decoration-rose-400/60 hover:decoration-rose-300", icon: "text-rose-400/70" },
+    /*
+      Illini Blockchain — blue. Was yellow, which sat one step from the orange
+      above it on the wheel and read as a second orange. ("make illini
+      blockchain blue")
+    */
+    { bar: "from-sky-300 via-blue-500 to-indigo-600", edge: "hover:border-blue-400/60", rule: "decoration-blue-400/60 hover:decoration-blue-300", icon: "text-blue-400/70" },
+    /*
+      Sigma Phi Delta — actual red. rose-300 -> red-400 -> rose-500 was chosen
+      to avoid "evil red" and landed so warm it read as the orange card again:
+      "Sigma phi is same as ai alignment. It should be red." Now red-400 through
+      red-600, which is unmistakably red while staying short of a pure #f00
+      alarm tone.
+    */
+    { bar: "from-red-400 via-red-500 to-red-600", edge: "hover:border-red-400/60", rule: "decoration-red-400/60 hover:decoration-red-300", icon: "text-red-400/70" },
   ];
 
   // Orgs already spotlighted above shouldn't repeat in the chip cloud.
@@ -136,12 +146,15 @@
   <div class="rounded-2xl border {$theme.border.default} {$theme.bg.card} p-5">
     <div class="mb-3 flex items-center gap-2">
       <Users class="h-4 w-4 {$theme.text.muted}" />
-      <h4 class="meta-label text-[11px] {$theme.text.muted}">Also around campus</h4>
+      <!-- .meta-label-strong: shared with Honors and the hero's MCS line. -->
+      <h4 class="meta-label-strong text-xs sm:text-[0.8rem] {$theme.text.secondary}">
+        Also around campus
+      </h4>
     </div>
     <div class="flex flex-wrap gap-2">
       {#each rest as club, i}
         <span
-          class="inline-flex items-baseline gap-1.5 rounded-full border {$theme.border.light} bg-slate-900/70 px-3 py-1.5 text-xs text-slate-200"
+          class="inline-flex items-baseline gap-1.5 rounded-full border {$theme.border.light} bg-slate-900/70 px-3.5 py-1.5 text-sm text-slate-200"
           in:fly={{ y: 8, delay: 200 + i * 25, duration: 280 }}
         >
           {club.name}
@@ -150,7 +163,7 @@
                  tinted text through the chip cloud — the most literal reading
                  of "the text color for the clubs stuff". Neutral now; the
                  tagline is secondary, so it recedes by tone, not by hue. -->
-            <span class="text-slate-400">({club.tagline})</span>
+            <span class="text-[0.8rem] text-slate-400">({club.tagline})</span>
           {/if}
         </span>
       {/each}
