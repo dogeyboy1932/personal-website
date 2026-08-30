@@ -55,21 +55,12 @@
     <PageHeader title={more.title} />
   </div>
 
-  <!-- ===== WHERE I'VE BEEN (path only) =====
-       Left as-is on request: "All that's untouched on the more page is the
-       where I've been and the find me." -->
-  <!-- FX:scroll-reveal -->
-  <section use:scrollReveal>
-    <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[0].label}</h3>
-    <TravelSection path={more.travel?.path ?? []} show="path" />
-  </section>
-
-  <!-- ===== LEFT: identity + stats + countries | RIGHT: interests wheel =====
-       "Put the stats and off the clock line both to the left. Line them up
-       above countries. THis is the left side." -->
+  <!-- ===== LEFT: identity + stats + where I've been + countries | RIGHT: wheel
+       "Put the stats and off the clock line both to the left... Where I've been
+       should be below the stats row but above countries." -->
   <!-- FX:scroll-reveal -->
   <div class="grid items-start gap-6 lg:grid-cols-[1.1fr_1fr]" use:scrollReveal>
-    <div class="space-y-4">
+    <div class="space-y-5">
       <!-- FX:flip-words — rotating identity line -->
       <p class="text-xl sm:text-2xl {$theme.text.muted}">
         Off the clock, I'm
@@ -81,6 +72,13 @@
       <!-- /FX:flip-words -->
 
       <StatStrip stats={more.stats ?? []} />
+
+      <!-- Left as-is on request: "All that's untouched on the more page is the
+           where I've been and the find me." Only its POSITION moved. -->
+      <div>
+        <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[0].label}</h3>
+        <TravelSection path={more.travel?.path ?? []} show="path" />
+      </div>
 
       <div>
         <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">Countries</h3>

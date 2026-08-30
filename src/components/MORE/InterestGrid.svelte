@@ -41,19 +41,22 @@
      countries. ("Make the option wheel verticle and keep it to the right
      side.") spreadX is the per-step distance along whichever axis is active.
 
-     visible=1 shows three cards, not five: the ask was wider cards AND less
-     height, and dropping a neighbour each side buys the height that the taller
-     cards spend. trackHeight must stay >= cardHeight + 2*visible*spreadX. -->
+     visible=2 shows five cards. ("Option while should have bigger hieight and
+     more visible non-selected rows (5 maybe)")
+
+     trackHeight MUST be >= cardHeight + 2*visible*spreadX, here
+     118 + 2*2*104 = 534. Get it wrong and the outer cards spill past the track
+     onto whatever sits below. -->
 <OptionWheel
   items={interests}
   bind:active
   orientation="vertical"
-  visible={1}
-  spreadX={96}
+  visible={2}
+  spreadX={104}
   dip={16}
-  cardWidth={330}
-  cardHeight={116}
-  trackHeight={310}
+  cardWidth={340}
+  cardHeight={118}
+  trackHeight={534}
   label="Interests"
   let:item
   let:index

@@ -53,14 +53,28 @@
 
   $: count = items.length;
 
-  /** Signed distance from `active`, taking the short way around the wheel. */
-  function offsetOf(index: number): number {
-    if (!count) return 0;
+  /**
+   * Signed distance from `active` for every item, taking the short way around
+   * the wheel.
+   *
+   * This MUST be a reactive statement, not a function called from the template.
+   * It was `{@const offset = offsetOf(i)}` calling a plain function that closed
+   * over `active`; Svelte only tracks the identifiers it can see in the
+   * expression, so it never knew the const depended on `active` and never
+   * recomputed it. The counter and the active-card border updated (those read
+   * `active` directly) while every card transform stayed frozen — the wheel
+   * highlighted a new card without moving.
+   *
+   * Referencing `active` and `items` here is what makes the dependency visible.
+   */
+  $: offsets = items.map((_, index) => {
+    const n = items.length;
+    if (!n) return 0;
     let d = index - active;
-    if (d > count / 2) d -= count;
-    if (d < -count / 2) d += count;
+    if (d > n / 2) d -= n;
+    if (d < -n / 2) d += n;
     return d;
-  }
+  });
 
   const step = (dir: number) => {
     if (!count) return;
@@ -112,7 +126,7 @@
      what "I should be able to scroll when I hover it" asks for. Deltas are
      accumulated against a threshold so a trackpad's many small events don't
      spin it wildly, and preventDefault stops the page scrolling underneath.  */
-  const WHEEL_THRESHOLD = 42;
+  const WHEEL_THRESHOLD = 28;
   let wheelAcc = 0;
 
   function onWheel(event: WheelEvent) {
@@ -147,7 +161,7 @@
     style="height: {trackHeight}px;"
   >
     {#each items as item, i}
-      {@const offset = offsetOf(i)}
+      {@const offset = offsets[i] ?? 0}
       {@const shown = Math.abs(offset) <= visible}
       <div
         class="fx-ow-slot"
@@ -156,7 +170,7 @@
         style="
           --ow-x: {orientation === 'vertical' ? Math.abs(offset) * dip : offset * spreadX}px;
           --ow-y: {orientation === 'vertical' ? offset * spreadX : Math.abs(offset) * dip}px;
-          --ow-scale: {Math.max(0.55, 1 - Math.abs(offset) * 0.22)};
+          --ow-scale: {Math.max(0.6, 1 - Math.abs(offset) * 0.15)};
           --ow-rot: {orientation === 'vertical' ? 0 : offset * 6}deg;
           --ow-fade: {offset === 0 ? 1 : Math.max(0.25, 1 - Math.abs(offset) * 0.28)};
           z-index: {100 - Math.abs(offset)};
