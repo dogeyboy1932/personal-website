@@ -1,0 +1,35 @@
+DEVLOG — updates.txt eleventh pass (88f2565)
+
+SVELTE REACTIVITY TRAP, the important one:
+
+  {@const offset = offsetOf(i)}   // offsetOf() closes over `active`
+
+  Svelte tracks only the identifiers VISIBLE IN THE EXPRESSION. It saw
+  `offsetOf` and `i`, never `active`, so the const was computed once and never
+  recomputed. The counter and the active-card border still updated because
+  those read `active` directly in the template — so the wheel highlighted a
+  new card while every card transform stayed frozen.
+
+  Fix: a reactive statement that references `active` and `items` directly.
+  Rule: if a template value depends on state only through a function call, the
+  compiler cannot see it. Compute it in a `$:` block instead.
+
+I ALSO VERIFIED THIS WRONG, which is why it shipped. My test asserted the
+counter text advanced — a code path that was never broken. The test now
+snapshots the slots' --ow-y custom properties before/after and asserts they
+differ. Lesson: assert on the thing the user sees move, not on a proxy that
+happens to be nearby.
+
+OPTION WHEEL current config: vertical, visible=2 (5 cards), 340x118 cards,
+spreadX 104, trackHeight 534, wheel threshold 28px.
+  - trackHeight MUST be >= cardHeight + 2*visible*spreadX, or outer cards
+    spill past the track.
+  - scroll consumes the page scroll by design (preventDefault) while hovered.
+
+/more layout: header / [identity + stats + where-I've-been + countries |
+wheel] / what-I-ran [roles | clubs+honors] / [lichess | find me]. 1616px.
+
+UNTOUCHED BY REQUEST: where-I've-been content and styling (position only
+moved), Find Me, placeholder country descriptions.
+
+STILL OPEN: "later we'll add more stuff and content on the more page".
