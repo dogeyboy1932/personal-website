@@ -7,24 +7,24 @@ cutting content.
 
 DRIFT WALL was picked over option-wheel and infinite-spiral because it is the
 only one of the three that keeps all 12 items visible; the other two show one
-at a time, which contradicts 'without cutting out information altogether'.
+at a time, which contradicts "without cutting out information altogether".
 Its perf rule: pointer movement writes exactly TWO custom properties on the
 wall inside a rAF, and each tile derives its transform from those by depth.
 Do not set a transform per tile per pointer event — that is what makes walls
 like this stutter.
 
-FLOWING MENU now has a  prop: 0 = original full-width rows,
+FLOWING MENU now has a "columns" prop: 0 = original full-width rows,
 >0 = grid of cells with identical hover/marquee/entry-direction behaviour.
 Added so the countries could stay compact AND keep the effect.
 
-BEAMS: the user reported them glossing the photo/quote. They were NOT — photo
-column is z-40, rays z-30, verified by cropping the figure. Six overlapping
-narrow shafts were brightening the whole hero, which reads the same way.
-Fewer + wider blades fixed the perception. Check the actual stacking before
-changing z-index in response to a glare report.
+BEAMS: the user reported them glossing the photo/quote. They were NOT — the
+photo column is z-40, rays z-30, verified by cropping the figure. Six
+overlapping narrow shafts were brightening the whole hero, which reads the
+same way. Fewer + wider blades fixed the perception. Check the actual
+stacking before changing z-index in response to a glare report.
 
 TRAVEL descriptions are still placeholders the user will rewrite himself;
 they surface only in the hover marquee, so editing more.ts touches no markup.
 
-STILL OPEN: 'later we'll add more stuff and content on the more page'.
+STILL OPEN: "later we'll add more stuff and content on the more page".
 Leadership was left roomy for that.
