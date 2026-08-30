@@ -19,7 +19,7 @@
  *   duration  ms of the reveal transition           default 700
  *   delay     ms before this element starts         default 0
  *   threshold fraction visible before firing        default 0.15
- *   once      unreveal when scrolled back out?      default true (stays revealed)
+ *   once      unreveal when scrolled back out?      default FALSE (re-blurs)
  *
  * Honours `prefers-reduced-motion` and degrades to "always visible" when
  * IntersectionObserver is missing, so content is never trapped invisible.
@@ -54,7 +54,24 @@ const DEFAULTS: Required<ScrollRevealOptions> = {
   duration: 700,
   delay: 0,
   threshold: 0.15,
-  once: true,
+  /*
+    RECURRING. ("It's blurry once when I moutn the page but then never again.
+    It should be recurring")
+
+    Was true, which unobserved the element after its first reveal — so the
+    effect only ever fired once per page load and scrolling back up and down
+    showed nothing. false keeps the observer attached and re-blurs on exit.
+
+    The cost is real and is why it defaulted to true: with `once` the action
+    strips its own `filter`/`will-change` after the transition, and a lingering
+    `filter` — `blur(0px)` included — pins a composited layer per section. That
+    is what dragged this site to single-digit fps once. So the cleanup is now
+    driven by VISIBILITY rather than by finality: styles are stripped whenever
+    an element settles in view and re-applied on exit, which means an on-screen
+    section carries no layer either way. Only the handful of sections currently
+    scrolled out hold one.
+  */
+  once: false,
 };
 
 /**
@@ -123,8 +140,19 @@ export function scrollReveal(node: HTMLElement, options: ScrollRevealOptions = {
     node.style.removeProperty("filter");
     node.style.removeProperty("transform");
     node.style.removeProperty("will-change");
-    node.style.removeProperty("transition");
     node.style.removeProperty("opacity");
+    // `transition` is deliberately KEPT when the reveal can recur: dropping it
+    // would make the next re-blur snap instead of animate.
+    if (opts.once) node.style.removeProperty("transition");
+  };
+
+  /** Re-arm the styles a recurring reveal needs before hiding again. */
+  const armStyles = () => {
+    node.style.willChange = "opacity, filter, transform";
+    node.style.transition =
+      `opacity ${opts.duration}ms cubic-bezier(0.22, 1, 0.36, 1) ${opts.delay}ms, ` +
+      `filter ${opts.duration}ms cubic-bezier(0.22, 1, 0.36, 1) ${opts.delay}ms, ` +
+      `transform ${opts.duration}ms cubic-bezier(0.22, 1, 0.36, 1) ${opts.delay}ms`;
   };
 
   node.style.willChange = "opacity, filter, transform";
@@ -137,15 +165,26 @@ export function scrollReveal(node: HTMLElement, options: ScrollRevealOptions = {
   const observer = getObserver(opts.threshold);
 
   handlers.set(node, (visible: boolean) => {
+    clearTimeout(cleanupTimer);
+
     if (visible) {
       show();
       if (opts.once) {
         observer.unobserve(node);
         handlers.delete(node);
-        // Drop the composited layer once the transition has actually finished.
-        cleanupTimer = setTimeout(clearStyles, opts.duration + opts.delay + 60);
       }
+      /*
+        Drop the composited layer once the transition has actually finished —
+        for recurring reveals too, not just `once` ones. An element that is
+        settled in view needs no filter and no will-change, and this is what
+        keeps `once: false` from re-introducing the permanent per-section GPU
+        layers that cost ~45fps here previously.
+      */
+      cleanupTimer = setTimeout(clearStyles, opts.duration + opts.delay + 60);
     } else if (!opts.once) {
+      // Styles were stripped when it settled; put them back before re-hiding,
+      // or the blur would snap on rather than transition.
+      armStyles();
       hide();
     }
   });
