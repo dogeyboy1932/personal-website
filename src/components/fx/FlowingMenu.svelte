@@ -128,10 +128,30 @@
     border-top: 0;
   }
 
+  /*
+    A LIGHT WARM BORDER, so the country cells read as their own thing rather
+    than as seven more neutral boxes on a page full of neutral boxes.
+    ("add a little border color to country card so it's more identifiable...keep
+    it light")
+
+    --warm rather than a literal, and at 0.22 alpha: the same hue as the orange
+    marquee panel that slides in on hover, so the resting border reads as a
+    preview of the interaction instead of an unrelated accent. Alpha does the
+    "keep it light" — it is a tint on the border only, nothing filled.
+
+    Hover lifts it to 0.5 so the cell acknowledges the pointer before the panel
+    finishes sliding in.
+  */
   .is-grid .fx-fm-row {
     border-bottom: 0;
-    border: 1px solid rgb(148 163 184 / 0.18);
+    border: 1px solid rgb(var(--warm) / 0.22);
     border-radius: 0.6rem;
+    transition: border-color 300ms ease;
+  }
+
+  .is-grid .fx-fm-row:hover,
+  .is-grid .fx-fm-row:focus-within {
+    border-color: rgb(var(--warm) / 0.5);
   }
 
   /* Flag LEFT of the name, not stacked above it. ("The flag icon should be
