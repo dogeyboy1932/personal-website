@@ -14,27 +14,26 @@
   import { SectionHeader } from "../components/Headers";
   import { 
     SocialLinkButton, 
-    NavigationCard, 
-    SkillBadge,
     HeroImage,
     FocusCard
   } from "../components/HOME";
   
   // Constants and data
   import {
-    home,
     homeHero,
-    homeNavigationCards,
+    homeQuickLinks,
     links,
     sections,
     site,
-    skillsData,
   } from "../constants";
 
-  // Featured content selection
-  const featuredSkills = skillsData.skills
-    .flatMap((group) => group.items)
-    .slice(0, 14);
+  /*
+    NavigationCard, SkillBadge, homeNavigationCards, skillsData and
+    home.skills are all still in the codebase — they are just no longer
+    imported here. The "Also Check Out" card grid and the "Stack" badge band
+    were replaced by FX:quick-links below; putting either back is re-adding the
+    import, not rebuilding anything.
+  */
 </script>
 
 <MetaTags title={site.title} description={site.description} />
@@ -207,6 +206,39 @@
 <!-- <div class="mx-auto w-[95%] border-t border-slate-500/50" /> -->
 
 
+<!-- ===== QUICK LINKS =====
+     Directly under the hero, no heading, no card bodies.
+
+     Replaces BOTH the "Also Check Out" card grid and the "Stack" badge band.
+     ("Also checkout looks great but I think it's redundant. We can prob make it
+     smaller and push it toward the top. We can remove 'also check out'. Just
+     have two links pointing to portfolio and more about me." and "You can
+     honestly get rid of the stack on the main page." -> "It should directly
+     take the person the stack. Put it next to 'also check out' buttons.")
+
+     Two labelled full-width bands became one row. The third link is
+     /portfolio#skills, an anchor straight to the stack rather than the top of
+     the portfolio page.
+
+     No scroll-reveal: it sits inside the first viewport, so revealing it on
+     scroll would mean it starts blurred and never un-blurs. -->
+<!-- FX:hover-border-gradient — the travelling arc IS the border here -->
+<nav class="mt-1 mb-7 flex flex-wrap gap-2.5" aria-label="Quick links">
+  {#each homeQuickLinks as link}
+    <HoverBorderGradient
+      href={link.href}
+      radius="9999px"
+      duration={4}
+      class="px-5 py-2 {$theme.text.primary} text-xs sm:text-sm font-display font-bold uppercase tracking-[0.16em] transition-all duration-300 {$theme.hover.scaleSmall}"
+    >
+      {link.label}
+      <span aria-hidden="true" class="ml-1.5 {$theme.text.muted}">&rarr;</span>
+    </HoverBorderGradient>
+  {/each}
+</nav>
+<!-- /FX:hover-border-gradient -->
+
+
 <!-- ===== FOCUS AREAS SECTION ===== -->
 <!-- FX:scroll-reveal -->
 <section class="mt-2 mb-8" use:scrollReveal>
@@ -225,56 +257,4 @@
 
 
 
-<!-- ===== NAVIGATION CARDS SECTION ===== -->
-<!-- FX:scroll-reveal -->
-<section use:scrollReveal>
-  <h3 class="meta-label text-base sm:text-lg md:text-xl {$theme.text.muted} font-bold mb-3 ml-2">
-    {sections.navigation}
-  </h3>
-  
-  <div class="grid gap-2 grid-cols-2">
-    {#each homeNavigationCards as card, index}
-      <NavigationCard 
-        href={card.href} 
-        title={card.title} 
-        description={card.description} 
-        cta={card.cta} 
-        {index} 
-      />
-    {/each}
-  </div>
-</section>
 
-
-
-<!-- ===== TOOLKIT SECTION ===== -->
-<!-- FX:scroll-reveal -->
-<section class="my-6" use:scrollReveal>
-  <h3 class="meta-label text-base sm:text-lg md:text-xl {$theme.text.muted} font-bold mb-3 ml-2">
-    {sections.toolkit}
-  </h3>
-
-  <div class="flex gap-6 justify-between" class:flex-row={$breakpoints.isLarge}>
-    <!-- Skills badges -->
-    <div class="flex flex-wrap gap-2 justify-end items-center w-full" class:lg:w-[80%]={$breakpoints.isLarge} in:fade>
-      {#each featuredSkills as skill, index}
-        <SkillBadge name={skill.name} {index} />
-      {/each}
-    </div>
-
-    <!-- View full stack button -->
-    <div class="flex items-center w-15">
-      <!-- FX:hover-border-gradient — replaces the plain bordered link; the
-           travelling arc is the border now, so the old `border` class is gone -->
-      <HoverBorderGradient
-        href="/portfolio"
-        radius="0.75rem"
-        duration={4}
-        class="w-full hover:opacity-100 opacity-90 px-4 py-2 {$theme.gradient.button} {$theme.text.white} text-sm font-display font-bold uppercase tracking-widest transition-all duration-300 {$theme.hover.scaleSmall} text-center"
-      >
-        {home.skills.seeCompleteStack}
-      </HoverBorderGradient>
-      <!-- /FX:hover-border-gradient -->
-    </div>
-  </div>
-</section>

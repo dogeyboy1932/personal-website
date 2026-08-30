@@ -60,11 +60,6 @@ export const homeHero = {
   ],
 };
 
-export const homeQuickLinks = [
-  { href: "/experience", label: "View Experience" },
-  { href: "/portfolio", label: "Browse Projects" },
-  { href: "/connect", label: "Say Hello" },
-] as const;
 
 
 
@@ -87,6 +82,30 @@ export const homeFocusAreas = [
 ] as const;
 
 
+
+/**
+ * The slim link row directly under the hero.
+ *
+ * Replaces the "Also Check Out" card grid AND the "Stack" badge section, which
+ * between them took two labelled full-width bands to say three things.
+ * ("Also checkout looks great but I think it's redundant. We can prob make it
+ * smaller and push it toward the top. We can remove 'also check out'. Just have
+ * two links pointing to portfolio and more about me." + "You can honestly get
+ * rid of the stack on the main page." -> "It should directly take the person
+ * the stack. Put it next to 'also check out' buttons.")
+ *
+ * The stack link is an ANCHOR, /portfolio#skills, not just /portfolio — that is
+ * what "directly take the person the stack" asks for. SectionHeader renders
+ * id="skills" on that page, so the target already exists.
+ *
+ * homeNavigationCards below is kept, unused, so the old card grid is one import
+ * away if this reads as too spare.
+ */
+export const homeQuickLinks = [
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "More about me", href: "/more" },
+  { label: "Full stack", href: "/portfolio#skills" },
+] as const;
 
 export const homeNavigationCards = [
   {
