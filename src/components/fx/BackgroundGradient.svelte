@@ -19,7 +19,7 @@
     speed      seconds per gradient cycle                     default 7
     idle       glow opacity at rest                           default 0.35
     active     glow opacity on hover                          default 1
-    palette    "aurora" | "warm" | "violet"
+    palette    "aurora" | "warm" | "violet" | "silver"
 
   This is a wrapper rather than an in-card overlay because both target cards
   set `overflow: hidden` — a glow rendered inside would be clipped away at
@@ -38,7 +38,7 @@
   export let speed = 7;
   export let idle = 0.35;
   export let active = 1;
-  export let palette: "aurora" | "warm" | "violet" = "aurora";
+  export let palette: "aurora" | "warm" | "violet" | "silver" = "aurora";
   let klass = "";
   export { klass as class };
 
@@ -54,6 +54,10 @@
     aurora: ["halo-1", "halo-2", "halo-3"],
     violet: ["halo-3", "halo-2", "halo-1"],
     warm: ["warm", "halo-3", "halo-1"],
+    /* No hue at all. For cards that must read as white/silver — the halo is
+       the widest-reaching colour on a card, so a silver card inside an aurora
+       or violet halo still reads as tinted. */
+    silver: ["halo-silver-1", "halo-silver-2", "halo-silver-3"],
   };
 
   $: names = paletteOrder[palette] ?? paletteOrder.aurora;

@@ -21,7 +21,17 @@
 <!-- backdrop-blur-sm was removed from the card below: bg.card is already 80%
      opaque so it contributed almost nothing visually, but seven of these sat
      over the animating MatrixRain and re-blurred ~180K px each every frame. -->
-<BackgroundGradient class="h-full" radius="1rem" palette="violet" spread={3} idle={0.28}>
+<!--
+  palette="silver", not "violet". THIS was the purple. ("The cards are still
+  somewhat purple...fix the border.")
+
+  Last pass made experienceThemes silver — bars, titles, badges, dividers — but
+  every card is wrapped in this halo, which paints a blurred ring just outside
+  the border and is therefore the widest-reaching colour on the card. A silver
+  card inside a violet halo still reads as a purple-edged card, so recolouring
+  the card alone could never finish the job.
+-->
+<BackgroundGradient class="h-full" radius="1rem" palette="silver" spread={3} idle={0.28}>
 <div 
   class="group relative overflow-hidden rounded-2xl border {cardTheme.border} {$theme.bg.card} shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col h-full"
   in:fly={{ y: 18, delay: index * 100 }}
@@ -61,12 +71,16 @@
 
     <div class="mt-auto min-h-[3rem]">
       <div class="flex flex-wrap gap-2">
+        <!-- neutral: the per-tech colour table is the last hue left inside an
+             experience card. Project cards keep it. -->
         {#each experience.skills.slice(0, 5) as tech, techIndex}
-          <TechBadge {tech} index={techIndex} />
+          <TechBadge {tech} index={techIndex} neutral />
         {/each}
         {#if experience.skills.length > 5}
+          <!-- bg.overlay is bg-blue-400/10; bg-slate-400/10 here so the
+               overflow chip matches the neutral badges beside it. -->
           <span
-            class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border {$theme.border.light} {$theme.bg.overlay} {$theme.text.primary}"
+            class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border {$theme.border.light} bg-slate-400/10 {$theme.text.primary}"
           >
             +{experience.skills.length - 5} more
           </span>
