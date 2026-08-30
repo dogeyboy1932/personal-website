@@ -68,7 +68,7 @@
   <!-- lg:divide-x draws the rule between the two halves; the padding keeps
        content off it. ("have a divider in teh top sections btwn left and right") -->
   <div
-    class="grid items-start gap-6 lg:grid-cols-[1.85fr_1fr] lg:divide-x lg:divide-slate-500/25"
+    class="grid items-stretch gap-6 lg:grid-cols-[1.85fr_1fr] lg:divide-x lg:divide-slate-500/25"
     use:scrollReveal
   >
     <!--
@@ -82,7 +82,15 @@
       stepper and the country grid had less air between them than the country
       cells had between each other.
     -->
-    <div class="space-y-9 text-center lg:pr-7">
+    <!--
+      h-full + flex-col so this column fills the grid row rather than stopping
+      at its own content height. The row is 556px, set by the wheel opposite;
+      this column's content is 482px, and that 74px of slack is what the block
+      below the second divider is centred in.
+      ("bring what's below the divider a bit further down...put it in the middle
+      btwn the divider and the bottom of the left section")
+    -->
+    <div class="flex h-full flex-col space-y-3 text-center lg:pr-7">
       <!-- FX:flip-words — rotating identity line -->
       <!-- Full row and centred, matching the scorecard beneath it. Display
            face. Colour is text-lede, the same token the scorecard figures use,
@@ -108,19 +116,43 @@
       />
 
       <StatStrip stats={more.stats ?? []} />
+      
 
-      <!-- Left as-is on request: "All that's untouched on the more page is the
-           where I've been and the find me." Only its POSITION moved. -->
-      <div>
-        <h3 class="meta-label mb-4 text-sm {$theme.text.muted}">{sections[0].label}</h3>
-        <TravelSection path={more.travel?.path ?? []} show="path" />
+      <div
+        class="mx-auto h-px w-4/5 bg-gradient-to-r from-transparent via-slate-400/35 to-transparent"
+        aria-hidden="true"
+      />
+
+      <!--
+        Everything below the second divider, centred in the leftover height.
+        flex-1 takes the slack; justify-center splits it evenly above and below,
+        which is what puts this block in the middle between the divider and the
+        bottom of the column rather than sitting straight under the divider.
+
+        gap-3 matches the column's own space-y-3, so the two blocks inside keep
+        the spacing they had.
+
+        !mt-0 is load-bearing. The parent's space-y-3 puts a 12px top margin on
+        this element, and that margin sits OUTSIDE the flex-1 box being centred
+        — so the gap above measured 49px against 37px below. The important flag
+        is needed because space-y-3 compiles to
+        `.space-y-3 > :not([hidden]) ~ :not([hidden])`, three classes' worth of
+        specificity, which a plain mt-0 loses to.
+      -->
+      <div class="!mt-0 flex flex-1 flex-col justify-center gap-3">
+        <!-- Left as-is on request: "All that's untouched on the more page is the
+             where I've been and the find me." Only its POSITION moved. -->
+        <div>
+          <h3 class="meta-label mb-4 text-sm {$theme.text.muted}">{sections[0].label}</h3>
+          <TravelSection path={more.travel?.path ?? []} show="path" />
+        </div>
+
+        <!-- No "Countries" heading: removed on request, and the flags say what
+             this is without one. 3-up now the left column is 1.85fr — at 2-up
+             the cells were wide enough that each flag/name pair floated in the
+             middle of a lot of nothing. Seven countries make three rows. -->
+        <TravelSection countries={more.travel?.countries ?? []} show="countries" columns={3} />
       </div>
-
-      <!-- No "Countries" heading: removed on request, and the flags say what
-           this is without one. 3-up now the left column is 1.85fr — at 2-up the
-           cells were wide enough that each flag/name pair floated in the middle
-           of a lot of nothing. Seven countries make three rows. -->
-      <TravelSection countries={more.travel?.countries ?? []} show="countries" columns={3} />
     </div>
 
     <div class="lg:pl-7">
