@@ -79,17 +79,30 @@
   $: rest = clubs.filter((c) => !featured.has(c.name));
 </script>
 
-<div class="space-y-4">
+<!-- h-full so this fills whatever height the grid row gets; the row is sized by
+     the taller of the two columns. -->
+<div class="flex h-full flex-col space-y-4">
   {#if show !== "clubs"}
   <!-- ===== Spotlight roles ===== -->
   <!-- Stacked rows, not columns. ("the clubs can be stacked like rows instead
        of columns on the left") -->
-  <div class="flex flex-col gap-4">
+  <!--
+    flex-1 + the cards each flex-1: the stack takes the full column height and
+    the three cards divide it evenly, so this column's last card ends level with
+    the honors box on the right. ("Flex the was part of leadership section
+    height so it's same as the right side. Same bottom.")
+
+    Distributing the slack across all three, rather than letting the last one
+    absorb it, keeps them the same size as each other — which they were before,
+    and the alternative would have made the fraternity card twice the height of
+    the ones with more to say.
+  -->
+  <div class="flex flex-1 flex-col gap-4">
     {#each leadership as role, i}
       <!-- p-5 pl-6 and a wider gap below: "Everything looks kinda crammed right
            now...space it out wisely." -->
       <div
-        class="group relative flex flex-col overflow-hidden rounded-2xl border {$theme.border.default} bg-slate-900/70 p-5 pl-6 shadow-lg transition-colors {accents[i % accents.length].edge}"
+        class="group relative flex flex-1 flex-col overflow-hidden rounded-2xl border {$theme.border.default} bg-slate-900/70 p-5 pl-6 shadow-lg transition-colors {accents[i % accents.length].edge}"
       >
         <!-- The card's entire colour identity: this bar, plus the hover border
              and the link underline. Nothing tints text. -->

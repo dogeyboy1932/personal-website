@@ -130,14 +130,19 @@
     <!-- 1.75fr/1fr, up from 1.35fr. ("Under was part of, you can once again
          make the left side wider and right side less wider. Ration wisely.")
          The role cards carry paragraphs; the chips and honors are short. -->
-    <div class="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
+    <!-- items-stretch (grid default, stated for clarity) + h-full inside both
+         children: the two columns end at the same baseline whichever is taller.
+         ("Flex the was part of leadership section height so it's same as the
+         right side. Same bottom.") -->
+    <div class="grid items-stretch gap-5 lg:grid-cols-[1.5fr_1fr]">
       <LeadershipSection leadership={more.leadership ?? []} {clubs} show="roles" />
 
-      <div class="flex flex-col gap-4">
+      <div class="flex h-full flex-col gap-4">
         <LeadershipSection leadership={more.leadership ?? []} {clubs} show="clubs" />
 
-        <!-- HonorShelf is self-titled now that it is boxed. -->
-        <HonorShelf honors={more.honors ?? []} />
+        <!-- flex-1 so honors absorbs the slack on this side, matching the
+             leadership stack opposite. -->
+        <HonorShelf honors={more.honors ?? []} class="flex-1" />
       </div>
     </div>
   </section>

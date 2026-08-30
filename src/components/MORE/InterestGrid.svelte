@@ -81,12 +81,25 @@
     cards stacked behind read straight through the front face, which is what
     "Make card less hollow" is about.
 
-    bg-slate-950/92 on both faces: still translucent, so the background is not
-    gone, but the card is clearly a surface rather than a pane of glass. Both
-    faces share it now — a flip used to change the transparency as well as the
-    content, which made the back look like a different component.
-    ("I want to see less of what's behind the flip card. Don't remove all
-    transparency but make it less visible.")
+    THE LAST FIX SILENTLY DID NOTHING. It set bg-slate-950/92, and Tailwind's
+    default opacity scale steps by 5 — /92 matches no utility, so no CSS was
+    generated and both faces ended up with NO background at all. That is why the
+    note came back sharper: "The back of the selected card is still too visible.
+    Make it less visible."
+
+    Verified against a standalone tailwind 3.4.19: /90 and /95 emit, /92 does
+    not, /[0.985] does. The arbitrary value is required, not a preference.
+    (Second time this has bitten here — bg-black/88 was the first.)
+
+    Why nearly opaque rather than, say, /90: the focused card is not sitting on
+    the page background, it is sitting on four other cards of the same fan plus
+    an animating matrix canvas. Each contributes, so residual transmission reads
+    as clutter at a level that would be invisible over a flat backdrop.
+    /[0.985] keeps a trace of what is behind, per "Don't remove all
+    transparency".
+
+    Both faces share one value: a flip used to change the transparency along
+    with the content, which made the back look like a different component.
   -->
   {#key active}
   <FlipCard class="h-[126px]" trigger="click" duration={480}>
@@ -94,7 +107,7 @@
       slot="front"
       class="flex h-full flex-row items-center justify-start gap-3 rounded-xl border {isActive
         ? $theme.accent.cyan.hover.border
-        : $theme.accent.cyan.border} bg-slate-950/92 px-4 text-left shadow-lg"
+        : $theme.accent.cyan.border} bg-slate-950/[0.985] px-4 text-left shadow-lg"
     >
       <span class="text-4xl leading-none">{item.emoji}</span>
       <!-- No per-card "click to flip": it now lives once, beside the counter.
@@ -109,7 +122,7 @@
 
     <div
       slot="back"
-      class="flex h-full flex-col justify-center rounded-xl border {$theme.accent.cyan.hover.border} bg-slate-950/92 px-4 text-left shadow-lg"
+      class="flex h-full flex-col justify-center rounded-xl border {$theme.accent.cyan.hover.border} bg-slate-950/[0.985] px-4 text-left shadow-lg"
     >
       <span class="meta-label text-[11px] {$theme.accent.cyan.text}">{item.name}</span>
       <p class="mt-1.5 text-[0.95rem] leading-snug {$theme.text.secondary}">{item.detail}</p>
