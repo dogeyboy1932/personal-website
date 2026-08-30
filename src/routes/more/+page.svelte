@@ -130,7 +130,7 @@
     <!-- 1.75fr/1fr, up from 1.35fr. ("Under was part of, you can once again
          make the left side wider and right side less wider. Ration wisely.")
          The role cards carry paragraphs; the chips and honors are short. -->
-    <div class="grid gap-5 lg:grid-cols-[1.75fr_1fr]">
+    <div class="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
       <LeadershipSection leadership={more.leadership ?? []} {clubs} show="roles" />
 
       <div class="flex flex-col gap-4">

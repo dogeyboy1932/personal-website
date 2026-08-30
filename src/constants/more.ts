@@ -140,6 +140,26 @@ export const more: MorePageData = {
         "Helped build UIUC's first AI safety community while it was still getting off the ground. Now 400+ members, 20 core, and 7+ research projects running. Co-ran an 8-week fellowship on RLHF, interpretability, and scalable oversight.",
       link: "https://aialignmentillinois.org/",
     },
+  /*
+    ORDER IS LOAD-BEARING. LeadershipSection indexes its accent table by
+    POSITION, not by org name, so the colour running down the column is fixed
+    at orange -> blue -> red regardless of what sits in each slot.
+
+    Sigma Phi Delta and Illini Blockchain were swapped here on request ("swap
+    illini blcokchain and sigma phi delta position. Keep color order the same"),
+    which is why the two clubs traded colours along with their places: the
+    colours stayed put and the entries moved through them.
+
+    Reorder these and the palette does NOT follow — edit `accents` in
+    src/components/MORE/LeadershipSection.svelte if a specific org needs a
+    specific colour.
+  */
+    {
+      org: "Sigma Phi Delta (ΣΦΔ)",
+      role: "Brother",
+      summary: "International social-professional fraternity for engineers.",
+      link: "https://sigphis.org/",
+    },
     {
       org: "Illini Blockchain",
       role: "VP Partnerships",
@@ -147,12 +167,6 @@ export const more: MorePageData = {
       summary:
         "Ran technical teams and external partnerships for UIUC's blockchain organization.",
       link: "https://linktr.ee/illiniblockchain",
-    },
-    {
-      org: "Sigma Phi Delta (ΣΦΔ)",
-      role: "Brother",
-      summary: "International social-professional fraternity for engineers.",
-      link: "https://sigphis.org/",
     },
   ],
 

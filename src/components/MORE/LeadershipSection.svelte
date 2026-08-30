@@ -57,13 +57,7 @@
   */
   const accents = [
     // AI Alignment @ Illinois — orange
-    { bar: "from-amber-400 via-orange-500 to-orange-600", edge: "hover:border-orange-400/60", rule: "decoration-orange-400/60 hover:decoration-orange-300", icon: "text-orange-400/70" },
-    /*
-      Illini Blockchain — blue. Was yellow, which sat one step from the orange
-      above it on the wheel and read as a second orange. ("make illini
-      blockchain blue")
-    */
-    { bar: "from-sky-300 via-blue-500 to-indigo-600", edge: "hover:border-blue-400/60", rule: "decoration-blue-400/60 hover:decoration-blue-300", icon: "text-blue-400/70" },
+    { bar: "from-orange-700 via-orange-600 to-orange-700", edge: "hover:border-orange-400/60", rule: "decoration-orange-400/60 hover:decoration-orange-300", icon: "text-orange-400/70" },
     /*
       Sigma Phi Delta — actual red. rose-300 -> red-400 -> rose-500 was chosen
       to avoid "evil red" and landed so warm it read as the orange card again:
@@ -71,7 +65,13 @@
       red-600, which is unmistakably red while staying short of a pure #f00
       alarm tone.
     */
-    { bar: "from-red-400 via-red-500 to-red-600", edge: "hover:border-red-400/60", rule: "decoration-red-400/60 hover:decoration-red-300", icon: "text-red-400/70" },
+    { bar: "from-red-800 via-red-700 to-red-800", edge: "hover:border-red-400/60", rule: "decoration-red-400/60 hover:decoration-red-300", icon: "text-red-400/70" },
+    /*
+      Illini Blockchain — blue. Was yellow, which sat one step from the orange
+      above it on the wheel and read as a second orange. ("make illini
+      blockchain blue")
+    */
+    { bar: "from-sky-300 via-blue-500 to-indigo-600", edge: "hover:border-blue-400/60", rule: "decoration-blue-400/60 hover:decoration-blue-300", icon: "text-blue-400/70" },
   ];
 
   // Orgs already spotlighted above shouldn't repeat in the chip cloud.
