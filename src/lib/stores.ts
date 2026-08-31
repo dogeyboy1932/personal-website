@@ -223,32 +223,32 @@ const lightTheme = {
     "text-slate-700",
   ],
   bg: {
-    page: 'bg-white/90',                                        // Clean white for content
-    card: 'bg-white border border-amber-200/80 shadow-md',      // Clean cards with warm border
+    page: 'bg-white/90',
+    card: 'bg-white border border-amber-200/80 shadow-md',
     cardSolid: 'bg-white',
-    cardHover: 'bg-amber-900',                                   // Warm hover state
+    cardHover: 'bg-amber-900',
     cardElevated: 'bg-amber-100/80',
     flipCard: 'bg-white/[0.985]',
     cardMuted: 'bg-amber-50',
     panel: 'bg-amber-50/95',
-    secondary: 'bg-amber-100/50',                               // Secondary backgrounds
-    navbar: 'bg-white/95 border-b border-amber-200 shadow-sm',  // Clean navbar
-    overlay: 'bg-amber-100',                      // High contrast badge
+    secondary: 'bg-amber-100/50',
+    navbar: 'bg-white/95 border-b border-amber-200 shadow-sm',
+    overlay: 'bg-amber-100',
     backdrop: 'bg-white/98',
   },
   
   text: {
-    primary: 'text-amber-950',                                  // Rich dark brown for main text
-    secondary: 'text-amber-900',                                // Dark brown for headings
-    muted: 'text-amber-800',                                    // Medium brown
-    subtle: 'text-amber-700',                                   // Subtle brown
-    dim: 'text-amber-600',                                      // Lighter brown
-    white: 'text-white',                                        // White text for dark backgrounds
+    primary: 'text-amber-950',
+    secondary: 'text-amber-900',
+    muted: 'text-amber-800',
+    subtle: 'text-amber-700',
+    dim: 'text-amber-600',
+    white: 'text-white',
     strong: 'text-amber-950',                                   // Darkest brown — inverse of dark's slate-50
   },
   
   border: {
-    default: 'border-amber-300',                                // Default warm border
+    default: 'border-amber-300',
     tertiary: 'border-amber-200',
     accent: 'border-orange-500',
     light: 'border-amber-200',
