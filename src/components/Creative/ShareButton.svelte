@@ -6,8 +6,10 @@
   import DiscordLogo from "../../lib/OtherLogos/DiscordLogo.svelte"
 
   export let actions: SocialHandle[] = [];
+  export let label = "Find me";
   export let glow = false;
   export let glowDuration = 4;
+  export let stagger = 55;
 
   const icons = {
     instagram: Instagram,
@@ -33,17 +35,21 @@
   }
 </script>
 
-<div class="fx-share-button" style="--fx-arc-duration: {glowDuration}s;">
+<div class="fx-share-button" style="--sb-stagger: {stagger}ms; --fx-arc-duration: {glowDuration}s;">
   <div
     class="fx-sb-pill {$theme.bg.secondary} {$theme.border.default} {$theme.text.secondary}"
     class:fx-arc={glow}
   >
+    <!-- Absolutely centred, so the icons occupy the SAME space rather than sitting beside it —
+         the pill never changes size and the icons land where the words were. -->
+    <span class="fx-sb-label">{label}</span>
 
     <div class="fx-sb-fan">
       {#each actions as action, i}
         {@const Icon = icons[action.icon]}
-        <div class="fx-sb-slot">
+        <div class="fx-sb-slot" style="--sb-index: {i};">
           <span class="fx-sb-mask">
+            <span class="fx-sb-rise">
           <svelte:element
             this={action.href ? "a" : "button"}
             href={action.href}
@@ -61,6 +67,7 @@
               <svelte:component this={Icon} class="h-5 w-5" />
             {/if}
           </svelte:element>
+            </span>
           </span>
 
           <span class="fx-sb-tip {$theme.bg.cardSolid} {$theme.text.muted}">
@@ -103,6 +110,24 @@
     gap: 0.4rem;
   }
 
+  .fx-sb-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      opacity 200ms ease,
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .fx-sb-pill:hover .fx-sb-label,
+  .fx-sb-pill:focus-within .fx-sb-label {
+    opacity: 0;
+    transform: translateY(-45%);
+  }
+
   .fx-sb-slot {
     position: relative;
     width: 2.6rem;
@@ -115,6 +140,25 @@
     height: 100%;
     overflow: hidden;
     border-radius: 9999px;
+  }
+
+  /* CAVEAT: only the MASK clips. overflow:hidden on the slot itself also ate the tooltip,
+     which has to escape upward. */
+  .fx-sb-rise {
+    display: block;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(115%);
+    transition:
+      opacity 240ms ease,
+      transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--sb-index) * var(--sb-stagger));
+  }
+
+  .fx-sb-pill:hover .fx-sb-rise,
+  .fx-sb-pill:focus-within .fx-sb-rise {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .fx-sb-action {
@@ -160,6 +204,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .fx-sb-label,
+    .fx-sb-rise,
     .fx-sb-slot,
     .fx-sb-action,
     .fx-sb-tip {

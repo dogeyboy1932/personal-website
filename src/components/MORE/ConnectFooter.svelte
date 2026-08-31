@@ -12,5 +12,5 @@
   <p class="text-[11px] uppercase tracking-[0.3em] {$theme.text.muted}">
     That's the whole picture
   </p>
-  <ShareButton actions={socials} glow />
+  <ShareButton actions={socials} label="Reach out" glow />
 </div>
