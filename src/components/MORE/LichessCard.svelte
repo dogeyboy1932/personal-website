@@ -11,7 +11,6 @@
   let perfType: string | null = null;
   let error: string | null = null;
 
-    /** Fetches Lichess rating data from the API Prioritizes: blitz > rapid > classical > bullet */
   async function fetchLichess() {
     if (!username) return;
     
@@ -40,16 +39,12 @@
   });
 </script>
 
-
-
 <div 
   class="group relative overflow-hidden rounded-2xl border {$theme.accent.yellow.border} {$theme.gradient.yellow} p-5 shadow-xl {$theme.accent.yellow.hover.border} transition-colors"
   in:fly={{ y: 20, delay: 250, duration: 400 }}
 >
-  <!-- Glow effect -->
   <div class="absolute -left-10 -bottom-10 h-40 w-40 rounded-full {$theme.accent.yellow.glow} blur-3xl {$theme.accent.yellow.hover.bg} transition" />
   
-    <!-- Two columns: rating on the left, challenge form on the right. -->
   <div class="relative grid gap-4 sm:grid-cols-[auto_1fr] sm:items-stretch">
     <div class="min-w-0">
       <h3 class="text-base font-semibold {$theme.accent.yellow.text}">{label}</h3>
@@ -77,8 +72,6 @@
     </div>
 
     {#if $$slots.default}
-      <!-- Full-bleed to the card's right and vertical edges via negative
-           margins that cancel its p-5. -->
       <div
         class="-my-5 -mr-5 border-l-2 border-brand/50 {$theme.bg.panel} px-5 py-3 sm:pl-5"
       >

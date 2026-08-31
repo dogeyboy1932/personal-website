@@ -1,4 +1,3 @@
-<!-- FX: border-glow — A light that rides the card's border ring, following the cursor. -->
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
@@ -90,8 +89,6 @@
       rgba(var(--bg-rgb), 0) 70%
     );
 
-        /* Punch out the interior so only the border ring paints: one mask covers the content box, one
-       covers the whole border box, and `exclude` leaves the difference — the ring. */
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);

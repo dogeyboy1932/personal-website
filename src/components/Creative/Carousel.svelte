@@ -15,13 +15,10 @@
   };
   export let carouselItemClass = "";
   export let carouselItemsClass = "";
-    /** Slides visible at once. */
   export let itemsPerView: number | null = null;
 
-  // Responsive items per section, unless the caller pinned it.
   $: itemsPerSection = itemsPerView ?? $breakpoints.itemsPerSection;
   
-  // Calculate basis class based on items per section
   $: basisClass = itemsPerSection === 1 ? "basis-full" : itemsPerSection === 2 ? "basis-1/2" : "basis-1/3";
 
   let api: EmblaCarouselType | undefined;
@@ -60,7 +57,6 @@
 
   const onNext = () => {
     if (!api) return;
-    // If we're on the last section, go back to the first
     if (currentSection >= totalSections) {
       api.scrollTo(0);
     } else {
@@ -74,7 +70,6 @@
 
   const onPrev = () => {
     if (!api) return;
-    // If we're on the first section, go to the last
     if (currentSection <= 1) {
       api.scrollTo((totalSections - 1) * itemsPerSection);
     } else {
@@ -97,12 +92,9 @@
     }
   }
 
-  // Calculate number of sections (pages) based on items per section
   $: totalSections = Math.ceil(componentProps.length / itemsPerSection);
   $: currentSection = Math.ceil(currentCount / itemsPerSection);
 </script>
-
-
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <div
@@ -111,11 +103,9 @@
   aria-roledescription="carousel"
   on:keydown={onKeyDown}
 >
-  <!-- Main carousel with side arrows -->
   <div class="flex items-center gap-2">
     
 
-    <!-- Carousel content -->
     <div
       class="overflow-hidden flex-1"
       use:emblaCarouselSvelte={config}
@@ -149,12 +139,8 @@
    
   </div>
 
-
-
-
   <div class="flex flex-row gap-6 items-center justify-center mt-5">
 
-   <!-- Left Arrow -->
     <button
       class={cn(
         `flex items-center justify-center h-10 w-10 p-0 border rounded-full transition-all shrink-0 ${$theme.carousel.arrow.bg} ${$theme.carousel.arrow.border} ${$theme.carousel.arrow.hoverBg} ${$theme.carousel.arrow.hoverBorder}`,
@@ -167,8 +153,6 @@
       <span class="sr-only">Previous slide</span>
       </button>
 
-
-  <!-- Indicator bubbles for sections -->
   <div class="flex justify-center gap-2 py-4">
     {#each Array(totalSections) as _, i}
       <button
@@ -184,7 +168,6 @@
     {/each}
   </div>
 
-   <!-- Right Arrow -->
     <button
       class={cn(
         `flex items-center justify-center h-10 w-10 p-0 border rounded-full transition-all shrink-0 ${$theme.carousel.arrow.bg} ${$theme.carousel.arrow.border} ${$theme.carousel.arrow.hoverBg} ${$theme.carousel.arrow.hoverBorder}`,

@@ -1,5 +1,3 @@
-<!-- FX: pill-nav — Pill buttons where a circular fill swells up from the bottom edge on hover while
-     the label rolls over to its inverted twin. -->
 <script lang="ts">
   import { theme } from "../../lib/stores";
 
@@ -20,8 +18,6 @@
       aria-pressed={selected === item}
       on:click={() => (selected = item)}
     >
-      <!-- The swelling circle. Sized past the pill's own width so its curve
-           reads as a rising tide rather than a growing dot. -->
       <span class="fx-pill-fill {$theme.filter.active.bg}" aria-hidden="true" />
 
       <span class="fx-pill-roll">
@@ -56,7 +52,6 @@
     left: 50%;
     bottom: 0;
     z-index: -1;
-    /* Wider than the pill so the circle's edge stays flat-ish as it rises. */
     width: 150%;
     aspect-ratio: 1 / 1;
     border-radius: 9999px;
@@ -72,7 +67,6 @@
     opacity: 1;
   }
 
-    /* Two stacked copies of the label. */
   .fx-pill-roll {
     display: block;
     position: relative;

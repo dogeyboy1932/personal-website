@@ -1,12 +1,9 @@
 import type { HobbiesData, MorePageData } from "../types";
 
-/** /more page content. */
 export const more: MorePageData = {
   title: "More About Me",
   subtitle: "Beyond the code",
 
-  // FX:flip-words — cycles under the page title. Each should complete the
-  // sentence "Off the clock, I'm ___".
   identityWords: [
     "a movie guy",
     "a chess player",
@@ -29,7 +26,6 @@ export const more: MorePageData = {
   ],
 
   travel: {
-    // In order. This is the through-line the whole section hangs on.
     path: [
       { place: "India", note: "born" },
       { place: "New Jersey", note: "raised" },
@@ -37,7 +33,6 @@ export const more: MorePageData = {
       { place: "Singapore", note: "semester at NUS" },
       { place: "Chicago", note: "now" },
     ],
-    // FX:flowing-menu — one row each, note shows in the marquee panel.
     countries: [
       { flag: "🇺🇸", name: "United States", note: "Home base — New Jersey, then Illinois, now Chicago" },
       { flag: "🇮🇳", name: "India", note: "Where I was born. Still go back" },
@@ -49,8 +44,6 @@ export const more: MorePageData = {
     ],
   },
 
-  // FX:flip-card — front is emoji + name, back is `detail`. Keep details to
-  // roughly two lines so the back doesn't overflow the card.
   interests: [
     {
       emoji: "🤖",
@@ -116,20 +109,18 @@ export const more: MorePageData = {
     },
   ],
 
-  // Orgs where I actually held a role. Everything else stays a club chip.
   leadership: [
     {
       org: "AI Alignment @ Illinois",
-      // Not co-founder — joined while the group was still emerging and served
-      // as VP on the founding team. Corrected from the GitHub README, which
-      // overstated it.
       role: "VP, Founding Team",
       tenure: "Now Alumni Advisor",
       summary:
         "Helped build UIUC's first AI safety community while it was still getting off the ground. Now 400+ members, 20 core, and 7+ research projects running. Co-ran an 8-week fellowship on RLHF, interpretability, and scalable oversight.",
       link: "https://aialignmentillinois.org/",
     },
-    /* CAVEAT: order is load-bearing. */    {
+    /* CAVEAT: order is load-bearing — LeadershipRoles indexes its accent table by POSITION, so the
+       colour down the column is fixed and entries move through it. */
+    {
       org: "Sigma Phi Delta (ΣΦΔ)",
       role: "Brother",
       summary: "International social-professional fraternity for engineers.",
@@ -163,7 +154,6 @@ export const more: MorePageData = {
     },
   ],
 
-  // FX:share-button — Discord has no linkable profile, so it copies instead.
   socials: [
     { label: "Instagram", handle: "@trashboatsr", href: "https://instagram.com/trashboatsr", icon: "instagram" },
     { label: "Lichess", handle: "@trashboatsr", href: "https://lichess.org/@/trashboatsr", icon: "lichess" },
@@ -171,9 +161,6 @@ export const more: MorePageData = {
     { label: "Email", handle: "vagogineni@gmail.com", href: "mailto:vagogineni@gmail.com", icon: "mail" },
   ],
 
-  /* ---- superseded by the sections above, kept so a revert has something to
-     fall back on. funFacts is now covered by honors + travel; hobbies by
-     interests. ---- */
   funFacts: [
     "Studied abroad in Singapore (NUS) — loved the traveling and cultural perspective",
     "Eagle Scout",

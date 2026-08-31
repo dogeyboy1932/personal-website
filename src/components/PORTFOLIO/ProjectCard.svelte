@@ -4,27 +4,22 @@
   import TechBadge from "./TechBadge.svelte";
   import { getTechColors } from "../../lib/utils";
   import type { Project } from "../../types";
-  // FX:background-gradient — animated halo behind the card
   import { BackgroundGradient } from "../Creative";
 
   export let project: Project;
   export let index: number = 0;
 
-  /* Same rule as the experience cards: no two adjacent badges share a colour. */
   $: shownTech = project.technologies.slice(0, 7);
   $: techColorList = getTechColors(shownTech, $theme.techColors);
 
 </script>
 
-<!-- FX:background-gradient — wraps rather than overlays: the card sets — overflow-hidden, so a glow
-     rendered inside would be clipped at exactly the edge it needs to bleed past. -->
 <BackgroundGradient class="h-full" radius="0.75rem" palette="aurora" spread={3} idle={0.3}>
 <div
   class="group relative overflow-hidden rounded-xl border {$theme.border.default} {$theme.bg.card} shadow-lg transition hover:-translate-y-1 hover:shadow-2xl flex flex-col h-full"
   in:fly={{ y: 18, delay: index * 50 }}
 >
 
-  <!-- Image Section - Fixed Height -->
   <div class="relative h-48 overflow-hidden {$theme.bg.cardHover}">
     <img
       src={project.image}
@@ -50,9 +45,7 @@
     </div>
   </div>
 
-
   <div class="p-5 flex flex-col ">
-    <!-- Block 1: Title, Duration, Status - Fixed Height -->
     <div class="flex items-start justify-between gap-3 min-h-[5rem] mb-2">
       <div class="">
         <h3
@@ -86,15 +79,12 @@
     </div>
 
     
-    <!-- Block 2: Description - Fixed Height -->
     <div class="min-h-[7.5rem] mb-2">
       <p class="text-sm {$theme.text.secondary} line-clamp-5 font-sans">
         {project.description}
       </p>
     </div>
 
-
-    <!-- Block 3: Tech Badges - Fixed Height, pushed to bottom -->
     <div class="mt-auto min-h-[4rem]">
       <div class="flex flex-wrap gap-2">
         {#each shownTech as tech, techIndex}
@@ -112,4 +102,3 @@
   </div>
 </div>
 </BackgroundGradient>
-<!-- /Creative:background-gradient -->

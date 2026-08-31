@@ -1,4 +1,3 @@
-/** College clubs and organizations — a quick glance, not a deep dive. */
 import type { Club } from "../types";
 
 export const clubs: Club[] = [

@@ -1,5 +1,3 @@
-<!-- FX: quote-carousel — a single-slide carousel that advances on a timer and can — shuffle its
-     order once per load. -->
 <script lang="ts" generics="T">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
@@ -11,7 +9,6 @@
   export let interval = 7000;
   export let shuffle = true;
   export let pauseOnHover = true;
-  /** Chrome is the caller's — pass border/background here. */
   let klass = "";
   export { klass as class };
 
@@ -20,8 +17,6 @@
   let timer: ReturnType<typeof setInterval> | undefined;
   let paused = false;
 
-  /* Shuffled once at mount, not reactively — a reactive shuffle would reorder
-     mid-view on any store update. */
   let ordered: T[] = items;
 
   const reducedMotion = () =>
@@ -30,7 +25,6 @@
   onMount(() => {
     if (shuffle && items.length > 1) {
       const copy = [...items];
-      // Fisher-Yates.
       for (let i = copy.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [copy[i], copy[j]] = [copy[j], copy[i]];
@@ -65,7 +59,6 @@
 
   function goTo(index: number) {
     api?.scrollTo(index);
-    // Restart the clock so a manual pick gets a full dwell, not the remainder.
     start();
   }
 </script>
@@ -80,8 +73,6 @@
     use:emblaCarouselSvelte={{ options: { loop: true, align: "start" }, plugins: [] }}
     on:emblaInit={onInit}
   >
-    <!-- items-stretch keeps every slide the height of the tallest quote, so
-         the card doesn't resize as it cycles. -->
     <div class="flex items-stretch">
       {#each ordered as item, i}
         <div class="min-w-0 shrink-0 grow-0 basis-full">

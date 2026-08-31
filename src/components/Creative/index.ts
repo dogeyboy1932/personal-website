@@ -1,4 +1,3 @@
-/** Effects barrel. Call sites are marked `<!-- FX:<slug> -->` — grep to find usage. */
 
 export { default as ShinyText } from "./ShinyText.svelte";
 export { default as SpinLogo } from "./SpinLogo.svelte";
@@ -18,5 +17,4 @@ export { default as ParticleText } from "./ParticleText.svelte";
 export { default as OptionWheel } from "./OptionWheel.svelte";
 export { default as Carousel } from "./Carousel.svelte";
 
-/** UNUSED — /more interests moved to OptionWheel. Kept so the wall can be restored. */
 export { default as DriftWall } from "./DriftWall.svelte";

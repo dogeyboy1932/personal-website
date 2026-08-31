@@ -1,4 +1,3 @@
-<!-- /more: orgs where a real role was held, as spotlight cards. -->
 <script lang="ts">
   import { ExternalLink } from "lucide-svelte";
   import { theme } from "../../lib/stores";
@@ -7,14 +6,12 @@
 
   export let leadership: LeadershipRole[] = [];
 
-    /* Per-org accent, by POSITION not by name. */
   const accents = [
     { bar: "from-orange-500 via-orange-400 to-orange-500", edge: "hover:border-orange-400/60", rule: "decoration-orange-400/60 hover:decoration-orange-300", icon: "text-orange-400/70" },
     { bar: "from-red-800 via-red-700 to-red-800", edge: "hover:border-red-400/60", rule: "decoration-red-400/60 hover:decoration-red-300", icon: "text-red-400/70" },
     { bar: "from-sky-300 via-blue-500 to-indigo-600", edge: "hover:border-blue-400/60", rule: "decoration-blue-400/60 hover:decoration-blue-300", icon: "text-blue-400/70" },
   ];
 
-    /* `role` and `tenure` render as one list of equal items; the separator carries the meaning. */
   const TRANSITION = /^(now|currently|former|formerly|previously|later)\b/i;
 
   function roleParts(role: string, tenure?: string) {
@@ -30,8 +27,6 @@
   }
 </script>
 
-<!-- h-full + flex-1 on each card: the stack fills the grid row and the cards
-     divide it evenly, so the last one ends level with the column opposite. -->
 <div class="flex h-full flex-1 flex-col gap-4">
   {#each leadership as role, i}
     <div
@@ -42,8 +37,6 @@
         aria-hidden="true"
       />
 
-      <!-- One header row: org, its link icon, then the role on the same
-           baseline. flex-wrap so a long pair drops to two lines. -->
       <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h4
           class="inline-flex items-baseline gap-1.5 font-casual text-lg font-extrabold leading-tight {$theme.text.strong}"

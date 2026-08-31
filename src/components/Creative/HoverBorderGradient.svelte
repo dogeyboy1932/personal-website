@@ -1,5 +1,3 @@
-<!-- FX: hover-border-gradient — a bright arc sweeping the border, faster on hover. — Renders as <a>
-     when `href` is set, otherwise <button>. -->
 <script lang="ts">
   import { darkModeStore } from "../../lib/stores";
 
@@ -24,8 +22,6 @@
         : "79, 70, 229"
       : color;
 
-  /* Feeds the shared .fx-arc effect. --hbg-radius stays local because the
-     component's own layout rule uses it. */
   $: styleVars =
     `--fx-arc-duration:${duration}s; --fx-arc-hover-duration:${duration / hoverBoost}s; ` +
     `--fx-arc-thickness:${thickness}px; --hbg-radius:${radius}; ` +
@@ -44,7 +40,6 @@
 </svelte:element>
 
 <style>
-  /* Arc lives in src/styles/effects.css. Only layout is component-specific. */
   .fx-hover-border-gradient {
     display: inline-flex;
     align-items: center;

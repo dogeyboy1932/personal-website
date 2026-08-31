@@ -1,4 +1,3 @@
-<!-- /more: everything else, as chips. -->
 <script lang="ts">
   import { fly } from "svelte/transition";
   import { Users } from "lucide-svelte";
@@ -16,7 +15,6 @@
 <div class="rounded-2xl border {$theme.border.default} {$theme.bg.card} p-5">
   <div class="mb-3 flex items-center gap-2">
     <Users class="h-4 w-4 {$theme.text.muted}" />
-    <!-- .meta-label-strong: shared with Honors and the hero's MCS line. -->
     <h4 class="meta-label-strong text-xs sm:text-[0.8rem] {$theme.text.secondary}">
       Also around campus
     </h4>

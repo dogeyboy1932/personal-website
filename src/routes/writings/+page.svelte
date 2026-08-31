@@ -6,8 +6,6 @@
   import { theme } from "../../lib/stores";
   import { scrollReveal } from "../../lib/actions/scrollReveal";
 
-  /* "hot takes is part of it (idea)" — kept as a named strand rather than a
-     separate route, so it can grow into a tag/section without another page. */
   const strands = [
     { name: "Hot takes", note: "Short, opinionated, probably about AI or economics" },
     { name: "Long form", note: "Things that needed more than a paragraph" },

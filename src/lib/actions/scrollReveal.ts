@@ -3,7 +3,6 @@
    never trapped invisible. blur / restOpacity / y / duration / delay / threshold / once */
 export interface ScrollRevealOptions {
   blur?: number;
-  /** Opacity before reveal. 1 = pure blur-and-settle; below 1 adds a fade. */
   restOpacity?: number;
   y?: number;
   duration?: number;
@@ -24,7 +23,6 @@ const DEFAULTS: Required<ScrollRevealOptions> = {
   once: false,
 };
 
-/** One observer per distinct threshold, not per element (/more reveals ~30 nodes). */
 const pools = new Map<number, IntersectionObserver>();
 const handlers = new WeakMap<Element, (visible: boolean) => void>();
 
@@ -77,11 +75,9 @@ export function scrollReveal(node: HTMLElement, options: ScrollRevealOptions = {
     node.style.removeProperty("will-change");
     node.style.removeProperty("opacity");
     // `transition` is deliberately KEPT when the reveal can recur: dropping it
-    // would make the next re-blur snap instead of animate.
     if (opts.once) node.style.removeProperty("transition");
   };
 
-  /** Re-arm the styles a recurring reveal needs before hiding again. */
   const armStyles = () => {
     node.style.willChange = "opacity, filter, transform";
     node.style.transition =
@@ -110,8 +106,6 @@ export function scrollReveal(node: HTMLElement, options: ScrollRevealOptions = {
       }
       cleanupTimer = setTimeout(clearStyles, opts.duration + opts.delay + 60);
     } else if (!opts.once) {
-      // Styles were stripped when it settled; put them back before re-hiding,
-      // or the blur would snap on rather than transition.
       armStyles();
       hide();
     }

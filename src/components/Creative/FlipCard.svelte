@@ -1,4 +1,3 @@
-<!-- FX: flip-card — A card that rotates on its Y axis to reveal a back face. -->
 <script lang="ts">
   export let duration = 550;
   export let trigger: "hover" | "click" | "both" = "both";
@@ -37,8 +36,6 @@
   .fx-flip-card {
     display: block;
     width: 100%;
-    /* Perspective on the outer element, rotation on the inner one — putting
-       both on the same element flattens the 3D. */
     perspective: 1200px;
     background: none;
     border: 0;
@@ -72,8 +69,6 @@
     width: 100%;
   }
 
-  /* The back is stacked on the front and pre-rotated, so the inner element's
-     180deg turn brings it to face the viewer. */
   .fx-fc-back {
     position: absolute;
     inset: 0;

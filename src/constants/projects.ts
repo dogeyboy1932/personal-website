@@ -1,4 +1,3 @@
-/** Projects and portfolio showcase */
 
 import type { Project } from "../types";
 
@@ -165,10 +164,6 @@ export const projectsData: Project[] = [
   },
 ];
 
-
-
-
-// UI labels for project display
 export const projectLabels = {
   techStack: "Tech stack",
   performance: "Performance",

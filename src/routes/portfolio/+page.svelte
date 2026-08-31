@@ -25,7 +25,6 @@
 <section class="space-y-10 pb-4">
   <section use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
     <SectionHeader id="experiences" title={sections.prof_experiences} />
-    <!-- 2-up by default; 3-up only where there is genuinely room for it. -->
     <div class="grid gap-5 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
       {#each experiences as experience, i}
         <ExperienceCard {experience} index={i} />
@@ -38,7 +37,6 @@
 
     <CategoryFilter {categories} bind:selectedCategory />
 
-    <!-- {#key} remounts the carousel so Embla re-measures after a filter change. -->
     {#key selectedCategory}
       <Carousel
         component={ProjectCard}
@@ -60,7 +58,6 @@
   <section use:scrollReveal>
     <SectionHeader id="skills" title={sections.skills} />
     <div class="grid gap-3" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-2={$breakpoints.isTablet} class:grid-cols-3={$breakpoints.isDesktop}>
-      <!-- `index` drives the per-category accent off the shared neon ramp. -->
       {#each skillsData.skills as category, index}
         <SkillCategoryCard {category} {index} />
       {/each}

@@ -9,14 +9,11 @@
   export let density = 5.5;
   export let minSize = 0.6;
   export let maxSize = 1.9;
-    /** DEFAULT 0 — any non-zero value makes the whole field fall in unison, which reads as rain rather
-     than sparkle. */
   export let gravity = 0;
   export let drift = 0.22;
   export let twinkle = 3.2;
   export let pointerPull = 130;
   export let color: string | null = null;
-    /** Px the field extends ABOVE and BELOW its container. */
   export let bleedTop = 0;
   export let bleedBottom = 0;
   let klass = "";
@@ -29,15 +26,11 @@
     vy: number;
     /** Persistent heading, radians. Turns slowly; never damped to zero. */
     angle: number;
-    /** Constant px/frame along `angle`. */
     speed: number;
-    /** Radians/frame the heading wanders by. */
     turn: number;
     r: number;
-    /** Radians; advances each frame to drive the twinkle. */
     phase: number;
     phaseStep: number;
-    /** Per-particle brightness ceiling, so the field isn't uniform. */
     peak: number;
   }
 
@@ -53,7 +46,6 @@
   let pointerX = -9999;
   let pointerY = -9999;
 
-    /** Pre-rendered glow sprite. */
   const SPRITE_R = 8;
   const SPRITE_SIZE = SPRITE_R * 6;
   let sprite: HTMLCanvasElement | null = null;
@@ -67,7 +59,6 @@
     if (!g) return;
 
     const mid = SPRITE_SIZE / 2;
-    // Solid core out to SPRITE_R, then a soft falloff standing in for the glow.
     const grad = g.createRadialGradient(mid, mid, 0, mid, mid, mid);
     grad.addColorStop(0, `rgba(${rgb}, 1)`);
     grad.addColorStop(SPRITE_R / mid, `rgba(${rgb}, 0.85)`);
@@ -79,7 +70,6 @@
     sprite = c;
   }
 
-  // Rebuild when the theme changes the particle color.
   $: if (browser && rgb) buildSprite();
 
   /* CAVEAT: `color` overrides the token only when it is a numeric triple — a
@@ -98,7 +88,6 @@
     return {
       x: Math.random() * w,
       y: Math.random() * h,
-      // Persistent heading on the unit circle, so the field has no shared axis.
       ...(() => {
         const a = Math.random() * Math.PI * 2;
         const sp = drift * (0.45 + Math.random() * 0.9);
@@ -142,19 +131,15 @@
     ctx.clearRect(0, 0, width, height);
 
     for (const p of particles) {
-            /* Motion is a PERSISTENT heading that slowly turns, not a damped random walk. */
       p.angle += p.turn;
       p.vx = Math.cos(p.angle) * p.speed;
       p.vy = Math.sin(p.angle) * p.speed + gravity;
 
-      // Cursor attraction — the "gravity" the brief asked for reads best as
-      // something the pointer can bend, not just a constant downward pull.
       if (pointerPull > 0) {
         const dx = pointerX - p.x;
         const dy = pointerY - p.y;
         const dist = Math.hypot(dx, dy);
         if (dist < pointerPull && dist > 1) {
-          // Bends this frame's velocity only; vx/vy are recomputed from the
           // heading next frame, so the pull never accumulates into a drift.
           const pull = (1 - dist / pointerPull) * 0.7;
           p.vx += (dx / dist) * pull;
@@ -166,7 +151,6 @@
       p.y += p.vy;
       p.phase += p.phaseStep;
 
-            /* Wrap on all four edges rather than respawning at the top. */
       const M = 6;
       if (p.x < -M) p.x = width + M;
       else if (p.x > width + M) p.x = -M;
@@ -174,11 +158,9 @@
       else if (p.y > height + M) p.y = -M;
 
       // sin() maps to [0,1] for the twinkle; never fully off, so points don't
-      // pop in and out.
       const alpha = (0.25 + 0.75 * (0.5 + 0.5 * Math.sin(p.phase))) * p.peak;
 
       if (sprite) {
-        // Scale the sprite so its solid core matches this particle's radius.
         const size = (p.r / SPRITE_R) * SPRITE_SIZE;
         ctx.globalAlpha = alpha;
         ctx.drawImage(sprite, p.x - size / 2, p.y - size / 2, size, size);
@@ -232,7 +214,6 @@
   .fx-sparkle-field {
     position: absolute;
     inset: 0;
-    /* Overridden by the bleed props; 0 by default so this is inset:0. */
     top: var(--sf-top, 0px);
     bottom: var(--sf-bottom, 0px);
     pointer-events: none;

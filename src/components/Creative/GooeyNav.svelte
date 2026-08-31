@@ -1,5 +1,3 @@
-<!-- FX: gooey-nav — The active nav item sits inside a liquid blob that stretches and snaps to
-     whichever item you select, and clicking flings a few droplets that get pulled back in. -->
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
@@ -13,7 +11,6 @@
   export let blur = 6;
   export let duration = 520;
 
-  /** Unique per instance: two components sharing a filter id would collide. */
   const filterId = `fx-goo-${Math.random().toString(36).slice(2, 9)}`;
 
   let container: HTMLDivElement;
@@ -34,7 +31,6 @@
   let droplets: Droplet[] = [];
   let dropletId = 0;
 
-    /** SvelteKit serves these routes with a trailing slash , while navItems declares them without . */
   const normalize = (path: string) =>
     path.length > 1 ? path.replace(/\/+$/, "") : path;
 
@@ -46,15 +42,10 @@
   const reduced = () =>
     browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
-    /* The pill inverts with the theme. */
-  /* Colours via the shared token store, which re-reads a frame after any theme
-     change — see src/lib/tokens.ts for why that timing matters. */
   $: pillFill = css($tokens, "nav-pill");
   $: pillLabel = css($tokens, "nav-pill-label");
 
   function measure() {
-    // Unknown route (activeIndex -1): retire the blob rather than leaving it
-    // parked under whatever item it happened to measure last.
     if (activeIndex < 0) {
       measured = false;
       return;
@@ -80,12 +71,9 @@
 
     const cx = el.offsetLeft + el.offsetWidth / 2;
     const cy = el.offsetTop + el.offsetHeight / 2;
-    // Half-extents of the pill, so droplets can start ON its edge.
     const rx = el.offsetWidth / 2;
     const ry = el.offsetHeight / 2;
 
-        /* Droplets spawn on the pill's PERIMETER and travel outward from there, rather than starting at
-       the centre where the blob hides them. */
     const ARC_START = -0.11 * Math.PI; // just above horizontal-right
     const ARC_SWEEP = 1.22 * Math.PI; // through down, round to horizontal-left
     const made: Droplet[] = Array.from({ length: particles }, (_, i) => {
@@ -96,7 +84,6 @@
       const distance = 14 + Math.random() * 20;
       return {
         id: dropletId++,
-        // On the edge, nudged just past it so nothing is born under the blob.
         x: cx + cos * (rx + 2),
         y: cy + sin * (ry + 2),
         dx: cos * distance,
@@ -107,7 +94,6 @@
 
     droplets = [...droplets, ...made];
     const ids = new Set(made.map((d) => d.id));
-    // Outlive the CSS animation, then drop them so the list can't grow.
     setTimeout(() => {
       droplets = droplets.filter((d) => !ids.has(d.id));
     }, 700);
@@ -124,12 +110,10 @@
   onDestroy(() => observer?.disconnect());
 </script>
 
-<!-- The filter itself. Zero-sized and hidden; only its id is used. -->
 <svg class="fx-goo-defs" aria-hidden="true" focusable="false">
   <defs>
     <filter id={filterId}>
       <feGaussianBlur in="SourceGraphic" stdDeviation={blur} result="soft" />
-      <!-- Crank alpha contrast: soft overlapping edges snap into one shape. -->
       <feColorMatrix
         in="soft"
         mode="matrix"
@@ -197,8 +181,6 @@
 </div>
 
 <style>
-    /* Blob and droplets are white (updates.txt: "Make the navbar tabs white instead of yellow
-     pilled"). */
   .fx-goo-fill {
     background-color: var(--goo-fill);
   }
@@ -245,7 +227,6 @@
   .fx-goo-droplet {
     position: absolute;
     border-radius: 9999px;
-    /* Centred on its spawn point, then flung outward and reeled back. */
     margin-left: -3px;
     margin-top: -3px;
     animation: fx-goo-fling 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -278,8 +259,6 @@
   }
 
   .fx-goo-item {
-    /* Fredoka — navbar only, on request. Rounded and friendlier than the
-       Chivo used for headings, which read as too robotic here. */
     font-family: "Fredoka", "Chivo", Inter, sans-serif;
     font-weight: 500;
     letter-spacing: 0.02em;
@@ -294,8 +273,6 @@
     transition: color 300ms ease;
   }
 
-  /* On narrow screens the four items wrapped to two rows, which pushed the
-     theme toggle onto a third. Tightening padding and gap fits them on one. */
   @media (max-width: 640px) {
     .fx-goo-items {
       gap: 0.15rem;

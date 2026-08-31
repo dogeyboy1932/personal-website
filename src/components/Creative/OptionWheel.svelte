@@ -1,5 +1,3 @@
-<!-- FX: option-wheel — options fan along an arc, one in focus, neighbours dimming. — Rotate with
-     the arrows, arrow keys, a drag, or by clicking a neighbour. -->
 <script lang="ts">
 
   type Item = $$Generic;
@@ -11,14 +9,11 @@
   export let dip = 16;
   export let cardWidth = 150;
   export let label = "Options";
-  /** Shown beside the counter in the right-hand pocket. */
   export let hint = "";
-    /** "horizontal" fans left-to-right; "vertical" stacks top-to-bottom with the arc bulging sideways. */
   export let orientation: "horizontal" | "vertical" = "horizontal";
     /** In vertical mode this MUST cover the whole fan — cardHeight + 2 * visible * spreadX — or the
      outer cards spill out of the track and collide with the controls beneath it. */
   export let trackHeight = 190;
-  /** Card height; only needed to centre slots in vertical mode. */
   export let cardHeight = 120;
 
   $: count = items.length;
@@ -87,7 +82,6 @@
       capturedOn = el;
     }
 
-    // One card per step of travel, so the wheel tracks the pointer 1:1.
     const moved = Math.round(delta / spreadX);
     active = ((startActive + moved) % count + count) % count;
   }
@@ -134,7 +128,6 @@
   aria-label={label}
   on:keydown={onKeydown}
 >
-    <!-- Scroll and drag are bound HERE. -->
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
     class="fx-ow-track"
@@ -164,8 +157,6 @@
           z-index: {100 - Math.abs(offset)};
         "
       >
-        <!-- Neighbours are a shortcut to that option; the centre card is left
-             alone so the slot's own click can't fight the card's flip. -->
         {#if offset !== 0 && shown}
           <button
             type="button"
@@ -179,7 +170,6 @@
     {/each}
   </div>
 
-    <!-- Counter and hint sit in the empty pocket to the RIGHT of the fan, not under it. -->
   <div class="fx-ow-aside">
     <span class="fx-ow-count">{count ? active + 1 : 0} / {count}</span>
     {#if hint}
@@ -189,24 +179,18 @@
 </div>
 
 <style>
-    /* A flex ROW: the fan on the left, the counter/hint pocket on the right. */
   .fx-option-wheel {
     position: relative;
     display: flex;
     align-items: center;
-    /* Right-aligned, so the fan sits as far right in its column as the pocket
-       allows. ("move option wheel closer to the right") */
     justify-content: flex-end;
     gap: 0.5rem;
     outline: none;
     touch-action: pan-y;
     user-select: none;
-        /* The fanned neighbours sit up to ~3 card-widths either side of centre and pushed 113px of
-       horizontal scroll onto the page. */
     overflow: hidden;
   }
 
-    /* FLUID, capped at the nominal card width. */
   .fx-ow-track {
     position: relative;
     cursor: grab;
@@ -221,15 +205,11 @@
     cursor: grabbing;
   }
 
-  /* Vertical: slots are centred on BOTH axes, since the step now runs down the
-     Y axis and the arc bulges on X. */
   .is-vertical .fx-ow-slot {
     top: 50%;
     margin-top: calc(var(--ow-card-h, 120px) / -2);
   }
 
-  /* Sized by the track's own edges rather than by --ow-card, so the cards
-     follow the track when it is narrower than a nominal card. */
   .fx-ow-slot {
     position: absolute;
     top: 0;
@@ -243,15 +223,11 @@
       opacity 300ms ease;
   }
 
-  /* Kept in the DOM but inert, so the wheel's contents stay one stable list and
-     items don't remount as they rotate through the window. */
   .is-hidden {
     opacity: 0;
     pointer-events: none;
   }
 
-  /* Covers a neighbour card so clicking it rotates the wheel instead of
-     flipping a card the reader isn't looking at. */
   .fx-ow-jump {
     position: absolute;
     inset: 0;
@@ -265,10 +241,7 @@
      or clips no matter how wide the cards get. */
   .fx-ow-aside {
     display: flex;
-        /* 0 0 auto, not 1 1 auto: the pocket takes only what the text needs so the leftover goes to
-       pushing the fan rightward, rather than the pocket absorbing it. */
     flex: 0 0 auto;
-        /* 6rem, down from 7rem. */
     min-width: 6rem;
     flex-direction: column;
     align-items: flex-end;
@@ -277,8 +250,6 @@
     pointer-events: none;
   }
 
-  /* Bigger, on request: "Make the text right of the wheel bigger...its hard to
-     see." */
   .fx-ow-count {
     font-size: 1.9rem;
     font-weight: 700;
@@ -286,7 +257,6 @@
     color: rgb(var(--brand));
   }
 
-  /* Same colour as the counter, on request. */
   /* One line, never wrapped. ("Click to flip should be in one row...no wraps
      should occur.") */
   .fx-ow-hint {
@@ -299,7 +269,6 @@
     line-height: 1.3;
   }
 
-    /* Mobile step-down. */
   @media (max-width: 520px) {
     .fx-ow-track {
       max-width: 200px;
@@ -309,7 +278,6 @@
       min-width: 0;
     }
 
-        /* The hint is nowrap by requirement, so its own width is part of the row's min-content. */
     .fx-ow-hint {
       font-size: 0.6rem;
       letter-spacing: 0.06em;

@@ -3,31 +3,22 @@
    inside @layer base, which is emitted later and wins. */
 
 :root {
-  /* --- Accent: the site's signature colour ------------------------------ */
-  --brand: 34 211 238; /* cyan-400  */
-  --brand-strong: 103 232 249; /* cyan-300  — hovers, highlights */
-  --brand-deep: 8 145 178; /* cyan-600  — light-theme text */
-  --brand-soft: 165 243 252; /* cyan-200  — gradient tails */
-
-  /* --- Warm: the logo / secondary voice --------------------------------- */
-  --warm: 251 191 36; /* amber-400 */
-  --warm-strong: 253 230 138; /* amber-200 */
-  --warm-deep: 217 119 6; /* amber-600 */
-
-  /* --- Lede: the /more one-liner + scorecard numerals ------------------ */
-  --lede: 250 204 21; /* yellow-400 */
-
-  /* --- Effect-specific, so an effect can be retuned in isolation --------- */
-    /* SILVER, not amber. */
-  --particles: 255 255 255; /* FX:sparkles + gravity-stars */
-  --cursor: 226 232 240; /* CursorParticles — silver, neutral on both themes */
-  --rays: var(--brand); /* FX:side-rays                */
-  --rain: 34 211 238; /* MatrixRain glyph head       */
-  --rain-tail: 14 116 144; /* MatrixRain glyph tail       */
-  --nav-pill: 255 255 255; /* FX:gooey-nav blob           */
+  --brand: 34 211 238;
+  --brand-strong: 103 232 249;
+  --brand-deep: 8 145 178;
+  --brand-soft: 165 243 252;
+  --warm: 251 191 36;
+  --warm-strong: 253 230 138;
+  --warm-deep: 217 119 6;
+  --lede: 250 204 21;
+  --particles: 255 255 255;
+  --cursor: 226 232 240;
+  --rays: var(--brand);
+  --rain: 34 211 238;
+  --rain-tail: 14 116 144;
+  --nav-pill: 255 255 255;
   --nav-pill-label: 11 11 15;
 
-  /* --- Card halo (FX:background-gradient) ------------------------------- */
   --halo-1: 34 211 238;
   --halo-2: 99 102 241;
   --halo-3: 168 85 247;
@@ -36,26 +27,20 @@
   --halo-silver-2: 203 213 225;
   --halo-silver-3: 148 163 184;
 
-  /* --- Status ----------------------------------------------------------- */
-  --ok: 52 211 153; /* emerald-400 */
-  --bad: 251 113 133; /* rose-400    */
+  --ok: 52 211 153;  --bad: 251 113 133;
 }
 
 /* Only the tokens that must change are redefined — anything not listed inherits from :root, so
    adding a token above never means remembering to add it twice. */
-/* Light theme: coffee. Accents are teal/amber rather than the dark theme's
-   cyan/yellow, which sat nearly opposite brown and read as foreign. */
 html:not(.dark) {
-  --brand: 15 118 110; /* teal-700 — the complement to coffee, not its opposite */
-  --brand-strong: 17 94 89; /* teal-800 */
-  --brand-deep: 19 78 74; /* teal-900 */
-  --brand-soft: 94 234 212; /* teal-300 */
-
+  --brand: 15 118 110;
+  --brand-strong: 17 94 89;
+  --brand-deep: 19 78 74;
+  --brand-soft: 94 234 212;
   --warm: 217 119 6;
   --warm-strong: 180 83 9;
   --warm-deep: 120 53 15;
 
-  /* amber-700: caramel. yellow-600 read as a highlighter on cream. */
   --lede: 180 83 9;
 
   --rain: 180 83 9;

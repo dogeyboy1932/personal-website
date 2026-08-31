@@ -11,8 +11,6 @@
   import "@fontsource/plus-jakarta-sans";
   import "../styles.css";
 
-  /* Physical display width drives the mobile threshold (40% of it), so the
-     switch tracks how much of the screen the window occupies, not a px value. */
   onMount(() => {
     const sync = () => displayWidth.set(window.screen?.width || window.innerWidth);
     sync();

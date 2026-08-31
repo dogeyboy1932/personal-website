@@ -1,4 +1,3 @@
-<!-- /more section: stat band. -->
 <script lang="ts">
   import { browser } from "$app/environment";
   import { theme } from "../../lib/stores";
@@ -6,11 +5,8 @@
 
   export let stats: MoreStat[] = [];
 
-  /** Rendered values; start at 0 and are driven up to `stat.value`. */
   let shown: number[] = stats.map(() => 0);
 
-    /** Counts every figure up from zero over `duration`, eased so it decelerates into the final number
-     instead of stopping dead. */
   function countUp(node: HTMLElement, duration = 1400) {
     if (!browser) return;
 
@@ -44,11 +40,6 @@
   }
 </script>
 
-<!-- A SCORECARD: full row, centred, with a rule between each figure. divide-x draws the rules; each
-     cell is flex-1 so the four split the row evenly whatever the label lengths. -->
-<!-- The rounded border and card fill are gone; the figures now sit directly on the page and the
-     only structure left is the divide-x rules between them, which is what made it read as a
-     scorecard in the first place. -->
 <div class="flex w-full divide-x {$theme.border.light} py-2" use:countUp>
   {#each stats as stat, i}
     <div class="flex flex-1 flex-col items-center justify-center px-2">

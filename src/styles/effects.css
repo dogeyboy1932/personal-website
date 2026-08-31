@@ -2,7 +2,6 @@
    CAVEAT: Svelte SCOPES component <style> — it hashes selectors and strips rules it cannot match
    against that component's own markup. */
 
-/* fx-arc — a bright arc travelling around an element's border. */
 @property --fx-arc-angle {
   syntax: "<angle>";
   initial-value: 0deg;
@@ -32,8 +31,6 @@
     rgb(var(--fx-arc-rgb, var(--brand)) / 0) 360deg
   );
 
-  /* Ring mask: two identical masks, one clipped to the content box and one to
-     the padding box, composited with `exclude` — the difference is the ring. */
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);

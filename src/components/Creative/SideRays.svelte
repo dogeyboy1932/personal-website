@@ -10,20 +10,16 @@
   export let opacity = 0.42;
   export let speed = 12;
   export let spread = 72;
-    /** Multiplier on every blade's width. */
   export let widthScale = 1;
   export let hue: "warm" | "cool" = "warm";
-    /** Paint the rays ABOVE the page content instead of behind it. */
   export let overlay = false;
   let klass = "";
   export { klass as class };
 
   $: isDark = $darkModeStore;
 
-  /* Colour from tokens: --rays for the brand hue, --warm for the logo hue. */
   $: rayColor = channels($tokens, hue === "warm" ? "warm" : "rays");
 
-  // Light mode needs less punch — the page ground is amber-50, not black.
   $: peak = isDark ? opacity : opacity * 0.45;
 
   const sides = (s: typeof side) => (s === "both" ? ["left", "right"] : [s]);
@@ -33,9 +29,6 @@
      Capped at 4; the original 9 measured a ~30fps drop on the landing page. */
   $: effectiveCount = overlay ? Math.min(count, 4) : count;
 
-    /** Blades fan out across `spread` degrees, centred on the edge's diagonal. */
-  /* NOTE: reads `widthScale` and `speed`, so any reactive statement calling it
-     re-runs when those change. */
   function blades(n: number, deg: number) {
     return Array.from({ length: n }, (_, i) => {
       const t = n === 1 ? 0.5 : i / (n - 1);
@@ -74,7 +67,6 @@
   .fx-side-rays {
     position: absolute;
     inset: 0;
-        /* Match whatever rounding the host has. */
     border-radius: inherit;
     overflow: hidden;
     pointer-events: none;
@@ -88,10 +80,6 @@
     z-index: 30;
   }
 
-  /* Anchor point the blades rotate around: just off the top corner, so the fan
-     sweeps down and across the hero the way a window light would. */
-    /* Origin sits inboard of the edge so the fan reads as light crossing the section rather than a
-     stain in the corner — but not so far in that it lands mid-page. */
   .fx-rays-origin {
     position: absolute;
     top: 18%;
@@ -99,8 +87,6 @@
     width: 0;
     height: 0;
   }
-  /* Right-mounted fan sits close to the edge. At 18% inboard the origin fell
-     behind the hero photo, which is opaque, and the rays were invisible. */
   .fx-rays-origin.from-right {
     left: auto;
     right: 3%;
@@ -111,10 +97,7 @@
     top: 0;
     left: 0;
     width: var(--ray-width);
-    /* Long enough to cross the section at any angle. */
     height: 190vh;
-        /* Base rotation is a variable so one keyframe set serves both edges — hardcoding it here would
-       be overridden by the animation's transform. */
     --ray-base: 82deg;
     transform-origin: 50% 0;
     transform: rotate(calc(var(--ray-base) + var(--ray-angle)));
@@ -131,7 +114,6 @@
     will-change: opacity;
   }
 
-  /* Mirror the fan when it originates from the right edge. */
   .from-right .fx-ray {
     --ray-base: 82deg;
   }

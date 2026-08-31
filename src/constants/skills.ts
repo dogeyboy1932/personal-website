@@ -1,4 +1,3 @@
-/** Skills, hobbies, and proficiency levels */
 
 import type { SkillsData } from "../types";
 import { ProficiencyLevel, SkillStatus } from "../types";
@@ -403,7 +402,6 @@ export const skillsData: SkillsData = {
   ],
 };
 
-// Tech stack colors - randomly pick from these
 export const techColors = [
   "text-blue-300",
   "text-blue-400",
@@ -435,7 +433,6 @@ export const techColors = [
   "text-slate-400",
 ] as const;
 
-// Project complexity badge styles
 export const complexityClasses = {
   Beginner: "text-slate-400 bg-slate-500/10 border border-slate-500/20",
   Intermediate: "text-amber-300 bg-amber-500/10 border border-amber-400/20",

@@ -1,5 +1,3 @@
-<!-- FX: background-gradient — An animated multi-stop gradient sitting behind a card, blurred so it
-     reads as coloured light bleeding out from under the edges. -->
 <script lang="ts">
   import { browser } from "$app/environment";
   import { darkModeStore } from "../../lib/stores";
@@ -17,8 +15,6 @@
 
   $: isDark = $darkModeStore;
 
-    /* Halo colours come from the --halo-* tokens (src/styles/tokens.css) rather than being hardcoded
-     per palette, so a site recolour reaches the cards. */
   const paletteOrder: Record<string, TokenName[]> = {
     aurora: ["halo-1", "halo-2", "halo-3"],
     violet: ["halo-3", "halo-2", "halo-1"],
@@ -30,8 +26,6 @@
 
   $: names = paletteOrder[palette] ?? paletteOrder.aurora;
   $: stops = names.map((n) => css($tokens, n)).join(", ");
-  /* The rim uses the FIRST token only — a multi-stop ramp is what produced the
-     concentric "target" rings in the previous version. */
   $: edge = css($tokens, names[0]);
 </script>
 
@@ -58,7 +52,6 @@
     border-radius: var(--bgg-radius);
   }
 
-    /* The glow is split across two elements on purpose. */
   .fx-bgg-glow {
     position: absolute;
     inset: calc(var(--bgg-spread) * -1);
@@ -70,7 +63,6 @@
     pointer-events: none;
   }
 
-    /* An EDGE glow, not a filled gradient. */
   .fx-bgg-drift {
     position: absolute;
     inset: 0;
@@ -94,8 +86,6 @@
     opacity: var(--bgg-active);
   }
 
-  /* The card itself rides above the glow and keeps its own opaque background,
-     so the gradient only ever shows as a halo. */
   .fx-bgg-content {
     position: relative;
     z-index: 1;
@@ -103,7 +93,6 @@
     border-radius: inherit;
   }
 
-  /* A gentle breath, nothing directional. */
   @keyframes fx-bgg-drift {
     0%,
     100% {

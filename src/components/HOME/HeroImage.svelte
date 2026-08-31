@@ -2,12 +2,10 @@
   import { fly } from "svelte/transition";
   import { theme } from "../../lib/stores";
 
-  // FX:quote-carousel — was a single `quote`/`voice` pair
   
 
   export let src: string;
   export let alt: string;
-  // export let quotes: { quote: string; voice: string }[] = [];
 </script>
 
 <div class="relative overflow-hidden rounded-xl border {$theme.border.accent} {$theme.bg.cardSolid} shadow-2xl">

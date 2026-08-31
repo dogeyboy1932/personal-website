@@ -1,4 +1,3 @@
-<!-- FX: flip-words — Cycles a list of words in place. -->
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
@@ -32,11 +31,8 @@
 </script>
 
 <span class="fx-flip-words {klass}">
-  <!-- Invisible sizer: holds the box open at the longest word's width. -->
   <span class="fx-fw-sizer" aria-hidden="true">{longest}</span>
 
-  <!-- Keyed so Svelte tears down and rebuilds on every change, which is what
-       restarts the per-letter animation. -->
   {#key index}
     <span class="fx-fw-word" class:is-static={reduced}>
       {#each current.split("") as char, i}
@@ -47,8 +43,6 @@
     </span>
   {/key}
 
-  <!-- Screen readers get the plain current word, not the split characters:
-       per-letter spans are announced letter by letter otherwise. -->
   <span class="sr-only" aria-live="polite">{current}</span>
 </span>
 
@@ -60,7 +54,6 @@
     vertical-align: bottom;
   }
 
-    /* Reserves BOTH the width of the longest word and a line's height. */
   .fx-fw-sizer {
     display: block;
     visibility: hidden;

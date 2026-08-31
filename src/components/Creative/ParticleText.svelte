@@ -1,5 +1,3 @@
-<!-- FX: particle-text — The name rendered as a cloud of particles that scatter away from the cursor
-     and spring back into the letterforms. -->
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
@@ -14,16 +12,12 @@
   export let spring = 0.09;
   export let friction = 0.86;
   export let color: string | undefined = undefined;
-    /** "nanotech" — particles snap to a lattice, glow, and link to nearby neighbours with hairlines,
-     so the name reads as an assembling structure rather than a dot-matrix print. */
   export let look: "plain" | "nanotech" = "plain";
-  /** Max px between two particles for a connecting line to be drawn. */
   export let linkDistance = 13;
   let klass = "";
   export { klass as class };
 
   interface Particle {
-    /** Home position — where the letterform wants this dot. */
     hx: number;
     hy: number;
     x: number;
@@ -47,14 +41,11 @@
   let pointerY = -9999;
 
   $: isDark = $darkModeStore;
-    /* Pure white in dark mode: the side beams wash warm light across the name and were knocking the
-     old slate-200 down to a muddy grey. */
   $: fill = color ?? (isDark ? "#ffffff" : "#0f172a");
 
   const reducedMotion = () =>
     browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
-  /** Rasterize the text offscreen and turn its opaque pixels into particles. */
   function build() {
     if (!host || !canvas) return;
     const rect = host.getBoundingClientRect();
@@ -77,14 +68,12 @@
     const octx = off.getContext("2d", { willReadFrequently: true });
     if (!octx) return;
 
-    // Size the type to the box unless an explicit size was given.
     let size = fontSize ?? Math.floor(height * 0.72);
     const setFont = (px: number) => {
       octx.font = font.replace("{size}", String(px));
     };
     setFont(size);
     if (fontSize === undefined) {
-      // Shrink until it fits the available width.
       let guard = 40;
       while (octx.measureText(text).width > width * 0.98 && size > 8 && guard-- > 0) {
         size -= 2;
@@ -103,7 +92,6 @@
 
     for (let y = 0; y < off.height; y += step) {
       for (let x = 0; x < off.width; x += step) {
-        // Alpha channel of this pixel; anything mostly-opaque is ink.
         if (data[(y * off.width + x) * 4 + 3] > 128) {
           next.push({ hx: x, hy: y, x, y, vx: 0, vy: 0 });
         }
@@ -118,11 +106,8 @@
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = fill;
 
-        /* Dot size vs. pitch is what actually sets how light the word reads. */
     const size = Math.max(1, gap - 0.4);
 
-        /* Nanotech pass: hairlines between near neighbours, drawn BEFORE the dots so the nodes sit on
-       top of their own links. */
     if (look === "nanotech" && particles.length) {
       ctx.strokeStyle = fill;
       ctx.lineWidth = 0.5;
@@ -145,8 +130,6 @@
       ctx.stroke();
       ctx.globalAlpha = 1;
 
-            /* NO PER-PARTICLE GLOW. shadowBlur here gave every dot its own halo, so the word glowed
-         letter-by-letter and the light followed the glyph shapes. */
       ctx.shadowBlur = 0;
     }
 
@@ -155,7 +138,6 @@
       const dy = p.y - pointerY;
       const distSq = dx * dx + dy * dy;
 
-      // Push away from the cursor, strongest at the centre of the radius.
       if (distSq < radius * radius && distSq > 0.01) {
         const dist = Math.sqrt(distSq);
         const push = ((radius - dist) / radius) * force;
@@ -163,7 +145,6 @@
         p.vy += (dy / dist) * push;
       }
 
-      // Spring home, damped — this is what reassembles the letterforms.
       p.vx += (p.hx - p.x) * spring;
       p.vy += (p.hy - p.y) * spring;
       p.vx *= friction;
@@ -213,7 +194,6 @@
 </script>
 
 <div bind:this={host} class="fx-particle-text {klass}">
-    <!-- The real text is always in the DOM: selectable, searchable, and read by screen readers. -->
   <span class="fx-pt-text" class:is-hidden={active}>{text}</span>
   <canvas bind:this={canvas} class="fx-pt-canvas" class:is-shown={active} aria-hidden="true" />
 </div>

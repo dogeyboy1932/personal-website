@@ -91,7 +91,5 @@
         on:error={() => (imageFailed = true)}
       />
     {/if}
-        <!-- Full bleed: the card has no padding and the image carries no radius or border of its own,
-         so the screenshot reaches the card's edge on all four sides. -->
   {/if}
 </div>

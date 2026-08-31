@@ -17,7 +17,6 @@
   import { more, clubs } from "../../constants";
   import { theme } from "../../lib/stores";
 
-  /* Band headings. HonorShelf labels itself, so it has no entry here. */
   const sections = [
     { id: "travel", label: "Where I've been" },
     { id: "interests", label: "What I'm into" },
@@ -30,23 +29,17 @@
     <PageHeader title={more.title} />
   </div>
 
-  <!-- Left: identity + stats + path + countries | Right: interests wheel -->
-  <!-- FX:scroll-reveal -->
   <div
     class="grid items-stretch gap-6 lg:grid-cols-[1.85fr_1fr] lg:divide-x lg:divide-slate-500/25"
     use:scrollReveal
   >
-    <!-- h-full + flex-col so the column fills the grid row; the slack is what
-         the block below the second divider is centred in. -->
     <div class="flex h-full min-w-0 flex-col space-y-3 text-center lg:pr-7">
-      <!-- FX:flip-words — rotating identity line -->
       <p
         class="w-full text-center font-display text-2xl font-semibold {$theme.text.secondary} sm:text-3xl"
       >
         Off the clock, I'm
         <FlipWords words={more.identityWords ?? []} class="font-semibold text-lede" />
       </p>
-      <!-- /Creative:flip-words -->
 
       <div
         class="mx-auto h-px w-4/5 bg-gradient-to-r from-transparent via-slate-400/35 to-transparent"
@@ -55,7 +48,6 @@
 
       <StatStrip stats={more.stats ?? []} />
 
-
       <div
         class="mx-auto h-px w-4/5 bg-gradient-to-r from-transparent via-slate-400/35 to-transparent"
         aria-hidden="true"
@@ -63,8 +55,6 @@
 
             <!-- CAVEAT: !mt-0 is load-bearing. -->
       <div class="!mt-0 flex flex-1 flex-col justify-center gap-3">
-        <!-- Left as-is on request: "All that's untouched on the more page is the
-             where I've been and the find me." Only its POSITION moved. -->
         <div>
           <h3 class="meta-label mb-4 text-sm {$theme.text.muted}">{sections[0].label}</h3>
           <TravelSection path={more.travel?.path ?? []} show="path" />
@@ -80,12 +70,8 @@
       <InterestGrid interests={more.interests ?? []} />
     </div>
 
-
-
   </div>
 
-  <!-- Was part of: roles left, club chips + honors right -->
-  <!-- FX:scroll-reveal -->
   <section use:scrollReveal>
     <h3 class="meta-label mb-3 ml-1 text-sm {$theme.text.muted}">{sections[2].label}</h3>
 
@@ -101,8 +87,6 @@
     </div>
   </section>
 
-  <!-- ===== LICHESS (WITH CHALLENGE) + CONNECT ===== -->
-  <!-- FX:scroll-reveal -->
   <div class="grid gap-4 lg:grid-cols-2" use:scrollReveal>
     <LichessCard label={more.lichess.label} username={more.lichess.username}>
       <ChessChallenge />
@@ -110,9 +94,6 @@
     <ConnectFooter socials={more.socials ?? []} />
   </div>
 
-
-
   <div>
-    <!-- <FunFactItem fact="Hi" index={0} /> -->
   </div>
 </section>

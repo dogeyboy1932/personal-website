@@ -1,23 +1,17 @@
-<!-- FX: flowing-menu — Full-width rows. -->
 <script lang="ts">
   export let items: {
     key: string;
     label: string;
     note: string;
-    /** Optional leading glyph — a flag emoji for the travel rows. */
     badge?: string;
     href?: string;
   }[] = [];
   export let marquee = 12;
   export let rowHeight = "4.5rem";
-    /** 0 = the original full-width row list. >0 = a grid with this many columns, each CELL behaving as
-     one flowing row. */
   export let columns = 0;
 
-  /** Per-row entry/exit direction: -1 = from above, 1 = from below. */
   let dirs: Record<string, number> = {};
 
-  /** Which half of the row's height the pointer was nearest when it crossed. */
   function edge(event: PointerEvent, node: HTMLElement): number {
     const rect = node.getBoundingClientRect();
     return event.clientY < rect.top + rect.height / 2 ? -1 : 1;
@@ -60,8 +54,6 @@
         <span class="fx-fm-note">{item.note}</span>
       </svelte:element>
 
-      <!-- The panel that slides in. Content is repeated so the marquee has
-           something to scroll into as the first copy leaves. -->
       <div class="fx-fm-panel" aria-hidden="true">
         <div class="fx-fm-marquee">
           {#each Array(4) as _}
@@ -87,8 +79,6 @@
     border-top: 1px solid rgb(148 163 184 / 0.18);
   }
 
-  /* Grid mode: cells instead of stacked rows. The hover panel, entry direction
-     and marquee all work unchanged — only the layout differs. */
   .is-grid {
     display: grid;
     grid-template-columns: repeat(var(--fm-cols), minmax(0, 1fr));
@@ -96,8 +86,6 @@
     border-top: 0;
   }
 
-    /* A LIGHT WARM BORDER, so the country cells read as their own thing rather than as seven more
-     neutral boxes on a page full of neutral boxes. */
   .is-grid .fx-fm-row {
     border-bottom: 0;
     border: 1px solid rgb(var(--warm) / 0.22);
@@ -110,7 +98,6 @@
     border-color: rgb(var(--warm) / 0.5);
   }
 
-    /* Flag LEFT of the name, not stacked above it. */
   .is-grid .fx-fm-face {
     flex-direction: row;
     align-items: center;
@@ -120,7 +107,6 @@
     text-align: left;
   }
 
-  /* Bigger on request: "Countries is too small. Make flag and text bigger." */
   .is-grid .fx-fm-badge {
     font-size: 1.9rem;
     flex-shrink: 0;
@@ -131,8 +117,6 @@
     line-height: 1.15;
   }
 
-  /* The row layout shows the note inline; in a cell there is no room, so it
-     lives only in the marquee panel. */
   .is-grid .fx-fm-note {
     display: none;
   }
@@ -187,7 +171,6 @@
   .fx-fm-note {
     font-size: 0.82rem;
     opacity: 0.62;
-    /* Hidden on narrow screens: the marquee carries it on hover anyway. */
     display: none;
   }
 
@@ -197,7 +180,6 @@
     }
   }
 
-  /* The row's own content fades as the panel takes over. */
   .fx-fm-row:hover .fx-fm-face,
   .fx-fm-row:focus-within .fx-fm-face {
     opacity: 0;
@@ -211,8 +193,6 @@
     align-items: center;
     overflow: hidden;
     background: linear-gradient(90deg, #f59e0b, #fb923c, #f59e0b);
-        /* --fm-dir is -1 when the pointer crossed the top edge and 1 when it crossed the bottom, so the
-       panel always arrives from where you came. 101%, not 100%, and visibility:hidden on top of it. */
     transform: translateY(calc(var(--fm-dir) * -101%));
     visibility: hidden;
     transition:
@@ -261,7 +241,6 @@
     opacity: 0.45;
   }
 
-  /* Four identical copies, so shifting by exactly one quarter loops seamlessly. */
   @keyframes fx-fm-scroll {
     to {
       transform: translateX(-25%);

@@ -1,11 +1,9 @@
-<!-- /more section: honors. -->
 <script lang="ts">
   import { fly } from "svelte/transition";
   import { theme } from "../../lib/stores";
   import type { Honor } from "../../types";
 
   export let honors: Honor[] = [];
-  /** Extra classes; the page passes flex-1 so this box absorbs column slack. */
   let klass = "";
   export { klass as class };
 </script>
@@ -13,7 +11,6 @@
 <div class="rounded-2xl border {$theme.border.default} {$theme.bg.card} p-5 {klass}">
   <div class="mb-3 flex items-center gap-2">
     <span class="text-base leading-none" aria-hidden="true">🏆</span>
-    <!-- .meta-label-strong: shared with "Also around campus" and the hero. -->
     <h4 class="meta-label-strong text-xs sm:text-[0.8rem] {$theme.text.secondary}">Other Wins</h4>
   </div>
 
@@ -26,8 +23,6 @@
         in:fly={{ y: 10, delay: i * 50, duration: 300 }}
         title={honor.detail ?? ""}
       >
-                <!-- {#if honor.kind === "rank"} <FleurDeLisIcon class="h-4 w-4 flex-shrink-0
-             text-amber-900" /> {/if} -->
 
         <span class="leading-tight">
           <span

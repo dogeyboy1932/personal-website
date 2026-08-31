@@ -33,7 +33,6 @@ const NAMES = [
 
 export type TokenName = (typeof NAMES)[number];
 
-/** Dark values mirroring :root, for SSR. */
 const FALLBACK: Record<string, string> = {
   brand: "34, 211, 238",
   "brand-strong": "103, 232, 249",
@@ -65,7 +64,6 @@ function snapshot(): Record<string, string> {
   const out: Record<string, string> = {};
   for (const name of NAMES) {
     const raw = cs.getPropertyValue(`--${name}`).trim();
-    // space-separated channels -> comma-separated for canvas
     out[name] = raw ? raw.split(/\s+/).join(", ") : FALLBACK[name];
   }
   return out;
@@ -83,10 +81,8 @@ if (browser) {
   });
 }
 
-/** "34, 211, 238" — for building rgba() strings in canvas code. */
 export const channels = (t: Record<string, string>, name: TokenName) =>
   t[name] ?? FALLBACK[name];
 
-/** "rgb(34, 211, 238)" — for direct colour assignment. */
 export const css = (t: Record<string, string>, name: TokenName) =>
   `rgb(${t[name] ?? FALLBACK[name]})`;

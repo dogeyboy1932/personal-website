@@ -7,11 +7,9 @@
   let unsubscribe: (() => void) | null = null;
 
   onMount(() => {
-    // Subscribe on the client and keep the document class in sync.
     unsubscribe = darkModeStore.subscribe((value) => {
       isDarkMode = value;
       if (typeof document !== "undefined") {
-        // Use toggle with a boolean to avoid race conditions
         document.documentElement.classList.toggle("dark", Boolean(isDarkMode));
       }
     });
@@ -23,7 +21,6 @@
   });
 
   function handleSwitchDarkMode() {
-    // Flip the store value. Let the subscription keep local state in sync.
     darkModeStore.update((v) => !v);
   }
 </script>

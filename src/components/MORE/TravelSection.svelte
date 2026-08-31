@@ -1,4 +1,3 @@
-<!-- /more section: travel. -->
 <script lang="ts">
   import { theme } from "../../lib/stores";
   import { FlowingMenu } from "../Creative";
@@ -6,13 +5,10 @@
 
   export let path: TravelStop[] = [];
   export let countries: TravelCountry[] = [];
-    /** The page places the life-path stepper and the country grid in different cells: the path stays
-     full width, the countries take the left half beside the interests wheel. */
   export let show: "all" | "path" | "countries" = "all";
 
   // Scales the whole row down so it never wraps — see the action's note.
   import { fitRow } from "../../lib/actions/fitRow";
-  /** Columns for the country grid; fewer when it sits in a half-width cell. */
   export let columns = 7;
 
   $: rows = countries.map((c) => ({
@@ -25,7 +21,6 @@
 
 <div class="space-y-4">
   {#if show !== "countries"}
-  <!-- ===== Life path stepper ===== -->
   <!-- Uniform fixed-width stops; use:fitRow scales the whole row to fit so it
        never wraps. CAVEAT: whitespace-nowrap on the note is load-bearing — a
        wrapped note would make one box a line taller and break the uniformity. -->
@@ -43,8 +38,6 @@
         <div class="text-base font-semibold leading-tight {$theme.text.secondary}">
           {stop.place}
         </div>
-        <!-- tracking-[0.1em] overrides meta-label's 0.18em: utilities are
-             emitted after the components layer, so the tighter value wins. -->
         <div
           class="travel-note meta-label mt-0.5 whitespace-nowrap text-[10px] tracking-[0.1em] {$theme.accent.orange.text}"
         >
@@ -58,10 +51,7 @@
   {/if}
 
   {#if show !== "path"}
-  <!-- ===== Countries ===== -->
-  <!-- FX:flowing-menu (grid mode) -->
   <FlowingMenu items={rows} {columns} rowHeight="4.1rem" marquee={11} />
-  <!-- /Creative:flowing-menu -->
   {/if}
 </div>
 

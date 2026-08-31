@@ -1,5 +1,3 @@
-<!-- FX: spin-logo — grab the logo and tumble it in 3D; a flick coasts to a stop — on both axes, and
-     it drifts slowly on its own as a hint that it is draggable. -->
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import { browser } from "$app/environment";
@@ -9,15 +7,12 @@
   export let maxVelocity = 26;
   export let perspective = 520;
   export let snapBack = false;
-  /** Idle drift, deg/frame at peak. The motion is the affordance — a static
-      logo gives no hint that it can be dragged. */
   export let drift = 0.055;
   let klass = "";
   export { klass as class };
 
   let el: HTMLDivElement;
 
-  /** Rotation about each axis, in degrees. Unclamped — it is a free tumble. */
   let rotX = 0;
   let rotY = 0;
   let velX = 0;
@@ -38,10 +33,8 @@
   const clamp = (v: number) => Math.max(-maxVelocity, Math.min(maxVelocity, v));
 
   function onPointerDown(event: PointerEvent) {
-    // Left button / touch / pen only.
     if (event.button !== 0) return;
     // Deliberately does NOT cancel the loop — it keeps running and simply
-    // returns early while `dragging`, so releasing needs no restart.
     dragging = true;
     velX = 0;
     velY = 0;
@@ -58,8 +51,6 @@
     const dy = event.clientY - lastY;
     const dt = Math.max(event.timeStamp - lastTime, 1);
 
-    /* dy is negated: screen Y grows downward while +rotateX tips the top
-       away, so without the flip the logo fights the hand. */
     rotY += dx * sensitivity;
     rotX -= dy * sensitivity;
 
@@ -85,7 +76,6 @@
     frame = requestAnimationFrame(tick);
     if (dragging) return;
 
-    // Throw decay.
     if (Math.hypot(velX, velY) > 0.05) {
       rotX += velX;
       rotY += velY;
@@ -103,11 +93,9 @@
     rotX += Math.sin(t * 0.00027 + 1.7) * drift * 0.62;
   }
 
-  /** Optional ease back to face-on once the spin dies out. */
   function settle() {
     cancelAnimationFrame(frame);
     const step = () => {
-      // Shortest path back to a multiple of 360 on each axis independently.
       const tx = Math.round(rotX / 360) * 360;
       const ty = Math.round(rotY / 360) * 360;
       const dx = tx - rotX;
@@ -125,21 +113,16 @@
   }
 
   onMount(() => {
-    // Reduced motion: no ambient drift and no idle loop at all. A throw still
-    // works — onPointerUp starts the loop on demand below.
     if (reducedMotion) return;
     t0 = performance.now();
     frame = requestAnimationFrame(tick);
   });
 
-  // onDestroy also runs during SSR, where there is no rAF to cancel.
   onDestroy(() => {
     if (browser) cancelAnimationFrame(frame);
   });
 </script>
 
-<!-- Not interactive in the a11y sense — it's a decorative spin on a logo that is already inside a
-     real link. -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   bind:this={el}
@@ -163,13 +146,10 @@
   .fx-spin-logo {
     display: inline-flex;
     perspective: var(--sl-perspective, 520px);
-    /* Let the element own touch gestures so dragging doesn't scroll the page. */
     touch-action: none;
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
-    /* Grows the hit box 45 -> 65px; the equal negative margin cancels it, so
-       layout is unchanged. */
     padding: 8px;
     margin: -8px;
   }

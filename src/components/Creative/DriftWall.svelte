@@ -16,7 +16,6 @@
 
   let wall: HTMLDivElement;
   let frame = 0;
-  /** Normalised pointer offset from the wall centre, -1..1 on both axes. */
   let pending: { x: number; y: number } | null = null;
 
   const reduced = () =>
@@ -37,7 +36,6 @@
     schedule();
   }
 
-  /** Coalesce many pointer events into one style write per frame. */
   function schedule() {
     if (frame || !browser) return;
     frame = requestAnimationFrame(() => {
@@ -52,7 +50,6 @@
     if (browser && frame) cancelAnimationFrame(frame);
   });
 
-    /** Per-tile depth, derived from the index rather than randomly so the server and client agree. */
   const depthOf = (i: number) => 0.35 + ((i * 37) % 66) / 100;
 </script>
 
@@ -75,13 +72,10 @@
     display: grid;
     grid-template-columns: repeat(var(--dw-cols), minmax(0, 1fr));
     gap: 0.35rem;
-    /* Perspective on the wall so the per-tile tilt has somewhere to happen. */
     perspective: 900px;
   }
 
   .fx-dw-tile {
-    /* --dw-x/--dw-y are written once per frame on the wall; each tile scales
-       them by its own depth. Transform only, so this stays on the compositor. */
     transform: translate3d(
         calc(var(--dw-x, 0) * var(--dw-depth) * var(--dw-travel) * -1),
         calc(var(--dw-y, 0) * var(--dw-depth) * var(--dw-travel) * -1),
@@ -93,15 +87,12 @@
         /* Deliberately NOT transform-style: preserve-3d. */
   }
 
-  /* The hovered tile comes forward and stops drifting, so it is easy to read. */
   .fx-dw-tile:hover,
   .fx-dw-tile:focus-within {
     transform: translate3d(0, -4px, 0) scale(1.06);
     z-index: 2;
   }
 
-  /* Column count is a prop, but it can't survive every width — these floors
-     stop tiles collapsing to unreadable slivers on narrow screens. */
   @media (max-width: 1100px) {
     .fx-drift-wall {
       grid-template-columns: repeat(6, minmax(0, 1fr));

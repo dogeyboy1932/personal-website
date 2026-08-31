@@ -5,8 +5,6 @@
   import { resume } from "../../constants";
   import { theme } from "../../lib/stores";
 
-
-  /* Both branches render the same link, so the class lives here once. */
   $: linkClass =
     `mt-4 inline-flex items-center rounded-md border px-4 py-2 text-sm font-semibold uppercase ` +
     `tracking-[0.35em] transition ${$theme.border.light} ${$theme.text.primary} ` +
@@ -16,7 +14,6 @@
 <section class="space-y-6" in:fade>
   <PageHeader title={resume.pageTitle} />
 
-  <!-- FX:scroll-reveal -->
   <div
     class="rounded-2xl border p-6 shadow-lg {$theme.border.default} {$theme.bg.card}"
     in:fly={{ y: 8 }}

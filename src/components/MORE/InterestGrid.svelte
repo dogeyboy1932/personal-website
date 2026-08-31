@@ -1,4 +1,3 @@
-<!-- /more section: interests. -->
 <script lang="ts">
   import { theme } from "../../lib/stores";
   import { OptionWheel, FlipCard } from "../Creative";
@@ -11,8 +10,6 @@
     /* CAVEAT: cards own their flip state and are wrapped in {#key active}. */
 </script>
 
-<!-- Vertical, because it sits in a narrow right-hand column beside the countries. spreadX is the
-     per-step distance along whichever axis is active. visible=2 shows five cards. -->
 <OptionWheel
   items={interests}
   bind:active
@@ -39,7 +36,6 @@
         : $theme.accent.cyan.border} {$theme.bg.flipCard} px-4 text-left shadow-lg"
     >
       <span class="text-5xl leading-none">{item.emoji}</span>
-            <!-- No per-card "click to flip": it now lives once, beside the counter. -->
       <span class="min-w-0">
         <span class="block text-xl font-semibold leading-tight {$theme.text.secondary}">
           {item.name}
@@ -51,10 +47,8 @@
       slot="back"
       class="flex h-full flex-col justify-center rounded-xl border {$theme.accent.cyan.hover.border} {$theme.bg.flipCard} px-4 text-left shadow-lg"
     >
-            <!-- Detail only, no repeated title. -->
       <p class="text-base leading-snug {$theme.text.secondary}">{item.detail}</p>
     </div>
   </FlipCard>
   {/key}
-  <!-- /Creative:flip-card -->
 </OptionWheel>

@@ -16,8 +16,6 @@
   xmlns="http://www.w3.org/2000/svg"
   {...$$props}
 >
-    <!-- Path previously ended in a stray "C", which is an incomplete curve command: browsers logged
-       "Unexpected end of attribute" and dropped the final segment. -->
   <path d="M2 3L12 24L24 3H18L12 13L8 3H6Z" fill="url(#linear-gradient)" />
   <defs>
     <linearGradient id="linear-gradient" x1="0" y1="0" x2="100%" y2="0">

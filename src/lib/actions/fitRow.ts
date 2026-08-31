@@ -1,4 +1,3 @@
-/** Scales a single-line row down so it always fits its container. */
 export function fitRow(node: HTMLElement) {
   if (typeof window === "undefined") return { destroy() {} };
 
@@ -32,7 +31,6 @@ export function fitRow(node: HTMLElement) {
   observer.observe(node);
   schedule();
 
-  // Webfonts land after first layout and change the natural width.
   document.fonts?.ready.then(schedule).catch(() => {});
 
   return {

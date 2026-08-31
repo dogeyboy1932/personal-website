@@ -1,4 +1,3 @@
-<!-- Shared placeholder for routes that exist but have no content yet (/pictures, /writings). -->
 <script lang="ts">
   import { theme } from "../lib/stores";
 

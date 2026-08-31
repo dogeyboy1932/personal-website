@@ -2,7 +2,6 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { writable } from "svelte/store";
 
-
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -12,9 +11,6 @@ export function getTechColor(tech: string, index: number, techColors: string[]) 
   return techColors[hash];
 }
 
-/** Colours for a whole badge row, guaranteeing no two ADJACENT badges match. getTechColor hashes
-   each name independently, so nothing stopped two neighbours landing on the same entry — and with
-   ten colours and rows of five, a collision somewhere on the page is close to certain rather than */
 export function getTechColors(techs: string[], techColors: string[]): string[] {
   if (!techColors.length) return techs.map(() => '');
 
