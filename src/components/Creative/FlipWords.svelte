@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { prefersReducedMotion } from "../../lib/utils";
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
 
@@ -18,7 +19,7 @@
 
   onMount(() => {
     if (!browser) return;
-    reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    reduced = prefersReducedMotion();
     if (words.length < 2) return;
     timer = setInterval(() => {
       index = (index + 1) % words.length;

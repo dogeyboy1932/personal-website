@@ -1,3 +1,4 @@
+import { prefersReducedMotion } from "../utils";
 /** FX: scroll-reveal — elements sit blurred and resolve to crisp as they enter view. — Honours
    prefers-reduced-motion; degrades to "always visible" without IntersectionObserver, so content is
    never trapped invisible. blur / restOpacity / y / duration / delay / threshold / once */
@@ -45,9 +46,7 @@ function getObserver(threshold: number): IntersectionObserver {
 export function scrollReveal(node: HTMLElement, options: ScrollRevealOptions = {}) {
   const opts = { ...DEFAULTS, ...options };
 
-  const reducedMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const reducedMotion = prefersReducedMotion();
 
   // No observer support (or motion suppressed) → render plainly, never hidden.
   if (typeof IntersectionObserver === "undefined" || reducedMotion) {

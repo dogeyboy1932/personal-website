@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { prefersReducedMotion } from "./utils";
   import { tokens } from "./tokens";
   import { browser } from "$app/environment";
   import { onDestroy, onMount } from "svelte";
@@ -130,7 +131,7 @@
     if (!browser) return;
 
     context = canvas.getContext("2d");
-    reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    reducedMotion = prefersReducedMotion();
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
     window.addEventListener("pointermove", handlePointerMove, { passive: true });

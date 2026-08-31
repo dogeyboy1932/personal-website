@@ -1,6 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { writable } from "svelte/store";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -32,4 +31,13 @@ export function getTechColors(techs: string[], techColors: string[]): string[] {
     out.push(colour);
   }
   return out;
+}
+
+/** SSR-safe prefers-reduced-motion check. Was reimplemented in 10 files with four
+    different spellings; call this instead. */
+export function prefersReducedMotion(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false)
+  );
 }

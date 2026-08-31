@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { prefersReducedMotion } from "../../lib/utils";
   import { onDestroy, onMount } from "svelte";
   import { browser } from "$app/environment";
 
@@ -26,9 +27,7 @@
   let lastY = 0;
   let lastTime = 0;
 
-  const reducedMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const reducedMotion = prefersReducedMotion();
 
   const clamp = (v: number) => Math.max(-maxVelocity, Math.min(maxVelocity, v));
 

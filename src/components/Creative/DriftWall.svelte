@@ -2,6 +2,7 @@
      PERFORMANCE Pointer movement writes exactly two CSS custom properties on the wall, inside a
      rAF, and every tile derives its transform from those. -->
 <script lang="ts">
+  import { prefersReducedMotion } from "../../lib/utils";
   import { onDestroy } from "svelte";
   import { browser } from "$app/environment";
 
@@ -18,11 +19,8 @@
   let frame = 0;
   let pending: { x: number; y: number } | null = null;
 
-  const reduced = () =>
-    browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-
   function onMove(event: PointerEvent) {
-    if (!wall || reduced()) return;
+    if (!wall || prefersReducedMotion()) return;
     const r = wall.getBoundingClientRect();
     pending = {
       x: ((event.clientX - r.left) / r.width - 0.5) * 2,

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { prefersReducedMotion } from "../../lib/utils";
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import type { ComponentType } from "svelte";
@@ -39,9 +40,6 @@
   );
   $: isActive = (href: string) => normalize(href) === normalize(current);
 
-  const reduced = () =>
-    browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-
   $: pillFill = css($tokens, "nav-pill");
   $: pillLabel = css($tokens, "nav-pill-label");
 
@@ -65,7 +63,7 @@
   $: if (browser && (activeIndex < 0 || refs[activeIndex])) measure();
 
   function burst(index: number) {
-    if (reduced()) return;
+    if (prefersReducedMotion()) return;
     const el = refs[index];
     if (!el) return;
 
@@ -139,7 +137,7 @@
     {#if measured}
       <span
         class="fx-goo-blob fx-goo-fill"
-        class:is-instant={reduced()}
+        class:is-instant={prefersReducedMotion()}
         style="
           transform: translate({blob.x}px, {blob.y}px);
           width: {blob.w}px;

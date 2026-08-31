@@ -1,6 +1,6 @@
 <script lang="ts" generics="T">
+  import { prefersReducedMotion } from "../../lib/utils";
   import { onMount, onDestroy } from "svelte";
-  import { browser } from "$app/environment";
   import emblaCarouselSvelte from "embla-carousel-svelte";
   import type { EmblaCarouselType } from "embla-carousel";
   import { theme } from "../../lib/stores";
@@ -19,9 +19,6 @@
 
   let ordered: T[] = items;
 
-  const reducedMotion = () =>
-    browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-
   onMount(() => {
     if (shuffle && items.length > 1) {
       const copy = [...items];
@@ -31,7 +28,7 @@
       }
       ordered = copy;
     }
-    if (!reducedMotion()) start();
+    if (!prefersReducedMotion()) start();
   });
 
   onDestroy(() => stop());

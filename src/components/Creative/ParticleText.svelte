@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { prefersReducedMotion } from "../../lib/utils";
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import { darkModeStore } from "../../lib/stores";
@@ -42,9 +43,6 @@
 
   $: isDark = $darkModeStore;
   $: fill = color ?? (isDark ? "#ffffff" : "#0f172a");
-
-  const reducedMotion = () =>
-    browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
   function build() {
     if (!host || !canvas) return;
@@ -171,7 +169,7 @@
   }
 
   onMount(() => {
-    if (!browser || reducedMotion()) return;
+    if (!browser || prefersReducedMotion()) return;
     build();
     if (particles.length === 0) return;
     active = true;

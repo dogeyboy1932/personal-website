@@ -1,6 +1,7 @@
 <!-- FX: sparkles + gravity-stars — drifting motes that scatter from the cursor. — PERFORMANCE:
      particles are pre-rendered once to an offscreen sprite and blitted with drawImage. -->
 <script lang="ts">
+  import { prefersReducedMotion } from "../../lib/utils";
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import { darkModeStore } from "../../lib/stores";
@@ -80,9 +81,6 @@
     color && /^\s*\d+\s*[, ]\s*\d+\s*[, ]\s*\d+\s*$/.test(color)
       ? color.trim().split(/[\s,]+/).join(", ")
       : channels($tokens, "particles");
-
-  const reducedMotion = () =>
-    browser && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
   function spawn(w: number, h: number): Particle {
     return {
@@ -183,7 +181,7 @@
   }
 
   onMount(() => {
-    if (!browser || reducedMotion()) return;
+    if (!browser || prefersReducedMotion()) return;
     resize();
     observer = new ResizeObserver(resize);
     observer.observe(host);

@@ -1,7 +1,6 @@
 <!-- FX: side-rays — volumetric light blades fanning across a section. — CAVEAT: `overlay` puts this
      at z-index 30, ON TOP of content. -->
 <script lang="ts">
-  import { browser } from "$app/environment";
   import { darkModeStore } from "../../lib/stores";
   import { tokens, channels } from "../../lib/tokens";
 
