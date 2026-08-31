@@ -72,7 +72,7 @@
             {#each links as link, index}
               <SocialLinkButton
                 href={link.href}
-                logo={link.logo}
+                icon={link.icon}
                 title={link.title}
                 {index}
               />

@@ -102,8 +102,7 @@ export interface CustomLink {
   platform: string;
   title: string;
   href: string;
-  isExternal?: boolean;
-  logo?: string;
+  icon: "github" | "linkedin" | "mail";
 }
 
 export interface Experience {

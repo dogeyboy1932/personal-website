@@ -70,21 +70,19 @@ export const links: CustomLink[] = [
     platform: "Github",
     title: "dogeyboy1932",
     href: "https://github.com/dogeyboy1932",
-    isExternal: true,
-    logo: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+    icon: "github",
   },
   {
     platform: "LinkedIn",
     title: "gvAkhil",
     href: "https://www.linkedin.com/in/gvAkhil/",
-    isExternal: true,
-    logo: "https://imgs.search.brave.com/9M_yqfcDbqqOmImAMszvYFe6oPt8EtceNt5tPfKOgSk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni8zNDg4LzM0ODgz/MTEucG5nP3NlbXQ9/YWlzX3doaXRlX2xh/YmVs",
+    icon: "linkedin",
   },
   {
     platform: "Email",
     title: "gogineni.akhil@hotmail.com",
     href: "mailto:gogineni.akhil@hotmail.com",
-    logo: "https://www.svgrepo.com/show/349378/gmail.svg",
+    icon: "mail",
   },
 ];
 

@@ -1,23 +1,24 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
+  import { Github, Linkedin, Mail } from "lucide-svelte";
   import { theme } from "../../lib/stores";
+  import type { CustomLink } from "../../types";
 
   export let href: string;
-  export let logo: string | undefined;
+  export let icon: CustomLink["icon"];
   export let title: string;
   export let index: number = 0;
+
+  const icons = { github: Github, linkedin: Linkedin, mail: Mail } as const;
 </script>
 
 <a
   {href}
   target="_blank"
   rel="noopener noreferrer"
-  class="group flex items-center justify-center rounded-2xl border {$theme.border.tertiary} {$theme.bg.secondary} p-2 transition-all {$theme.hover.scale} {$theme.accent.indigo.hover.border} {$theme.accent.indigo.hover.bg}"
+  aria-label={title}
+  class="group flex h-11 w-11 items-center justify-center rounded-2xl border {$theme.border.tertiary} {$theme.bg.secondary} {$theme.text.secondary} transition-all {$theme.hover.scale} {$theme.accent.indigo.hover.border} {$theme.accent.indigo.hover.bg}"
   in:fly={{ y: 18, delay: index * 80 }}
 >
-  {#if logo}
-    <div class="h-6 w-6">
-      <img src={logo} alt={title} class="h-full w-full object-contain group-hover:opacity-100 transition-all" />
-    </div>
-  {/if}
+  <svelte:component this={icons[icon]} class="h-5 w-5" strokeWidth={1.75} />
 </a>
