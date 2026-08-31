@@ -11,7 +11,7 @@ export const more: MorePageData = {
     "an explorer",
     "a ping pong player",
     "a big brother",
-    "a flanel guy",
+    "a flannel guy",
   ],
 
   // bio:
