@@ -62,6 +62,72 @@ export interface Experience {
   skills: string[];
 }
 
+/* ─── HOME ────────────────────────────────────────────────────────────────────
+   constants/home.ts → routes/+page.svelte, and the two pieces that outlive the
+   page it is named for: the footer reads `lastUpdated`, the resume route reads
+   `resume`. They live here because `resume.description` IS `lastUpdated` — the
+   two drifted apart when they sat in separate files.
+   `site` and `icons` deliberately stay OUT of this: site meta is read by every
+   page, and icons is a component registry rather than content.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+export interface HomePageData {
+  hero: HomeHero;
+  focusesTitle: string;
+  focusAreas: HomeFocusArea[];
+  quickLinks: HomeQuickLink[];
+  socials: SocialHandle[];
+  resume: ResumeDoc;
+  /** Footer stamp, and the source of the resume's "last updated" line. */
+  lastUpdated: string;
+}
+
+export interface HomeHero {
+  tagline: string;
+  /** Rendered with `whitespace-pre-line`, so the \n\n breaks in it are load-bearing. */
+  summary: string;
+  image: { src: string; alt: string };
+  fullName: string;
+  /** Draws the name as a ParticleText canvas instead of plain text. */
+  particleName: boolean;
+  role: string;
+  age: string;
+  credential: string;
+  location: string;
+  quotes: HeroQuote[];
+}
+
+export interface HeroQuote {
+  quote: string;
+  voice: string;
+}
+
+export interface HomeFocusArea {
+  title: string;
+  description: string;
+}
+
+export interface HomeQuickLink {
+  label: string;
+  href: string;
+}
+
+export interface ResumeDoc {
+  url: string;
+  label: string;
+  pageTitle: string;
+  description: string;
+}
+
+/** Site-wide meta, not home-page content — NavigationBar and every page's
+    MetaTags read it. */
+export interface SiteMeta {
+  title: string;
+  description: string;
+  author: string;
+}
+
+
 /* ─── MORE ────────────────────────────────────────────────────────────────────
    constants/more.ts (more) → more/+page.svelte, which spreads the optional
    sections into one MORE/* component each. Club is used by MORE/CampusClubs;
@@ -129,8 +195,8 @@ export interface LeadershipRole {
 export interface Honor {
   placement: string;
   event: string;
-  detail?: string;
   kind: "win" | "rank";
+  detail?: string;
 }
 
 export interface SocialHandle {

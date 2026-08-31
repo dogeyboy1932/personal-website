@@ -1,122 +1,102 @@
-import type { SocialHandle } from "../types";
+import type { HomePageData, SiteMeta } from "../types";
 
 import { Instagram, Mail, Github, Linkedin, Check, ChessKnightIcon } from "lucide-svelte";
 import DiscordLogo from "../lib/OtherLogos/DiscordLogo.svelte";
 
+/* One object for the page, declared against HomePageData — the same shape
+   `more` uses. It absorbed six loose exports that were only ever read together,
+   plus `resume`, whose description is derived from lastUpdated rather than
+   restated (the two had already drifted: the resume claimed June 2026 against a
+   footer reading 8/26). */
 
-export const lastUpdated = "8/26";
+const lastUpdated = "8/26";
 
-/* Lives here, next to lastUpdated, because its description IS lastUpdated —
-   the two used to drift in separate files (the resume claimed "June 2026"
-   while the footer said 8/26). The embed's size is presentation, not content,
-   so it sits in _theme.ts as `embedFrame`. */
-export const resume = {
-  url: "/resume.pdf",
-  label: "Download Resume",
-  pageTitle: "Resume",
-  description: `Last updated: ${lastUpdated}`,
-};
+export const home: HomePageData = {
+  lastUpdated,
 
-export const homeHero = {
-  tagline: "Portfolio 2026",
-  summary:
-    "Heyyy, I'm Akhil! 👋\n\n" +
-    "I'm building AI systems that turn new technology into something people can actually use \n\n" +
-    "I see myself as highly driven, keeping myself informed of emerging trends and seeking opportunities to learn, grow, and deliver meaningful value.",
+  hero: {
+    tagline: "Portfolio 2026",
+    summary:
+      "Heyyy, I'm Akhil! 👋\n\n" +
+      "I put time toward sharpening how I leverage AI & emerging tech. I try being ahead of the curve, staying informed of latest trends + seeing where the world's headed. Super excited for what's to come! 🌱🚀 \n\n" +
+    "Also I'm curious by nature...and I love trying new things. Every day is a level-up.",
     image: {
-    src: "/Linkedin_pfp.jpeg",
-    alt: "Placeholder headshot",
+      src: "/Linkedin_pfp.jpeg",
+      alt: "Placeholder headshot",
+    },
+    fullName: "Akhil Gogineni",
+    particleName: true,
+    role: "AI Engineer",
+    age: "22",
+    credential: "MCS @ UIUC '26",
+    location: "Based in Chicago",
+    quotes: [
+      {
+        quote:
+          "\"It gets easier. Every day it gets a little easier. But you gotta do it every day. That's the hard part. But it does get easier\"",
+        voice: "— A Jogging Baboon",
+      },
+    ],
   },
-  fullName: "Akhil Gogineni",
-  particleName: true,
-  role: "AI Engineer",
-  age: "22",
-  credential: "MCS @ UIUC '26",
-  location: "Based in Chicago",
-  quotes: [
+
+  focusesTitle: "Mainly Focused On",
+
+  focusAreas: [
     {
-      quote:
-        "\"It gets easier. Every day it gets a little easier. But you gotta do it every day. That's the hard part. But it does get easier\"",
-      voice: "— A Jogging Baboon",
+      title: "Product Development",
+      description:
+        "Building scalable full-stack applications with modern frameworks and clean architecture.",
+    },
+    {
+      title: "AI Engineering",
+      description:
+        "Designing and implementing intelligent systems with machine learning and AI technologies.",
+    },
+    {
+      title: "Data Management",
+      description:
+        "Building robust data pipelines and storage solutions for large-scale applications.",
     },
   ],
-};
 
-export const homeFocusAreas = [
-  {
-    title: "Product Development",
-    description:
-      "Building scalable full-stack applications with modern frameworks and clean architecture.",
-  },
-  {
-    title: "AI Engineering",
-    description:
-      "Designing and implementing intelligent systems with machine learning and AI technologies.",
-  },
-  {
-    title: "Data Management",
-    description:
-      "Building robust data pipelines and storage solutions for large-scale applications.",
-  },
-] as const;
+  quickLinks: [
+    { label: "Portfolio", href: "/portfolio" },
+    { label: "Full stack", href: "/portfolio#skills" },
+    { label: "More about me", href: "/more" },
+  ],
 
-export const homeQuickLinks = [
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Full stack", href: "/portfolio#skills" },
-  { label: "More about me", href: "/more" },
-] as const;
+  socials: [
+    {
+      label: "Github",
+      handle: "dogeyboy1932",
+      href: "https://github.com/dogeyboy1932",
+      icon: "github",
+    },
+    {
+      label: "LinkedIn",
+      handle: "gvAkhil",
+      href: "https://www.linkedin.com/in/gvAkhil/",
+      icon: "linkedin",
+    },
+    {
+      label: "Email",
+      handle: "gogineni.akhil@hotmail.com",
+      href: "mailto:gogineni.akhil@hotmail.com",
+      icon: "mail",
+    },
+  ],
 
-export const home = {
-  experience: {
-    title: "Latest Experience Snapshot",
-    viewFullTimeline: "View full timeline",
-  },
-  projects: {
-    title: "Featured Projects",
-    browseFullGallery: "Browse full gallery",
-  },
-  skills: {
-    seeCompleteStack: "See full stack",
+  resume: {
+    url: "/resume.pdf",
+    label: "Download Resume",
+    pageTitle: "Resume",
+    description: `Last updated: ${lastUpdated}`,
   },
 };
 
-export const links: SocialHandle[] = [
-  {
-    label: "Github",
-    handle: "dogeyboy1932",
-    href: "https://github.com/dogeyboy1932",
-    icon: "github",
-  },
-  {
-    label: "LinkedIn",
-    handle: "gvAkhil",
-    href: "https://www.linkedin.com/in/gvAkhil/",
-    icon: "linkedin",
-  },
-  {
-    label: "Email",
-    handle: "gogineni.akhil@hotmail.com",
-    href: "mailto:gogineni.akhil@hotmail.com",
-    icon: "mail",
-  },
-];
-
-export const sections = {
-  focuses: "Mainly Focused On",
-  navigation: "Also Check Out",
-  toolkit: "Stack",
-  openProject: "Open project ↗",
-  projectGallery: "Projects",
-  skills: "Skills",
-  resume: "Resume",
-  more: "More",
-  prof_experiences: "Experiences",
-};
-
-export const site = {
+export const site: SiteMeta = {
   title: "Akhil Gogineni — Portfolio",
-  description:
-    "Meet Akhil Gogineni, a Computer Science graduate student at UIUC. Explore his portfolio showcasing expertise in full-stack development, cloud engineering, and AI.",
+  description: "See my website",
   author: "Venkat Akhil Gogineni",
 };
 

@@ -6,19 +6,23 @@ export const more: MorePageData = {
     "a movie guy",
     "a chess player",
     "a rollerblader",
-    "a cheese apologist",
-    "four racquets deep",
+    "a cheese lover",
+    "a tennis player",
+    "an explorer",
+    "a ping pong player",
+    "a big brother",
+    "a flanel guy",
   ],
 
   // bio:
   //   "Born in India, raised in New Jersey, college in Illinois, a semester in Singapore, now Chicago. Seven countries so far, and the perspective was the point.\n\n" +
-  //   "Outside of engineering I read economics and statistics for fun — I minored in stats, and it quietly changed how I argue about everything else. The rest of the time I'm on a court, at a table with cards out, or three episodes deep into something I'll have opinions about later.",
+  //   "Outside of engineering I read economics and statistics for fun — I minored in stats, and it quietly changed how I argue about everything else. The rest of the time I'm on a court, at a table with cards out, or three episodes deep into something I'll have opinions about later",
 
   // Count-up band. Deliberately four: any more and it stops reading as a hook.
   stats: [
     { value: 7, label: "Countries" },
     { value: 10, suffix: "K+", label: "Movie/TV hours" },
-    { value: 14, label: "Clubs" },
+    { value: 15, suffix: "+", label: "Clubs" },
     { value: 4, label: "Racquet Sports" },
   ],
 
@@ -31,13 +35,13 @@ export const more: MorePageData = {
       { place: "Chicago", note: "now" },
     ],
     countries: [
-      { flag: "🇺🇸", name: "United States", note: "Home base — New Jersey, then Illinois, now Chicago" },
-      { flag: "🇮🇳", name: "India", note: "Where I was born. Still go back" },
-      { flag: "🇸🇬", name: "Singapore", note: "A semester at NUS studying CS and blockchain" },
-      { flag: "🇲🇾", name: "Malaysia", note: "A weekend trip that turned into a favourite" },
-      { flag: "🇹🇭", name: "Thailand", note: "Islands, street food, and a lot of walking" },
+      { flag: "🇺🇸", name: "USA", note: "Born & brought up. Currently based in Chicago" },
+      { flag: "🇮🇳", name: "India", note: "Where I was born. Immigrated when I was 2" },
+      { flag: "🇸🇬", name: "Singapore", note: "A semester abroad at NUS exploring new cuisines and perspectives. Great times" },
+      { flag: "🇮🇩", name: "Indonesia", note: "Went to Bali. Motorbiking + Jetskiing. *10/10 milkshakes*" },
+      { flag: "🇲🇾", name: "Malaysia", note: "Great food. Great place to go on a shopping spree" },
+      { flag: "🇹🇭", name: "Thailand", note: "Islands, white sand, and a lot of walking" },
       { flag: "🇰🇭", name: "Cambodia", note: "Angkor Wat at sunrise, worth the 4am" },
-      { flag: "🇮🇩", name: "Indonesia", note: "The last stop of the Singapore semester" },
     ],
   },
 
@@ -46,63 +50,63 @@ export const more: MorePageData = {
       emoji: "🤖",
       name: "Claude-maxing",
       detail:
-        "Running as much of my life through Claude as I can. Custom MCP servers, automated workflows, whatever I can wire up before it stops being a shortcut.",
+        "Running as much of my life through Claude as I can. If I want something done, I tend to 'Claude' it out",
     },
     {
       emoji: "📊",
       name: "Economics & Statistics",
       detail:
-        "My favourite things to read about outside engineering. I minored in statistics, and it changed how I argue about basically everything.",
+        "Favorite topics outside CS. Majored in CS & Econ. I minored in statistics. Super fun",
     },
     {
       emoji: "⛓️",
       name: "Blockchain",
       detail:
-        "Traded crypto and NFTs, and shipped on-chain for a while. Two of my hackathon placements came out of it.",
+        "Traded crypto and NFTs, and shipped on-chain for a while. Found a good community around it",
     },
     {
       emoji: "🧹",
       name: "Organizing",
       detail:
-        "I tidy and systematize things to a fault. It is genuinely a hobby and occasionally a problem.",
+        "I tidy and systematize things to a fault. It is genuinely a hobby and occasionally a problem",
     },
     {
       emoji: "♟️",
       name: "Chess",
       detail:
-        "Longtime player. @trashboatsr on Lichess — the live rating is at the bottom of this page.",
+        "I played over the years...pretty decent at it. @trashboatsr on Lichess — the live rating is at the bottom of this page",
     },
     {
       emoji: "🎲",
       name: "Board & Card Games",
-      detail: "Always down for a table. Euchre league alum, which is a very Illinois sentence.",
+      detail: "I don't know why...they are just addicting",
     },
     {
       emoji: "🃏",
       name: "Poker",
       detail:
-        "Recently picked it up. Currently at the stage where I know just enough to lose confidently.",
+        "Recently picked it up. Good vibe, but I don't gamble aggressively",
     },
     {
       emoji: "🎾",
       name: "Racquet Sports",
-      detail: "Tennis, badminton, pickleball, and learning table tennis. Four racquets, one bag.",
+      detail: "Tennis, badminton, pickleball, and learning table tennis. Four racquets, one bag",
     },
     {
       emoji: "🛼",
       name: "Rollerblading",
-      detail: "A recent pickup. It's fun, and I am not good at it yet.",
+      detail: "A recent pickup. It's fun, and I'm still learning",
     },
     {
       emoji: "🎬",
       name: "Movies & TV",
       detail:
-        "I'm a movie guy — every genre, and I read film lore for fun. The 10,000+ hours up top is not a typo.",
+        "HUUUGE TV/Moview guy. I can watch any genre, and I read film lore for fun. The 10,000+ hours is NOT a typo",
     },
     {
       emoji: "🧀",
       name: "Cheese",
-      detail: "Yes.",
+      detail: "Yes",
     },
   ],
 
@@ -112,14 +116,14 @@ export const more: MorePageData = {
       role: "VP, Founding Team",
       tenure: "Alumni Advisor",
       summary:
-        "Helped build UIUC's first AI safety community while it was still getting off the ground. Now 400+ members, 20 core, and 7+ research projects running. Co-ran an 8-week fellowship on RLHF, interpretability, and scalable oversight.",
+        "Helped build UIUC's first AI safety community while it was still getting off the ground. Now 400+ members, 20 core, and 7+ research projects running. Co-ran an 8-week fellowship on RLHF, interpretability, and scalable oversight",
       link: "https://aialignmentillinois.org/",
     },
     {
       org: "CollegeDAO",
       role: "Core Team",
       summary:
-        "Connecting students in the web3 space. Built a MVP for Latent, an AI-powered hiring platform.",
+        "Connecting students in the web3 space. Built a MVP for Latent, an AI-powered hiring platform",
       link: "https://collegedao.io/",
     },
     {
@@ -127,7 +131,7 @@ export const more: MorePageData = {
       role: "VP Partnerships",
       tenure: "Project Lead",
       summary:
-        "Ran technical teams and external partnerships for UIUC's blockchain organization.",
+        "Ran technical teams and external partnerships for UIUC's blockchain organization",
       link: "https://linktr.ee/illiniblockchain",
     },
   ],
@@ -159,7 +163,6 @@ export const more: MorePageData = {
     {
       placement: "Eagle Scout",
       event: "Boy Scouts of America",
-      detail: "The highest rank in Scouting",
       kind: "rank",
     },
   ],
@@ -171,13 +174,6 @@ export const more: MorePageData = {
     { label: "Email", handle: "vagogineni@gmail.com", href: "mailto:vagogineni@gmail.com", icon: "mail" },
   ],
 
-
-  // hobbies: [
-  //   { name: "Chess", note: "Competitive player on Lichess - pattern recognition and strategic planning" },
-  //   { name: "Racquet Sports", note: "Tennis doubles, learning table tennis, badminton, and pickleball" },
-  //   { name: "Travel & Culture", note: "Study abroad in Singapore, exploring new cuisines and perspectives" },
-  //   { name: "Movies / TV", note: "Very immersed in various genres and storytelling styles. I try to watch something new regularly" },
-  // ],
 
   lichess: {
     username: "trashboatsr",
@@ -197,15 +193,6 @@ export const more: MorePageData = {
 //         { name: "Project Management", logoUrl: "" },
 //       ],
 //     },
-//     {
-//       category: "Sports & Recreation",
-//       items: [
-//         { name: "Tennis", logoUrl: "" },
-//         { name: "Table Tennis", logoUrl: "" },
-//         { name: "Badminton", logoUrl: "" },
-//         { name: "Pickleball", logoUrl: "" },
-//         { name: "Chess", logoUrl: "" },
-//       ],
 //     },
 //   ],
 // };

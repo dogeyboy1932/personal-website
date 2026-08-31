@@ -15,17 +15,39 @@ import { derived, writable } from 'svelte/store';
 export const darkModeStore = writable(true);
 
 const darkTheme = {
+  /* The badge ramp. Order is load-bearing: getTechColor hashes a tech NAME to an
+     index, so moving an entry re-colours every badge that landed on it. The
+     light list below mirrors this one index for index, which is what lets a
+     badge keep its hue across a theme toggle. */
   techColors: [
+    'text-blue-300',
+    'text-blue-400',
     'text-cyan-300',
-    'text-emerald-300',
-    'text-amber-300',
-    'text-violet-300',
-    'text-sky-400',
-    'text-lime-300',
-    'text-orange-300',
+    'text-cyan-400',
     'text-teal-300',
-    'text-indigo-300',
+    'text-emerald-300',
+    'text-emerald-400',
+    'text-green-300',
+    'text-green-400',
+    'text-lime-300',
     'text-yellow-300',
+    'text-yellow-400',
+    'text-amber-300',
+    'text-orange-300',
+    'text-orange-400',
+    'text-red-300',
+    'text-rose-300',
+    'text-pink-300',
+    'text-pink-400',
+    'text-purple-300',
+    'text-purple-400',
+    'text-violet-300',
+    'text-violet-400',
+    'text-indigo-300',
+    'text-indigo-400',
+    'text-sky-300',
+    'text-slate-300',
+    'text-slate-400',
   ],
 
   bg: {
@@ -207,19 +229,40 @@ export type Theme = typeof darkTheme;
  *  decorative only. CAVEAT: amber-600 and lighter are ~3:1 — never text.
  */
 const lightTheme: Theme = {
-  /* Same ten hues as dark, in the same order, so a badge keeps its identity
-     across a theme toggle — getTechColor hashes to an index, not to a colour. */
+  /* Mirrors the dark ramp index for index — same hue, darker shade. It cannot
+     simply reuse those values: -300 and -400 are built for a dark ground and
+     land at 1.5-3:1 on white. Every entry here clears 4.5:1 on the page ground,
+     which rules out the -600 step for cyan, teal, emerald, green, lime, yellow,
+     orange and sky. Slate becomes stone, the light theme's warm neutral. */
   techColors: [
+    'text-blue-700',
+    'text-blue-800',
     'text-cyan-700',
-    'text-emerald-700',
-    'text-amber-700',
-    'text-violet-700',
-    'text-sky-700',
-    'text-lime-700',
-    'text-orange-700',
+    'text-cyan-800',
     'text-teal-700',
-    'text-indigo-700',
+    'text-emerald-700',
+    'text-emerald-800',
+    'text-green-700',
+    'text-green-800',
+    'text-lime-700',
     'text-yellow-700',
+    'text-yellow-800',
+    'text-amber-700',
+    'text-orange-700',
+    'text-orange-800',
+    'text-red-700',
+    'text-rose-700',
+    'text-pink-700',
+    'text-pink-800',
+    'text-purple-700',
+    'text-purple-800',
+    'text-violet-700',
+    'text-violet-800',
+    'text-indigo-700',
+    'text-indigo-800',
+    'text-sky-700',
+    'text-stone-700',
+    'text-stone-800',
   ],
 
   bg: {
@@ -398,42 +441,3 @@ export const themeToggle = {
 };
 
 export const theme = derived(darkModeStore, ($isDarkMode) => ($isDarkMode ? darkTheme : lightTheme));
-
-
-
-// export const techColors = [
-//   "text-blue-300",
-//   "text-blue-400",
-//   "text-cyan-300",
-//   "text-cyan-400",
-//   "text-teal-300",
-//   "text-emerald-300",
-//   "text-emerald-400",
-//   "text-green-300",
-//   "text-green-400",
-//   "text-lime-300",
-//   "text-yellow-300",
-//   "text-yellow-400",
-//   "text-amber-300",
-//   "text-orange-300",
-//   "text-orange-400",
-//   "text-red-300",
-//   "text-rose-300",
-//   "text-pink-300",
-//   "text-pink-400",
-//   "text-purple-300",
-//   "text-purple-400",
-//   "text-violet-300",
-//   "text-violet-400",
-//   "text-indigo-300",
-//   "text-indigo-400",
-//   "text-sky-300",
-//   "text-slate-300",
-//   "text-slate-400",
-// ] as const;
-
-// export const complexityClasses = {
-//   Beginner: "text-slate-400 bg-slate-500/10 border border-slate-500/20",
-//   Intermediate: "text-amber-300 bg-amber-500/10 border border-amber-400/20",
-//   Advanced: "text-rose-300 bg-rose-500/10 border border-rose-400/20",
-// } as const;

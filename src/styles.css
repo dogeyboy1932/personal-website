@@ -78,12 +78,15 @@ html:not(.dark) {
   /* Stone, not slate: a cold hairline is what made the neutrals read corporate. */
   --rule: 168 162 158;
 
-  /* Every particle effect is pure black on the light theme — a warm grey read
-     as smoke against white rather than as ink. `particles` has to be restated
-     even though it looks absent-by-inheritance: the :root value is WHITE, so
-     leaving it out made the sparkles invisible on this ground. */
+  /* The cursor trail is pure black — it follows the pointer, so it reads as ink.
+     The ambient sparkles are NOT: black specks scattered behind the hero read as
+     dust on the screen rather than as light. Warm gold instead, which is the one
+     colour that still says "sparkle" on a white ground.
+     CAVEAT: `particles` has to be restated even though it looks absent-by-
+     inheritance — the :root value is WHITE, so omitting it here made the
+     sparkles invisible on this ground rather than merely wrong. */
   --cursor: 0 0 0;
-  --particles: 0 0 0;
+  --particles: 217 119 6;
   --rain: 194 65 12;
   --rain-tail: 254 215 170;
   --rain-fade: 255 255 255;

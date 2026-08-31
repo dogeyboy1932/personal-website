@@ -10,7 +10,7 @@
   import { screenWidth, displayWidth } from "../constants/_stores";
   import { theme } from "../constants/_theme";
   
-  import { lastUpdated } from "../constants";
+  import { home } from "../constants";
 
   import "../styles.css";
 
@@ -34,7 +34,7 @@
     <!-- No backdrop-blur here: the panel is viewport-sized and MatrixRain animates behind it, so the
          blur could never be cached and was re-computed across the whole page every frame. -->
     <div
-      class="mx-auto max-w-[1600px] rounded-b-xl border p-3 shadow-2xl {$theme.border.default} {$theme.bg.page} {$theme.border.light}"
+      class="mx-auto max-w-[1600px] rounded-b-xl border px-3 shadow-2xl {$theme.border.default} {$theme.bg.page} {$theme.border.light}"
       in:fly={{ y: 6, duration: 350 }}
     >
       <div in:fade={{ duration: 250 }}>
@@ -43,7 +43,7 @@
 
       <footer class="mt-10 flex flex-row justify-between text-[10px] uppercase {$theme.text.muted}">
         <span class="tracking-[0.2em]">© 2026 Akhil Gogineni. All rights reserved.</span>
-        <span class="tracking-[0.3em]">Last updated: {lastUpdated}</span>
+        <span class="tracking-[0.3em]">Last updated: {home.lastUpdated}</span>
       </footer>
     </div>
   </main>

@@ -4,7 +4,7 @@
   
   import { scrollReveal } from "../../lib/actions/scrollReveal";
   
-  import { resume } from "../../constants";
+  import { home } from "../../constants";
 
   import { PageHeader } from "../../components/Headers";
 
@@ -17,23 +17,22 @@
 </script>
 
 <section class="" in:fade>
-  <PageHeader title={resume.pageTitle} />
+  <PageHeader title={home.resume.pageTitle} />
 
   <div
     class="border shadow-lg {$theme.border.default} {$theme.bg.card}"
     in:fly={{ y: 8 }}
     use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}
   >
-    <!-- <p class="text-sm {$theme.text.secondary}">{resume.description}</p> -->
-
+  
     <div class="ml-2">
-      <a href={resume.url} class={linkClass} target="_blank" rel="noopener noreferrer">
+      <a href={home.resume.url} class={linkClass} target="_blank" rel="noopener noreferrer">
         Open in New Tab
       </a>
     </div>
     
     <div class="mt-3 w-full overflow-hidden border {$theme.border.light}">
-      <iframe title={resume.label} src={resume.url} class={embedFrame} />
+      <iframe title={home.resume.label} src={home.resume.url} class={embedFrame} />
     </div>
   </div>
 </section>

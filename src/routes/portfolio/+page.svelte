@@ -7,7 +7,7 @@
   import { ExperienceCard, SkillCategoryCard, CategoryFilter, ProjectCard } from "../../components/PORTFOLIO";
   import { Carousel } from "../../components/Creative";
 
-  import { sections, experiences, skillsData, projectsData } from "../../constants";
+  import { experiences, skillsData, projectsData } from "../../constants";
   
   import { type ProjectCategory } from "../../types";
 
@@ -25,7 +25,7 @@
 
 <section class="space-y-10 pb-4">
   <section use:scrollReveal={{ y: 0, blur: 6, duration: 500 }}>
-    <SectionHeader id="experiences" title={sections.prof_experiences} />
+    <SectionHeader id="experiences" title="Experiences" />
     <div class="grid gap-5 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
       {#each experiences as experience, i}
         <ExperienceCard {experience} index={i} />
@@ -34,7 +34,7 @@
   </section>
 
   <section use:scrollReveal>
-    <SectionHeader id="gallery" title={sections.projectGallery} />
+    <SectionHeader id="gallery" title="Projects" />
 
     <CategoryFilter {categories} bind:selectedCategory />
 
@@ -57,7 +57,7 @@
   </section>
 
   <section use:scrollReveal>
-    <SectionHeader id="skills" title={sections.skills} />
+    <SectionHeader id="skills" title="Skills" />
     <div class="grid gap-3" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-2={$breakpoints.isTablet} class:grid-cols-3={$breakpoints.isDesktop}>
       {#each skillsData as category, index}
         <SkillCategoryCard {category} {index} />

@@ -26,7 +26,11 @@
   let:index
   let:isActive
 >
-    <!-- FX:flip-card — click, not hover. — CAVEAT: bg is theme.bg.flipCard, near-opaque. -->
+    <!-- FX:flip-card — click, not hover. — CAVEAT: bg is theme.bg.flipCard, near-opaque.
+       Nunito (font-casual) on both faces, matching the leadership and clubs blocks
+       further down the page — these cards were the last thing here still on Inter,
+       which read clinical against the emoji sitting next to it. Same family on
+       front and back so the typeface does not change mid-flip. -->
   {#key active}
   <FlipCard class="h-[148px]" trigger="click" duration={480}>
     <div
@@ -37,7 +41,9 @@
     >
       <span class="text-5xl leading-none">{item.emoji}</span>
       <span class="min-w-0">
-        <span class="block text-xl font-semibold leading-tight {$theme.text.secondary}">
+        <span
+          class="block font-casual text-xl font-extrabold leading-tight {$theme.text.secondary}"
+        >
           {item.name}
         </span>
       </span>
@@ -47,7 +53,7 @@
       slot="back"
       class="flex h-full flex-col justify-center rounded-xl border {$theme.accent.cyan.hover.border} {$theme.bg.flipCard} px-4 text-left shadow-lg"
     >
-      <p class="text-base leading-snug {$theme.text.secondary}">{item.detail}</p>
+      <p class="font-casual text-base leading-relaxed {$theme.text.secondary}">{item.detail}</p>
     </div>
   </FlipCard>
   {/key}
