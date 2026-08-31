@@ -1,32 +1,23 @@
-<!-- FX: share-button — A pill that fans its icons out on hover, staggered, so you can hover across
-     them and click any one. -->
 <script lang="ts">
-  import { Instagram, Mail, Github, Linkedin, Check, Copy, ChessKnightIcon } from "lucide-svelte";
+  import { Instagram, Mail, Github, Linkedin, Check, ChessKnightIcon } from "lucide-svelte";
   import { theme } from "../../lib/stores";
   import type { SocialHandle } from "../../types";
 
   import DiscordLogo from "../../lib/OtherLogos/DiscordLogo.svelte"
 
   export let actions: SocialHandle[] = [];
-  /** Resting pill text. Reads as unused only because the label span below is commented out. */
-  export let label = "Find me";
-  /** Travelling arc — the shared `.fx-arc` class from src/styles/effects.css. */
   export let glow = false;
-  /** Seconds per revolution of the arc. */
   export let glowDuration = 4;
-  export let stagger = 55;
 
   const icons = {
     instagram: Instagram,
     discord: DiscordLogo,
-    // A knight, not a crown — the crown reads as king/queen.
     lichess: ChessKnightIcon,
     mail: Mail,
     github: Github,
     linkedin: Linkedin,
   } as const;
 
-  /** Handle of the action most recently copied, cleared after a beat. */
   let copied: string | null = null;
   let copyTimer: ReturnType<typeof setTimeout> | undefined;
 
@@ -37,27 +28,22 @@
       clearTimeout(copyTimer);
       copyTimer = setTimeout(() => (copied = null), 1800);
     } catch {
-      // Clipboard can be blocked (insecure context, denied permission). Leave
-      // the handle visible in the tooltip so it can still be selected by hand.
       copied = null;
     }
   }
 </script>
 
-<div class="fx-share-button" style="--sb-stagger: {stagger}ms; --fx-arc-duration: {glowDuration}s;">
+<div class="fx-share-button" style="--fx-arc-duration: {glowDuration}s;">
   <div
     class="fx-sb-pill {$theme.bg.secondary} {$theme.border.default} {$theme.text.secondary}"
     class:fx-arc={glow}
   >
-        <!-- Absolutely centred, so the icons occupy the SAME space rather than sitting next to it. -->
-    <!-- <span class="fx-sb-label">{label}</span> -->
 
     <div class="fx-sb-fan">
       {#each actions as action, i}
         {@const Icon = icons[action.icon]}
-        <div class="fx-sb-slot" style="--sb-index: {i};">
+        <div class="fx-sb-slot">
           <span class="fx-sb-mask">
-            <span class="fx-sb-rise">
           <svelte:element
             this={action.href ? "a" : "button"}
             href={action.href}
@@ -75,7 +61,6 @@
               <svelte:component this={Icon} class="h-5 w-5" />
             {/if}
           </svelte:element>
-            </span>
           </span>
 
           <span class="fx-sb-tip {$theme.bg.cardSolid} {$theme.text.muted}">
@@ -96,8 +81,6 @@
     display: inline-block;
   }
 
-  /* Enlarged: "The find me button is too small."
-     Position context for the label overlay below. */
   .fx-sb-pill {
     position: relative;
     display: inline-flex;
@@ -114,45 +97,18 @@
     text-transform: uppercase;
   }
 
-  /* The travelling arc lives in src/styles/effects.css as .fx-arc — toggled by
-     the `glow` prop above. Nothing about it is defined here any more. */
-
   .fx-sb-fan {
     display: flex;
     align-items: center;
     gap: 0.4rem;
   }
 
-    /* The label sits ON TOP of the icon row, not beside it. */
-  .fx-sb-label {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition:
-      opacity 200ms ease,
-      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
-    pointer-events: none;
-  }
-
-  .fx-sb-pill:hover .fx-sb-label,
-  .fx-sb-pill:focus-within .fx-sb-label {
-    opacity: 0;
-    transform: translateY(-45%);
-  }
-
-    /* The slot reserves its full width AT REST, so the pill is already its final size and does not
-     grow on hover. overflow:hidden is what makes the icons read as arriving from BELOW the button
-     rather than just fading in place — the icon starts pushed down past the slot's bottom edge and */
   .fx-sb-slot {
     position: relative;
     width: 2.6rem;
     height: 2.6rem;
   }
 
-  /* Only the MASK clips. Putting overflow:hidden on the slot itself also ate
-     the tooltip, which has to escape upward. */
   .fx-sb-mask {
     display: block;
     width: 100%;
@@ -160,10 +116,6 @@
     overflow: hidden;
     border-radius: 9999px;
   }
-
-    /* .fx-sb-rise { display: block; height: 100%; opacity: 0; transform: translateY(115%);
-     transition: opacity 240ms ease, transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
-     transition-delay: calc(var(--sb-index) * var(--sb-stagger)); } .fx-sb-pill:hover .fx-sb-rise, */
 
   .fx-sb-action {
     display: inline-flex;
@@ -184,9 +136,6 @@
     filter: brightness(1.25);
   }
 
-  /* Handle label above each icon; only shown for the one being hovered. */
-  /* Sibling of the mask, not a child, so the clip that lets icons rise from the
-     bottom edge doesn't swallow the tooltip too. */
   .fx-sb-tip {
     position: absolute;
     bottom: calc(100% + 0.5rem);
