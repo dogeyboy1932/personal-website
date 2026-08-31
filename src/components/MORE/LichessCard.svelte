@@ -40,13 +40,17 @@
 </script>
 
 <div 
-  class="group relative overflow-hidden rounded-2xl border {$theme.accent.yellow.border} {$theme.gradient.yellow} p-5 shadow-xl {$theme.accent.yellow.hover.border} transition-colors"
+  class="group relative overflow-hidden rounded-2xl border {$theme.accent.yellow.border} {$theme.gradient.yellow} shadow-xl {$theme.accent.yellow.hover.border} transition-colors"
   in:fly={{ y: 20, delay: 250, duration: 400 }}
 >
   <div class="absolute -left-10 -bottom-10 h-40 w-40 rounded-full {$theme.accent.yellow.glow} blur-3xl {$theme.accent.yellow.hover.bg} transition" />
   
-  <div class="relative grid gap-4 sm:grid-cols-[auto_1fr] sm:items-stretch">
-    <div class="min-w-0">
+ 
+  <!-- CAVEAT: minmax(0,Nfr), not Nfr. A bare fr is minmax(auto,fr), so the track refuses to
+       shrink below its content and the rating column silently steals the ratio back. -->
+  <div class="relative grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+
+    <div class="min-w-0 p-5">
       <h3 class="text-base font-semibold {$theme.accent.yellow.text}">{label}</h3>
       <h4 class="text-sm font-semibold {$theme.accent.cyan.text} mb-2">@{username}</h4>
 
@@ -57,6 +61,7 @@
           </div>
           <span class="text-sm font-medium uppercase tracking-wider {$theme.lichess.perfType}">({perfType})</span>
         </div>
+
         <LinkPreview
           href={`https://lichess.org/@/${username}`}
           label={`@${username} on Lichess`}
@@ -64,6 +69,7 @@
         >
           View Profile →
         </LinkPreview>
+        
       {:else if error}
         <div class="text-sm {$theme.lichess.error}">{error}</div>
       {:else}
@@ -73,7 +79,7 @@
 
     {#if $$slots.default}
       <div
-        class="-my-5 -mr-5 border-l-2 border-brand/50 {$theme.bg.panel} px-5 py-3 sm:pl-5"
+        class="border-l-2 border-brand/50 {$theme.bg.panel} px-5 py-3 sm:pl-5"
       >
         <slot />
       </div>
