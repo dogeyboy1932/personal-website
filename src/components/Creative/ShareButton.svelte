@@ -1,9 +1,13 @@
 <script lang="ts">
-  import { Instagram, Mail, Github, Linkedin, Check, ChessKnightIcon } from "lucide-svelte";
-  import { theme } from "../../lib/stores";
-  import type { SocialHandle } from "../../types";
+  import { Check } from "lucide-svelte";
+  
+  import { copyToClipboard } from "../../lib/utils";
 
-  import DiscordLogo from "../../lib/OtherLogos/DiscordLogo.svelte"
+  import { theme } from "../../constants/_theme";
+
+  import { icons } from "../../constants/home";
+
+  import type { SocialHandle } from "../../types";
 
   export let actions: SocialHandle[] = [];
   export let label = "Find me";
@@ -11,27 +15,19 @@
   export let glowDuration = 4;
   export let stagger = 55;
 
-  const icons = {
-    instagram: Instagram,
-    discord: DiscordLogo,
-    lichess: ChessKnightIcon,
-    mail: Mail,
-    github: Github,
-    linkedin: Linkedin,
-  } as const;
+  
 
   let copied: string | null = null;
   let copyTimer: ReturnType<typeof setTimeout> | undefined;
 
   async function copy(action: SocialHandle) {
-    try {
-      await navigator.clipboard.writeText(action.handle);
-      copied = action.handle;
-      clearTimeout(copyTimer);
-      copyTimer = setTimeout(() => (copied = null), 1800);
-    } catch {
+    if (!(await copyToClipboard(action.handle))) {
       copied = null;
+      return;
     }
+    copied = action.handle;
+    clearTimeout(copyTimer);
+    copyTimer = setTimeout(() => (copied = null), 1800);
   }
 </script>
 

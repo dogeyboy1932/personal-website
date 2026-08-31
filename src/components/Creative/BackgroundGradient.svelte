@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { browser } from "$app/environment";
-  import { darkModeStore } from "../../lib/stores";
-  import { tokens, css, type TokenName } from "../../lib/tokens";
+  import { tokens, css, type TokenName } from "../../constants/_tokens";
+
+  type Palette = "aurora" | "warm" | "violet" | "silver";
 
   export let radius = "0.75rem";
   export let spread = 3;
@@ -9,21 +9,22 @@
   export let speed = 7;
   export let idle = 0.35;
   export let active = 1;
-  export let palette: "aurora" | "warm" | "violet" | "silver" = "aurora";
+  export let palette: Palette = "aurora";
   let klass = "";
   export { klass as class };
 
-  $: isDark = $darkModeStore;
-
-  const paletteOrder: Record<string, TokenName[]> = {
+  /* Keyed by Palette, so adding a palette to the union without an entry here is a
+     compile error rather than a silent fall back to aurora. */
+  const paletteOrder: Record<Palette, TokenName[]> = {
     aurora: ["halo-1", "halo-2", "halo-3"],
     violet: ["halo-3", "halo-2", "halo-1"],
     warm: ["warm", "halo-3", "halo-1"],
-        /* For cards that must read as white/silver — the halo is the widest-reaching colour on a card,
-       so a silver card inside an aurora or violet halo still reads as tinted. */
+    /* For cards that must read as white/silver — the halo is the widest-reaching colour on a
+       card, so a silver card inside an aurora or violet halo still reads as tinted. */
     silver: ["halo-silver-1", "halo-silver-2", "halo-silver-3"],
   };
 
+  /* The ?? still earns its place: `palette` is unchecked at runtime for plain-JS callers. */
   $: names = paletteOrder[palette] ?? paletteOrder.aurora;
   $: stops = names.map((n) => css($tokens, n)).join(", ");
   $: edge = css($tokens, names[0]);

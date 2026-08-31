@@ -1,17 +1,18 @@
 <script lang="ts">
-  import { breakpoints } from "../../lib/stores";
+  import { breakpoints } from "../../constants/_stores";
+  
   import { scrollReveal } from "../../lib/actions/scrollReveal";
+  
   import { SectionHeader } from "../../components/Headers";
-  import {
-    ExperienceCard,
-    SkillCategoryCard,
-    CategoryFilter,
-    ProjectCard,
-  } from "../../components/PORTFOLIO";
+  import { ExperienceCard, SkillCategoryCard, CategoryFilter, ProjectCard } from "../../components/PORTFOLIO";
   import { Carousel } from "../../components/Creative";
+
   import { sections, experiences, skillsData, projectsData } from "../../constants";
+  
   import { type ProjectCategory } from "../../types";
 
+  
+  
   let selectedCategory = "All";
 
   $: categories = ["All", ...new Set(projectsData.flatMap((p) => p.category))];
@@ -58,7 +59,7 @@
   <section use:scrollReveal>
     <SectionHeader id="skills" title={sections.skills} />
     <div class="grid gap-3" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-2={$breakpoints.isTablet} class:grid-cols-3={$breakpoints.isDesktop}>
-      {#each skillsData.skills as category, index}
+      {#each skillsData as category, index}
         <SkillCategoryCard {category} {index} />
       {/each}
     </div>

@@ -3,7 +3,7 @@
   export let title: string = "";
   export let customColor: string = "";
   import { fly } from "svelte/transition";
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
 </script>
 
 <div class="py-2 mt-4 mb-2">

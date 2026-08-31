@@ -1,13 +1,11 @@
 
 export { experiences } from "./experiences";
 
-export { skillsData, techColors, complexityClasses } from "./skills";
+export { skillsData } from "./skills";
 
 export { projectsData, projectLabels } from "./projects";
 
 export { navItems } from "./nav";
-
-export { resume } from "./resume";
 
 export {
   homeHero,
@@ -16,10 +14,9 @@ export {
   home,
   lastUpdated,
   links,
+  resume,
   sections,
   site
 } from "./home";
 
-export { more, hobbyData } from "./more";
-
-export { clubs } from "./clubs";
+export { more } from "./more";

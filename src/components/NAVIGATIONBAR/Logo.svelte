@@ -1,11 +1,10 @@
+<!-- CAVEAT: the only hardcoded colours left in the app. SMIL <animate values="..."> is an
+     XML attribute, not a CSS property, so it cannot resolve var(--token) — these gold stops
+     have to stay literal. Keep them in step with --warm / --warm-deep in styles.css by hand. -->
 <script lang="ts">
-  import { darkModeStore } from "../../lib/stores";
+  import { darkModeStore } from "../../constants/_theme";
 
-  let isDarkMode = true;
-
-  darkModeStore.subscribe((value) => {
-    isDarkMode = value;
-  });
+  $: isDarkMode = $darkModeStore;
 </script>
 
 <svg

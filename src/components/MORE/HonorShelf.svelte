@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
   import type { Honor } from "../../types";
 
   export let honors: Honor[] = [];
@@ -18,7 +18,7 @@
     {#each honors as honor, i}
       <div
         class="flex items-center gap-2 rounded-lg border px-3 py-2 {honor.kind === 'rank'
-          ? 'border-amber-300 bg-amber-400'
+          ? $theme.status.rank.box
           : `${$theme.border.light} ${$theme.bg.secondary}`}"
         in:fly={{ y: 10, delay: i * 50, duration: 300 }}
         title={honor.detail ?? ""}
@@ -27,14 +27,14 @@
         <span class="leading-tight">
           <span
             class="meta-label block text-[9px] {honor.kind === 'rank'
-              ? 'text-amber-900/80'
+              ? $theme.status.rank.event
               : $theme.text.dim}"
           >
             {honor.event}
           </span>
           <span
             class="meta-label text-[10px] font-semibold {honor.kind === 'rank'
-              ? 'text-amber-950'
+              ? $theme.status.rank.placement
               : $theme.text.secondary}"
           >
             {honor.placement}

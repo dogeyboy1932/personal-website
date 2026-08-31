@@ -1,21 +1,18 @@
-import type { HobbiesData, MorePageData } from "../types";
+import type { MorePageData } from "../types";
 
 export const more: MorePageData = {
   title: "More About Me",
-  subtitle: "Beyond the code",
-
   identityWords: [
     "a movie guy",
     "a chess player",
     "a rollerblader",
-    "a Sanskrit dabbler",
     "a cheese apologist",
     "four racquets deep",
   ],
 
-  bio:
-    "Born in India, raised in New Jersey, college in Illinois, a semester in Singapore, now Chicago. Seven countries so far, and the perspective was the point.\n\n" +
-    "Outside of engineering I read economics and statistics for fun — I minored in stats, and it quietly changed how I argue about everything else. The rest of the time I'm on a court, at a table with cards out, or three episodes deep into something I'll have opinions about later.",
+  // bio:
+  //   "Born in India, raised in New Jersey, college in Illinois, a semester in Singapore, now Chicago. Seven countries so far, and the perspective was the point.\n\n" +
+  //   "Outside of engineering I read economics and statistics for fun — I minored in stats, and it quietly changed how I argue about everything else. The rest of the time I'm on a court, at a table with cards out, or three episodes deep into something I'll have opinions about later.",
 
   // Count-up band. Deliberately four: any more and it stops reading as a hook.
   stats: [
@@ -113,18 +110,17 @@ export const more: MorePageData = {
     {
       org: "AI Alignment @ Illinois",
       role: "VP, Founding Team",
-      tenure: "Now Alumni Advisor",
+      tenure: "Alumni Advisor",
       summary:
         "Helped build UIUC's first AI safety community while it was still getting off the ground. Now 400+ members, 20 core, and 7+ research projects running. Co-ran an 8-week fellowship on RLHF, interpretability, and scalable oversight.",
       link: "https://aialignmentillinois.org/",
     },
-    /* CAVEAT: order is load-bearing — LeadershipRoles indexes its accent table by POSITION, so the
-       colour down the column is fixed and entries move through it. */
     {
-      org: "Sigma Phi Delta (ΣΦΔ)",
-      role: "Brother",
-      summary: "International social-professional fraternity for engineers.",
-      link: "https://sigphis.org/",
+      org: "CollegeDAO",
+      role: "Core Team",
+      summary:
+        "Connecting students in the web3 space. Built a MVP for Latent, an AI-powered hiring platform.",
+      link: "https://collegedao.io/",
     },
     {
       org: "Illini Blockchain",
@@ -135,6 +131,20 @@ export const more: MorePageData = {
       link: "https://linktr.ee/illiniblockchain",
     },
   ],
+  clubs: [
+    { name: "Sigma Phi Delta (ΣΦΔ)" },
+    { name: "ACM", tagline: "SIGMobile · SIGGLUG" },
+    { name: "Chess Club" },
+    { name: "Economics Club" },
+    { name: "Intramural Tennis" },
+    { name: "Virtual Reality Club" },
+    { name: "Cheese Club" },
+    { name: "Euchre League" },
+    { name: "Illini Insomniacs" },
+    { name: "Singapore Students Association" },
+    { name: "Sanskrit Network" },
+  ],
+
 
   honors: [
     {
@@ -157,21 +167,17 @@ export const more: MorePageData = {
   socials: [
     { label: "Instagram", handle: "@trashboatsr", href: "https://instagram.com/trashboatsr", icon: "instagram" },
     { label: "Lichess", handle: "@trashboatsr", href: "https://lichess.org/@/trashboatsr", icon: "lichess" },
-    { label: "Discord", handle: "@dogeyboy19", icon: "discord" },
+    { label: "Discord", handle: "@dogeyboy19", href: "https://discord.com/users/dogeyboy19", icon: "discord" },
     { label: "Email", handle: "vagogineni@gmail.com", href: "mailto:vagogineni@gmail.com", icon: "mail" },
   ],
 
-  funFacts: [
-    "Studied abroad in Singapore (NUS) — loved the traveling and cultural perspective",
-    "Eagle Scout",
-  ],
 
-  hobbies: [
-    { name: "Chess", note: "Competitive player on Lichess - pattern recognition and strategic planning" },
-    { name: "Racquet Sports", note: "Tennis doubles, learning table tennis, badminton, and pickleball" },
-    { name: "Travel & Culture", note: "Study abroad in Singapore, exploring new cuisines and perspectives" },
-    { name: "Movies / TV", note: "Very immersed in various genres and storytelling styles. I try to watch something new regularly" },
-  ],
+  // hobbies: [
+  //   { name: "Chess", note: "Competitive player on Lichess - pattern recognition and strategic planning" },
+  //   { name: "Racquet Sports", note: "Tennis doubles, learning table tennis, badminton, and pickleball" },
+  //   { name: "Travel & Culture", note: "Study abroad in Singapore, exploring new cuisines and perspectives" },
+  //   { name: "Movies / TV", note: "Very immersed in various genres and storytelling styles. I try to watch something new regularly" },
+  // ],
 
   lichess: {
     username: "trashboatsr",
@@ -179,27 +185,27 @@ export const more: MorePageData = {
   },
 };
 
-export const hobbyData: HobbiesData = {
-  hobbies: [
-    {
-      category: "Social",
-      items: [
-        { name: "Public Speaking", logoUrl: "" },
-        { name: "Leadership", logoUrl: "" },
-        { name: "Communication", logoUrl: "" },
-        { name: "Team Building", logoUrl: "" },
-        { name: "Project Management", logoUrl: "" },
-      ],
-    },
-    {
-      category: "Sports & Recreation",
-      items: [
-        { name: "Tennis", logoUrl: "" },
-        { name: "Table Tennis", logoUrl: "" },
-        { name: "Badminton", logoUrl: "" },
-        { name: "Pickleball", logoUrl: "" },
-        { name: "Chess", logoUrl: "" },
-      ],
-    },
-  ],
-};
+// export const hobbyData: HobbiesData = {
+//   hobbies: [
+//     {
+//       category: "Social",
+//       items: [
+//         { name: "Public Speaking", logoUrl: "" },
+//         { name: "Leadership", logoUrl: "" },
+//         { name: "Communication", logoUrl: "" },
+//         { name: "Team Building", logoUrl: "" },
+//         { name: "Project Management", logoUrl: "" },
+//       ],
+//     },
+//     {
+//       category: "Sports & Recreation",
+//       items: [
+//         { name: "Tennis", logoUrl: "" },
+//         { name: "Table Tennis", logoUrl: "" },
+//         { name: "Badminton", logoUrl: "" },
+//         { name: "Pickleball", logoUrl: "" },
+//         { name: "Chess", logoUrl: "" },
+//       ],
+//     },
+//   ],
+// };

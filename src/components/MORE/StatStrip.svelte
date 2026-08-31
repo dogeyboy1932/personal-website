@@ -1,6 +1,6 @@
 <script lang="ts">
   import { countUp } from "../../lib/actions/countUp";
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
   import type { MoreStat } from "../../types";
 
   export let stats: MoreStat[] = [];

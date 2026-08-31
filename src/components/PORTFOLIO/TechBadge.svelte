@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
   import { getTechColor } from "../../lib/utils";
 
   export let tech: string;
@@ -10,11 +10,10 @@
   $: colorClass = neutral
     ? $theme.text.primary
     : (color ?? getTechColor(tech, index, $theme.techColors));
-  $: fill = neutral ? "bg-slate-400/10" : $theme.bg.overlay;
 </script>
 
 <span
-  class={`meta-label rounded px-2 py-1 text-[11px] border ${$theme.border.light} ${fill} ${colorClass}`}
+  class={`meta-label rounded px-2 py-1 text-[11px] border ${$theme.border.light} ${$theme.bg.neutral} ${colorClass}`}
 >
   {tech}
 </span>

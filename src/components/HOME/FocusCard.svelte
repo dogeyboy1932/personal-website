@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
   import { BorderGlow } from "../Creative";
 
   export let title: string;

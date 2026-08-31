@@ -1,440 +1,438 @@
 
-import type { SkillsData } from "../types";
+import type { SkillCategory } from "../types";
 import { ProficiencyLevel, SkillStatus } from "../types";
 
-export const skillsData: SkillsData = {
-  skills: [
-    {
-      category: "Programming Languages",
-      items: [
-        {
-          name: "Python",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
-        },
-        {
-          name: "Java",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
-        },
-        {
-          name: "JavaScript",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
-        },
-        {
-          name: "TypeScript",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/f/f5/Typescript.svg",
-        },
-        {
-          name: "C",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg",
-        },
-        {
-          name: "C++",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg",
-        },
-        {
-          name: "Go",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/0/05/Go_Logo_Blue.svg",
-        },
-        {
-          name: "Rust",
-          proficiency: ProficiencyLevel.Beginner,
-          status: SkillStatus.Learning,
-          logoUrl:
-            "https://cdn.simpleicons.org/rust/E2E8F0",
-        },
-        {
-          name: "Bash",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.simpleicons.org/gnubash/E2E8F0",
-        },
-        {
-          name: "Git",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://imgs.search.brave.com/JmSVv0Txoc0_4jwsKY74t_Ogv17947XPCvxZj54zamM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/aWNvbnNjb3V0LmNv/bS9pY29uL2ZyZWUv/cG5nLTI1Ni9mcmVl/LWdpdC1pY29uLXN2/Zy1kb3dubG9hZC1w/bmctMjI1OTk2LnBu/Zz9mPXdlYnAmdz0y/NTY",
-        },
-        {
-          name: "SQL",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://imgs.search.brave.com/WvFM_NuTnQ7TFqY9ZRDfYRR3mVYpM4kme71eRZXR-DU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni8xNzEzNC8xNzEz/NDA2Ni5wbmc_c2Vt/dD1haXNfd2hpdGVf/bGFiZWw",
-        },
-        {
-          name: "C#",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
-        },
-        {
-          name: "HTML/CSS",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/1/10/CSS3_and_HTML5_logos_and_wordmarks.svg",
-        },
-        {
-          name: "PHP",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg",
-        }
-      ],
-    },
-    {
-      category: "Frameworks",
-      items: [
-        {
-          name: "React.js",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-        },
-        {
-          name: "Next.js",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.simpleicons.org/nextdotjs/E2E8F0",
-        },
-        {
-          name: "Vue.js",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg",
-        },
-        {
-          name: "Svelte.js",
-          proficiency: ProficiencyLevel.Learning,
-          status: SkillStatus.Learning,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/1/1b/Svelte_Logo.svg",
-        },
-        {
-          name: "Tailwind CSS",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg",
-        },
-                {
-          name: "React Native / Expo",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-        },
-        {
-          name: "Node.js",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain.svg",
-        },
-        {
-          name: "Express.js",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.simpleicons.org/express/E2E8F0",
-        },
-        {
-          name: "Flask",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.simpleicons.org/flask/E2E8F0",
-        },
-        {
-          name: "FastAPI",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
-        },
-        {
-          name: "NumPy",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg",
-        },
-        {
-          name: "Pandas",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
-        },
-        {
-          name: "Flutter",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
-        },
-      ],
-    },
-    {
-      category: "Databases",
-      items: [
-        
-        {
-          name: "PostgreSQL",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg",
-        },
-        {
-          name: "MySQL",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
-        },
-        {
-          name: "Firebase",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://imgs.search.brave.com/xqjvu9YcpQRhidfyqy58dDFVl2yzn1dKgtqfq0IvpHg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuY2RubG9nby5j/b20vbG9nb3MvZi82/Ny9maXJlYmFzZS5z/dmc",
-        },
-        {
-          name: "Supabase",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://imgs.search.brave.com/YMP3Ruh4z3Oo2rtS9p91S4dF9uMRVHOG5j3M4n78XgY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdXBh/YmFzZS5jb20vX25l/eHQvaW1hZ2U_dXJs/PS9pbWFnZXMvY29t/cGFueS9jb21tdW5p/dHkvc3VwYWJhc2Uu/cG5nJnc9Mzg0MCZx/PTc1",
-        },
-        {
-          name: "MongoDB",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://imgs.search.brave.com/KO0LdnYb-uykcgT_EQztTcp_3oJnwj8yScuY2u52kYM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/aWNvbnNjb3V0LmNv/bS9pY29uL2ZyZWUv/cG5nLTI1Ni9mcmVl/LW1vbmdvZGItbG9n/by1pY29uLXN2Zy1k/b3dubG9hZC1wbmct/MzAzMjMxMC5wbmc_/Zj13ZWJwJnc9MTI4",
-        },
-        {
-          name: "pgvector",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg",
-        },
-        {
-          name: "Milvus",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.simpleicons.org/milvus/00A1EA",
-        },
-        {
-          name: "Neo4j",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://imgs.search.brave.com/pMMurtIx_165CkjcQpCX9fKrlVJBCZBjIGgXONyuinw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuY2RubG9nby5j/b20vbG9nb3Mvbi80/Mi9uZW80ai5zdmc",
-        },
-      ],
-    },
-    {
-      category: "Cloud",
-      items: [
-        {
-          name: "Databricks",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.simpleicons.org/databricks/FF3621",
-        },
-        {
-          name: "Docker",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://imgs.search.brave.com/qcoXX3ekf6X_P-u5tdCXkPy6Iv0m7H9FX1xOpiWflWY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy9h/L2E3L0RvY2tlci1z/dmdyZXBvLWNvbS5z/dmc",
-        },
-        {
-          name: "AWS",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
-        },
-        {
-          name: "Azure",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
-        },
-        {
-          name: "GCP",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
-        },
-        {
-          name: "Railway",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://railway.app/brand/logo-light.png",
-        },
-        {
-          name: "Netlify",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg",
-        },
-        {
-          name: "Ubuntu/Linux",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo-ubuntu_cof-orange-hex.svg",
-        },
-      ],
-    },
-    {
-      category: "AI & ML Libraries",
-      items: [
-        {
-          name: "Gemini SDK",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.simpleicons.org/googlegemini/8E75B2",
-        },
-        {
-          name: "Anthropic MCP",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learning,
-          logoUrl:
-            "https://www.anthropic.com/images/icons/apple-touch-icon.png",
-        },
-        {
-          name: "LangChain",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://avatars.githubusercontent.com/u/126733545?s=200&v=4",
-        },
-        {
-          name: "Pydantic AI",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://avatars.githubusercontent.com/u/110818415?s=200&v=4",
-        },
-        {
-          name: "Pytorch",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://imgs.search.brave.com/rdD8MIx6SCwI2j_ZmcAQWJH3iyKa_GlVfmmsQw3fWEE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9ibG9n/LmNocmlzdGlhbnBl/cm9uZS5jb20vd3At/Y29udGVudC91cGxv/YWRzLzIwMTgvMTAv/cHl0b3JjaC1sb2dv/LTMwMHgzMDAucG5n",
-        },
-        {
-          name: "Scikit-learn",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learning,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg",
-        },
-      ],
-    },
-    {
-      category: "Blockchain",
-      items: [
-        {
-          name: "Solana",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png",
-        },
-        {
-          name: "Ethereum",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/6/6f/Ethereum-icon-purple.svg",
-        },
-        {
-          name: "Solidity",
-          proficiency: ProficiencyLevel.Proficient,
-          status: SkillStatus.Learned,
-          logoUrl:
-            "https://cdn.simpleicons.org/solidity/E2E8F0",
-        },
-      ],
-    },
-  ],
-};
+/* LOGOS — three sources, and one decision per mark. Everything here was
+   verified to resolve, in BOTH themes; nothing hotlinks a search-result cache
+   or a site favicon any more, and the devicon URLs are PINNED to a release tag
+   so an upstream reshuffle cannot silently break them.
 
-export const techColors = [
-  "text-blue-300",
-  "text-blue-400",
-  "text-cyan-300",
-  "text-cyan-400",
-  "text-teal-300",
-  "text-emerald-300",
-  "text-emerald-400",
-  "text-green-300",
-  "text-green-400",
-  "text-lime-300",
-  "text-yellow-300",
-  "text-yellow-400",
-  "text-amber-300",
-  "text-orange-300",
-  "text-orange-400",
-  "text-red-300",
-  "text-rose-300",
-  "text-pink-300",
-  "text-pink-400",
-  "text-purple-300",
-  "text-purple-400",
-  "text-violet-300",
-  "text-violet-400",
-  "text-indigo-300",
-  "text-indigo-400",
-  "text-sky-300",
-  "text-slate-300",
-  "text-slate-400",
-] as const;
+     cdn.jsdelivr.net/…/devicon@v2.17.0   brand-coloured marks, all 128×128
+     cdn.simpleicons.org/<slug>/<colour>  anything devicon renders flat black
+     api.iconify.design/…                 the few devicon has no mark for
 
-export const complexityClasses = {
-  Beginner: "text-slate-400 bg-slate-500/10 border border-slate-500/20",
-  Intermediate: "text-amber-300 bg-amber-500/10 border border-amber-400/20",
-  Advanced: "text-rose-300 bg-rose-500/10 border border-rose-400/20",
-} as const;
+   The colour a mark is asked for is the whole decision, and getting it wrong
+   is what "whited out" and "invisible" logos look like:
+
+     /pydantic/E92063        brand colour, when it clears ~3:1 on white AND black
+     /expo/{ink}             ONLY for a mark that is genuinely black (Expo, Rust,
+                             Next.js, Express, Railway) — no brand colour to
+                             lose, so it follows the theme
+     /pandas/{theme:a|b}     a mark whose brand colour only reads on ONE ground.
+                             Pandas navy vanishes on black, so dark gets the
+                             pandas yellow; AWS navy likewise, so dark gets the
+                             AWS orange. Both halves are real brand colours.
+                             The halves need not be colours: Neo4j swaps the
+                             whole icon for vscode-icons' matched pair, same
+                             mark and same blue, black circle on white and a
+                             light one on black. Recolouring cannot fix a logo
+                             that is PART black — only a second artwork can.
+
+   Never put {ink} on a mark that HAS a brand colour: flattened to one ink it
+   reads as a loading failure sitting next to its colourful neighbours. Bash
+   (#4EAA25) and Flask (#3BABC3) are the borderline pair — both land under 3:1
+   on white, so they stay on {ink} deliberately.
+
+   CAVEAT for whoever adds the next one: check the mark against BOTH grounds,
+   and check EVERY colour in it, not just the most visible one. A two-tone logo
+   passes a naive check on the strength of its bright half while the other half
+   disappears — that is exactly how the AWS wordmark and the pandas body shipped
+   invisible on black. */
+
+export const skillsData: SkillCategory[] = [
+  {
+    category: "Programming Languages",
+    items: [
+      {
+        name: "Python",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/python/python-original.svg",
+      },
+      {
+        name: "Java",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/java/java-original.svg",
+      },
+      {
+        name: "JavaScript",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/javascript/javascript-original.svg",
+      },
+      {
+        name: "TypeScript",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/typescript/typescript-original.svg",
+      },
+      {
+        name: "C",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/c/c-original.svg",
+      },
+      {
+        name: "C++",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/cplusplus/cplusplus-original.svg",
+      },
+      {
+        name: "Go",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/go/go-original.svg",
+      },
+      {
+        name: "Rust",
+        proficiency: ProficiencyLevel.Beginner,
+        status: SkillStatus.Learning,
+        logoUrl:
+          "https://cdn.simpleicons.org/rust/{ink}",
+      },
+      {
+        name: "Bash",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.simpleicons.org/gnubash/{ink}",
+      },
+      {
+        name: "Git",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/git/git-original.svg",
+      },
+      {
+        name: "SQL",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://api.iconify.design/mdi/database.svg?color=%23{theme:0369A1|38BDF8}",
+      },
+      {
+        name: "C#",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/csharp/csharp-original.svg",
+      },
+      {
+        name: "HTML/CSS",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/html5/html5-original.svg",
+      },
+      {
+        name: "PHP",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/php/php-original.svg",
+      }
+    ],
+  },
+  {
+    category: "Frameworks",
+    items: [
+      {
+        name: "React.js",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/react/react-original.svg",
+      },
+      {
+        name: "Next.js",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.simpleicons.org/nextdotjs/{ink}",
+      },
+      {
+        name: "Vue.js",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/vuejs/vuejs-original.svg",
+      },
+      {
+        name: "Svelte.js",
+        proficiency: ProficiencyLevel.Learning,
+        status: SkillStatus.Learning,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/svelte/svelte-original.svg",
+      },
+      {
+        name: "Tailwind CSS",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/tailwindcss/tailwindcss-original.svg",
+      },
+              {
+        name: "React Native / Expo",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.simpleicons.org/expo/{ink}",
+      },
+      {
+        name: "Node.js",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/nodejs/nodejs-original.svg",
+      },
+      {
+        name: "Express.js",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.simpleicons.org/express/{ink}",
+      },
+      {
+        name: "NumPy",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/numpy/numpy-original.svg",
+      },
+      {
+        name: "Pandas",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.simpleicons.org/pandas/{theme:150458|FFCA00}",
+      },
+      {
+        name: "Flutter",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/flutter/flutter-original.svg",
+      },
+      {
+        name: "FastAPI",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/fastapi/fastapi-original.svg",
+      },
+      {
+        name: "Flask",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.simpleicons.org/flask/{ink}",
+      }
+    ],
+  },
+  {
+    category: "Databases",
+    items: [
+      
+      {
+        name: "PostgreSQL",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/postgresql/postgresql-original.svg",
+      },
+      {
+        name: "MySQL",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/mysql/mysql-original.svg",
+      },
+      {
+        name: "Firebase",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/firebase/firebase-original.svg",
+      },
+      {
+        name: "Supabase",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/supabase/supabase-original.svg",
+      },
+      {
+        name: "MongoDB",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/mongodb/mongodb-original.svg",
+      },
+      {
+        name: "pgvector",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/postgresql/postgresql-original.svg",
+      },
+      {
+        name: "Milvus",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://api.iconify.design/logos/milvus-icon.svg",
+      },
+      {
+        name: "Neo4j",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://api.iconify.design/vscode-icons/{theme:file-type-light-neo4j|file-type-neo4j}.svg",
+      },
+    ],
+  },
+  {
+    category: "Cloud",
+    items: [
+      {
+        name: "Databricks",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://api.iconify.design/logos/databricks-icon.svg",
+      },
+      {
+        name: "Docker",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/docker/docker-original.svg",
+      },
+      {
+        name: "AWS",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://api.iconify.design/mdi/aws.svg?color=%23{theme:252F3E|FF9900}",
+      },
+      {
+        name: "Azure",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/azure/azure-original.svg",
+      },
+      {
+        name: "GCP",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/googlecloud/googlecloud-original.svg",
+      },
+      {
+        name: "Railway",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.simpleicons.org/railway/{ink}",
+      },
+      {
+        name: "Netlify",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/netlify/netlify-original.svg",
+      },
+      {
+        name: "Ubuntu/Linux",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/ubuntu/ubuntu-original.svg",
+      },
+    ],
+  },
+  {
+    category: "AI & ML Libraries",
+    items: [
+      {
+        name: "Gemini SDK",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.simpleicons.org/googlegemini/8E75B2",
+      },
+      {
+        name: "Anthropic MCP",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learning,
+        logoUrl:
+          "https://cdn.simpleicons.org/anthropic/D97757",
+      },
+      {
+        name: "LangChain",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.simpleicons.org/langchain/{theme:0F6FA8|7FC8FF}",
+      },
+      {
+        name: "Pydantic AI",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.simpleicons.org/pydantic/E92063",
+      },
+      {
+        name: "Pytorch",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/pytorch/pytorch-original.svg",
+      },
+      {
+        name: "Scikit-learn",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learning,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/scikitlearn/scikitlearn-original.svg",
+      },
+    ],
+  },
+  {
+    category: "Blockchain",
+    items: [
+      {
+        name: "Solana",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://api.iconify.design/token-branded/solana.svg",
+      },
+      {
+        name: "Ethereum",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.simpleicons.org/ethereum/627EEA",
+      },
+      {
+        name: "Solidity",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.simpleicons.org/solidity/{theme:363636|9CA3AF}",
+      },
+    ],
+  },
+]

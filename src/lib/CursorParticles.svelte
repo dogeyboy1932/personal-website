@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { prefersReducedMotion } from "./utils";
-  import { tokens } from "./tokens";
+  import { pageZoom, prefersReducedMotion, sizeCanvas } from "./utils";
+  import { css, tokens } from "../constants/_tokens";
   import { browser } from "$app/environment";
   import { onDestroy, onMount } from "svelte";
 
@@ -20,25 +20,24 @@
   let lastTimestamp = 0;
   let width = 0;
   let height = 0;
-  let devicePixelRatio = 1;
   let pointerX = 0;
   let pointerY = 0;
   let cursorX = 0;
   let cursorY = 0;
   let hasPointer = false;
   let reducedMotion = false;
+  /* Viewport px per local canvas unit — 1 until the >=1280px zoom kicks in. */
+  let zoom = 1;
   let idleSpawnAccumulator = 0;
   let particles: Particle[] = [];
 
   function resizeCanvas() {
     if (!canvas || !context) return;
 
-    width = window.innerWidth;
-    height = window.innerHeight;
-    devicePixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = width * devicePixelRatio;
-    canvas.height = height * devicePixelRatio;
-    context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    zoom = pageZoom();
+    width = window.innerWidth / zoom;
+    height = window.innerHeight / zoom;
+    context = sizeCanvas(canvas, width, height);
   }
 
   function addParticles(amount: number) {
@@ -60,8 +59,9 @@
   }
 
   function handlePointerMove(event: PointerEvent) {
-    const nextX = event.clientX;
-    const nextY = event.clientY;
+    /* clientX is a VIEWPORT pixel; the canvas draws in local units. */
+    const nextX = event.clientX / zoom;
+    const nextY = event.clientY / zoom;
     const distance = Math.hypot(nextX - pointerX, nextY - pointerY);
 
     pointerX = nextX;
@@ -94,8 +94,7 @@
       context.translate(particle.x, particle.y);
       context.rotate(Math.PI / 4);
       context.globalAlpha = opacity;
-      // from --particles so the cursor trail and the title sparkles never
-      context.fillStyle = `rgb(${$tokens.cursor ?? "226, 232, 240"})`;
+      context.fillStyle = css($tokens, "cursor");
       context.fillRect(-particle.size / 2, -particle.size / 2, particle.size, particle.size);
       context.restore();
     }

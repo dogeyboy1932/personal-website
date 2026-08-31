@@ -1,7 +1,6 @@
 <script lang="ts">
   export let title: string = "";
-  import { fly } from "svelte/transition";
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
 </script>
 
 <section>

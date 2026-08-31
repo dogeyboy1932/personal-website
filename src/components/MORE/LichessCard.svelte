@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fly, scale } from "svelte/transition";
   import { onMount } from "svelte";
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
   import LinkPreview from "../../lib/LinkPreview.svelte";
 
   export let label: string;
@@ -48,7 +48,7 @@
  
   <!-- CAVEAT: minmax(0,Nfr), not Nfr. A bare fr is minmax(auto,fr), so the track refuses to
        shrink below its content and the rating column silently steals the ratio back. -->
-  <div class="relative grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+  <div class="relative grid gap-4 sm:grid-cols-[minmax(0,.75fr)_minmax(0,1fr)]">
 
     <div class="min-w-0 p-5">
       <h3 class="text-base font-semibold {$theme.accent.yellow.text}">{label}</h3>

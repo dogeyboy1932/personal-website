@@ -4,11 +4,14 @@
 
   import MatrixRain from "../lib/MatrixRain.svelte";
   import CursorParticles from "../lib/CursorParticles.svelte";
+
   import { NavigationBar } from "../components/NAVIGATIONBAR";
-  import { screenWidth, displayWidth, theme } from "../lib/stores";
+  
+  import { screenWidth, displayWidth } from "../constants/_stores";
+  import { theme } from "../constants/_theme";
+  
   import { lastUpdated } from "../constants";
 
-  import "@fontsource/plus-jakarta-sans";
   import "../styles.css";
 
   onMount(() => {
@@ -39,21 +42,9 @@
       </div>
 
       <footer class="mt-10 flex flex-row justify-between text-[10px] uppercase {$theme.text.muted}">
-        <span class="tracking-[0.2em]">© 2025 Akhil Gogineni. All rights reserved.</span>
+        <span class="tracking-[0.2em]">© 2026 Akhil Gogineni. All rights reserved.</span>
         <span class="tracking-[0.3em]">Last updated: {lastUpdated}</span>
       </footer>
     </div>
   </main>
 </div>
-
-<style lang="postcss">
-  :global(html.dark body) {
-    @apply bg-slate-950;
-  }
-  :global(html:not(.dark) body) {
-    @apply bg-amber-50;
-  }
-  :global(body) {
-    @apply transition-colors duration-300;
-  }
-</style>

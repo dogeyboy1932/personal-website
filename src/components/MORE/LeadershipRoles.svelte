@@ -1,16 +1,10 @@
 <script lang="ts">
   import { ExternalLink } from "lucide-svelte";
-  import { theme } from "../../lib/stores";
+  import { theme, leadershipAccents } from "../../constants/_theme";
   import LinkPreview from "../../lib/LinkPreview.svelte";
   import type { LeadershipRole } from "../../types";
 
   export let leadership: LeadershipRole[] = [];
-
-  const accents = [
-    { bar: "from-orange-500 via-orange-400 to-orange-500", edge: "hover:border-orange-400/60", rule: "decoration-orange-400/60 hover:decoration-orange-300", icon: "text-orange-400/70" },
-    { bar: "from-red-800 via-red-700 to-red-800", edge: "hover:border-red-400/60", rule: "decoration-red-400/60 hover:decoration-red-300", icon: "text-red-400/70" },
-    { bar: "from-sky-300 via-blue-500 to-indigo-600", edge: "hover:border-blue-400/60", rule: "decoration-blue-400/60 hover:decoration-blue-300", icon: "text-blue-400/70" },
-  ];
 
   const TRANSITION = /^(now|currently|former|formerly|previously|later)\b/i;
 
@@ -30,10 +24,10 @@
 <div class="flex h-full flex-1 flex-col gap-4">
   {#each leadership as role, i}
     <div
-      class="group relative flex flex-1 flex-col overflow-hidden rounded-2xl border {$theme.border.default} {$theme.bg.cardMuted} p-5 pl-6 shadow-lg transition-colors {accents[i % accents.length].edge}"
+      class="group relative flex flex-1 flex-col overflow-hidden rounded-2xl border {$theme.border.default} {$theme.bg.cardMuted} p-5 pl-6 shadow-lg transition-colors {leadershipAccents[i % leadershipAccents.length].edge}"
     >
       <span
-        class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b {accents[i % accents.length].bar}"
+        class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b {leadershipAccents[i % leadershipAccents.length].bar}"
         aria-hidden="true"
       />
 
@@ -45,10 +39,10 @@
             <LinkPreview
               href={role.link}
               label={role.org}
-              className="underline {accents[i % accents.length].rule} decoration-1 underline-offset-4 transition-colors"
+              className="underline {leadershipAccents[i % leadershipAccents.length].rule} decoration-1 underline-offset-4 transition-colors"
             >{role.org}</LinkPreview>
             <ExternalLink
-              class="h-3.5 w-3.5 flex-shrink-0 self-center {accents[i % accents.length].icon}"
+              class="h-3.5 w-3.5 flex-shrink-0 self-center {leadershipAccents[i % leadershipAccents.length].icon}"
             />
           {:else}
             {role.org}

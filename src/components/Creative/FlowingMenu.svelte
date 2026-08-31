@@ -73,10 +73,11 @@
 
 <style>
   .fx-flowing-menu {
+    --fm-hairline: 1px solid rgb(var(--rule) / 0.18);
     list-style: none;
     margin: 0;
     padding: 0;
-    border-top: 1px solid rgb(148 163 184 / 0.18);
+    border-top: var(--fm-hairline);
   }
 
   .is-grid {
@@ -141,7 +142,7 @@
     position: relative;
     height: var(--fm-row-height);
     overflow: hidden;
-    border-bottom: 1px solid rgb(148 163 184 / 0.18);
+    border-bottom: var(--fm-hairline);
   }
 
   .fx-fm-face {
@@ -192,7 +193,12 @@
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: linear-gradient(90deg, #f59e0b, #fb923c, #f59e0b);
+    background: linear-gradient(
+      90deg,
+      rgb(var(--warm)),
+      rgb(var(--warm-deep)),
+      rgb(var(--warm))
+    );
     transform: translateY(calc(var(--fm-dir) * -101%));
     visibility: hidden;
     transition:
@@ -216,7 +222,7 @@
     align-items: center;
     white-space: nowrap;
     animation: fx-fm-scroll var(--fm-marquee) linear infinite;
-    color: #1c1207;
+    color: rgb(var(--panel-ink));
     font-weight: 700;
     font-size: 0.95rem;
   }

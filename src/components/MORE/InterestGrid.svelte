@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
   import { OptionWheel, FlipCard } from "../Creative";
   import type { Interest } from "../../types";
 
@@ -19,7 +19,7 @@
   dip={14}
   cardWidth={324}
   cardHeight={148}
-  trackHeight={524}
+  trackHeight={424}
   label="Interests"
   hint="Click to flip"
   let:item

@@ -3,8 +3,8 @@
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import type { ComponentType } from "svelte";
-  import { theme, darkModeStore } from "../../lib/stores";
-  import { tokens, css } from "../../lib/tokens";
+  import { theme } from "../../constants/_theme";
+  import { tokens, css } from "../../constants/_tokens";
 
   export let items: readonly { href: string; label: string; icon: ComponentType }[] = [];
   export let current = "/";
@@ -167,7 +167,7 @@
       <a
         bind:this={refs[i]}
         href={item.href}
-        class="fx-goo-item {isActive(item.href) ? 'fx-goo-item-active' : $theme.nav.inactive}"
+        class="fx-goo-item font-nav {isActive(item.href) ? 'fx-goo-item-active' : $theme.nav.inactive}"
         aria-current={isActive(item.href) ? "page" : undefined}
         on:click={() => burst(i)}
       >
@@ -257,9 +257,7 @@
   }
 
   .fx-goo-item {
-    font-family: "Fredoka", "Chivo", Inter, sans-serif;
     font-weight: 500;
-    letter-spacing: 0.02em;
     display: flex;
     align-items: center;
     gap: 0.5rem;

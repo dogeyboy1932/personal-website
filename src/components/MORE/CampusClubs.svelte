@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
   import { Users } from "lucide-svelte";
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
   import type { Club } from "../../types";
 
   export let clubs: Club[] = [];

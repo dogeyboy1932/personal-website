@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
   import type { Experience } from "../../types";
   import { TechBadge } from ".";
   import { getTechColors } from "../../lib/utils";
@@ -37,8 +37,11 @@
         </p>
       </div>
       
+      <!-- The duration is metadata, not a headline: it used to be an accent-
+           washed chip, which put it in competition with the company name right
+           beside it. Quiet chip, same hueless fill as the stack below. -->
       <span
-        class="shrink-0 rounded-sm border border-brand/40 bg-brand/10 px-3 py-1.5 text-xs font-bold tracking-wide text-brand-strong"
+        class="meta-label shrink-0 rounded-sm border {$theme.border.light} {$theme.bg.neutral} px-3 py-1.5 text-[11px] {$theme.text.subtle}"
       >
         {experience.duration}
       </span>
@@ -58,7 +61,7 @@
         {/each}
         {#if experience.skills.length > skillMax}
           <span
-            class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border {$theme.border.light} bg-slate-400/10 {$theme.text.primary}"
+            class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border {$theme.border.light} {$theme.bg.neutral} {$theme.text.primary}"
           >
             +{experience.skills.length - skillMax} more
           </span>

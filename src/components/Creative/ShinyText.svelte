@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { darkModeStore } from "../../lib/stores";
+  import { tokens, channels, css } from "../../constants/_tokens";
 
   export let variant: "shine" | "gradient" | "both" = "both";
   export let speed = 4;
@@ -7,14 +7,18 @@
   let klass = "";
   export { klass as class };
 
-  $: isDark = $darkModeStore;
+  /* Five stops, mid -> peak -> mid -> peak -> mid, so the ramp reads as metal
+     rather than a single sweep. All three colours flip with the theme in styles.css. */
+  $: ramp = [
+    css($tokens, "shine-mid"),
+    css($tokens, "shine"),
+    css($tokens, "shine-base"),
+    css($tokens, "shine"),
+    css($tokens, "shine-mid"),
+  ].join(", ");
 
-  $: ramp = isDark
-    ? "#cbd5e1, #ffffff, #e2e8f0, #ffffff, #cbd5e1"
-    : "#57534e, #1c1917, #44403c, #1c1917, #57534e";
-
-  $: shineColor = isDark ? "rgba(255,255,255,0.95)" : "rgba(0,0,0,0.55)";
-  $: baseColor = isDark ? "#e2e8f0" : "#334155";
+  $: shineColor = `rgba(${channels($tokens, "shine")}, 0.95)`;
+  $: baseColor = css($tokens, "shine-base");
 
   $: useGradient = variant === "gradient" || variant === "both";
   $: useShine = variant === "shine" || variant === "both";

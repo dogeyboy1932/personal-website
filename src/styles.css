@@ -1,7 +1,176 @@
-@import "./styles/tokens.css";
-/* Shared, reusable visual effects. Global on purpose — Svelte scopes component
-   <style>, so a class defined in a component can never be used by another. */
-@import "./styles/effects.css";
+/* ═══════════════════════════════════════════════════════════════════════════
+   The site's entire stylesheet. Imported once, from src/routes/+layout.svelte.
+
+   1. TOKENS         — every colour in the app. The only place to change the palette.
+   2. EFFECTS        — visual effects shared BETWEEN components.
+   3. BASE           — Tailwind's layers, resets, and the document defaults.
+   4. SHARED CLASSES — label faces and dividers used across pages.
+
+   Sections 1 and 2 sit BEFORE the @tailwind directives on purpose: a Tailwind
+   utility of equal specificity must be able to override them at a call site.
+
+   Nothing below section 1 may contain a literal colour: read a token instead,
+   as `rgb(var(--name) / <alpha>)` or through a Tailwind utility built on one.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. TOKENS ──────────────────────────────────────────────────────────────
+   Space-separated RGB channels, which is what lets Tailwind's <alpha-value>
+   work — so `text-brand`, `bg-brand/10` and `border-brand/30` all come from one
+   custom property. tailwind.config.js turns the first group into utilities, and
+   src/constants/_tokens.ts mirrors the subset that canvas and inline SVG need as
+   concrete strings.
+   CAVEAT: removing a token here means removing it from BOTH of those too — a
+   utility built on a missing custom property fails silently. */
+
+:root {
+  --brand: 34 211 238;
+  --brand-strong: 103 232 249;
+  --warm: 251 191 36;
+  --warm-deep: 217 119 6;
+  /* The /more one-liner + scorecard figures, so that pair can move independently. */
+  --lede: 250 204 21;
+
+  /* Page ground and the hairline dividers drawn on it. */
+  --page-bg: 2 6 23;
+  --rule: 148 163 184;
+
+  --particles: 255 255 255;
+  --cursor: 226 232 240;
+  --rays: var(--brand);
+  --rain: 34 211 238;
+  --rain-tail: 14 116 144;
+  /* MatrixRain paints this over the last frame to fade the trails. */
+  --rain-fade: 0 0 0;
+
+  --nav-pill: 255 255 255;
+  --nav-pill-label: 11 11 15;
+
+  /* FlowingMenu's hover panel: warm slab, dark ink. */
+  --panel-ink: 28 18 7;
+  /* ParticleText's dot colour, and the shimmer ramp in ShinyText. */
+  --ink: 255 255 255;
+  --shine: 255 255 255;
+  --shine-base: 226 232 240;
+  --shine-mid: 203 213 225;
+
+  --halo-1: 34 211 238;
+  --halo-2: 99 102 241;
+  --halo-3: 168 85 247;
+  /* Neutral halo, for cards that must carry no hue. */
+  --halo-silver-1: 241 245 249;
+  --halo-silver-2: 203 213 225;
+  --halo-silver-3: 148 163 184;
+}
+
+/* Only the tokens that must change are redefined — anything not listed inherits
+   from :root, so adding a token above never means remembering to add it twice. */
+html:not(.dark) {
+  /* Terracotta is the one accent; honey and teal are the seconds. Kept in step
+     with the light half of _theme.ts — the two are read side by side. */
+  --brand: 194 65 12;
+  --brand-strong: 154 52 18;
+  --warm: 180 83 9;
+  --warm-deep: 124 45 18;
+  --lede: 15 118 110;
+
+  /* White, and it stays white — a tinted ground dulled the accents drawn on it. */
+  --page-bg: 255 255 255;
+  /* Stone, not slate: a cold hairline is what made the neutrals read corporate. */
+  --rule: 168 162 158;
+
+  /* Every particle effect is pure black on the light theme — a warm grey read
+     as smoke against white rather than as ink. `particles` has to be restated
+     even though it looks absent-by-inheritance: the :root value is WHITE, so
+     leaving it out made the sparkles invisible on this ground. */
+  --cursor: 0 0 0;
+  --particles: 0 0 0;
+  --rain: 194 65 12;
+  --rain-tail: 254 215 170;
+  --rain-fade: 255 255 255;
+
+  --nav-pill: 41 37 36;
+  --nav-pill-label: 255 255 255;
+
+  --panel-ink: 28 18 7;
+  --ink: 0 0 0;
+  --shine: 0 0 0;
+  --shine-base: 68 64 60;
+  --shine-mid: 120 113 108;
+
+  /* The three accents, in order — terracotta, honey, teal. */
+  --halo-1: 194 65 12;
+  --halo-2: 180 83 9;
+  --halo-3: 15 118 110;
+  --halo-silver-1: 120 113 108;
+  --halo-silver-2: 168 162 158;
+  --halo-silver-3: 87 83 78;
+}
+
+/* ── 2. EFFECTS ─────────────────────────────────────────────────────────────
+   Global on purpose. Svelte SCOPES component <style> — it hashes selectors and
+   strips rules it cannot match against that component's own markup — so a class
+   defined in a component can never be used by another one. Anything shared
+   between components has to live here. */
+
+/* A spinning conic arc riding the border. Drive the hue with --fx-arc-rgb;
+   it falls back to --brand. */
+@property --fx-arc-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.fx-arc {
+  position: relative;
+  isolation: isolate;
+}
+
+.fx-arc::before {
+  content: "";
+  position: absolute;
+  inset: calc(var(--fx-arc-inset, 0px) * -1);
+  border-radius: inherit;
+  padding: var(--fx-arc-thickness, 1.5px);
+  pointer-events: none;
+
+  background: conic-gradient(
+    from var(--fx-arc-angle),
+    rgb(var(--fx-arc-rgb, var(--brand)) / 0) 0deg,
+    rgb(var(--fx-arc-rgb, var(--brand)) / 0.15) calc(var(--fx-arc-head, 90deg) * 0.45),
+    rgb(var(--fx-arc-rgb, var(--brand)) / 1) var(--fx-arc-head, 90deg),
+    rgb(var(--fx-arc-rgb, var(--brand)) / 0.15) calc(var(--fx-arc-head, 90deg) * 1.55),
+    rgb(var(--fx-arc-rgb, var(--brand)) / 0) calc(var(--fx-arc-head, 90deg) * 2.2),
+    rgb(var(--fx-arc-rgb, var(--brand)) / 0) 360deg
+  );
+
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+
+  animation: fx-arc-spin var(--fx-arc-duration, 4s) linear infinite;
+  transition: filter 250ms ease;
+}
+
+.fx-arc-reactive:hover::before,
+.fx-arc-reactive:focus-visible::before {
+  animation-duration: var(--fx-arc-hover-duration, 1.6s);
+  filter: brightness(1.5) drop-shadow(0 0 6px rgb(var(--fx-arc-rgb, var(--brand)) / 0.55));
+}
+
+@keyframes fx-arc-spin {
+  to {
+    --fx-arc-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-arc::before {
+    animation: none;
+  }
+}
+
+/* ── 3. BASE ────────────────────────────────────────────────────────────── */
 
 :root {
   --page-zoom: 1;
@@ -19,83 +188,37 @@
 @tailwind utilities;
 
 @layer base {
+  /* What is left of the shadcn-style HSL set this project started from. Only
+     these three still have a consumer — the rest (--primary, --secondary,
+     --accent, --card, --popover, --muted, --destructive, --input, --ring) went
+     with the .cyberpunk-* classes that were their only readers. Site colour
+     belongs in TOKENS above, not here. */
   :root {
-    --background: 210 40% 98%;
     --foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
-
     --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 47.4% 11.2%;
-
-    --primary: 250 47.4% 45%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 190 95% 39%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --accent: 262 83% 58%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-
-    --ring: 262 83% 58%;
-
     --radius: 1rem;
   }
 
   .dark {
-    --background: 225 38% 5%;
     --foreground: 210 40% 98%;
-
-    --muted: 225 30% 12%;
-    --muted-foreground: 215 20% 65%;
-
-    --accent: 263 86% 66%;
-    --accent-foreground: 210 40% 98%;
-
-    --popover: 225 38% 5%;
-    --popover-foreground: 210 40% 98%;
-
     --border: 217 91% 60%;
-    --input: 217 91% 60%;
-
-    --card: 225 38% 7%;
-    --card-foreground: 210 40% 98%;
-
-    --primary: 199 100% 60%;
-    --primary-foreground: 225 38% 5%;
-
-    --secondary: 263 86% 66%;
-    --secondary-foreground: 210 40% 98%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-
-    --ring: 199 100% 60%;
-
-    --radius: 1rem;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
+
   body {
-    @apply bg-background text-foreground;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    /* Single source for the page ground — was also set from +layout.svelte's
+       <style>, which quietly won on specificity. */
+    background-color: rgb(var(--page-bg));
+    @apply text-foreground;
+    transition: background-color 0.3s ease-in-out, color 0.2s ease-in-out;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+/* ── 4. SHARED CLASSES ──────────────────────────────────────────────────── */
 
 /* META LABEL Deliberately NOT the display face. */
 .meta-label {
@@ -110,221 +233,13 @@
   font-weight: 600;
 }
 
-.cyberpunk-gradient {
-  @apply bg-gradient-to-r from-primary via-accent to-secondary;
-}
-
-.cyberpunk-glow {
-  text-shadow: 0 0 10px var(--primary), 0 0 20px var(--accent);
-}
-
-.cyberpunk-border {
-  @apply border-2 border-transparent bg-gradient-to-r from-primary via-accent to-secondary;
-  background-clip: padding-box;
-}
-
-.container {
-  @apply mx-auto px-2 py-8;
-}
-
-.grid-base {
-  @apply grid mx-auto px-2 gap-6;
-}
-
-.page-grid {
-  @apply grid-base grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
-}
-
-.one-grid {
-  @apply grid-base grid-cols-1;
-}
-
-.col-grid {
-  @apply grid-base grid-cols-2 sm:grid-cols-3 md:grid-cols-4;
-}
-
-.card-base {
-  @apply bg-white dark:bg-gray-500/50 
-           rounded-lg shadow-sm 
-           hover:shadow-md transition-all duration-300 
-           transform hover:-translate-y-0.5
-           border border-indigo-100 dark:border-gray-600/20;
-}
-
-.content-card {
-  @apply card-base col-span-2;
-}
-
-.frame-card {
-  @apply card-base p-4 flex flex-col items-center;
-}
-
-.sm-content-card {
-  @apply card-base p-6 text-center;
-}
-
-.card-content {
-  @apply space-y-4 p-6;
-}
-
-.text-base-style {
-  @apply text-indigo-900 dark:text-gray-300;
-}
-
-.text-header-base {
-  @apply font-bold text-indigo-950 dark:text-gray-400;
-}
-
-.text-neon {
-  @apply text-indigo-950 dark:text-cyan-500;
-}
-
-.border-neon {
-  @apply border-indigo-950 dark:border-cyan-200;
-}
-
-.section-header {
-  @apply flex justify-between items-center 
-           border-b-2 border-indigo-200 dark:border-gray-800 pb-3;
-}
-
-.title {
-  @apply text-xl font-semibold text-indigo-950 dark:text-gray-200;
-}
-
-.title-header {
-  @apply text-header-base text-2xl text-center mb-4;
-}
-
-.label-header {
-  @apply text-violet-600 dark:text-blue-300;
-}
-
-.subtitle-container {
-  @apply text-base-style mb-3;
-}
-
-.subtitle {
-  @apply flex justify-center mt-2 text-lg font-medium text-base-style;
-}
-
-.description {
-  @apply text-base-style leading-relaxed;
-}
-
-.text-regular {
-  @apply text-indigo-950 dark:text-gray-100;
-}
-
-.badge-base {
-  @apply flex items-center px-3 py-1 rounded-full text-sm;
-}
-
-.time-badge {
-  @apply badge-base 
-           bg-rose-100 dark:bg-orange-900/30 
-           text-rose-700 dark:text-orange-300;
-}
-
-.link-primary {
-  @apply space-x-2 text-sm 
-           text-violet-600 dark:text-blue-400 
-           hover:text-violet-700 dark:hover:text-blue-300 
-           transition-colors duration-300;
-}
-
-.icon-hover {
-  @apply w-5 h-5 opacity-0 
-           group-hover:opacity-100 
-           transition-opacity duration-300;
-}
-
-.nav-base {
-  @apply text-sm font-medium sm:text-[12px];
-}
-
-.nav-link {
-  @apply nav-base relative py-2 
-           after:absolute after:bottom-0 after:left-0 
-           after:h-0.5 after:w-0 
-           after:bg-gradient-to-r 
-           after:from-violet-600/60 after:to-rose-500/60
-           dark:after:from-sky-400 dark:after:via-blue-500 dark:after:to-violet-500
-           hover:after:w-full
-           after:transition-all after:duration-300
-           hover:text-rose-500 dark:hover:text-sky-300;
-}
-
-.nav-container {
-  @apply md:flex space-x-3 nav-base;
-}
-
-.intro-base {
-  @apply flex justify-center;
-}
-
-.intro-container {
-  @apply tracking-tight space-y-4 
-           py-8 text-center
-           bg-slate-400 dark:bg-zinc-900;
-}
-
-.intro-header {
-  @apply text-lg md:text-xl font-semibold block text-indigo-700 dark:text-indigo-400;
-}
-
-.intro-text {
-  @apply text-base leading-relaxed space-y-3;
-}
-
-.intro-paragraph {
-  @apply block text-base-style;
-}
-
-.intro-highlight {
-  @apply intro-base mt-2 text-lg font-medium pt-4;
-}
-
-.gradient-base {
-  @apply bg-gradient-to-r;
-}
-
-.gradient-container {
-  @apply px-8 gradient-base
-           from-violet-200/20 via-rose-200/20 to-indigo-200/20
-           dark:from-violet-500/10 dark:via-blue-500/10 dark:to-violet-500/10
-           border-indigo-200 dark:border-gray-800;
-}
-
-.gradient-text {
-  @apply intro-base
-           font-sans text-4xl font-bold tracking-tight
-           gradient-base from-violet-600 to-rose-500
-           dark:from-sky-400 dark:to-violet-400
-           bg-clip-text text-transparent
-           py-6;
-}
-
-.ripple {
-  position: relative;
-  overflow: hidden;
-}
-.ripple::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  transform: scale(0);
-  opacity: 0.6;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.35), rgba(255,255,255,0));
-  transition: transform 0.6s ease-out, opacity 1s ease-out;
-}
-.ripple:active::after {
-  transform: scale(10);
-  opacity: 0;
-  transition: transform 0.6s ease-out, opacity 0.8s ease-out;
-}
-
-.hover-animated-gradient:hover {
-  background-size: 200% 200%;
-  animation: gradient 3s ease infinite;
+/* Hairline divider that fades out at both ends. */
+.rule-soft {
+  @apply mx-auto h-px w-4/5;
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    rgb(var(--rule) / 0.35) 50%,
+    transparent
+  );
 }

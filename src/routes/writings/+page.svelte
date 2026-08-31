@@ -3,7 +3,7 @@
   import { MetaTags } from "svelte-meta-tags";
   import PageHeader from "../../components/Headers/PageHeader.svelte";
   import ComingSoon from "../../lib/ComingSoon.svelte";
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
   import { scrollReveal } from "../../lib/actions/scrollReveal";
 
   const strands = [

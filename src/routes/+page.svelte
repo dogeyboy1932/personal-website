@@ -1,9 +1,13 @@
 <script lang="ts">
   import { MetaTags } from "svelte-meta-tags";
-  import { breakpoints, theme } from "../lib/stores";
+  import { breakpoints } from "../constants/_stores";
+  import { theme } from "../constants/_theme";
+
   import { scrollReveal } from "../lib/actions/scrollReveal";
+  
   import { SideRays, SparkleField, ParticleText, SmallCarousel } from "../components/Creative";
   import { SocialLinkButton, HeroImage, FocusCard } from "../components/HOME";
+  
   import { homeHero, homeQuickLinks, homeFocusAreas, links, sections, site } from "../constants";
 </script>
 
@@ -32,14 +36,14 @@
   >
 
     <div class="relative flex min-w-0 flex-col justify-center gap-3">
-        <div class="relative flex items-center justify-center p-4 rounded-lg">
+      <div class="relative flex items-center justify-center p-4 rounded-lg">
         <SparkleField density={6} pointerPull={150} bleedTop={24} bleedBottom={110} />
 
         <div class="relative z-10 text-left">
           <div class="relative flex flex-col">
             <span
               aria-hidden="true"
-              class="pointer-events-none absolute -inset-x-6 -inset-y-5 -z-10 rounded-3xl bg-white/[0.07] blur-2xl"
+              class="pointer-events-none absolute -inset-x-6 -inset-y-5 -z-10 rounded-3xl blur-2xl"
             />
             <h1 class="relative uppercase text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight {$theme.text.primary} leading-[0.95]">
               {#if homeHero.particleName}
@@ -73,7 +77,7 @@
               <SocialLinkButton
                 href={link.href}
                 icon={link.icon}
-                title={link.title}
+                title={link.handle}
                 {index}
               />
             {/each}
@@ -81,7 +85,9 @@
         </div>
       </div>
 
+
       <div class="relative mx-auto w-[90%] border-t {$theme.border.divider}" />
+
 
       <!-- `relative` is load-bearing — see the side-rays caveat above. -->
       <div class="relative flex flex-col items-center gap-5 py-3 px-8">
@@ -89,8 +95,8 @@
           {homeHero.summary}
         </p>
 
-                <!-- No scroll-reveal: this sits inside the first viewport, so a scroll-triggered reveal
-             would start blurred and never un-blur. -->
+        <!-- No scroll-reveal: this sits inside the first viewport, so a scroll-triggered reveal
+        would start blurred and never un-blur. -->
         <nav class="flex flex-wrap justify-center gap-3.5" aria-label="Quick links">
           {#each homeQuickLinks as link, i}
             <a
@@ -126,10 +132,10 @@
         items={homeHero.quotes}
         interval={7000}
         shuffle
-        class="rounded-2xl border p-4 shadow-lg backdrop-blur-md {$theme.border.accent} {$theme.bg.backdrop}"
+        class="rounded-2xl border p-4 shadow-lg backdrop-blur-md {$theme.border.light} {$theme.bg.backdrop}"
         let:item
       >
-        <div class="flex h-full flex-col justify-between">
+        <div class="flex h-full flex-col justify-between ">
           <p class="text-md italic leading-snug {$theme.text.primary}">{item.quote}</p>
           <p
             class="mt-3 text-right text-sm font-bold uppercase tracking-widest {$theme.accent.indigo.text}"

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
 
   export let items: string[] = [];
   export let selected: string;
@@ -14,7 +14,7 @@
   {#each items as item}
     <button
       type="button"
-      class="fx-pill {selected === item ? 'is-active' : ''} {$theme.accent.indigo.text}"
+      class="fx-pill font-display {selected === item ? 'is-active' : ''} {$theme.accent.indigo.text}"
       aria-pressed={selected === item}
       on:click={() => (selected = item)}
     >
@@ -30,7 +30,6 @@
 
 <style>
   .fx-pill {
-    font-family: "Chivo", "Space Grotesk", Inter, sans-serif;
     position: relative;
     isolation: isolate;
     overflow: hidden;

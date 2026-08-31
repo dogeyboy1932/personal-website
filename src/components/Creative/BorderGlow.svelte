@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { accentRgb, pointerOffset } from "../../lib/utils";
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
-  import { darkModeStore } from "../../lib/stores";
+  import { darkModeStore } from "../../constants/_theme";
 
   export let size = 260;
   export let thickness = 1.5;
@@ -17,22 +18,15 @@
   let active = false;
 
   $: isDark = $darkModeStore;
-  $: rgb =
-    color === "warm"
-      ? isDark
-        ? "251, 191, 36"
-        : "217, 119, 6"
-      : color === "cool"
-      ? isDark
-        ? "96, 165, 250"
-        : "37, 99, 235"
-      : color;
+  $: rgb = accentRgb(color, isDark);
 
   function onMove(event: PointerEvent) {
     if (!parent) return;
-    const rect = parent.getBoundingClientRect();
-    mx = `${event.clientX - rect.left}px`;
-    my = `${event.clientY - rect.top}px`;
+    /* These become CSS lengths INSIDE the zoomed page, so they have to be
+       local units, not the viewport px clientX reports. */
+    const { x, y } = pointerOffset(event, parent);
+    mx = `${x}px`;
+    my = `${y}px`;
     active = true;
   }
 

@@ -1,14 +1,12 @@
+import { rafCoalesce } from "../utils";
+
 export function fitRow(node: HTMLElement) {
   if (typeof window === "undefined") return { destroy() {} };
 
   const row = node.firstElementChild as HTMLElement | null;
   if (!row) return { destroy() {} };
 
-  let frame = 0;
-
   const update = () => {
-    frame = 0;
-
     row.style.transform = "none"; // measure unscaled
     const natural = row.scrollWidth;
     const available = node.clientWidth;
@@ -22,10 +20,7 @@ export function fitRow(node: HTMLElement) {
     node.style.height = `${Math.ceil(row.offsetHeight * scale)}px`;
   };
 
-  const schedule = () => {
-    if (frame) return;
-    frame = requestAnimationFrame(update);
-  };
+  const { schedule, cancel } = rafCoalesce(update);
 
   const observer = new ResizeObserver(schedule);
   observer.observe(node);
@@ -35,7 +30,7 @@ export function fitRow(node: HTMLElement) {
 
   return {
     destroy() {
-      if (frame) cancelAnimationFrame(frame);
+      cancel();
       observer.disconnect();
     },
   };

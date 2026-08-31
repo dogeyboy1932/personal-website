@@ -2,18 +2,17 @@
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
   
-  import { darkModeStore } from "./stores";
-  import { tokens, css } from "./tokens";
+  import { tokens, channels, css } from "../constants/_tokens";
 
-  
-  let isDarkMode: boolean
-  $: isDarkMode  = $darkModeStore;
 
   let primaryColor: string;
   let secondaryColor: string;
 
   $: primaryColor = css($tokens, "rain");
   $: secondaryColor = css($tokens, "rain-tail");
+  /* Painted over the previous frame at low alpha to fade the trails — must be the
+     page ground, or light mode smears the trails grey. */
+  $: fadeColor = `rgba(${channels($tokens, "rain-fade")}, 0.05)`;
 
   let canvas: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D;
@@ -101,7 +100,7 @@
     }
     lastStep = now;
 
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillStyle = fadeColor;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     for (let i = 0; i < columns.length; i++) {

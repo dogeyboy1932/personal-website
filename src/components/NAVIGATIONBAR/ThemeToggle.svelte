@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Coffee, Moon, Sun } from "lucide-svelte";
-  import { theme, themeToggle, darkModeStore } from "../../lib/stores";
+  import { Coffee, Moon } from "lucide-svelte";
+  import { theme, themeToggle, darkModeStore } from "../../constants/_theme";
   import { onMount, onDestroy } from "svelte";
 
   let isDarkMode: boolean;

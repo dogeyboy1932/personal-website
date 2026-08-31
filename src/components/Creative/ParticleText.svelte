@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { prefersReducedMotion } from "../../lib/utils";
+  import { pageZoom, prefersReducedMotion, pointerOffset, POINTER_AWAY, sizeCanvas } from "../../lib/utils";
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
-  import { darkModeStore } from "../../lib/stores";
+  import { tokens, css } from "../../constants/_tokens";
 
   export let text = "";
   export let gap = 4;
@@ -37,28 +37,22 @@
 
   let width = 0;
   let height = 0;
-  let dpr = 1;
-  let pointerX = -9999;
-  let pointerY = -9999;
+  let pointerX = POINTER_AWAY;
+  let pointerY = POINTER_AWAY;
 
-  $: isDark = $darkModeStore;
-  $: fill = color ?? (isDark ? "#ffffff" : "#0f172a");
+  $: fill = color ?? css($tokens, "ink");
 
   function build() {
     if (!host || !canvas) return;
     const rect = host.getBoundingClientRect();
-    width = rect.width;
-    height = rect.height;
+    /* rect is in zoomed viewport px; the canvas draws in local units. */
+    const zoom = pageZoom();
+    width = rect.width / zoom;
+    height = rect.height / zoom;
     if (width < 10 || height < 10) return;
 
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.floor(width * dpr);
-    canvas.height = Math.floor(height * dpr);
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-    ctx = canvas.getContext("2d");
+    ctx = sizeCanvas(canvas, width, height);
     if (!ctx) return;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     const off = document.createElement("canvas");
     off.width = Math.floor(width);
@@ -81,6 +75,7 @@
 
     octx.textBaseline = "middle";
     octx.textAlign = "left";
+    /* The offscreen pass is a MASK — only its alpha is read, so the colour is arbitrary. */
     octx.fillStyle = "#fff";
     octx.fillText(text, 0, height / 2);
 
@@ -158,14 +153,12 @@
   }
 
   function onPointerMove(event: PointerEvent) {
-    const rect = host.getBoundingClientRect();
-    pointerX = event.clientX - rect.left;
-    pointerY = event.clientY - rect.top;
+    ({ x: pointerX, y: pointerY } = pointerOffset(event, host));
   }
 
   function onPointerLeave() {
-    pointerX = -9999;
-    pointerY = -9999;
+    pointerX = POINTER_AWAY;
+    pointerY = POINTER_AWAY;
   }
 
   onMount(() => {

@@ -2,7 +2,7 @@
   import { page } from "$app/stores";
   import { Logo, ThemeToggle } from ".";
   import { navItems, site } from "../../constants";
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
   import { ShinyText, SpinLogo, GooeyNav } from "../Creative";
 </script>
 
@@ -14,11 +14,13 @@
     <div class="group flex flex-shrink-0 items-center gap-4">
       <SpinLogo>
         <Logo
-          class="w-9 h-9 transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]"
+          class="w-9 h-9 transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgb(var(--halo-3)/0.5)]"
         />
       </SpinLogo>
+
       <a href="/" aria-label="Go to home">
-      <span class="hidden sm:block">
+
+        <span class="hidden sm:block">
         <ShinyText
           variant="both"
           speed={5}
@@ -26,6 +28,7 @@
         >
           {site.author}
         </ShinyText>
+
       </span>
       </a>
     </div>

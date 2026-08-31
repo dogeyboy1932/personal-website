@@ -1,8 +1,8 @@
 <!-- FX: side-rays — volumetric light blades fanning across a section. — CAVEAT: `overlay` puts this
      at z-index 30, ON TOP of content. -->
 <script lang="ts">
-  import { darkModeStore } from "../../lib/stores";
-  import { tokens, channels } from "../../lib/tokens";
+  import { darkModeStore } from "../../constants/_theme";
+  import { tokens, channels } from "../../constants/_tokens";
 
   export let side: "left" | "right" | "both" = "left";
   export let count = 9;

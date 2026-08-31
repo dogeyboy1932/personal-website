@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
   import { FlowingMenu } from "../Creative";
   import type { TravelStop, TravelCountry } from "../../types";
 
@@ -55,5 +55,3 @@
   {/if}
 </div>
 
-<style>
-</style>

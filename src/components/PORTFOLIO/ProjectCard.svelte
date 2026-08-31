@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
-  import { theme } from "../../lib/stores";
+  import { theme, darkModeStore } from "../../constants/_theme";
   import TechBadge from "./TechBadge.svelte";
   import { getTechColors } from "../../lib/utils";
   import type { Project } from "../../types";
@@ -11,6 +11,10 @@
 
   $: shownTech = project.technologies.slice(0, 7);
   $: techColorList = getTechColors(shownTech, $theme.techColors);
+
+  /* iconify bakes the colour into the SVG it serves, so these two cannot ride a
+     class like everything else — the URL itself has to follow the theme. */
+  $: iconInk = $darkModeStore ? "%23e2e8f0" : "%23292524";
 
 </script>
 
@@ -32,14 +36,14 @@
       class="absolute top-2 left-2 flex gap-2 opacity-50 transition group-hover:opacity-100"
     >
       {#if project.demo}
-        <a href={project.demo} target="_blank" rel="noopener noreferrer" class="inline-flex rounded-lg border {$theme.border.light} {$theme.bg.cardHover} p-2 {$theme.text.muted} hover:{$theme.border.hover}">
-          <img src="https://api.iconify.design/mdi:open-in-new.svg?color=%23cbd5e1" alt="Demo" class="h-4 w-4" />
+        <a href={project.demo} target="_blank" rel="noopener noreferrer" class="inline-flex rounded-lg border {$theme.border.light} {$theme.bg.cardHover} p-2 {$theme.text.muted} transition-colors hover:border-warm/70">
+          <img src="https://api.iconify.design/mdi:open-in-new.svg?color={iconInk}" alt="Demo" class="h-4 w-4" />
         </a>
       {/if}
 
       {#if project.github}
-        <a href={project.github} target="_blank" rel="noopener noreferrer" class="inline-flex rounded-lg border {$theme.border.light} {$theme.bg.cardHover} p-2 {$theme.text.dim} hover:{$theme.border.hover}">
-          <img src="https://imgs.search.brave.com/w5LFW4ei3PC6DUOkw2jcpG1OVDzoYhDqENlECFBWUg8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy8y/LzI0L0dpdGh1Yl9s/b2dvX3N2Zy5zdmc" alt="GitHub" class="h-4 w-4" />
+        <a href={project.github} target="_blank" rel="noopener noreferrer" class="inline-flex rounded-lg border {$theme.border.light} {$theme.bg.cardHover} p-2 {$theme.text.dim} transition-colors hover:border-warm/70">
+          <img src="https://api.iconify.design/mdi:github.svg?color={iconInk}" alt="GitHub" class="h-4 w-4" />
         </a>
       {/if}
     </div>
@@ -92,7 +96,7 @@
         {/each}
         {#if project.technologies.length > 7}
           <span
-            class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border {$theme.border.light} {$theme.bg.overlay} {$theme.text.primary}"
+            class="rounded px-2 py-1 text-xs font-semibold uppercase tracking-[0.35em] border {$theme.border.light} {$theme.bg.neutral} {$theme.text.primary}"
           >
             +{project.technologies.length - 7} more
           </span>

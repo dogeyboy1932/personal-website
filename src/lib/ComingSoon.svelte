@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { theme } from "../lib/stores";
+  import { theme } from "../constants/_theme";
 
   export let blurb: string;
   export let note: string = "";

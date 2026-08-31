@@ -1,11 +1,11 @@
 <!-- FX: sparkles + gravity-stars — drifting motes that scatter from the cursor. — PERFORMANCE:
      particles are pre-rendered once to an offscreen sprite and blitted with drawImage. -->
 <script lang="ts">
-  import { prefersReducedMotion } from "../../lib/utils";
+  import { pageZoom, prefersReducedMotion, pointerOffset, POINTER_AWAY, sizeCanvas } from "../../lib/utils";
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
-  import { darkModeStore } from "../../lib/stores";
-  import { tokens, channels } from "../../lib/tokens";
+  import { darkModeStore } from "../../constants/_theme";
+  import { tokens, channels } from "../../constants/_tokens";
 
   export let density = 5.5;
   export let minSize = 0.6;
@@ -44,8 +44,8 @@
 
   let width = 0;
   let height = 0;
-  let pointerX = -9999;
-  let pointerY = -9999;
+  let pointerX = POINTER_AWAY;
+  let pointerY = POINTER_AWAY;
 
   const SPRITE_R = 8;
   const SPRITE_SIZE = SPRITE_R * 6;
@@ -108,17 +108,13 @@
   function resize() {
     if (!canvas || !host) return;
     const rect = host.getBoundingClientRect();
-    width = rect.width;
-    height = rect.height;
+    /* rect is in zoomed viewport px; the canvas draws in local units. */
+    const zoom = pageZoom();
+    width = rect.width / zoom;
+    height = rect.height / zoom;
     if (width === 0 || height === 0) return;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.floor(width * dpr);
-    canvas.height = Math.floor(height * dpr);
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-    ctx = canvas.getContext("2d");
-    ctx?.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx = sizeCanvas(canvas, width, height);
 
     const target = Math.round((width * height) / 10000 * density);
     particles = Array.from({ length: Math.max(target, 8) }, () => spawn(width, height));
@@ -170,14 +166,12 @@
   }
 
   function onPointerMove(event: PointerEvent) {
-    const rect = host.getBoundingClientRect();
-    pointerX = event.clientX - rect.left;
-    pointerY = event.clientY - rect.top;
+    ({ x: pointerX, y: pointerY } = pointerOffset(event, host));
   }
 
   function onPointerLeave() {
-    pointerX = -9999;
-    pointerY = -9999;
+    pointerX = POINTER_AWAY;
+    pointerY = POINTER_AWAY;
   }
 
   onMount(() => {

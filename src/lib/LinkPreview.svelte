@@ -72,7 +72,7 @@
 </a>
 
 <div
-  class={`pointer-events-none fixed z-[100] w-60 overflow-hidden rounded-xl border border-yellow-300/40 bg-slate-950/95 shadow-xl shadow-black/40 transition-all duration-200 motion-reduce:transition-none ${
+  class={`pointer-events-none fixed z-[100] w-60 overflow-hidden rounded-xl border border-warm/40 bg-[rgb(var(--page-bg)/0.97)] shadow-xl shadow-black/40 transition-all duration-200 motion-reduce:transition-none ${
     isOpen ? "visible translate-y-0 opacity-100" : "invisible translate-y-1 opacity-0"
   }`}
   style={previewStyle}
@@ -80,7 +80,7 @@
 >
   {#if isOpen}
     {#if imageFailed}
-      <div class="flex h-[150px] items-center justify-center bg-yellow-300/5 px-5 text-center text-xs font-semibold uppercase tracking-[0.2em] text-yellow-200/80">
+      <div class="flex h-[150px] items-center justify-center bg-warm/5 px-5 text-center text-xs font-semibold uppercase tracking-[0.2em] text-warm">
         Preview unavailable
       </div>
     {:else}

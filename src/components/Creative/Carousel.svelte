@@ -1,11 +1,12 @@
 <script lang="ts" generics="T extends SvelteComponent">
-  import type { EmblaCarouselConfig } from "../../types";
+  
   import { cn } from "../../lib/utils";
   import type { EmblaCarouselType } from "embla-carousel";
   import emblaCarouselSvelte from "embla-carousel-svelte";
   import { ArrowLeft, ArrowRight } from "lucide-svelte";
   import type { ComponentProps, ComponentType, SvelteComponent } from "svelte";
-  import { breakpoints, theme } from "../../lib/stores";
+  import { breakpoints } from "../../constants/_stores";
+  import { theme } from "../../constants/_theme";
 
   export let componentProps: ComponentProps<T>[] = [];
   export let component: ComponentType<T>;
@@ -17,15 +18,19 @@
   export let carouselItemsClass = "";
   export let itemsPerView: number | null = null;
 
-  $: itemsPerSection = itemsPerView ?? $breakpoints.itemsPerSection;
+  
+  
+  type EmblaCarouselConfig = Parameters<NonNullable<ReturnType<typeof emblaCarouselSvelte>["update"]>>[0];
+
+  
+  
+    $: itemsPerSection = itemsPerView ?? $breakpoints.itemsPerSection;
   
   $: basisClass = itemsPerSection === 1 ? "basis-full" : itemsPerSection === 2 ? "basis-1/2" : "basis-1/3";
 
   let api: EmblaCarouselType | undefined;
   let canScrollNext = componentProps.length > 0;
   let canScrollPrev = false;
-  let scrollNext = () => {};
-  let scrollPrev = () => {};
 
   let currentCount = 0;
 
@@ -85,12 +90,15 @@
     if (api) {
       canScrollNext = api.canScrollNext();
       canScrollPrev = api.canScrollPrev();
-      scrollNext = api.scrollNext;
-      scrollPrev = api.scrollPrev;
 
       currentCount = api.selectedScrollSnap() + 1;
     }
   }
+
+  $: arrowClass =
+    "flex items-center justify-center h-10 w-10 p-0 border rounded-full transition-all shrink-0 " +
+    `${$theme.carousel.arrow.bg} ${$theme.carousel.arrow.border} ` +
+    `${$theme.carousel.arrow.hoverBg} ${$theme.carousel.arrow.hoverBorder}`;
 
   $: totalSections = Math.ceil(componentProps.length / itemsPerSection);
   $: currentSection = Math.ceil(currentCount / itemsPerSection);
@@ -142,10 +150,7 @@
   <div class="flex flex-row gap-6 items-center justify-center mt-5">
 
     <button
-      class={cn(
-        `flex items-center justify-center h-10 w-10 p-0 border rounded-full transition-all shrink-0 ${$theme.carousel.arrow.bg} ${$theme.carousel.arrow.border} ${$theme.carousel.arrow.hoverBg} ${$theme.carousel.arrow.hoverBorder}`,
-        config?.options.axis === "x" ? "" : "rotate-90"
-      )}
+      class={cn(arrowClass, config?.options.axis === "x" ? "" : "rotate-90")}
       disabled={!canScrollPrev}
       on:click={onPrev}
     >
@@ -169,10 +174,7 @@
   </div>
 
     <button
-      class={cn(
-        `flex items-center justify-center h-10 w-10 p-0 border rounded-full transition-all shrink-0 ${$theme.carousel.arrow.bg} ${$theme.carousel.arrow.border} ${$theme.carousel.arrow.hoverBg} ${$theme.carousel.arrow.hoverBorder}`,
-        config?.options.axis === "x" ? "" : "rotate-90"
-      )}
+      class={cn(arrowClass, config?.options.axis === "x" ? "" : "rotate-90")}
       disabled={!canScrollNext}
       on:click={onNext}
     >

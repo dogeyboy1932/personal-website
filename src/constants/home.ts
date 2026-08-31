@@ -1,6 +1,21 @@
-import type { CustomLink } from "../types";
+import type { SocialHandle } from "../types";
+
+import { Instagram, Mail, Github, Linkedin, Check, ChessKnightIcon } from "lucide-svelte";
+import DiscordLogo from "../lib/OtherLogos/DiscordLogo.svelte";
+
 
 export const lastUpdated = "8/26";
+
+/* Lives here, next to lastUpdated, because its description IS lastUpdated —
+   the two used to drift in separate files (the resume claimed "June 2026"
+   while the footer said 8/26). The embed's size is presentation, not content,
+   so it sits in _theme.ts as `embedFrame`. */
+export const resume = {
+  url: "/resume.pdf",
+  label: "Download Resume",
+  pageTitle: "Resume",
+  description: `Last updated: ${lastUpdated}`,
+};
 
 export const homeHero = {
   tagline: "Portfolio 2026",
@@ -65,22 +80,22 @@ export const home = {
   },
 };
 
-export const links: CustomLink[] = [
+export const links: SocialHandle[] = [
   {
-    platform: "Github",
-    title: "dogeyboy1932",
+    label: "Github",
+    handle: "dogeyboy1932",
     href: "https://github.com/dogeyboy1932",
     icon: "github",
   },
   {
-    platform: "LinkedIn",
-    title: "gvAkhil",
+    label: "LinkedIn",
+    handle: "gvAkhil",
     href: "https://www.linkedin.com/in/gvAkhil/",
     icon: "linkedin",
   },
   {
-    platform: "Email",
-    title: "gogineni.akhil@hotmail.com",
+    label: "Email",
+    handle: "gogineni.akhil@hotmail.com",
     href: "mailto:gogineni.akhil@hotmail.com",
     icon: "mail",
   },
@@ -104,3 +119,13 @@ export const site = {
     "Meet Akhil Gogineni, a Computer Science graduate student at UIUC. Explore his portfolio showcasing expertise in full-stack development, cloud engineering, and AI.",
   author: "Venkat Akhil Gogineni",
 };
+
+
+export const icons = {
+    instagram: Instagram,
+    discord: DiscordLogo,
+    lichess: ChessKnightIcon,
+    mail: Mail,
+    github: Github,
+    linkedin: Linkedin,
+  } as const;

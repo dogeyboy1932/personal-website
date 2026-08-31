@@ -1,14 +1,11 @@
-import type { EmblaCarouselType } from "embla-carousel";
-import type emblaCarouselSvelte from "embla-carousel-svelte";
+/** Shared content shapes, grouped by the page that consumes them.
+    Pattern: a constants/*.ts file declares the data against a type here, and a
+    component takes a slice of it as a prop. */
 
-export type EmblaCarouselConfig = Parameters<
-  NonNullable<ReturnType<typeof emblaCarouselSvelte>["update"]>
->[0];
-
-export interface CarouselContext {
-  api?: EmblaCarouselType;
-  config: EmblaCarouselConfig;
-}
+/* ─── SKILLS (portfolio) ──────────────────────────────────────────────────────
+   constants/skills.ts → PORTFOLIO/SkillCategoryCard.svelte
+   Enums, not unions: skills.ts uses the members as runtime values.
+   ─────────────────────────────────────────────────────────────────────────── */
 
 export enum ProficiencyLevel {
   Beginner = "beginner",
@@ -20,20 +17,6 @@ export enum SkillStatus {
   Learned = "learned",
   Learning = "learning",
   Priority = "priority",
-}
-
-export interface HobbyOrOther {
-  name: string;
-  logoUrl: string;
-}
-
-export interface HobbyCategory {
-  category: string;
-  items: HobbyOrOther[];
-}
-
-export interface HobbiesData {
-  hobbies: HobbyCategory[];
 }
 
 export interface SkillItem {
@@ -48,9 +31,9 @@ export interface SkillCategory {
   items: SkillItem[];
 }
 
-export interface SkillsData {
-  skills: SkillCategory[];
-}
+/* ─── PROJECTS (portfolio) ────────────────────────────────────────────────────
+   constants/projects.ts → PORTFOLIO/ProjectCard.svelte
+   ─────────────────────────────────────────────────────────────────────────── */
 
 export type ProjectCategory = "AI/ML" | "Blockchain" | "Mobile" | "Other";
 
@@ -67,43 +50,9 @@ export interface Project {
   demo?: string;
 }
 
-export interface PageData {
-  hero: Hero;
-  mainContent: ContentSection;
-  additionalContent: ContentSection;
-}
-
-interface Hero {
-  tagline: string;
-  title: string;
-  description: string;
-  image: Image;
-}
-
-interface Image {
-  src: string;
-  alt: string;
-  caption: string;
-}
-
-interface ContentSection {
-  title: string;
-  items: ContentItem[];
-}
-
-interface ContentItem {
-  title: string;
-  subtitle: string;
-  secondarySubtitle?: string;
-  description: string;
-}
-
-export interface CustomLink {
-  platform: string;
-  title: string;
-  href: string;
-  icon: "github" | "linkedin" | "mail";
-}
+/* ─── EXPERIENCE (portfolio) ──────────────────────────────────────────────────
+   constants/experiences.ts → PORTFOLIO/ExperienceCard.svelte
+   ─────────────────────────────────────────────────────────────────────────── */
 
 export interface Experience {
   role: string;
@@ -113,51 +62,19 @@ export interface Experience {
   skills: string[];
 }
 
-export interface Hobby {
-  name: string;
-  note: string;
-}
-
-export interface Club {
-  name: string;
-  tagline?: string;
-  link?: string;
-}
-
-export interface AchievementItem {
-  label: string;
-  value: string;
-}
+/* ─── MORE ────────────────────────────────────────────────────────────────────
+   constants/more.ts (more) → more/+page.svelte, which spreads the optional
+   sections into one MORE/* component each. Club is used by MORE/CampusClubs;
+   SocialHandle also by Creative/ShareButton.
+   ─────────────────────────────────────────────────────────────────────────── */
 
 export interface MorePageData {
   title: string;
-  subtitle: string;
-  bio: string;
-  studyAbroad?: {
-    role: string;
-    company: string;
-    duration: string;
-    summary: string;
-  };
-  professionalIdentity?: {
-    title: string;
-    points: string[];
-  };
-  achievements?: {
-    title: string;
-    items: AchievementItem[];
-  };
-  philosophy?: {
-    title: string;
-    description: string;
-  };
-  funFacts: string[];
-  hobbies: Hobby[];
+  bio?: string;
   lichess: {
     username: string;
     label: string;
   };
-
   identityWords?: string[];
   stats?: MoreStat[];
   travel?: {
@@ -166,8 +83,16 @@ export interface MorePageData {
   };
   interests?: Interest[];
   leadership?: LeadershipRole[];
+  clubs?: Club[];
   honors?: Honor[];
   socials?: SocialHandle[];
+}
+
+
+export interface Club {
+  name: string;
+  tagline?: string;
+  link?: string;
 }
 
 export interface MoreStat {
@@ -211,6 +136,6 @@ export interface Honor {
 export interface SocialHandle {
   label: string;
   handle: string;
-  href?: string;
+  href: string;
   icon: "instagram" | "discord" | "lichess" | "mail" | "github" | "linkedin";
 }

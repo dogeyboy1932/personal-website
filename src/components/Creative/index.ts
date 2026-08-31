@@ -4,7 +4,6 @@ export { default as SpinLogo } from "./SpinLogo.svelte";
 export { default as SideRays } from "./SideRays.svelte";
 export { default as SparkleField } from "./SparkleField.svelte";
 export { default as BorderGlow } from "./BorderGlow.svelte";
-export { default as HoverBorderGradient } from "./HoverBorderGradient.svelte";
 export { default as SmallCarousel } from "./SmallCarousel.svelte";
 export { default as PillNav } from "./PillNav.svelte";
 export { default as BackgroundGradient } from "./BackgroundGradient.svelte";
@@ -17,4 +16,3 @@ export { default as ParticleText } from "./ParticleText.svelte";
 export { default as OptionWheel } from "./OptionWheel.svelte";
 export { default as Carousel } from "./Carousel.svelte";
 
-export { default as DriftWall } from "./DriftWall.svelte";

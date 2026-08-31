@@ -1,9 +1,9 @@
 <script lang="ts" generics="T">
-  import { prefersReducedMotion } from "../../lib/utils";
+  import { prefersReducedMotion, shuffle as shuffleItems } from "../../lib/utils";
   import { onMount, onDestroy } from "svelte";
   import emblaCarouselSvelte from "embla-carousel-svelte";
   import type { EmblaCarouselType } from "embla-carousel";
-  import { theme } from "../../lib/stores";
+  import { theme } from "../../constants/_theme";
 
   export let items: T[] = [];
   export let interval = 7000;
@@ -20,14 +20,7 @@
   let ordered: T[] = items;
 
   onMount(() => {
-    if (shuffle && items.length > 1) {
-      const copy = [...items];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-      ordered = copy;
-    }
+    if (shuffle && items.length > 1) ordered = shuffleItems(items);
     if (!prefersReducedMotion()) start();
   });
 
