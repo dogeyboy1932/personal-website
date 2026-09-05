@@ -3,6 +3,19 @@ import type { Project } from "../types";
 
 export const projectsData: Project[] = [
   {
+    title: "AutoRAG",
+    duration: "Sept 2026",
+    description:
+      "Agentic RAG in the browser. Users and their AI agents append web content to a shared corpus as they browse, then query it from any page. The full pipeline runs client-side inside a WebMCP-powered browser extension, so an agent on any site reaches the corpus with nothing wired up. Built for the WebMCP Challenge.",
+    technologies: ["Next.js", "TypeScript", "React", "Chrome MV3", "transformers.js", "WebMCP", "Supabase", "Claude API"],
+    status: "MVP",
+    complexity: "Advanced",
+    category: ["AI/ML"],
+    image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=80",
+    github: "https://github.com/dogeyboy1932/autorag",
+    demo: "https://autorag-web.netlify.app",
+  },
+  {
     title: "ShotBook",
     duration: "June 2026",
     description:
