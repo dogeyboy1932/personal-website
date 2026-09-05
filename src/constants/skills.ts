@@ -189,6 +189,13 @@ export const skillsData: SkillCategory[] = [
           "https://cdn.simpleicons.org/expo/{ink}",
       },
       {
+        name: "Flutter",
+        proficiency: ProficiencyLevel.Proficient,
+        status: SkillStatus.Learned,
+        logoUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/flutter/flutter-original.svg",
+      },
+      {
         name: "Node.js",
         proficiency: ProficiencyLevel.Proficient,
         status: SkillStatus.Learned,
@@ -215,13 +222,6 @@ export const skillsData: SkillCategory[] = [
         status: SkillStatus.Learned,
         logoUrl:
           "https://cdn.simpleicons.org/pandas/{theme:150458|FFCA00}",
-      },
-      {
-        name: "Flutter",
-        proficiency: ProficiencyLevel.Proficient,
-        status: SkillStatus.Learned,
-        logoUrl:
-          "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/flutter/flutter-original.svg",
       },
       {
         name: "FastAPI",

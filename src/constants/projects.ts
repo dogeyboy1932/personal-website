@@ -6,7 +6,7 @@ export const projectsData: Project[] = [
     title: "AutoRAG",
     duration: "Sept 2026",
     description:
-      "Agentic RAG in the browser. Users and their AI agents append web content to a shared corpus as they browse, then query it from any page. The full pipeline runs client-side inside a WebMCP-powered browser extension, so an agent on any site reaches the corpus with nothing wired up. Built for the WebMCP Challenge.",
+      "Agentic RAG in the browser. Users and their AI agents append web content to a shared corpus as they browse, then query it from any page. Built for the WebMCP Challenge.",
     technologies: ["Next.js", "TypeScript", "React", "Chrome MV3", "transformers.js", "WebMCP", "Supabase", "Claude API"],
     status: "MVP",
     complexity: "Advanced",
