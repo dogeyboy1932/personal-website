@@ -40,7 +40,9 @@
       .fill(0)
       .map(() => Math.floor(Math.random() * -100));
 
-    drops = Array(columns.length).fill(0);
+    drops = Array(columns.length)
+      .fill(0)
+      .map(() => Math.floor(Math.random() * -100));
 
     if (ctx) {
       ctx.font = `${fontSize}px monospace`;

@@ -158,7 +158,7 @@
   </div>
 </section>
 
-<section class="mt-0 mb-8" use:scrollReveal>
+<section class="mt-4 mb-8" use:scrollReveal>
     <h3 class="meta-label text-xl {$theme.text.muted} font-bold mb-3 ml-2">{home.focusesTitle}</h3>
 
     <div class="grid gap-4" class:grid-cols-1={$breakpoints.isMobile} class:grid-cols-3={!$breakpoints.isMobile}>
