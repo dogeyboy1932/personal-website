@@ -18,8 +18,8 @@ export const home: HomePageData = {
     tagline: "Portfolio 2026",
     summary:
       "Heyyy, I'm Akhil! 👋\n\n" +
-      "I put time toward sharpening how I leverage AI & emerging tech. I try being ahead of the curve, staying informed of latest trends + seeing where the world's headed. Super excited for what's to come! 🌱🚀 \n\n" +
-    "Also I'm curious by nature...and I love trying new things. Every day is a level-up.",
+      "I put time toward sharpening how I leverage AI & emerging tech. I try being ahead of the curve, staying informed of latest trends + seeing where the world's headed. Also I'm curious by nature...and I love trying new things. Every day is a level-up.\n\n" +
+      "Super excited for what's to come! 🌱🚀 ",
     image: {
       src: "/Linkedin_pfp.jpeg",
       alt: "Placeholder headshot",
