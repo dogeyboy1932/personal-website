@@ -60,6 +60,7 @@ export interface Experience {
   duration: string;
   summary: string;
   skills: string[];
+  link?: string;
 }
 
 /* ─── HOME ────────────────────────────────────────────────────────────────────

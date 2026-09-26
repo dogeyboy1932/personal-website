@@ -77,13 +77,7 @@ export const home: HomePageData = {
       handle: "gvAkhil",
       href: "https://www.linkedin.com/in/gvAkhil/",
       icon: "linkedin",
-    },
-    {
-      label: "Email",
-      handle: "gogineni.akhil@hotmail.com",
-      href: "mailto:gogineni.akhil@hotmail.com",
-      icon: "mail",
-    },
+    }
   ],
 
   resume: {

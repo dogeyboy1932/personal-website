@@ -18,12 +18,12 @@ export const experiences: Experience[] = [
     skills: ["AI/ML", "FastAPI", "Supabase", "pgvector", "SciNCL", "AWS", "Neo4j",],
   },
   {
-    role: "Coding Expert",
+    role: "Coding Expert & Model Analyst [Contract]",
     company: "Mercor",
-    duration: "Nov 2025 - Dec 2025",
+    duration: "Feb 2025 - Dec 2025",
     summary:
-      "Provided coded expertise for a leading AI research lab to train LLMs and improve their accuracy and reasoning",
-    skills: ["AI Evaluation", "Coding Principles", "Quality Assurance"],
+      "Provided coded expertise for a leading AI research lab to train LLMs and improve their accuracy and reasoning. Audited 120+ AI evaluations to drive model improvements and optimize accuracy ",
+    skills: ["AI Evaluation", "Coding Principles", "Quality Assurance", "AI Evaluation", "Data Analysis"],
   },
   {
     role: "Software Developer Intern",
@@ -34,19 +34,18 @@ export const experiences: Experience[] = [
     skills: ["React.js", "PHP", "MySQL", "REST APIs", "Project Management"],
   },
   {
-    role: "Model Analyst",
-    company: "Mercor",
-    duration: "Feb 2025 - May 2025",
-    summary:
-      "Audited 120+ AI evaluations to drive model improvements and optimize accuracy",
-    skills: ["AI Evaluation", "Data Analysis"],
-  },
-  {
     role: "Software Intern",
     company: "FreshCredit®",
     duration: "Jun 2024 - Aug 2024",
     summary:
       "Managed 5-member dev team to build a substrate pallet to store credit-related metadata using a dNFT. Coordinated workshops and acted as PoC between dev team and leadership",
     skills: ["Substrate", "Blockchain", "Project Management"],
+  },
+  {
+    role: "Project Intern",
+    company: "Sales Recruiters",
+    duration: "Aug 2021 - Aug 2022",
+    summary: "Audited 1,000+ client profiles and maintained the company database",
+    skills: ["Data Analysis", "Database Management"],
   }
 ];

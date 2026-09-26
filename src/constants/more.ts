@@ -116,7 +116,7 @@ export const more: MorePageData = {
       role: "VP, Founding Team",
       tenure: "Alumni Advisor",
       summary:
-        "Helped build UIUC's first AI safety community while it was still getting off the ground. Now 400+ members, 20 core, and 7+ research projects running. Co-ran an 8-week fellowship on RLHF, interpretability, and scalable oversight",
+        "Helped build UIUC's first AI safety community while it was still getting off the ground. Now 400+ members. Co-ran an 8-week fellowship on RLHF, interpretability, and scalable oversight",
       link: "https://aialignmentillinois.org/",
     },
     {
@@ -161,10 +161,15 @@ export const more: MorePageData = {
     { placement: "Track Win", event: "Keywords AI", kind: "win" },
     { placement: "Track Win", event: "ETH Denver '25", kind: "win" },
     {
+      placement: "Ambassador",
+      event: "Inspirit AI",
+      kind: "rank",
+    },
+    {
       placement: "Eagle Scout",
       event: "Boy Scouts of America",
       kind: "rank",
-    },
+    }
   ],
 
   socials: [

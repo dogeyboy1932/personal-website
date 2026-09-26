@@ -30,9 +30,17 @@
     <div class="flex items-start justify-between gap-4 ">
       <div class="min-w-0 space-y-1">
         <h3 class="text-2xl font-bold bg-gradient-to-r {cardTheme.title} bg-clip-text text-transparent">
-          {experience.company}
+          {#if experience.link}
+            <a href={experience.link} target="_blank" rel="noopener noreferrer" class="hover:underline">
+              {experience.company}
+            </a>
+          {:else}
+            {experience.company}
+          {/if}
         </h3>
-        <p class="text-md font-medium {cardTheme.role}">
+        <!-- Two lines reserved: a short role leaves the second blank, a long one
+             wraps into it. Either way the divider below stays put. -->
+        <p class="h-12 line-clamp-2 text-md font-medium {cardTheme.role}">
           {experience.role}
         </p>
       </div>
@@ -47,7 +55,7 @@
       </span>
     </div>
 
-    <div class="h-[5.5rem] pt-2 border-t {cardTheme.divider}">
+    <div class="!mt-0 h-[5.5rem] pt-2 border-t {cardTheme.divider}">
       <p class="{$theme.text.secondary} text-md leading-relaxed line-clamp-3">
         {experience.summary}
       </p>
